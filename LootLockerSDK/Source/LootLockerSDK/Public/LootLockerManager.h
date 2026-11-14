@@ -21,6 +21,7 @@
 #include "GameAPI/LootLockerFollowersRequestHandler.h"
 #include "GameAPI/LootLockerFriendsRequestHandler.h"
 #include "GameAPI/LootLockerHeroRequestHandler.h"
+#include "GameAPI/LootLockerIdentityRequestHandler.h"
 #include "GameAPI/LootLockerItemRequestHandler.h"
 #include "GameAPI/LootLockerLeaderboardRequestHandler.h"
 #include "GameAPI/LootLockerLeaderboardArchiveRequestHandler.h"
@@ -430,6 +431,20 @@ DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerEquipmentLoadoutResponseBP, FLootLo
 DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerEquipmentSlotCandidatesResponseBP, FLootLockerEquipmentSlotCandidatesResponse, Response);
 /** Blueprint response delegate for equip responses */
 DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerEquipmentEquipResponseBP, FLootLockerEquipmentEquipResponse, Response);
+
+//=============================================
+// Identity Delegates
+//=============================================
+/** Blueprint response delegate for reading the current identity */
+DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerIdentityResponseBP, FLootLockerIdentityResponse, Response);
+/** Blueprint response delegate for looking identities up */
+DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerIdentityLookupResponseBP, FLootLockerIdentityLookupResponse, Response);
+/** Blueprint response delegate for linking a provider credential */
+DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerIdentityLinkResponseBP, FLootLockerIdentityLinkResponse, Response);
+/** Blueprint response delegate for previewing an identity merge */
+DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerIdentityMergePreviewResponseBP, FLootLockerIdentityMergePreviewResponse, Response);
+/** Blueprint response delegate for merging identities */
+DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerIdentityMergeResponseBP, FLootLockerIdentityMergeResponse, Response);
 
 //==================================================
 // Feedback Delegates
@@ -4525,6 +4540,80 @@ public:
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Equipment", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static UPARAM(DisplayName = "RequestId") FString UnequipStack(const FString& ForPlayerWithUlid, const FString& EntryId, const FLootLockerDefaultResponseBP& OnCompletedRequestBP);
+
+    //==================================================
+    // Identity
+    //==================================================
+
+    /**
+     Get the identity the current session is linked to, including the publisher it belongs to and, when
+     populated, the games it has been active in.
+
+     @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied the default player is used
+     @param OnCompletedRequestBP Delegate for handling the server response
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
+     */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Identity", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
+    static UPARAM(DisplayName = "RequestId") FString GetIdentity(const FString& ForPlayerWithUlid, const FLootLockerIdentityResponseBP& OnCompletedRequestBP);
+
+    /**
+     Look up identities by id and/or by the games they have been active in. At least one of the two filters
+     must be supplied.
+
+     @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied the default player is used
+     @param Request The lookup request
+     @param OnCompletedRequestBP Delegate for handling the server response
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
+     */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Identity", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid="", AutoCreateRefTerm = "Request"))
+    static UPARAM(DisplayName = "RequestId") FString LookupIdentities(const FString& ForPlayerWithUlid, const FLootLockerIdentityLookupRequest& Request, const FLootLockerIdentityLookupResponseBP& OnCompletedRequestBP);
+
+    /**
+     Record a provider credential against the identity of the current session. A 409 means the credential
+     belongs to another identity; the merge offer is then on the response's Conflict field.
+
+     @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied the default player is used
+     @param Request The link request
+     @param OnCompletedRequestBP Delegate for handling the server response
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
+     */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Identity", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid="", AutoCreateRefTerm = "Request"))
+    static UPARAM(DisplayName = "RequestId") FString LinkProvider(const FString& ForPlayerWithUlid, const FLootLockerIdentityLinkRequest& Request, const FLootLockerIdentityLinkResponseBP& OnCompletedRequestBP);
+
+    /**
+     Remove a provider credential from the current identity. The last remaining credential cannot be removed
+     and is answered with 422.
+
+     @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied the default player is used
+     @param CredentialId The ULID of the credential to remove
+     @param OnCompletedRequestBP Delegate for handling the server response
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
+     */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Identity", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
+    static UPARAM(DisplayName = "RequestId") FString UnlinkProvider(const FString& ForPlayerWithUlid, const FString& CredentialId, const FLootLockerDefaultResponseBP& OnCompletedRequestBP);
+
+    /**
+     See what merging another identity into the current one would resolve, without executing anything.
+
+     @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied the default player is used
+     @param MergeIdentityId The ULID of the identity to merge into the authenticated identity
+     @param OnCompletedRequestBP Delegate for handling the server response
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
+     */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Identity", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
+    static UPARAM(DisplayName = "RequestId") FString PreviewIdentityMerge(const FString& ForPlayerWithUlid, const FString& MergeIdentityId, const FLootLockerIdentityMergePreviewResponseBP& OnCompletedRequestBP);
+
+    /**
+     Merge another identity into the current one, keeping the current identity. Destructive: every game in
+     which both identities have a live player must carry a resolution naming the player to keep.
+
+     @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied the default player is used
+     @param Request The merge request
+     @param OnCompletedRequestBP Delegate for handling the server response
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
+     */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Identity", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid="", AutoCreateRefTerm = "Request"))
+    static UPARAM(DisplayName = "RequestId") FString MergeIdentities(const FString& ForPlayerWithUlid, const FLootLockerIdentityMergeRequest& Request, const FLootLockerIdentityMergeResponseBP& OnCompletedRequestBP);
 
     //==================================================
     // Miscellaneous

@@ -22,6 +22,7 @@
 #include "GameAPI/LootLockerFollowersRequestHandler.h"
 #include "GameAPI/LootLockerFriendsRequestHandler.h"
 #include "GameAPI/LootLockerHeroRequestHandler.h"
+#include "GameAPI/LootLockerIdentityRequestHandler.h"
 #include "GameAPI/LootLockerItemRequestHandler.h"
 #include "GameAPI/LootLockerLeaderboardArchiveRequestHandler.h"
 #include "GameAPI/LootLockerLeaderboardRequestHandler.h"
@@ -4127,6 +4128,98 @@ public:
      @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString UnequipStack(const FString& EntryId, const FLootLockerDefaultDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid = "");
+
+    /// @}
+
+    //==================================================
+    // Identity
+    //==================================================
+    /// @addtogroup Identity
+    /// @{
+
+    /**
+     Get the identity the current session is linked to, including the publisher it belongs to and, when
+     populated, the games it has been active in.
+
+     The session must be linked to an identity; a session that is not is answered with 403.
+
+     @param OnCompletedRequest Delegate for handling the server response
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
+     */
+    static FString GetIdentity(const FLootLockerIdentityResponseDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid = "");
+
+    /**
+     Look up identities by id and/or by the games they have been active in. At least one of the two filters
+     must be supplied. Results are always scoped to the caller's publisher.
+
+     @param Request The lookup request
+     @param OnCompletedRequest Delegate for handling the server response
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
+     */
+    static FString LookupIdentities(const FLootLockerIdentityLookupRequest& Request, const FLootLockerIdentityLookupResponseDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid = "");
+
+    /**
+     Record a provider credential against the identity of the current session, so a later session presenting
+     the same credential resolves to this identity instead of minting a second one.
+
+     Linking is idempotent: a credential this identity already owns answers created = false. When another
+     identity in the publisher owns the credential the call answers 409 and links nothing; the merge offer is
+     surfaced on the response's Conflict field and can be resolved with MergeIdentities. LootLocker never
+     links a credential across identities on the player's behalf.
+
+     @param Request The link request
+     @param OnCompletedRequest Delegate for handling the server response
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
+     */
+    static FString LinkProvider(const FLootLockerIdentityLinkRequest& Request, const FLootLockerIdentityLinkResponseDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid = "");
+
+    /**
+     Remove a provider credential from the current identity.
+
+     The last remaining credential cannot be removed, because the identity would become unreachable; that case
+     is answered with 422.
+
+     @param CredentialId The ULID of the credential to remove
+     @param OnCompletedRequest Delegate for handling the server response
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
+     */
+    static FString UnlinkProvider(const FString& CredentialId, const FLootLockerDefaultDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid = "");
+
+    /**
+     See what merging another identity into the current one would resolve, without executing anything.
+
+     Use it to show the player the games in which both identities have a live player before calling
+     MergeIdentities. An empty Player_conflicts array means the merge needs no choice. Both identities must
+     belong to the same publisher.
+
+     @param MergeIdentityId The ULID of the identity to merge into the authenticated identity
+     @param OnCompletedRequest Delegate for handling the server response
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
+     */
+    static FString PreviewIdentityMerge(const FString& MergeIdentityId, const FLootLockerIdentityMergePreviewResponseDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid = "");
+
+    /**
+     Merge another identity into the current one, keeping the current identity.
+
+     The merged identity is tombstoned, its credentials and player links move to the kept identity, and its
+     sessions are revoked. Every game in which both identities have a live player must carry a resolution
+     naming the player to keep; the other player of that game is soft-deleted. A missing or invalid resolution
+     answers 400 and writes nothing.
+
+     This is destructive and never runs automatically. Get the conflicts from PreviewIdentityMerge (or from the
+     conflict of LinkProvider) and let the player choose.
+
+     @param Request The merge request
+     @param OnCompletedRequest Delegate for handling the server response
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
+     */
+    static FString MergeIdentities(const FLootLockerIdentityMergeRequest& Request, const FLootLockerIdentityMergeResponseDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid = "");
 
     /// @}
 

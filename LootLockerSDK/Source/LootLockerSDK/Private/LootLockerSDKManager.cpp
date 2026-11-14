@@ -1850,6 +1850,37 @@ FString ULootLockerSDKManager::UnequipStack(const FString& EntryId, const FLootL
     return ULLEquipmentRequestHandler::UnequipStack(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), EntryId, OnCompletedRequest);
 }
 
+// Identity
+FString ULootLockerSDKManager::GetIdentity(const FLootLockerIdentityResponseDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid /* = "" */)
+{
+    return ULootLockerIdentityRequestHandler::GetIdentity(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), OnCompletedRequest);
+}
+
+FString ULootLockerSDKManager::LookupIdentities(const FLootLockerIdentityLookupRequest& Request, const FLootLockerIdentityLookupResponseDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid /* = "" */)
+{
+    return ULootLockerIdentityRequestHandler::LookupIdentities(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), Request, OnCompletedRequest);
+}
+
+FString ULootLockerSDKManager::LinkProvider(const FLootLockerIdentityLinkRequest& Request, const FLootLockerIdentityLinkResponseDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid /* = "" */)
+{
+    return ULootLockerIdentityRequestHandler::LinkProvider(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), Request, OnCompletedRequest);
+}
+
+FString ULootLockerSDKManager::UnlinkProvider(const FString& CredentialId, const FLootLockerDefaultDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid /* = "" */)
+{
+    return ULootLockerIdentityRequestHandler::UnlinkProvider(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), CredentialId, OnCompletedRequest);
+}
+
+FString ULootLockerSDKManager::PreviewIdentityMerge(const FString& MergeIdentityId, const FLootLockerIdentityMergePreviewResponseDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid /* = "" */)
+{
+    return ULootLockerIdentityRequestHandler::PreviewIdentityMerge(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), MergeIdentityId, OnCompletedRequest);
+}
+
+FString ULootLockerSDKManager::MergeIdentities(const FLootLockerIdentityMergeRequest& Request, const FLootLockerIdentityMergeResponseDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid /* = "" */)
+{
+    return ULootLockerIdentityRequestHandler::MergeIdentities(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), Request, OnCompletedRequest);
+}
+
 // Miscellaneous
 FString ULootLockerSDKManager::GetServerTime(const FTimeResponseDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid /* = "" */)
 {

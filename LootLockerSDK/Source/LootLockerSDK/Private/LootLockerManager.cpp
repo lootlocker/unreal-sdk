@@ -2447,6 +2447,55 @@ FString ULootLockerManager::UnequipStack(const FString& ForPlayerWithUlid, const
     }), ForPlayerWithUlid);
 }
 
+// Identity
+FString ULootLockerManager::GetIdentity(const FString& ForPlayerWithUlid, const FLootLockerIdentityResponseBP& OnCompletedRequestBP)
+{
+    return ULootLockerSDKManager::GetIdentity(FLootLockerIdentityResponseDelegate::CreateLambda([OnCompletedRequestBP](const FLootLockerIdentityResponse& Response)
+    {
+        OnCompletedRequestBP.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
+}
+
+FString ULootLockerManager::LookupIdentities(const FString& ForPlayerWithUlid, const FLootLockerIdentityLookupRequest& Request, const FLootLockerIdentityLookupResponseBP& OnCompletedRequestBP)
+{
+    return ULootLockerSDKManager::LookupIdentities(Request, FLootLockerIdentityLookupResponseDelegate::CreateLambda([OnCompletedRequestBP](const FLootLockerIdentityLookupResponse& Response)
+    {
+        OnCompletedRequestBP.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
+}
+
+FString ULootLockerManager::LinkProvider(const FString& ForPlayerWithUlid, const FLootLockerIdentityLinkRequest& Request, const FLootLockerIdentityLinkResponseBP& OnCompletedRequestBP)
+{
+    return ULootLockerSDKManager::LinkProvider(Request, FLootLockerIdentityLinkResponseDelegate::CreateLambda([OnCompletedRequestBP](const FLootLockerIdentityLinkResponse& Response)
+    {
+        OnCompletedRequestBP.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
+}
+
+FString ULootLockerManager::UnlinkProvider(const FString& ForPlayerWithUlid, const FString& CredentialId, const FLootLockerDefaultResponseBP& OnCompletedRequestBP)
+{
+    return ULootLockerSDKManager::UnlinkProvider(CredentialId, FLootLockerDefaultDelegate::CreateLambda([OnCompletedRequestBP](const FLootLockerResponse& Response)
+    {
+        OnCompletedRequestBP.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
+}
+
+FString ULootLockerManager::PreviewIdentityMerge(const FString& ForPlayerWithUlid, const FString& MergeIdentityId, const FLootLockerIdentityMergePreviewResponseBP& OnCompletedRequestBP)
+{
+    return ULootLockerSDKManager::PreviewIdentityMerge(MergeIdentityId, FLootLockerIdentityMergePreviewResponseDelegate::CreateLambda([OnCompletedRequestBP](const FLootLockerIdentityMergePreviewResponse& Response)
+    {
+        OnCompletedRequestBP.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
+}
+
+FString ULootLockerManager::MergeIdentities(const FString& ForPlayerWithUlid, const FLootLockerIdentityMergeRequest& Request, const FLootLockerIdentityMergeResponseBP& OnCompletedRequestBP)
+{
+    return ULootLockerSDKManager::MergeIdentities(Request, FLootLockerIdentityMergeResponseDelegate::CreateLambda([OnCompletedRequestBP](const FLootLockerIdentityMergeResponse& Response)
+    {
+        OnCompletedRequestBP.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
+}
+
 // Miscellaneous
 FString ULootLockerManager::GetServerTime(const FString& ForPlayerWithUlid, const FTimeResponseDelegateBP& OnCompletedRequestBP)
 {
