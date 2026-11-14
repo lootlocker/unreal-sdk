@@ -336,6 +336,15 @@ FLootLockerEndPoints ULootLockerGameEndpoints::ListEquipmentSlotCandidatesEndpoi
 FLootLockerEndPoints ULootLockerGameEndpoints::EquipToEquipmentSlotEndpoint = InitEndpoint("player/equipment/v1/equip", ELootLockerHTTPMethod::LL_POST);
 FLootLockerEndPoints ULootLockerGameEndpoints::UnequipFromEquipmentSlotEndpoint = InitEndpoint("player/equipment/v1/equip/{0}", ELootLockerHTTPMethod::LL_DELETE);
 
+// Identity
+// The identity surface is served from the domain root, not from /game, so these use LL_BASE.
+FLootLockerEndPoints ULootLockerGameEndpoints::GetIdentityEndpoint = InitEndpoint("identity/v1", ELootLockerHTTPMethod::LL_GET, ELootLockerApiType::LL_BASE);
+FLootLockerEndPoints ULootLockerGameEndpoints::LookupIdentitiesEndpoint = InitEndpoint("identity/v1/lookup", ELootLockerHTTPMethod::LL_POST, ELootLockerApiType::LL_BASE);
+FLootLockerEndPoints ULootLockerGameEndpoints::LinkIdentityProviderEndpoint = InitEndpoint("identity/v1/link", ELootLockerHTTPMethod::LL_POST, ELootLockerApiType::LL_BASE);
+FLootLockerEndPoints ULootLockerGameEndpoints::UnlinkIdentityProviderEndpoint = InitEndpoint("identity/v1/link/{0}", ELootLockerHTTPMethod::LL_DELETE, ELootLockerApiType::LL_BASE);
+FLootLockerEndPoints ULootLockerGameEndpoints::PreviewIdentityMergeEndpoint = InitEndpoint("identity/v1/merge/preview", ELootLockerHTTPMethod::LL_POST, ELootLockerApiType::LL_BASE);
+FLootLockerEndPoints ULootLockerGameEndpoints::MergeIdentitiesEndpoint = InitEndpoint("identity/v1/merge", ELootLockerHTTPMethod::LL_POST, ELootLockerApiType::LL_BASE);
+
 // Presence (WebSocket)
 FLootLockerEndPoints ULootLockerGameEndpoints::PresenceWebSocketEndpoint = InitEndpoint("presence/v1", ELootLockerHTTPMethod::LL_GET, ELootLockerApiType::LL_WEBSOCKET);
 
@@ -347,6 +356,9 @@ FLootLockerEndPoints ULootLockerGameEndpoints::InitEndpoint(const FString& Endpo
 	switch (ApiType)
 	{
 		case ELootLockerApiType::LL_WHITELABEL:
+			break;
+		case ELootLockerApiType::LL_BASE:
+			// Served from the domain root, so neither the game suffix nor a protocol swap applies.
 			break;
 		case ELootLockerApiType::LL_WEBSOCKET:
 			// Convert HTTP(S) to WS(S) for WebSocket endpoints

@@ -71,6 +71,8 @@ enum class ELootLockerApiType : uint8
     LL_GAME = 0         UMETA(DisplayName = "GAME"),
     LL_WHITELABEL = 1   UMETA(DisplayName = "WL"),
     LL_WEBSOCKET = 2    UMETA(DisplayName = "WEBSOCKET"),
+    // Routes served from the domain root rather than under /game, such as the identity surface.
+    LL_BASE = 3         UMETA(DisplayName = "BASE"),
 };
 
 USTRUCT(BlueprintType)
@@ -417,6 +419,14 @@ public:
     static FLootLockerEndPoints ListEquipmentSlotCandidatesEndpoint;
     static FLootLockerEndPoints EquipToEquipmentSlotEndpoint;
     static FLootLockerEndPoints UnequipFromEquipmentSlotEndpoint;
+
+        // Identity
+        static FLootLockerEndPoints GetIdentityEndpoint;
+        static FLootLockerEndPoints LookupIdentitiesEndpoint;
+        static FLootLockerEndPoints LinkIdentityProviderEndpoint;
+        static FLootLockerEndPoints UnlinkIdentityProviderEndpoint;
+        static FLootLockerEndPoints PreviewIdentityMergeEndpoint;
+        static FLootLockerEndPoints MergeIdentitiesEndpoint;
 
     // Presence (WebSocket)
     static FLootLockerEndPoints PresenceWebSocketEndpoint;
