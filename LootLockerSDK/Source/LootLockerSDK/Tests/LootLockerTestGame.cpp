@@ -394,6 +394,43 @@ bool FLootLockerTestGame::CreateCurrency(
 	return true;
 }
 
+bool FLootLockerTestGame::CreateSurvey(const FString& Name, const FString& MetadataKey, FString& OutSurveyId)
+{
+	TSharedRef<FJsonObject> Question = MakeShared<FJsonObject>();
+	Question->SetStringField(TEXT("question_text"), TEXT("How did you hear about us?"));
+	Question->SetStringField(TEXT("metadata_key"), MetadataKey);
+	Question->SetStringField(TEXT("field_type"), TEXT("short_text"));
+	Question->SetBoolField(TEXT("required"), true);
+	Question->SetNumberField(TEXT("sort_order"), 0);
+
+	TArray<TSharedPtr<FJsonValue>> Questions;
+	Questions.Add(MakeShared<FJsonValueObject>(Question));
+
+	TSharedRef<FJsonObject> Body = MakeShared<FJsonObject>();
+	Body->SetStringField(TEXT("name"), Name);
+	Body->SetBoolField(TEXT("standalone"), true);
+	Body->SetArrayField(TEXT("questions"), Questions);
+
+	const FLootLockerAdminResponse CreateResponse =
+		FLootLockerAdminRequest::Send(
+			TEXT("game/#GAMEID#/surveys/v1"), TEXT("POST"), SerializeJson(Body));
+
+	if (!CreateResponse.bSuccess)
+	{
+		UE_LOG(LogTemp, Error, TEXT("LootLockerTestGame: CreateSurvey '%s' failed (%d): %s"),
+			*Name, CreateResponse.StatusCode, *CreateResponse.Body);
+		return false;
+	}
+
+	TSharedPtr<FJsonObject> Json = ParseJson(CreateResponse.Body);
+	if (Json.IsValid())
+	{
+		Json->TryGetStringField(TEXT("id"), OutSurveyId);
+	}
+
+	return !OutSurveyId.IsEmpty();
+}
+
 bool FLootLockerTestGame::CreateProgression(const FString& Key, const FString& Name)
 {
 	TSharedRef<FJsonObject> Body = MakeShared<FJsonObject>();
