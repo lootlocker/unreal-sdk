@@ -358,6 +358,10 @@ FLootLockerEndPoints ULootLockerGameEndpoints::AcknowledgePlaytestDocumentEndpoi
 // Presence (WebSocket)
 FLootLockerEndPoints ULootLockerGameEndpoints::PresenceWebSocketEndpoint = InitEndpoint("presence/v1", ELootLockerHTTPMethod::LL_GET, ELootLockerApiType::LL_WEBSOCKET);
 
+// Surveys
+FLootLockerEndPoints ULootLockerGameEndpoints::ListSurveysEndpoint = InitEndpoint("surveys/v1", ELootLockerHTTPMethod::LL_GET);
+FLootLockerEndPoints ULootLockerGameEndpoints::GetSurveyEndpoint = InitEndpoint("surveys/v1/{0}", ELootLockerHTTPMethod::LL_GET);
+FLootLockerEndPoints ULootLockerGameEndpoints::CompleteSurveyEndpoint = InitEndpoint("surveys/v1/{0}/complete", ELootLockerHTTPMethod::LL_POST);
 
 FLootLockerEndPoints ULootLockerGameEndpoints::InitEndpoint(const FString& Endpoint, ELootLockerHTTPMethod Method, ELootLockerApiType ApiType /*= ELootLockerApiType::LL_GAME*/)
 {

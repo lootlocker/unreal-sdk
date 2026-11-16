@@ -441,6 +441,11 @@ public:
     // Presence (WebSocket)
     static FLootLockerEndPoints PresenceWebSocketEndpoint;
 
+    // Surveys
+    static FLootLockerEndPoints ListSurveysEndpoint;
+    static FLootLockerEndPoints GetSurveyEndpoint;
+    static FLootLockerEndPoints CompleteSurveyEndpoint;
+
 private:
     static FString BaseUrl;
     static FString GameUrlSuffix;
