@@ -132,6 +132,14 @@ struct FLootLockerTestGame
 	bool CreateCurrency(const FString& Name, const FString& Code, FString& OutCurrencyId);
 
 	/**
+	 * Create a standalone survey with a single required question.
+	 * @param Name         The survey name.
+	 * @param MetadataKey  The player metadata key the answer is stored under.
+	 * @param OutSurveyId  Populated with the created survey's ULID.
+	 */
+	bool CreateSurvey(const FString& Name, const FString& MetadataKey, FString& OutSurveyId);
+
+	/**
 	 * * Create a player progression with an additional tier at step = 2 so points can accumulate.
 	 */
 	bool CreateProgression(const FString& Key, const FString& Name);
