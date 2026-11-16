@@ -1691,6 +1691,22 @@ FString ULootLockerSDKManager::SetMetadata(const ELootLockerMetadataSources Sour
     return ULootLockerMetadataRequestHandler::SetMetadata(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), Source, SourceID, MetadataToActionsToPerform, OnComplete);
 }
 
+// Surveys
+FString ULootLockerSDKManager::ListSurveys(const FLootLockerListSurveysResponseDelegate& OnComplete, const FString& ForPlayerWithUlid /* = "" */)
+{
+    return ULootLockerSurveysRequestHandler::ListSurveys(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), OnComplete);
+}
+
+FString ULootLockerSDKManager::GetSurvey(const FString& SurveyId, const FLootLockerGetSurveyResponseDelegate& OnComplete, const FString& ForPlayerWithUlid /* = "" */)
+{
+    return ULootLockerSurveysRequestHandler::GetSurvey(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), SurveyId, OnComplete);
+}
+
+FString ULootLockerSDKManager::CompleteSurvey(const FString& SurveyId, const FLootLockerCompleteSurveyResponseDelegate& OnComplete, const FString& ForPlayerWithUlid /* = "" */)
+{
+    return ULootLockerSurveysRequestHandler::CompleteSurvey(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), SurveyId, OnComplete);
+}
+
 // Followers
 FString ULootLockerSDKManager::ListFollowers(const FString& PlayerPublicId, const FLootLockerListFollowersResponseDelegate& OnResponseCompleted, const FString& ForPlayerWithUlid /* = "" */)
 {

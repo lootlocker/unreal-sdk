@@ -2590,6 +2590,31 @@ FString ULootLockerManager::SubmitPlaytestAnswers(const TArray<FLootLockerPlayte
     }), ForPlayerWithUlid);
 }
 
+// Surveys
+FString ULootLockerManager::ListSurveys(const FLootLockerListSurveysResponseBP& OnCompleteBP, const FString& ForPlayerWithUlid)
+{
+    return ULootLockerSDKManager::ListSurveys(FLootLockerListSurveysResponseDelegate::CreateLambda([OnCompleteBP](const FLootLockerListSurveysResponse& Response)
+    {
+        OnCompleteBP.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
+}
+
+FString ULootLockerManager::GetSurvey(const FString& SurveyId, const FLootLockerGetSurveyResponseBP& OnCompleteBP, const FString& ForPlayerWithUlid)
+{
+    return ULootLockerSDKManager::GetSurvey(SurveyId, FLootLockerGetSurveyResponseDelegate::CreateLambda([OnCompleteBP](const FLootLockerGetSurveyResponse& Response)
+    {
+        OnCompleteBP.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
+}
+
+FString ULootLockerManager::CompleteSurvey(const FString& SurveyId, const FLootLockerCompleteSurveyResponseBP& OnCompleteBP, const FString& ForPlayerWithUlid)
+{
+    return ULootLockerSDKManager::CompleteSurvey(SurveyId, FLootLockerCompleteSurveyResponseDelegate::CreateLambda([OnCompleteBP](const FLootLockerCompleteSurveyResponse& Response)
+    {
+        OnCompleteBP.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
+}
+
 FLootLockerPlaytestAnswerSubmission ULootLockerManager::MakePlaytestTextAnswer(const FString& MetadataKey, const FString& Value)
 {
     return FLootLockerPlaytestAnswerSubmission::FromText(MetadataKey, Value);
