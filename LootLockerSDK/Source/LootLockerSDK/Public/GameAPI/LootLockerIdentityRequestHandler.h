@@ -376,4 +376,16 @@ public:
     static FString UnlinkProvider(const FLootLockerPlayerData& PlayerData, const FString& CredentialId, const FLootLockerDefaultDelegate& OnComplete);
     static FString PreviewIdentityMerge(const FLootLockerPlayerData& PlayerData, const FString& MergeIdentityId, const FLootLockerIdentityMergePreviewResponseDelegate& OnComplete);
     static FString MergeIdentities(const FLootLockerPlayerData& PlayerData, const FLootLockerIdentityMergeRequest& Request, const FLootLockerIdentityMergeResponseDelegate& OnComplete);
+
+    /**
+     * The wire slug for a provider, which is the lowercased enumerator name.
+     *
+     * Exposed so the mapping can be asserted in tests without going through the network.
+     */
+    static FString ProviderToSlug(ELootLockerIdentityProvider Provider);
+
+    /**
+     * Parses the 409 merge offer onto the response. Exposed so the conflict path can be asserted in tests.
+     */
+    static void ParseLinkConflict(FLootLockerIdentityLinkResponse& Response);
 };
