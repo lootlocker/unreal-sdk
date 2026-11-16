@@ -39,6 +39,7 @@
 #include "GameAPI/LootLockerProgressionsRequestHandler.h"
 #include "GameAPI/LootLockerPurchasesRequestHandler.h"
 #include "GameAPI/LootLockerRemoteSessionRequestHandler.h"
+#include "GameAPI/LootLockerSurveysRequestHandler.h"
 #include "GameAPI/LootLockerTriggersRequestHandler.h"
 #include "GameAPI/LootLockerUserGeneratedContentRequestHandler.h"
 #include "LootLockerPresenceManager.h"
@@ -3787,6 +3788,47 @@ public:
         return Entry;
     }
     
+    /// @}
+
+    //==================================================
+    // Surveys
+    //==================================================
+    /// @addtogroup Surveys
+    /// @{
+
+    /**
+     List the standalone surveys the current player can see, filtered by each survey's segments.
+     Non-standalone surveys are playtest-only and are never returned here.
+
+     @param OnComplete Delegate for handling the server response
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
+     */
+    static FString ListSurveys(const FLootLockerListSurveysResponseDelegate& OnComplete, const FString& ForPlayerWithUlid = "");
+
+    /**
+     Get a single standalone survey and its questions, if the current player meets the survey's segments.
+
+     @param SurveyId The ULID of the survey to fetch
+     @param OnComplete Delegate for handling the server response
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
+     */
+    static FString GetSurvey(const FString& SurveyId, const FLootLockerGetSurveyResponseDelegate& OnComplete, const FString& ForPlayerWithUlid = "");
+
+    /**
+     Record a completion of the given survey for the current player.
+
+     Answers are submitted separately through the player metadata API using each question's metadata_key.
+     The request fails when a required question has no stored answer.
+
+     @param SurveyId The ULID of the survey to complete
+     @param OnComplete Delegate for handling the server response
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
+     */
+    static FString CompleteSurvey(const FString& SurveyId, const FLootLockerCompleteSurveyResponseDelegate& OnComplete, const FString& ForPlayerWithUlid = "");
+
     /// @}
 
     //==================================================

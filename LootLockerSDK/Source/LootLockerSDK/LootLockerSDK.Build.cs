@@ -47,6 +47,9 @@ public class LootLockerSDK : ModuleRules
                 "Core",
                 "CoreUObject",
                 "Engine",
+                // JsonUtilities is public because public headers expose FJsonObjectWrapper
+                // for opaque JSON fields (for example survey question params).
+                "JsonUtilities",
                 // ... add other public dependencies that you statically link with here ...
 			}
             );
