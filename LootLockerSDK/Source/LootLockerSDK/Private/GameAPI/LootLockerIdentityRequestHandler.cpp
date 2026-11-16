@@ -46,35 +46,57 @@ namespace
     {
         const TSharedRef<FJsonObject> JsonObject = MakeShared<FJsonObject>();
 
-        // The enumerator name is the wire value, so it must be lowercased rather than converted to a display
-        // name.
-        JsonObject->SetStringField(TEXT("provider"), ULootLockerEnumUtils::GetEnum(TEXT("ELootLockerIdentityProvider"), static_cast<int32>(Request.provider)).ToLower());
+        JsonObject->SetStringField(TEXT("provider"), ULootLockerIdentityRequestHandler::ProviderToSlug(Request.provider));
         JsonObject->SetStringField(TEXT("provider_uid"), Request.provider_uid);
 
         return LootLockerUtilities::JsonObjectToString(JsonObject);
     }
+}
 
+FString ULootLockerIdentityRequestHandler::ProviderToSlug(ELootLockerIdentityProvider Provider)
+{
+    // The enumerator name is the wire value. GetNameStringByValue is used rather than
+    // ULootLockerEnumUtils::GetEnum because that helper is backed by GetDisplayNameTextByValue, which reads
+    // editor-only display metadata: in a packaged build it falls back to the C++ identifier, so the same
+    // request could send a different slug in the editor than in shipping.
+    const UEnum* Enum = StaticEnum<ELootLockerIdentityProvider>();
+    if (Enum == nullptr)
+    {
+        return FString();
+    }
+
+    FString Name = Enum->GetNameStringByValue(static_cast<int64>(Provider));
+
+    // Strip the "ELootLockerIdentityProvider::" prefix that GetNameStringByValue includes.
+    int32 SeparatorIndex = INDEX_NONE;
+    if (Name.FindLastChar(TEXT(':'), SeparatorIndex))
+    {
+        Name = Name.RightChop(SeparatorIndex + 1);
+    }
+
+    return Name.ToLower();
+}
+
+void ULootLockerIdentityRequestHandler::ParseLinkConflict(FLootLockerIdentityLinkResponse& Response)
+{
     // A 409 is not fatal: it carries the merge offer the player must act on, so it is parsed onto the
     // response instead of being left in ErrorData.
-    void ParseLinkConflict(FLootLockerIdentityLinkResponse& Response)
+    if (Response.success || Response.StatusCode != 409 || Response.FullTextFromServer.IsEmpty())
     {
-        if (Response.success || Response.StatusCode != 409 || Response.FullTextFromServer.IsEmpty())
-        {
-            return;
-        }
+        return;
+    }
 
-        const TSharedPtr<FJsonObject> JsonObject = LootLockerUtilities::JsonObjectFromFString(Response.FullTextFromServer);
-        if (!JsonObject.IsValid())
-        {
-            return;
-        }
+    const TSharedPtr<FJsonObject> JsonObject = LootLockerUtilities::JsonObjectFromFString(Response.FullTextFromServer);
+    if (!JsonObject.IsValid())
+    {
+        return;
+    }
 
-        FLootLockerIdentityLinkConflict Conflict;
-        if (FJsonObjectConverter::JsonObjectToUStruct(JsonObject.ToSharedRef(), FLootLockerIdentityLinkConflict::StaticStruct(), &Conflict, 0, 0))
-        {
-            Response.conflict = Conflict;
-            Response.has_conflict = true;
-        }
+    FLootLockerIdentityLinkConflict Conflict;
+    if (FJsonObjectConverter::JsonObjectToUStruct(JsonObject.ToSharedRef(), FLootLockerIdentityLinkConflict::StaticStruct(), &Conflict, 0, 0))
+    {
+        Response.conflict = Conflict;
+        Response.has_conflict = true;
     }
 }
 
