@@ -1544,6 +1544,11 @@ FString ULootLockerSDKManager::ListEntitlements(const int Count, const FString& 
     return ULootLockerEntitlementRequestHandler::ListEntitlements(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), Count, After, OnComplete);
 }
 
+FString ULootLockerSDKManager::ListEntitlements(const int Count, const FString& After, const TArray<FString>& CatalogListingIds, const FLootLockerListEntitlementsResponseDelegate& OnComplete, const FString& ForPlayerWithUlid /* = "" */)
+{
+    return ULootLockerEntitlementRequestHandler::ListEntitlements(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), Count, After, CatalogListingIds, OnComplete);
+}
+
 FString ULootLockerSDKManager::GetEntitlement(const FString& EntitlementID, FLootLockerSingleEntitlementResponseDelegate& OnComplete, const FString& ForPlayerWithUlid /* = "" */)
 {
     return ULootLockerEntitlementRequestHandler::GetEntitlement(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), EntitlementID, OnComplete);
