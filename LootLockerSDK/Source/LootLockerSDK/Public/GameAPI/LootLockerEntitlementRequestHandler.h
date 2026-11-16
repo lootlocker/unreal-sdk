@@ -310,5 +310,6 @@ public:
     ULootLockerEntitlementRequestHandler() {};
 
     static FString ListEntitlements(const FLootLockerPlayerData& PlayerData, int Count, const FString& After, const FLootLockerListEntitlementsResponseDelegate& OnComplete);
+    static FString ListEntitlements(const FLootLockerPlayerData& PlayerData, int Count, const FString& After, const TArray<FString>& CatalogListingIds, const FLootLockerListEntitlementsResponseDelegate& OnComplete);
     static FString GetEntitlement(const FLootLockerPlayerData& PlayerData, FString EntitlementID, const FLootLockerSingleEntitlementResponseDelegate& OnComplete);
 };

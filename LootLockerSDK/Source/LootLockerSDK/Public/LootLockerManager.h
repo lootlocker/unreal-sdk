@@ -3909,6 +3909,21 @@ public:
     static UPARAM(DisplayName = "RequestId") FString ListEntitlements(const FString& ForPlayerWithUlid, int Count, const FString& After, const FLootLockerListEntitlementsResponseBP& OnComplete);
 
     /**
+     List the player's historical entitlements, limited to entitlements that contain any of the given catalog listings
+
+    Use this to retrieve entitlements the player has received regardless of origin (progression, purchases, leaderboard rewards, etc.)
+
+    @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied, the default player will be used
+    @param CatalogListingIds Only return entitlements that contain an item belonging to any of these catalog listings. Leave empty to return entitlements regardless of catalog listing
+    @param Count Optional: Number of entitlement records to retrieve. Use -1 to use the server default
+    @param After Optional: Cursor for pagination. Use empty string to start from the beginning, or a cursor from a previous call for the next page
+    @param OnComplete Delegate for handling the server response
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
+    */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Entitlements", meta = (AdvancedDisplay = "Count,After,ForPlayerWithUlid", Count = -1, After = "", ForPlayerWithUlid="", AutoCreateRefTerm = "CatalogListingIds"))
+    static UPARAM(DisplayName = "RequestId") FString ListEntitlementsWithCatalogListingIds(const FString& ForPlayerWithUlid, const TArray<FString>& CatalogListingIds, int Count, const FString& After, const FLootLockerListEntitlementsResponseBP& OnComplete);
+
+    /**
      Get details about a specific entitlement
 
     Use this to retrieve status and metadata for a given entitlement the player has received

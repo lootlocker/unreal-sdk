@@ -2136,6 +2136,14 @@ FString ULootLockerManager::ListEntitlements(const FString& ForPlayerWithUlid, i
     }), ForPlayerWithUlid);
 }
 
+FString ULootLockerManager::ListEntitlementsWithCatalogListingIds(const FString& ForPlayerWithUlid, const TArray<FString>& CatalogListingIds, int Count, const FString& After, const FLootLockerListEntitlementsResponseBP& OnComplete)
+{
+    return ULootLockerSDKManager::ListEntitlements(Count, After, CatalogListingIds, FLootLockerListEntitlementsResponseDelegate::CreateLambda([OnComplete](const FLootLockerEntitlementHistoryResponse& Response)
+    {
+        OnComplete.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
+}
+
 FString ULootLockerManager::GetEntitlement(const FString& ForPlayerWithUlid, const FString& EntitlementID, const FLootLockerSingleEntitlementResponseBP& OnComplete)
 {
     FLootLockerSingleEntitlementResponseDelegate Delegate = FLootLockerSingleEntitlementResponseDelegate::CreateLambda([OnComplete](const FLootLockerSingleEntitlementResponse& Response)

@@ -3517,6 +3517,18 @@ public:
     static FString ListEntitlements(int Count, const FString & After, const FLootLockerListEntitlementsResponseDelegate & OnComplete, const FString& ForPlayerWithUlid = "");
 
     /**
+     List player's historical entitlements, optionally limited to entitlements that contain any of the given catalog listings.
+
+     @param Count Optional: Entries to return (-1 for default)
+     @param After Optional: Pagination cursor (empty for start)
+     @param CatalogListingIds Optional: Only return entitlements that contain an item belonging to any of these catalog listings (empty for no filter)
+     @param OnComplete Delegate for handling the server response
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
+     */
+    static FString ListEntitlements(int Count, const FString & After, const TArray<FString>& CatalogListingIds, const FLootLockerListEntitlementsResponseDelegate & OnComplete, const FString& ForPlayerWithUlid = "");
+
+    /**
      List player's historical entitlements (default pagination).
 
      @param OnComplete Delegate for handling the server response
