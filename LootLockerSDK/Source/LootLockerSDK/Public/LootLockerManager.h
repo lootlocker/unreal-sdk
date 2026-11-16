@@ -36,6 +36,7 @@
 #include "GameAPI/LootLockerProgressionsRequestHandler.h"
 #include "GameAPI/LootLockerPurchasesRequestHandler.h"
 #include "GameAPI/LootLockerRemoteSessionRequestHandler.h"
+#include "GameAPI/LootLockerSurveysRequestHandler.h"
 #include "GameAPI/LootLockerTriggersRequestHandler.h"
 #include "GameAPI/LootLockerUserGeneratedContentRequestHandler.h"
 #include "GameAPI/LootLockerFeedbackRequestHandler.h"
