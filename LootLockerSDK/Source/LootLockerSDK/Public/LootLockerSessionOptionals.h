@@ -34,9 +34,21 @@ struct FLootLockerSessionOptionals
 	 */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
 	bool Check_dlc = false;
+	/**
+	 * The referral code of the player who invited this player, which is the referrer's public UID.
+	 * Supply this when starting a first session to attribute the referral. Ignored for returning players.
+	 */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
+	FString Referral_code = "";
+	/**
+	 * The key of the referral program the code redeems. Leave empty when the game has a single active program.
+	 */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "LootLocker")
+	FString Referral_program_key = "";
 
 	bool IsSet() const
 	{
-		return !Timezone.IsEmpty() || !Player_name.IsEmpty() || Auto_create_profile != true || Check_dlc;
+		return !Timezone.IsEmpty() || !Player_name.IsEmpty() || Auto_create_profile != true || Check_dlc
+			|| !Referral_code.IsEmpty() || !Referral_program_key.IsEmpty();
 	}
 };

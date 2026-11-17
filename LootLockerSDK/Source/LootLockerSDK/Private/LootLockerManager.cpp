@@ -2414,6 +2414,23 @@ FLootLockerSetMetadataAction ULootLockerManager::MakeMetadataActionBase64(ELootL
     return FLootLockerSetMetadataAction{ Action, FLootLockerMetadataEntry::MakeBase64Entry(Key, Tags, Access, Value) };
 }
 
+// Referrals
+FString ULootLockerManager::GetReferralInvite(const FString& ForPlayerWithUlid, const FLootLockerReferralInviteResponseBP& OnCompletedRequestBP)
+{
+    return ULootLockerSDKManager::GetReferralInvite(FLootLockerReferralInviteResponseDelegate::CreateLambda([OnCompletedRequestBP](const FLootLockerReferralInviteResponse& Response)
+    {
+        OnCompletedRequestBP.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
+}
+
+FString ULootLockerManager::ListMyReferrals(const FString& ForPlayerWithUlid, int Page, int PerPage, const FLootLockerReferralListResponseBP& OnCompletedRequestBP)
+{
+    return ULootLockerSDKManager::ListMyReferrals(Page, PerPage, FLootLockerReferralListResponseDelegate::CreateLambda([OnCompletedRequestBP](const FLootLockerReferralListResponse& Response)
+    {
+        OnCompletedRequestBP.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
+}
+
 // Equipment
 FString ULootLockerManager::GetEquipmentLoadout(const FString& ForPlayerWithUlid, int Page, int PerPage, const FLootLockerEquipmentLoadoutResponseBP& OnCompletedRequestBP)
 {

@@ -1829,6 +1829,17 @@ FString ULootLockerSDKManager::UnblockPlayer(const FString& PlayerULID, const FL
     return ULootLockerFriendsRequestHandler::UnblockPlayer(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), PlayerULID, OnResponseCompleted);
 }
 
+// Referrals
+FString ULootLockerSDKManager::GetReferralInvite(const FLootLockerReferralInviteResponseDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid /* = "" */)
+{
+    return ULLReferralRequestHandler::GetInvite(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), OnCompletedRequest);
+}
+
+FString ULootLockerSDKManager::ListMyReferrals(int Page, int PerPage, const FLootLockerReferralListResponseDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid /* = "" */)
+{
+    return ULLReferralRequestHandler::ListMyReferrals(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), Page, PerPage, OnCompletedRequest);
+}
+
 // Equipment
 FString ULootLockerSDKManager::GetEquipmentLoadout(int Page, int PerPage, const FLootLockerEquipmentLoadoutResponseDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid /* = "" */)
 {

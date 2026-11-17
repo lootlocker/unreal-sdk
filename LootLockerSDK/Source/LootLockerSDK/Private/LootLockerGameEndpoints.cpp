@@ -329,6 +329,10 @@ FLootLockerEndPoints ULootLockerGameEndpoints::ListMetadata = InitEndpoint("meta
 FLootLockerEndPoints ULootLockerGameEndpoints::GetMultisourceMetadata = InitEndpoint("metadata/multisource", ELootLockerHTTPMethod::LL_POST);
 FLootLockerEndPoints ULootLockerGameEndpoints::MetadataActions = InitEndpoint("metadata", ELootLockerHTTPMethod::LL_POST);
 
+// Referrals
+FLootLockerEndPoints ULootLockerGameEndpoints::GetReferralInviteEndpoint = InitEndpoint("referrals/v1", ELootLockerHTTPMethod::LL_GET);
+FLootLockerEndPoints ULootLockerGameEndpoints::ListMyReferralsEndpoint = InitEndpoint("referrals/v1/referrals", ELootLockerHTTPMethod::LL_GET);
+
 // Equipment
 FLootLockerEndPoints ULootLockerGameEndpoints::GetEquipmentLoadoutEndpoint = InitEndpoint("player/equipment/v1", ELootLockerHTTPMethod::LL_GET);
 FLootLockerEndPoints ULootLockerGameEndpoints::GetEntityEquipmentLoadoutEndpoint = InitEndpoint("player/equipment/v1/{0}/{1}", ELootLockerHTTPMethod::LL_GET);

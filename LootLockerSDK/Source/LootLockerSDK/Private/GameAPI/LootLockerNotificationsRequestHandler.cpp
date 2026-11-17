@@ -23,6 +23,7 @@ const FString LootLockerNotificationsStaticStrings::NotificationSources::Purchas
 const FString LootLockerNotificationsStaticStrings::NotificationSources::LeaderboardReward = "leaderboard.reward";
 const FString LootLockerNotificationsStaticStrings::NotificationSources::RewardCampaign = "reward_campaign";
 const FString LootLockerNotificationsStaticStrings::NotificationSources::RewardsGrant = "rewards.grant";
+const FString LootLockerNotificationsStaticStrings::NotificationSources::Referral = "referral";
 const FString LootLockerNotificationsStaticStrings::NotificationSources::Unknown = "unknown";
 const FString LootLockerNotificationsStaticStrings::StandardContextKeys::Triggers::Id = "trigger_id";
 const FString LootLockerNotificationsStaticStrings::StandardContextKeys::Triggers::Key = "trigger_key";
@@ -273,6 +274,13 @@ void FLootLockerListNotificationsResponse::PopulateConvenienceStructures()
         {
             Notification.SourceEnum = ELootLockerNotificationSource::rewards_grant;
             Notification.Content.IdentifyingContextKey = LootLockerNotificationsStaticStrings::StandardContextKeys::RewardsGrant::ItemTemplateId;
+        }
+        else if (Notification.Source.Equals(LootLockerNotificationsStaticStrings::NotificationSources::Referral, ESearchCase::IgnoreCase))
+        {
+            Notification.SourceEnum = ELootLockerNotificationSource::referral;
+            // Referral notifications carry the grant summary as context, which has no per-referral key,
+            // so the notification type is the identifying value.
+            Notification.Content.IdentifyingContextKey = Notification.Notification_type;
         }
         else
         {
