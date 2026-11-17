@@ -4283,8 +4283,7 @@ public:
     //==================================================
 
     /**
-     List the standalone surveys the current player can see, filtered by each survey's segments.
-     Non-standalone surveys are playtest-only and are never returned here.
+     List the surveys the current player can see, filtered by each survey's segments.
 
      @param OnCompleteBP Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied the default player is used
@@ -4294,7 +4293,7 @@ public:
     static UPARAM(DisplayName = "RequestId") FString ListSurveys(const FLootLockerListSurveysResponseBP& OnCompleteBP, const FString& ForPlayerWithUlid);
 
     /**
-     Get a single standalone survey and its questions, if the current player meets the survey's segments.
+     Get a single survey and its questions, if the current player meets the survey's segments.
 
      @param SurveyId The ULID of the survey to fetch
      @param OnCompleteBP Delegate for handling the server response
@@ -4317,6 +4316,20 @@ public:
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Surveys", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static UPARAM(DisplayName = "RequestId") FString CompleteSurvey(const FString& SurveyId, const FLootLockerCompleteSurveyResponseBP& OnCompleteBP, const FString& ForPlayerWithUlid);
+
+    /**
+     Submit answers to a survey for the current player.
+
+     Survey answers are stored as player metadata, so this writes each answer to the player's own metadata
+     under the question's metadata_key. Call CompleteSurvey afterwards to record the completion.
+
+     @param AnswersByMetadataKey Map of question metadata_key to answer value
+     @param OnCompleteBP Delegate for handling the server response
+     @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied the default player is used
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
+    */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Surveys", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
+    static UPARAM(DisplayName = "RequestId") FString SubmitSurveyAnswers(const TMap<FString, FString>& AnswersByMetadataKey, const FLootLockerSetMetadataResponseBP& OnCompleteBP, const FString& ForPlayerWithUlid);
 
     //==================================================
     // Followers

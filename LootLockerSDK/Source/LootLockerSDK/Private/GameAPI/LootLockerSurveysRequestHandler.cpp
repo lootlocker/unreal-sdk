@@ -18,3 +18,18 @@ FString ULootLockerSurveysRequestHandler::CompleteSurvey(const FLootLockerPlayer
 {
     return LLAPI<FLootLockerCompleteSurveyResponse>::CallAPI(FLootLockerEmptyRequest(), ULootLockerGameEndpoints::CompleteSurveyEndpoint, { SurveyId }, {}, PlayerData, OnComplete);
 }
+
+FString ULootLockerSurveysRequestHandler::SubmitSurveyAnswers(const FLootLockerPlayerData& PlayerData, const TMap<FString, FString>& AnswersByMetadataKey, const FLootLockerSetMetadataResponseDelegate& OnComplete)
+{
+    TArray<FLootLockerSetMetadataAction> Actions;
+    Actions.Reserve(AnswersByMetadataKey.Num());
+    for (const TPair<FString, FString>& Answer : AnswersByMetadataKey)
+    {
+        FLootLockerSetMetadataAction Action;
+        Action.Action = ELootLockerMetadataActions::Create_or_Update;
+        Action.Entry = FLootLockerMetadataEntry::MakeStringEntry(Answer.Key, {}, {}, Answer.Value);
+        Actions.Add(Action);
+    }
+
+    return ULootLockerMetadataRequestHandler::SetMetadata(PlayerData, ELootLockerMetadataSources::self, TEXT("self"), Actions, OnComplete);
+}
