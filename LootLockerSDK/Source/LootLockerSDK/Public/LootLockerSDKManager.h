@@ -33,6 +33,7 @@
 #include "GameAPI/LootLockerPersistentStorageRequestHandler.h"
 #include "GameAPI/LootLockerPlayerFilesRequestHandler.h"
 #include "GameAPI/LootLockerPlayerRequestHandler.h"
+#include "GameAPI/LootLockerPlaytestsRequestHandler.h"
 #include "GameAPI/LootLockerProgressionsRequestHandler.h"
 #include "GameAPI/LootLockerPurchasesRequestHandler.h"
 #include "GameAPI/LootLockerRemoteSessionRequestHandler.h"
@@ -4213,6 +4214,54 @@ public:
      @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString CheckConnectionStatus(const FLootLockerConnectionStateDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid = "");
+
+    /// @}
+
+    //==================================================
+    // Playtests
+    //==================================================
+    /// @addtogroup Playtests
+    /// @{
+
+    /**
+     Get the calling player's onboarding progress for an active playtest: whether they completed it,
+     the documents they acknowledged, and the answers stored to player metadata.
+
+     @param Subdomain The playtest's public subdomain
+     @param OnComplete Delegate for handling the server response
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
+     */
+    static FString GetPlaytestOnboardingStatus(const FString& Subdomain, const FLootLockerPlaytestOnboardingStatusResponseDelegate& OnComplete, const FString& ForPlayerWithUlid = "");
+
+    /**
+     Complete onboarding for the calling player.
+
+     Answers are submitted separately through the player metadata API using each question's
+     metadata_key. The request fails when a required answer is missing or a required document is
+     not acknowledged at its current content hash.
+
+     @param Subdomain The playtest's public subdomain
+     @param OnComplete Delegate for handling the server response
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
+     */
+    static FString CompletePlaytestOnboarding(const FString& Subdomain, const FLootLockerCompletePlaytestOnboardingResponseDelegate& OnComplete, const FString& ForPlayerWithUlid = "");
+
+    /**
+     Record that the calling player acknowledged a playtest document at its current content hash.
+
+     When the document has statements, send every statement id. Leave the request's statement_ids
+     empty for documents without statements, where the body is optional.
+
+     @param Subdomain The playtest's public subdomain
+     @param DocumentId The ULID of the document to acknowledge
+     @param Request The acknowledge request. See FLootLockerAcknowledgePlaytestDocumentRequest.
+     @param OnComplete Delegate for handling the server response
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
+     */
+    static FString AcknowledgePlaytestDocument(const FString& Subdomain, const FString& DocumentId, const FLootLockerAcknowledgePlaytestDocumentRequest& Request, const FLootLockerAcknowledgePlaytestDocumentResponseDelegate& OnComplete, const FString& ForPlayerWithUlid = "");
 
     /// @}
 

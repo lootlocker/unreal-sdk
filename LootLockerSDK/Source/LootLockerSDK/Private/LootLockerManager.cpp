@@ -2491,6 +2491,31 @@ FString ULootLockerManager::CheckConnectionStatus(const FString& ForPlayerWithUl
     }), ForPlayerWithUlid);
 }
 
+// Playtests
+FString ULootLockerManager::GetPlaytestOnboardingStatus(const FString& Subdomain, const FLootLockerPlaytestOnboardingStatusResponseBP& OnCompleteBP, const FString& ForPlayerWithUlid)
+{
+    return ULootLockerSDKManager::GetPlaytestOnboardingStatus(Subdomain, FLootLockerPlaytestOnboardingStatusResponseDelegate::CreateLambda([OnCompleteBP](const FLootLockerPlaytestOnboardingStatusResponse& Response)
+    {
+        OnCompleteBP.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
+}
+
+FString ULootLockerManager::CompletePlaytestOnboarding(const FString& Subdomain, const FLootLockerCompletePlaytestOnboardingResponseBP& OnCompleteBP, const FString& ForPlayerWithUlid)
+{
+    return ULootLockerSDKManager::CompletePlaytestOnboarding(Subdomain, FLootLockerCompletePlaytestOnboardingResponseDelegate::CreateLambda([OnCompleteBP](const FLootLockerCompletePlaytestOnboardingResponse& Response)
+    {
+        OnCompleteBP.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
+}
+
+FString ULootLockerManager::AcknowledgePlaytestDocument(const FString& Subdomain, const FString& DocumentId, const FLootLockerAcknowledgePlaytestDocumentRequest& Request, const FLootLockerAcknowledgePlaytestDocumentResponseBP& OnCompleteBP, const FString& ForPlayerWithUlid)
+{
+    return ULootLockerSDKManager::AcknowledgePlaytestDocument(Subdomain, DocumentId, Request, FLootLockerAcknowledgePlaytestDocumentResponseDelegate::CreateLambda([OnCompleteBP](const FLootLockerAcknowledgePlaytestDocumentResponse& Response)
+    {
+        OnCompleteBP.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
+}
+
 // Followers (Unified with optional pagination parameters)
 FString ULootLockerManager::ListFollowersForPlayer(const FString& ForPlayerWithUlid, const FString& PlayerPublicUid, const FString& Cursor, int32 Count, const FLootLockerListFollowersResponseBP& OnResponseCompletedBP)
 {
