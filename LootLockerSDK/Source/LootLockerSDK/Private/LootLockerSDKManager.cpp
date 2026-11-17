@@ -1909,6 +1909,25 @@ FString ULootLockerSDKManager::CheckConnectionStatus(const FLootLockerConnection
 }
 
 // ========================================================================
+// PLAYTESTS
+// ========================================================================
+
+FString ULootLockerSDKManager::GetPlaytestOnboardingStatus(const FString& Subdomain, const FLootLockerPlaytestOnboardingStatusResponseDelegate& OnComplete, const FString& ForPlayerWithUlid /* = "" */)
+{
+    return ULootLockerPlaytestsRequestHandler::GetOnboardingStatus(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), Subdomain, OnComplete);
+}
+
+FString ULootLockerSDKManager::CompletePlaytestOnboarding(const FString& Subdomain, const FLootLockerCompletePlaytestOnboardingResponseDelegate& OnComplete, const FString& ForPlayerWithUlid /* = "" */)
+{
+    return ULootLockerPlaytestsRequestHandler::CompleteOnboarding(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), Subdomain, OnComplete);
+}
+
+FString ULootLockerSDKManager::AcknowledgePlaytestDocument(const FString& Subdomain, const FString& DocumentId, const FLootLockerAcknowledgePlaytestDocumentRequest& Request, const FLootLockerAcknowledgePlaytestDocumentResponseDelegate& OnComplete, const FString& ForPlayerWithUlid /* = "" */)
+{
+    return ULootLockerPlaytestsRequestHandler::AcknowledgeDocument(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), Subdomain, DocumentId, Request, OnComplete);
+}
+
+// ========================================================================
 // PRESENCE
 // ========================================================================
 

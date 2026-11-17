@@ -38,6 +38,7 @@
 #include "GameAPI/LootLockerUserGeneratedContentRequestHandler.h"
 #include "GameAPI/LootLockerFeedbackRequestHandler.h"
 #include "GameAPI/LootLockerNotificationsRequestHandler.h"
+#include "GameAPI/LootLockerPlaytestsRequestHandler.h"
 #include "LootLockerPresenceManager.h"
 #include "LootLockerSessionOptionals.h"
 #include "LootLockerManager.generated.h"
@@ -490,6 +491,16 @@ DECLARE_DYNAMIC_DELEGATE_OneParam(FGameInfoResponseDelegateBP, FLootLockerGameIn
  Blueprint response delegate for CheckConnectionStatus
 */
 DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerConnectionStateResponseBP, FLootLockerConnectionStateResponse, Response);
+
+//==================================================
+// Playtest Delegates
+//==================================================
+/** Blueprint response delegate for getting a playtest's onboarding status */
+DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerPlaytestOnboardingStatusResponseBP, FLootLockerPlaytestOnboardingStatusResponse, Response);
+/** Blueprint response delegate for completing playtest onboarding */
+DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerCompletePlaytestOnboardingResponseBP, FLootLockerCompletePlaytestOnboardingResponse, Response);
+/** Blueprint response delegate for acknowledging a playtest document */
+DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerAcknowledgePlaytestDocumentResponseBP, FLootLockerAcknowledgePlaytestDocumentResponse, Response);
 
 //==================================================
 // Presence Delegates
@@ -4601,6 +4612,53 @@ public:
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Miscellaneous", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static UPARAM(DisplayName = "RequestId") FString CheckConnectionStatus(const FString& ForPlayerWithUlid, const FLootLockerConnectionStateResponseBP& OnCompletedRequestBP);
+
+    //==================================================
+    // Playtests
+    //==================================================
+
+    /**
+     Get the calling player's onboarding progress for an active playtest: whether they completed it,
+     the documents they acknowledged, and the answers stored to player metadata.
+
+     @param Subdomain The playtest's public subdomain
+     @param OnCompleteBP Delegate for handling the server response
+     @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied the default player is used
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
+    */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Playtests", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
+    static UPARAM(DisplayName = "RequestId") FString GetPlaytestOnboardingStatus(const FString& Subdomain, const FLootLockerPlaytestOnboardingStatusResponseBP& OnCompleteBP, const FString& ForPlayerWithUlid);
+
+    /**
+     Complete onboarding for the calling player.
+
+     Answers are submitted separately through the player metadata API using each question's
+     metadata_key. The request fails when a required answer is missing or a required document is
+     not acknowledged at its current content hash.
+
+     @param Subdomain The playtest's public subdomain
+     @param OnCompleteBP Delegate for handling the server response
+     @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied the default player is used
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
+    */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Playtests", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
+    static UPARAM(DisplayName = "RequestId") FString CompletePlaytestOnboarding(const FString& Subdomain, const FLootLockerCompletePlaytestOnboardingResponseBP& OnCompleteBP, const FString& ForPlayerWithUlid);
+
+    /**
+     Record that the calling player acknowledged a playtest document at its current content hash.
+
+     When the document has statements, send every statement id. Leave the request's statement_ids
+     empty for documents without statements, where the body is optional.
+
+     @param Subdomain The playtest's public subdomain
+     @param DocumentId The ULID of the document to acknowledge
+     @param Request The acknowledge request. See FLootLockerAcknowledgePlaytestDocumentRequest.
+     @param OnCompleteBP Delegate for handling the server response
+     @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied the default player is used
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
+    */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Playtests", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
+    static UPARAM(DisplayName = "RequestId") FString AcknowledgePlaytestDocument(const FString& Subdomain, const FString& DocumentId, const FLootLockerAcknowledgePlaytestDocumentRequest& Request, const FLootLockerAcknowledgePlaytestDocumentResponseBP& OnCompleteBP, const FString& ForPlayerWithUlid);
 
     //==================================================
     // Presence

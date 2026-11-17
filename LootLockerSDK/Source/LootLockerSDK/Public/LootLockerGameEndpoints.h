@@ -418,6 +418,11 @@ public:
     static FLootLockerEndPoints EquipToEquipmentSlotEndpoint;
     static FLootLockerEndPoints UnequipFromEquipmentSlotEndpoint;
 
+    // Playtests
+    static FLootLockerEndPoints GetPlaytestOnboardingStatusEndpoint;
+    static FLootLockerEndPoints CompletePlaytestOnboardingEndpoint;
+    static FLootLockerEndPoints AcknowledgePlaytestDocumentEndpoint;
+
     // Presence (WebSocket)
     static FLootLockerEndPoints PresenceWebSocketEndpoint;
 
