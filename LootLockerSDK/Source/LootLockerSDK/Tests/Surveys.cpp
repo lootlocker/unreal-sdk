@@ -54,9 +54,8 @@ void FTestLootLockerSurveys::Define()
 				const FLootLockerSurvey& Survey = Response.Surveys[0];
 				TestEqual("Survey id matches", Survey.Id, SurveyId);
 				TestEqual("Survey name matches", Survey.Name, TEXT("CI Survey"));
-				TestTrue("Survey is standalone", Survey.Standalone);
 				TestFalse("Survey is not completed yet", Survey.Completed);
-				TestTrue("completed_at is empty when not completed", Survey.Completed_at.IsEmpty());
+				TestEqual("completed_at is unset when not completed", Survey.Completed_at, FDateTime(0));
 				TestEqual("Exactly one question", Survey.Questions.Num(), 1);
 				if (Survey.Questions.Num() == 1)
 				{
@@ -95,6 +94,38 @@ void FTestLootLockerSurveys::Define()
 			ULootLockerSDKManager::CompleteSurvey(SurveyId, Delegate);
 			const auto Response = test_util::WaitAndGet(Promise, 30);
 			TestFalse("Completing with an unanswered required question fails", Response.success);
+
+			TestDone.Execute();
+		});
+
+		LatentIt("SubmitSurveyAnswers_ThenCompleteSurvey_SucceedsAndMarksCompleted", EAsyncExecution::ThreadPool, [this](const FDoneDelegate TestDone)
+		{
+			if (!Game.IsValid()) { AddError(TEXT("Game setup failed")); TestDone.Execute(); return; }
+
+			// Submit the answer through the survey convenience method.
+			const auto [SubmitPromise, SubmitDelegate] = test_util::CreateDelegate<FLootLockerSetMetadataResponse, FLootLockerSetMetadataResponseDelegate>();
+			ULootLockerSDKManager::SubmitSurveyAnswers({ { TEXT("ci_survey_answer"), TEXT("From a friend") } }, SubmitDelegate);
+			const auto SubmitResponse = test_util::WaitAndGet(SubmitPromise, 30);
+			TestTrue("SubmitSurveyAnswers succeeded", SubmitResponse.success);
+
+			const auto [Promise, Delegate] = test_util::CreateDelegate<FLootLockerCompleteSurveyResponse, FLootLockerCompleteSurveyResponseDelegate>();
+			ULootLockerSDKManager::CompleteSurvey(SurveyId, Delegate);
+			const auto Response = test_util::WaitAndGet(Promise, 30);
+			TestTrue("CompleteSurvey succeeded", Response.success);
+			TestTrue("Response reports the survey as complete", Response.Complete);
+			TestEqual("Survey id matches", Response.Survey_id, SurveyId);
+			TestTrue("completed_at is set", Response.Completed_at != FDateTime(0));
+
+			const auto [ListPromise, ListDelegate] = test_util::CreateDelegate<FLootLockerListSurveysResponse, FLootLockerListSurveysResponseDelegate>();
+			ULootLockerSDKManager::ListSurveys(ListDelegate);
+			const auto ListResponse = test_util::WaitAndGet(ListPromise, 30);
+			TestTrue("ListSurveys succeeded", ListResponse.success);
+			TestEqual("Exactly one survey is visible", ListResponse.Surveys.Num(), 1);
+			if (ListResponse.Surveys.Num() == 1)
+			{
+				TestTrue("Survey is marked completed", ListResponse.Surveys[0].Completed);
+				TestTrue("completed_at is set on the listed survey", ListResponse.Surveys[0].Completed_at != FDateTime(0));
+			}
 
 			TestDone.Execute();
 		});

@@ -2615,6 +2615,14 @@ FString ULootLockerManager::CompleteSurvey(const FString& SurveyId, const FLootL
     }), ForPlayerWithUlid);
 }
 
+FString ULootLockerManager::SubmitSurveyAnswers(const TMap<FString, FString>& AnswersByMetadataKey, const FLootLockerSetMetadataResponseBP& OnCompleteBP, const FString& ForPlayerWithUlid)
+{
+    return ULootLockerSDKManager::SubmitSurveyAnswers(AnswersByMetadataKey, FLootLockerSetMetadataResponseDelegate::CreateLambda([OnCompleteBP](const FLootLockerSetMetadataResponse& Response)
+    {
+        OnCompleteBP.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
+}
+
 FLootLockerPlaytestAnswerSubmission ULootLockerManager::MakePlaytestTextAnswer(const FString& MetadataKey, const FString& Value)
 {
     return FLootLockerPlaytestAnswerSubmission::FromText(MetadataKey, Value);
