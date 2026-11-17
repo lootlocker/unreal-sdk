@@ -7,6 +7,7 @@
 #include "JsonObjectWrapper.h"
 #include "LootLockerResponse.h"
 #include "LootLockerPlayerData.h"
+#include "GameAPI/LootLockerMetadataRequestHandler.h"
 #include "LootLockerSurveysRequestHandler.generated.h"
 
 //==================================================
@@ -66,7 +67,7 @@ struct FLootLockerSurveyQuestion
      * When the question was created
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString Created_at = "";
+    FDateTime Created_at = FDateTime(0);
     /**
      * When true, answers for this question's metadata_key are masked in game metadata reads.
      */
@@ -90,26 +91,15 @@ struct FLootLockerSurvey
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FString Id = "";
     /**
-     * The legacy id of the game this survey belongs to
-     */
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    int64 Game_id = 0;
-    /**
      * The name of the survey
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FString Name = "";
     /**
-     * Whether this survey is standalone (listed and completable through the Game API).
-     * Non-standalone surveys are playtest-only and never returned by these endpoints.
-     */
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    bool Standalone = false;
-    /**
      * When the survey was created
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString Created_at = "";
+    FDateTime Created_at = FDateTime(0);
     /**
      * Whether the current player has already completed this survey.
      * Only populated by ListSurveys.
@@ -117,11 +107,12 @@ struct FLootLockerSurvey
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     bool Completed = false;
     /**
-     * When the current player completed this survey, as an RFC 3339 timestamp.
-     * Empty when the survey has not been completed. Only populated by ListSurveys.
+     * When the current player completed this survey.
+     * Default (FDateTime(0)) when the survey has not been completed.
+     * Only populated by ListSurveys.
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString Completed_at = "";
+    FDateTime Completed_at = FDateTime(0);
     /**
      * The questions in this survey, ordered by sort_order
      */
@@ -135,7 +126,7 @@ struct FLootLockerSurvey
 //==================================================
 
 /**
- * Response containing the standalone surveys the current player can see.
+ * Response containing the surveys the current player can see.
  */
 USTRUCT(BlueprintType, Category = "LootLocker")
 struct FLootLockerListSurveysResponse : public FLootLockerResponse
@@ -161,25 +152,15 @@ struct FLootLockerGetSurveyResponse : public FLootLockerResponse
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FString Id = "";
     /**
-     * The legacy id of the game this survey belongs to
-     */
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    int64 Game_id = 0;
-    /**
      * The name of the survey
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FString Name = "";
     /**
-     * Whether this survey is standalone (listed and completable through the Game API)
-     */
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    bool Standalone = false;
-    /**
      * When the survey was created
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString Created_at = "";
+    FDateTime Created_at = FDateTime(0);
     /**
      * The questions in this survey, ordered by sort_order
      */
@@ -195,15 +176,16 @@ struct FLootLockerCompleteSurveyResponse : public FLootLockerResponse
 {
     GENERATED_BODY()
     /**
-     * Whether the survey is now completed
+     * Whether the survey is now completed. A successful response always reports true;
+     * failures (for example an unanswered required question) are returned as an error response instead.
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     bool Complete = false;
     /**
-     * When the survey was completed, as an RFC 3339 timestamp
+     * When the survey was completed
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString Completed_at = "";
+    FDateTime Completed_at = FDateTime(0);
     /**
      * The unique identifier of the completed survey
      */
@@ -244,4 +226,12 @@ public:
     static FString ListSurveys(const FLootLockerPlayerData& PlayerData, const FLootLockerListSurveysResponseDelegate& OnComplete);
     static FString GetSurvey(const FLootLockerPlayerData& PlayerData, const FString& SurveyId, const FLootLockerGetSurveyResponseDelegate& OnComplete);
     static FString CompleteSurvey(const FLootLockerPlayerData& PlayerData, const FString& SurveyId, const FLootLockerCompleteSurveyResponseDelegate& OnComplete);
+
+    /**
+     * Submit answers to a survey for the current player.
+     *
+     * Survey answers are stored as player metadata, so this writes each answer to the player's own metadata
+     * under the question's metadata_key. Call CompleteSurvey afterwards to record the completion.
+     */
+    static FString SubmitSurveyAnswers(const FLootLockerPlayerData& PlayerData, const TMap<FString, FString>& AnswersByMetadataKey, const FLootLockerSetMetadataResponseDelegate& OnComplete);
 };

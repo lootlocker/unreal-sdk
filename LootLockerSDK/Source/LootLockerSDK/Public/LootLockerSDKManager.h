@@ -3797,8 +3797,7 @@ public:
     /// @{
 
     /**
-     List the standalone surveys the current player can see, filtered by each survey's segments.
-     Non-standalone surveys are playtest-only and are never returned here.
+     List the surveys the current player can see, filtered by each survey's segments.
 
      @param OnComplete Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
@@ -3807,7 +3806,7 @@ public:
     static FString ListSurveys(const FLootLockerListSurveysResponseDelegate& OnComplete, const FString& ForPlayerWithUlid = "");
 
     /**
-     Get a single standalone survey and its questions, if the current player meets the survey's segments.
+     Get a single survey and its questions, if the current player meets the survey's segments.
 
      @param SurveyId The ULID of the survey to fetch
      @param OnComplete Delegate for handling the server response
@@ -3828,6 +3827,19 @@ public:
      @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString CompleteSurvey(const FString& SurveyId, const FLootLockerCompleteSurveyResponseDelegate& OnComplete, const FString& ForPlayerWithUlid = "");
+
+    /**
+     Submit answers to a survey for the current player.
+
+     Survey answers are stored as player metadata, so this writes each answer to the player's own metadata
+     under the question's metadata_key. Call CompleteSurvey afterwards to record the completion.
+
+     @param AnswersByMetadataKey Map of question metadata_key to answer value
+     @param OnComplete Delegate for handling the server response
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
+     */
+    static FString SubmitSurveyAnswers(const TMap<FString, FString>& AnswersByMetadataKey, const FLootLockerSetMetadataResponseDelegate& OnComplete, const FString& ForPlayerWithUlid = "");
 
     /// @}
 
