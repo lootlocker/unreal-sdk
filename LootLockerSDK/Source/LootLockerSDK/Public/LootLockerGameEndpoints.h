@@ -182,6 +182,7 @@ public:
     static FLootLockerEndPoints CheckPlayerAssetDeactivationEndpoint;
     static FLootLockerEndPoints InitiateDLCMigration;
     static FLootLockerEndPoints GetDLCsMigrated;
+    static FLootLockerEndPoints CheckDLCs;
     static FLootLockerEndPoints SetProfilePrivate;
     static FLootLockerEndPoints SetProfilePublic;
     static FLootLockerEndPoints SetPlayerName;

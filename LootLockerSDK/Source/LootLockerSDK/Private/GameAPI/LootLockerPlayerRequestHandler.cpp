@@ -75,6 +75,11 @@ FString ULootLockerPlayerRequestHandler::GetDLCsMigration(const FLootLockerPlaye
 	return LLAPI<FLootLockerDlcResponse>::CallAPI(LootLockerEmptyRequest, ULootLockerGameEndpoints::GetDLCsMigrated, {  }, EmptyQueryParams, PlayerData, OnCompletedRequest);
 }
 
+FString ULootLockerPlayerRequestHandler::CheckDLCs(const FLootLockerPlayerData& PlayerData, const FPCheckDLCsResponse& OnCompletedRequest)
+{
+	return LLAPI<FLootLockerCheckDLCsResponse>::CallAPI(LootLockerEmptyRequest, ULootLockerGameEndpoints::CheckDLCs, {  }, EmptyQueryParams, PlayerData, OnCompletedRequest);
+}
+
 FString ULootLockerPlayerRequestHandler::SetProfilePrivate(const FLootLockerPlayerData& PlayerData, const FResponseCallback& OnCompletedRequest)
 {
 	return LLAPI<FLootLockerResponse>::CallAPI(LootLockerEmptyRequest, ULootLockerGameEndpoints::SetProfilePrivate, {  }, EmptyQueryParams, PlayerData, OnCompletedRequest);

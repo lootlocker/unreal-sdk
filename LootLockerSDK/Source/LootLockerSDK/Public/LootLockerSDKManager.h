@@ -1169,6 +1169,21 @@ public:
     static FString GetDLCsMigration(const FPDlcResponse & OnCompletedRequest, const FString& ForPlayerWithUlid = "");
 
     /**
+     Reconcile the player's platform-owned DLCs and return the DLCs they currently hold.
+
+     Ownership is verified server-side against the player's linked platform account (Meta or Steam), so the client cannot grant itself DLCs. Missing DLCs are granted and DLCs the player no longer owns are revoked.
+
+     Reconciliation is serialized per player. If another reconciliation for the same player is already in flight this call does not reconcile and returns the player's current DLC list as-is, which may be slightly stale. Call it again shortly afterwards for an up-to-date list.
+
+     Only Meta or Steam accounts support DLC checks. If the player has no linked account for the session's platform, or the platform is not supported, the request fails with a 400 status code.
+
+     @param OnCompletedRequest Delegate for handling the server response
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
+     */
+    static FString CheckDLCs(const FPCheckDLCsResponse & OnCompletedRequest, const FString& ForPlayerWithUlid = "");
+
+    /**
      Set the player's profile visibility to private (inventory not publicly visible on external platforms).
 
      @param OnCompletedRequest Delegate for handling the server response

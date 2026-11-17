@@ -666,6 +666,14 @@ FString ULootLockerManager::GetDLCsMigration(const FString& ForPlayerWithUlid, c
     }), ForPlayerWithUlid);
 }
 
+FString ULootLockerManager::CheckDLCs(const FString& ForPlayerWithUlid, const FPCheckDLCsResponseBP& OnCheckedDLCs)
+{
+    return ULootLockerSDKManager::CheckDLCs(FPCheckDLCsResponse::CreateLambda([OnCheckedDLCs](FLootLockerCheckDLCsResponse Response)
+    {
+        OnCheckedDLCs.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
+}
+
 
 FString ULootLockerManager::SetProfilePrivate(const FString& ForPlayerWithUlid, const FResponseCallbackBP& OnProfileSetPrivate)
 {

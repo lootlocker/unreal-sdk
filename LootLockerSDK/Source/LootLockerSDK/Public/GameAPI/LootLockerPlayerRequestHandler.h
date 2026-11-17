@@ -113,6 +113,44 @@ struct FLootLockerDlcResponse : public FLootLockerResponse
 	TArray<FString> dlcs;
 };
 
+/**
+ * A DLC the player currently holds, as reported by the DLC check endpoint.
+ */
+USTRUCT(BlueprintType)
+struct FLootLockerDlcCheckEntry
+{
+	GENERATED_BODY()
+
+	/** The ULID of the catalog item that carries the DLC listing. */
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+	FString catalog_item_id = "";
+
+	/** The DLC's identifier on the platform (for example a Steam app id or a Meta product id). Always a string, even when numeric. */
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+	FString dlc_identifier = "";
+
+	/** The platform the DLC was granted for. */
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+	FString platform = "";
+
+	/** The ULID of the active DLC entitlement granting this DLC. */
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+	FString entitlement_id = "";
+};
+
+/**
+ * Response for checking the player's DLCs, containing the DLCs they currently hold for the session's platform.
+ */
+USTRUCT(BlueprintType)
+struct FLootLockerCheckDLCsResponse : public FLootLockerResponse
+{
+	GENERATED_BODY()
+
+	/** The DLCs the player currently holds, ordered by catalog item id. Empty when the player owns no DLCs. */
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+	TArray<FLootLockerDlcCheckEntry> dlcs;
+};
+
 USTRUCT(BlueprintType)
 struct FLootLockerRental {
 	GENERATED_BODY()
@@ -541,6 +579,9 @@ DECLARE_DELEGATE_OneParam(FPBalanceResponse, FLootLockerBalanceResponse);
 /** C++ response callback delegate; receives an @ref FLootLockerDlcResponse result. */
 DECLARE_DELEGATE_OneParam(FPDlcResponse, FLootLockerDlcResponse);
 
+/** C++ response callback delegate; receives an @ref FLootLockerCheckDLCsResponse result. */
+DECLARE_DELEGATE_OneParam(FPCheckDLCsResponse, FLootLockerCheckDLCsResponse);
+
 /** C++ response callback delegate; receives an @ref FLootLockerNameResponse result. */
 DECLARE_DELEGATE_OneParam(FPNameResponse, FLootLockerNameResponse);
 
@@ -569,6 +610,7 @@ public:
 	static FString GetCurrencyBalance(const FLootLockerPlayerData& PlayerData, const FPBalanceResponse& OnCompletedRequest);
 	static FString InitiateDLCMigration(const FLootLockerPlayerData& PlayerData, const FResponseCallback& OnCompletedRequest);
 	static FString GetDLCsMigration(const FLootLockerPlayerData& PlayerData, const FPDlcResponse& OnCompletedRequest);
+	static FString CheckDLCs(const FLootLockerPlayerData& PlayerData, const FPCheckDLCsResponse& OnCompletedRequest);
 	static FString SetProfilePrivate(const FLootLockerPlayerData& PlayerData, const FResponseCallback& OnCompletedRequest);
 	static FString SetProfilePublic(const FLootLockerPlayerData& PlayerData, const FResponseCallback& OnCompletedRequest);
 	static FString SetPlayerName(const FLootLockerPlayerData& PlayerData, FString Name, const FPNameResponse& OnCompletedRequest);
