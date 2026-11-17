@@ -410,6 +410,10 @@ public:
     static FLootLockerEndPoints GetMultisourceMetadata;
     static FLootLockerEndPoints MetadataActions;
 
+    // Referrals
+    static FLootLockerEndPoints GetReferralInviteEndpoint;
+    static FLootLockerEndPoints ListMyReferralsEndpoint;
+
     // Equipment
     static FLootLockerEndPoints GetEquipmentLoadoutEndpoint;
     static FLootLockerEndPoints GetEntityEquipmentLoadoutEndpoint;

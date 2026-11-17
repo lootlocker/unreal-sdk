@@ -18,6 +18,7 @@
 #include "GameAPI/LootLockerDropTablesRequestHandler.h"
 #include "GameAPI/LootLockerEntitlementRequestHandler.h"
 #include "GameAPI/LootLockerEquipmentRequestHandler.h"
+#include "GameAPI/LootLockerReferralRequestHandler.h"
 #include "GameAPI/LootLockerFollowersRequestHandler.h"
 #include "GameAPI/LootLockerFriendsRequestHandler.h"
 #include "GameAPI/LootLockerHeroRequestHandler.h"
@@ -420,6 +421,14 @@ DECLARE_DYNAMIC_DELEGATE_OneParam(FInternalLootLockerListCatalogPricesV2Response
 DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerListEntitlementsResponseBP, FLootLockerEntitlementHistoryResponse, Response);
 /** Blueprint response delegate for single entitlement responses */
 DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerSingleEntitlementResponseBP, FLootLockerSingleEntitlementResponse, Response);
+
+//==================================================
+// Referral Delegates
+//==================================================
+/** Blueprint response delegate for referral invite responses */
+DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerReferralInviteResponseBP, FLootLockerReferralInviteResponse, Response);
+/** Blueprint response delegate for referral list responses */
+DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerReferralListResponseBP, FLootLockerReferralListResponse, Response);
 
 //==================================================
 // Equipment Delegates
@@ -4459,6 +4468,34 @@ public:
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Friends", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static UPARAM(DisplayName = "RequestId") FString UnblockPlayer(const FString& ForPlayerWithUlid, const FString& PlayerULID, const FLootLockerFriendActionResponseBP& OnResponseCompletedBP);
+
+    //==================================================
+    // Referrals
+    //==================================================
+
+    /**
+     Get the calling player's referral code and their rewarded-referral count against each active
+     program's cap. Use this to render an invite-a-friend screen.
+
+     @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied the default player is used
+     @param OnCompletedRequestBP Delegate for handling the server response
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
+    */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Referrals", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
+    static UPARAM(DisplayName = "RequestId") FString GetReferralInvite(const FString& ForPlayerWithUlid, const FLootLockerReferralInviteResponseBP& OnCompletedRequestBP);
+
+    /**
+     List the calling player's own referrals, newest first, including ones still pending their qualifying
+     action.
+
+     @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied the default player is used
+     @param Page Optional: 1-based page of referrals (server default when 0)
+     @param PerPage Optional: Number of referrals per page, 1-200 (server default when 0)
+     @param OnCompletedRequestBP Delegate for handling the server response
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
+    */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Referrals", meta = (AdvancedDisplay = "ForPlayerWithUlid,Page,PerPage", ForPlayerWithUlid="", Page="1", PerPage="10"))
+    static UPARAM(DisplayName = "RequestId") FString ListMyReferrals(const FString& ForPlayerWithUlid, int Page, int PerPage, const FLootLockerReferralListResponseBP& OnCompletedRequestBP);
 
     //==================================================
     // Equipment

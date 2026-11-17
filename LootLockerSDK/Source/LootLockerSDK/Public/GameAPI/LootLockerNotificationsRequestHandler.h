@@ -52,7 +52,8 @@ enum class ELootLockerNotificationSource : uint8
     leaderboard_reward = 13,
     reward_campaign = 14,
     rewards_grant = 15,
-    unknown = 16,
+    referral = 16,
+    unknown = 17,
 };
 /// @}
 
@@ -153,6 +154,7 @@ struct LOOTLOCKERSDK_API LootLockerNotificationsStaticStrings
         static const FString LeaderboardReward;
         static const FString RewardCampaign;
         static const FString RewardsGrant;
+        static const FString Referral;
         /**
          * Not a source emitted by the backend. Used as the SourceEnum value for notifications whose source string the SDK does not recognise.
          */
@@ -370,6 +372,11 @@ public:
      */
     UFUNCTION(BlueprintPure, Category = "LootLocker Methods | Static Strings | Notifications | Sources | Rewards Grant")
     static FString GetNotificationsSourceRewardsGrantString() { return LootLockerNotificationsStaticStrings::NotificationSources::RewardsGrant; };
+    /**
+     * Static String for use in Notifications -- Matching Notification source Referral
+     */
+    UFUNCTION(BlueprintPure, Category = "LootLocker Methods | Static Strings | Notifications | Sources | Referral")
+    static FString GetNotificationsSourceReferralString() { return LootLockerNotificationsStaticStrings::NotificationSources::Referral; };
     /**
      * Static String for use in Notifications -- Matching Notification source Unknown
      */
