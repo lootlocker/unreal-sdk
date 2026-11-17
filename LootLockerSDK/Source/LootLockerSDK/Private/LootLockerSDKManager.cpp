@@ -613,6 +613,11 @@ FString ULootLockerSDKManager::GetDLCsMigration(const FPDlcResponse& OnCompleted
     return ULootLockerPlayerRequestHandler::GetDLCsMigration(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), OnCompletedRequest);
 }
 
+FString ULootLockerSDKManager::CheckDLCs(const FPCheckDLCsResponse& OnCompletedRequest, const FString& ForPlayerWithUlid /* = "" */)
+{
+    return ULootLockerPlayerRequestHandler::CheckDLCs(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), OnCompletedRequest);
+}
+
 FString ULootLockerSDKManager::SetProfilePrivate(const FResponseCallback& OnCompletedRequest, const FString& ForPlayerWithUlid /* = "" */)
 {
     return ULootLockerPlayerRequestHandler::SetProfilePrivate(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), OnCompletedRequest);

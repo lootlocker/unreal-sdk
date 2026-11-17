@@ -101,6 +101,7 @@ FLootLockerEndPoints ULootLockerGameEndpoints::GetCurrencyBalance = InitEndpoint
 FLootLockerEndPoints ULootLockerGameEndpoints::CheckPlayerAssetActivationEndpoint = InitEndpoint("v1/player/notification/assets", ELootLockerHTTPMethod::LL_GET);
 FLootLockerEndPoints ULootLockerGameEndpoints::InitiateDLCMigration = InitEndpoint("v1/player/dlcs", ELootLockerHTTPMethod::LL_POST);
 FLootLockerEndPoints ULootLockerGameEndpoints::GetDLCsMigrated = InitEndpoint("v1/player/dlcs", ELootLockerHTTPMethod::LL_GET);
+FLootLockerEndPoints ULootLockerGameEndpoints::CheckDLCs = InitEndpoint("dlcs/v1/check", ELootLockerHTTPMethod::LL_POST);
 FLootLockerEndPoints ULootLockerGameEndpoints::SetProfilePrivate = InitEndpoint("v1/player/profile/public", ELootLockerHTTPMethod::LL_DELETE);
 FLootLockerEndPoints ULootLockerGameEndpoints::SetProfilePublic = InitEndpoint("v1/player/profile/public", ELootLockerHTTPMethod::LL_POST);
 FLootLockerEndPoints ULootLockerGameEndpoints::SetPlayerName = InitEndpoint("player/name", ELootLockerHTTPMethod::LL_PATCH);

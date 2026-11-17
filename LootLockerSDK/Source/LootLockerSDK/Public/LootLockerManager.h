@@ -144,6 +144,8 @@ DECLARE_DYNAMIC_DELEGATE_OneParam(FPAssetNotificationResponseBP, FLootLockerPlay
 DECLARE_DYNAMIC_DELEGATE_OneParam(FPBalanceResponseBP, FLootLockerBalanceResponse, Value);
 /** Blueprint response delegate for player DLC responses */
 DECLARE_DYNAMIC_DELEGATE_OneParam(FPDlcResponseBP, FLootLockerDlcResponse, Value);
+/** Blueprint response delegate for DLC check responses */
+DECLARE_DYNAMIC_DELEGATE_OneParam(FPCheckDLCsResponseBP, FLootLockerCheckDLCsResponse, Value);
 /** Blueprint response delegate for player name responses */
 DECLARE_DYNAMIC_DELEGATE_OneParam(FPNameResponseBP, FLootLockerNameResponse, Value);
 /** Blueprint response delegate for multiple player names responses */
@@ -1562,6 +1564,22 @@ public:
      */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Players", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static UPARAM(DisplayName = "RequestId") FString GetDLCsMigration(const FString& ForPlayerWithUlid, const FPDlcResponseBP& OnGotDlcMigration);
+
+    /**
+     Reconcile the player's platform-owned DLCs and return the DLCs they currently hold.
+
+     Ownership is verified server-side against the player's linked platform account (Meta or Steam), so the client cannot grant itself DLCs. Missing DLCs are granted and DLCs the player no longer owns are revoked.
+
+     Reconciliation is serialized per player. If another reconciliation for the same player is already in flight this call does not reconcile and returns the player's current DLC list as-is, which may be slightly stale. Call it again shortly afterwards for an up-to-date list.
+
+     Only Meta or Steam accounts support DLC checks. If the player has no linked account for the session's platform, or the platform is not supported, the request fails with a 400 status code.
+
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @param OnCheckedDLCs Delegate for handling the server response
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
+     */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Players", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
+    static UPARAM(DisplayName = "RequestId") FString CheckDLCs(const FString& ForPlayerWithUlid, const FPCheckDLCsResponseBP& OnCheckedDLCs);
 
     /**
      Set the player's profile visibility to private (inventory not shown publicly on external platforms).
