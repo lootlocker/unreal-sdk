@@ -17,6 +17,7 @@
 #include "GameAPI/LootLockerDropTablesRequestHandler.h"
 #include "GameAPI/LootLockerEntitlementRequestHandler.h"
 #include "GameAPI/LootLockerEquipmentRequestHandler.h"
+#include "GameAPI/LootLockerReferralRequestHandler.h"
 #include "GameAPI/LootLockerErrorReportRequestHandler.h"
 #include "GameAPI/LootLockerFeedbackRequestHandler.h"
 #include "GameAPI/LootLockerFollowersRequestHandler.h"
@@ -4073,6 +4074,37 @@ public:
      @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
     static FString UnblockPlayer(const FString& PlayerULID, const FLootLockerFriendActionResponseDelegate& OnResponseCompleted, const FString& ForPlayerWithUlid = "");
+
+    /// @}
+
+    //==================================================
+    // Referrals
+    //==================================================
+    /// @addtogroup Referrals
+    /// @{
+
+    /**
+     Get the calling player's referral code and their rewarded-referral count against each active
+     program's cap. Use this to render an invite-a-friend screen: share the code, and have the invited
+     player supply it as the referral_code session optional when starting their first session.
+
+     @param OnCompletedRequest Delegate for handling the server response
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
+     */
+    static FString GetReferralInvite(const FLootLockerReferralInviteResponseDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid = "");
+
+    /**
+     List the calling player's own referrals, newest first, including ones still pending their qualifying
+     action. Session-scoped: the player and game come from the session token.
+
+     @param Page Optional: 1-based page of referrals (server default when 0)
+     @param PerPage Optional: Number of referrals per page, 1-200 (server default when 0)
+     @param OnCompletedRequest Delegate for handling the server response
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
+     */
+    static FString ListMyReferrals(int Page, int PerPage, const FLootLockerReferralListResponseDelegate& OnCompletedRequest, const FString& ForPlayerWithUlid = "");
 
     /// @}
 
