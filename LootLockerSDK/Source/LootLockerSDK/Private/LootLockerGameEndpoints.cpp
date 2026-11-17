@@ -337,6 +337,11 @@ FLootLockerEndPoints ULootLockerGameEndpoints::ListEquipmentSlotCandidatesEndpoi
 FLootLockerEndPoints ULootLockerGameEndpoints::EquipToEquipmentSlotEndpoint = InitEndpoint("player/equipment/v1/equip", ELootLockerHTTPMethod::LL_POST);
 FLootLockerEndPoints ULootLockerGameEndpoints::UnequipFromEquipmentSlotEndpoint = InitEndpoint("player/equipment/v1/equip/{0}", ELootLockerHTTPMethod::LL_DELETE);
 
+// Playtests
+FLootLockerEndPoints ULootLockerGameEndpoints::GetPlaytestOnboardingStatusEndpoint = InitEndpoint("playtests/{0}/status", ELootLockerHTTPMethod::LL_GET);
+FLootLockerEndPoints ULootLockerGameEndpoints::CompletePlaytestOnboardingEndpoint = InitEndpoint("playtests/{0}/complete", ELootLockerHTTPMethod::LL_POST);
+FLootLockerEndPoints ULootLockerGameEndpoints::AcknowledgePlaytestDocumentEndpoint = InitEndpoint("playtests/{0}/documents/{1}/acknowledge", ELootLockerHTTPMethod::LL_POST);
+
 // Presence (WebSocket)
 FLootLockerEndPoints ULootLockerGameEndpoints::PresenceWebSocketEndpoint = InitEndpoint("presence/v1", ELootLockerHTTPMethod::LL_GET, ELootLockerApiType::LL_WEBSOCKET);
 

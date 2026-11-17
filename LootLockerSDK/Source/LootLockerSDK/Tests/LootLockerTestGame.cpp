@@ -540,6 +540,89 @@ bool FLootLockerTestGame::GrantAssetToPlayer(
 	return OutInstanceId != 0;
 }
 
+bool FLootLockerTestGame::CreatePlaytest(const FString& Name, const FString& Subdomain, FString& OutPlaytestId)
+{
+	TSharedRef<FJsonObject> PlaytestBody = MakeShared<FJsonObject>();
+	PlaytestBody->SetStringField(TEXT("name"), Name);
+	PlaytestBody->SetStringField(TEXT("display_name"), Name);
+	PlaytestBody->SetStringField(TEXT("subdomain"), Subdomain);
+	PlaytestBody->SetBoolField(TEXT("active"), true);
+	PlaytestBody->SetBoolField(TEXT("send_waitlist_email"), false);
+
+	const FLootLockerAdminResponse CreateResponse =
+		FLootLockerAdminRequest::Send(
+			TEXT("game/#GAMEID#/playtests"), TEXT("POST"), SerializeJson(PlaytestBody));
+
+	if (!CreateResponse.bSuccess)
+	{
+		UE_LOG(LogTemp, Error, TEXT("LootLockerTestGame: CreatePlaytest '%s' failed (%d): %s"),
+			*Subdomain, CreateResponse.StatusCode, *CreateResponse.Body);
+		return false;
+	}
+
+	TSharedPtr<FJsonObject> Json = ParseJson(CreateResponse.Body);
+	if (Json.IsValid())
+	{
+		Json->TryGetStringField(TEXT("id"), OutPlaytestId);
+	}
+
+	if (OutPlaytestId.IsEmpty())
+	{
+		UE_LOG(LogTemp, Error, TEXT("LootLockerTestGame: CreatePlaytest response missing playtest.id"));
+		return false;
+	}
+
+	return true;
+}
+
+bool FLootLockerTestGame::CreatePlaytestDocument(const FString& PlaytestId, const FString& Name, const FString& Content, bool bRequired, const TArray<FString>& StatementIds, FString& OutDocumentId)
+{
+	TSharedRef<FJsonObject> DocumentBody = MakeShared<FJsonObject>();
+	DocumentBody->SetStringField(TEXT("name"), Name);
+	DocumentBody->SetStringField(TEXT("content"), Content);
+	DocumentBody->SetBoolField(TEXT("required"), bRequired);
+
+	if (StatementIds.Num() > 0)
+	{
+		TArray<TSharedPtr<FJsonValue>> Statements;
+		Statements.Reserve(StatementIds.Num());
+		for (int32 Index = 0; Index < StatementIds.Num(); ++Index)
+		{
+			TSharedRef<FJsonObject> Statement = MakeShared<FJsonObject>();
+			Statement->SetStringField(TEXT("id"), StatementIds[Index]);
+			Statement->SetStringField(TEXT("text"), FString::Printf(TEXT("Statement %d"), Index + 1));
+			Statements.Add(MakeShared<FJsonValueObject>(Statement));
+		}
+		DocumentBody->SetArrayField(TEXT("statements"), Statements);
+	}
+
+	const FLootLockerAdminResponse CreateResponse =
+		FLootLockerAdminRequest::Send(
+			FString::Printf(TEXT("game/#GAMEID#/playtests/%s/documents"), *PlaytestId),
+			TEXT("POST"), SerializeJson(DocumentBody));
+
+	if (!CreateResponse.bSuccess)
+	{
+		UE_LOG(LogTemp, Error, TEXT("LootLockerTestGame: CreatePlaytestDocument '%s' failed (%d): %s"),
+			*Name, CreateResponse.StatusCode, *CreateResponse.Body);
+		return false;
+	}
+
+	TSharedPtr<FJsonObject> Json = ParseJson(CreateResponse.Body);
+	if (Json.IsValid())
+	{
+		Json->TryGetStringField(TEXT("id"), OutDocumentId);
+	}
+
+	if (OutDocumentId.IsEmpty())
+	{
+		UE_LOG(LogTemp, Error, TEXT("LootLockerTestGame: CreatePlaytestDocument response missing document.id"));
+		return false;
+	}
+
+	return true;
+}
+
 bool FLootLockerTestGame::CreateBroadcast(
 	const FString& Name, const FString& Headline, const FString& Body, FString& OutBroadcastId)
 {

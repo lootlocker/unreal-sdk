@@ -150,6 +150,25 @@ struct FLootLockerTestGame
 	bool GrantAssetToPlayer(const FString& PlayerLegacyId, int32 AssetId, int32& OutInstanceId);
 
 	/**
+	 * Create an active playtest with the given subdomain.
+	 * @param Name         The playtest name.
+	 * @param Subdomain    The playtest's public subdomain.
+	 * @param OutPlaytestId  Populated with the created playtest's ULID.
+	 */
+	bool CreatePlaytest(const FString& Name, const FString& Subdomain, FString& OutPlaytestId);
+
+	/**
+	 * Create a document on a playtest.
+	 * @param PlaytestId   The playtest ULID to add the document to.
+	 * @param Name         The document name.
+	 * @param Content      The document content.
+	 * @param bRequired    Whether the document must be acknowledged before onboarding can complete.
+	 * @param StatementIds Optional statement ids to attach to the document.
+	 * @param OutDocumentId  Populated with the created document's ULID.
+	 */
+	bool CreatePlaytestDocument(const FString& PlaytestId, const FString& Name, const FString& Content, bool bRequired, const TArray<FString>& StatementIds, FString& OutDocumentId);
+
+	/**
 	 * Create a broadcast visible to this game.
 	 * The broadcast is published immediately (start = now, no end).
 	 * @param Name         Internal broadcast name.
