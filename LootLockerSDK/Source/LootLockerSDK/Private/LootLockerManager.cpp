@@ -2516,6 +2516,14 @@ FString ULootLockerManager::AcknowledgePlaytestDocument(const FString& Subdomain
     }), ForPlayerWithUlid);
 }
 
+FString ULootLockerManager::SubmitPlaytestAnswers(const TMap<FString, FString>& AnswersByMetadataKey, const FLootLockerSetMetadataResponseBP& OnCompleteBP, const FString& ForPlayerWithUlid)
+{
+    return ULootLockerSDKManager::SubmitPlaytestAnswers(AnswersByMetadataKey, FLootLockerSetMetadataResponseDelegate::CreateLambda([OnCompleteBP](const FLootLockerSetMetadataResponse& Response)
+    {
+        OnCompleteBP.ExecuteIfBound(Response);
+    }), ForPlayerWithUlid);
+}
+
 // Followers (Unified with optional pagination parameters)
 FString ULootLockerManager::ListFollowersForPlayer(const FString& ForPlayerWithUlid, const FString& PlayerPublicUid, const FString& Cursor, int32 Count, const FLootLockerListFollowersResponseBP& OnResponseCompletedBP)
 {

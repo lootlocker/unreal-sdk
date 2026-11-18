@@ -3,6 +3,7 @@
 #include <future>
 
 #include "LootLockerSDKManager.h"
+#include "GameAPI/LootLockerMetadataRequestHandler.h"
 #include "GameAPI/LootLockerPlaytestsRequestHandler.h"
 #include "Misc/AutomationTest.h"
 #include "Tests/AutomationCommon.h"
@@ -56,7 +57,7 @@ void FTestLootLockerPlaytests::Define()
 			const auto Response = test_util::WaitAndGet(Promise, 30);
 			TestTrue("GetPlaytestOnboardingStatus succeeded", Response.success);
 			TestFalse("Onboarding is not completed yet", Response.completed);
-			TestTrue("completed_at is empty when not completed", Response.completed_at.IsEmpty());
+			TestEqual("completed_at is unset when not completed", Response.completed_at, FDateTime(0));
 			TestEqual("No acknowledged documents", Response.documents.Num(), 0);
 			TestEqual("No stored answers", Response.answers.Num(), 0);
 
@@ -108,7 +109,7 @@ void FTestLootLockerPlaytests::Define()
 			const auto Response = test_util::WaitAndGet(Promise, 30);
 			TestTrue("CompletePlaytestOnboarding succeeded", Response.success);
 			TestTrue("Onboarding is complete", Response.complete);
-			TestFalse("completed_at is set", Response.completed_at.IsEmpty());
+			TestNotEqual("completed_at is set", Response.completed_at, FDateTime(0));
 			TestEqual("Completed playtest id matches", Response.playtest_id, PlaytestId);
 
 			TestDone.Execute();
@@ -150,6 +151,36 @@ void FTestLootLockerPlaytests::Define()
 					TestEqual("Acknowledged statement id matches", Response.documents[0].statement_ids[0], StatementId);
 				}
 			}
+
+			TestDone.Execute();
+		});
+
+		LatentIt("SubmitAnswersThenCompleteOnboarding_Succeeds", EAsyncExecution::ThreadPool, [this](const FDoneDelegate TestDone)
+		{
+			if (!Game.IsValid()) { AddError(TEXT("Game setup failed")); TestDone.Execute(); return; }
+
+			// The required question comes from a linked survey.
+			if (!Game.CreateAndLinkPlaytestSurvey(PlaytestId, TEXT("CI Playtest Survey"), TEXT("ci_playtest_answer")))
+			{
+				AddError(TEXT("Failed to create and link the playtest survey"));
+				TestDone.Execute();
+				return;
+			}
+
+			{
+				TMap<FString, FString> Answers;
+				Answers.Add(TEXT("ci_playtest_answer"), TEXT("From a friend"));
+				const auto [Promise, Delegate] = test_util::CreateDelegate<FLootLockerSetMetadataResponse, FLootLockerSetMetadataResponseDelegate>();
+				ULootLockerSDKManager::SubmitPlaytestAnswers(Answers, Delegate);
+				const auto Response = test_util::WaitAndGet(Promise, 30);
+				TestTrue("SubmitPlaytestAnswers succeeded", Response.success);
+			}
+
+			const auto [Promise, Delegate] = test_util::CreateDelegate<FLootLockerCompletePlaytestOnboardingResponse, FLootLockerCompletePlaytestOnboardingResponseDelegate>();
+			ULootLockerSDKManager::CompletePlaytestOnboarding(PlaytestSubdomain, Delegate);
+			const auto Response = test_util::WaitAndGet(Promise, 30);
+			TestTrue("Completion succeeds once the required answer is stored", Response.success);
+			TestTrue("Onboarding is complete", Response.complete);
 
 			TestDone.Execute();
 		});

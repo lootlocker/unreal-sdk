@@ -623,6 +623,66 @@ bool FLootLockerTestGame::CreatePlaytestDocument(const FString& PlaytestId, cons
 	return true;
 }
 
+bool FLootLockerTestGame::CreateAndLinkPlaytestSurvey(const FString& PlaytestId, const FString& Name, const FString& MetadataKey)
+{
+	TSharedRef<FJsonObject> Question = MakeShared<FJsonObject>();
+	Question->SetStringField(TEXT("question_text"), TEXT("How did you hear about us?"));
+	Question->SetStringField(TEXT("metadata_key"), MetadataKey);
+	Question->SetStringField(TEXT("field_type"), TEXT("short_text"));
+	Question->SetBoolField(TEXT("required"), true);
+	Question->SetNumberField(TEXT("sort_order"), 0);
+
+	TArray<TSharedPtr<FJsonValue>> Questions;
+	Questions.Add(MakeShared<FJsonValueObject>(Question));
+
+	TSharedRef<FJsonObject> SurveyBody = MakeShared<FJsonObject>();
+	SurveyBody->SetStringField(TEXT("name"), Name);
+	SurveyBody->SetBoolField(TEXT("standalone"), true);
+	SurveyBody->SetArrayField(TEXT("questions"), Questions);
+
+	const FLootLockerAdminResponse CreateResponse =
+		FLootLockerAdminRequest::Send(
+			TEXT("game/#GAMEID#/surveys/v1"), TEXT("POST"), SerializeJson(SurveyBody));
+
+	if (!CreateResponse.bSuccess)
+	{
+		UE_LOG(LogTemp, Error, TEXT("LootLockerTestGame: CreateAndLinkPlaytestSurvey create '%s' failed (%d): %s"),
+			*Name, CreateResponse.StatusCode, *CreateResponse.Body);
+		return false;
+	}
+
+	FString SurveyId;
+	TSharedPtr<FJsonObject> Created = ParseJson(CreateResponse.Body);
+	if (Created.IsValid())
+	{
+		Created->TryGetStringField(TEXT("id"), SurveyId);
+	}
+	if (SurveyId.IsEmpty())
+	{
+		UE_LOG(LogTemp, Error, TEXT("LootLockerTestGame: CreateAndLinkPlaytestSurvey response missing survey.id"));
+		return false;
+	}
+
+	// Link the survey to the playtest; name is required by the update endpoint.
+	TSharedRef<FJsonObject> UpdateBody = MakeShared<FJsonObject>();
+	UpdateBody->SetStringField(TEXT("name"), TEXT("CI Playtest"));
+	UpdateBody->SetStringField(TEXT("survey_id"), SurveyId);
+
+	const FLootLockerAdminResponse UpdateResponse =
+		FLootLockerAdminRequest::Send(
+			FString::Printf(TEXT("game/#GAMEID#/playtests/%s"), *PlaytestId),
+			TEXT("PATCH"), SerializeJson(UpdateBody));
+
+	if (!UpdateResponse.bSuccess)
+	{
+		UE_LOG(LogTemp, Error, TEXT("LootLockerTestGame: CreateAndLinkPlaytestSurvey link failed (%d): %s"),
+			UpdateResponse.StatusCode, *UpdateResponse.Body);
+		return false;
+	}
+
+	return true;
+}
+
 bool FLootLockerTestGame::CreateBroadcast(
 	const FString& Name, const FString& Headline, const FString& Body, FString& OutBroadcastId)
 {
