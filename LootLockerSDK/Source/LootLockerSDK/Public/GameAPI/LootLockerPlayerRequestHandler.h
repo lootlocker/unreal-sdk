@@ -129,9 +129,9 @@ struct FLootLockerDlcCheckEntry
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
 	FString dlc_identifier = "";
 
-	/** The platform the DLC was granted for. */
+	/** The platform the DLC was granted for. Only Steam and Meta support DLC checks. */
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-	FString platform = "";
+	ELootLockerPlatform platform = ELootLockerPlatform::None;
 
 	/** The ULID of the active DLC entitlement granting this DLC. */
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
