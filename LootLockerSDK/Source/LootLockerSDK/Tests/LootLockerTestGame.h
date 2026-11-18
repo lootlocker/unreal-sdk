@@ -169,6 +169,15 @@ struct FLootLockerTestGame
 	bool CreatePlaytestDocument(const FString& PlaytestId, const FString& Name, const FString& Content, bool bRequired, const TArray<FString>& StatementIds, FString& OutDocumentId);
 
 	/**
+	 * Create a standalone survey with a single required question and link it to a playtest.
+	 * A playtest's onboarding questions come from its linked survey.
+	 * @param PlaytestId   The playtest ULID to link the survey to.
+	 * @param Name         The survey name.
+	 * @param MetadataKey  The player metadata key the answer is stored under.
+	 */
+	bool CreateAndLinkPlaytestSurvey(const FString& PlaytestId, const FString& Name, const FString& MetadataKey);
+
+	/**
 	 * Create a broadcast visible to this game.
 	 * The broadcast is published immediately (start = now, no end).
 	 * @param Name         Internal broadcast name.

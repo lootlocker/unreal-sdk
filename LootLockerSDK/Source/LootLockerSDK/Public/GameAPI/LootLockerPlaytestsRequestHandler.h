@@ -6,6 +6,7 @@
 #include "CoreMinimal.h"
 #include "LootLockerResponse.h"
 #include "LootLockerPlayerData.h"
+#include "GameAPI/LootLockerMetadataRequestHandler.h"
 #include "LootLockerPlaytestsRequestHandler.generated.h"
 
 //==================================================
@@ -61,7 +62,7 @@ struct FLootLockerPlaytestAcknowledgedDocument
      * When the document was acknowledged.
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString acknowledged_at = "";
+    FDateTime acknowledged_at = FDateTime(0);
 };
 
 /**
@@ -101,10 +102,11 @@ struct FLootLockerPlaytestOnboardingStatusResponse : public FLootLockerResponse
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     bool completed = false;
     /**
-     * When the player completed onboarding. Empty until the player completes it.
+     * When the player completed onboarding.
+     * Default (FDateTime(0)) until the player completes it.
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString completed_at = "";
+    FDateTime completed_at = FDateTime(0);
     /**
      * The documents the player has acknowledged.
      */
@@ -125,7 +127,8 @@ struct FLootLockerCompletePlaytestOnboardingResponse : public FLootLockerRespons
 {
     GENERATED_BODY()
     /**
-     * Whether onboarding is now complete.
+     * Whether onboarding is now complete. A successful response always reports true;
+     * failures (for example an unacknowledged required document) are returned as an error response instead.
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     bool complete = false;
@@ -133,7 +136,7 @@ struct FLootLockerCompletePlaytestOnboardingResponse : public FLootLockerRespons
      * When onboarding was completed.
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString completed_at = "";
+    FDateTime completed_at = FDateTime(0);
     /**
      * The ULID of the playtest that was completed.
      */
@@ -193,4 +196,12 @@ public:
     static FString GetOnboardingStatus(const FLootLockerPlayerData& PlayerData, const FString& Subdomain, const FLootLockerPlaytestOnboardingStatusResponseDelegate& OnComplete);
     static FString CompleteOnboarding(const FLootLockerPlayerData& PlayerData, const FString& Subdomain, const FLootLockerCompletePlaytestOnboardingResponseDelegate& OnComplete);
     static FString AcknowledgeDocument(const FLootLockerPlayerData& PlayerData, const FString& Subdomain, const FString& DocumentId, const FLootLockerAcknowledgePlaytestDocumentRequest& Request, const FLootLockerAcknowledgePlaytestDocumentResponseDelegate& OnComplete);
+
+    /**
+     * Submit answers to a playtest for the current player.
+     *
+     * Playtest answers are stored as player metadata, so this writes each answer to the player's own metadata
+     * under the question's metadata_key. Call CompleteOnboarding afterwards to record the completion.
+     */
+    static FString SubmitAnswers(const FLootLockerPlayerData& PlayerData, const TMap<FString, FString>& AnswersByMetadataKey, const FLootLockerSetMetadataResponseDelegate& OnComplete);
 };

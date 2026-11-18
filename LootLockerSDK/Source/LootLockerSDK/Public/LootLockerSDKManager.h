@@ -4248,6 +4248,19 @@ public:
      */
     static FString AcknowledgePlaytestDocument(const FString& Subdomain, const FString& DocumentId, const FLootLockerAcknowledgePlaytestDocumentRequest& Request, const FLootLockerAcknowledgePlaytestDocumentResponseDelegate& OnComplete, const FString& ForPlayerWithUlid = "");
 
+    /**
+     Submit answers to a playtest for the current player.
+
+     Playtest answers are stored as player metadata, so this writes each answer to the player's own metadata
+     under the question's metadata_key. Call CompletePlaytestOnboarding afterwards to record the completion.
+
+     @param AnswersByMetadataKey Answer values keyed by the question's metadata_key
+     @param OnComplete Delegate for handling the server response
+     @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
+     */
+    static FString SubmitPlaytestAnswers(const TMap<FString, FString>& AnswersByMetadataKey, const FLootLockerSetMetadataResponseDelegate& OnComplete, const FString& ForPlayerWithUlid = "");
+
     /// @}
 
     //==================================================
