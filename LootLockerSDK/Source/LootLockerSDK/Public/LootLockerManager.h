@@ -503,6 +503,7 @@ DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerPlaytestOnboardingStatusResponseBP,
 DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerCompletePlaytestOnboardingResponseBP, FLootLockerCompletePlaytestOnboardingResponse, Response);
 /** Blueprint response delegate for acknowledging a playtest document */
 DECLARE_DYNAMIC_DELEGATE_OneParam(FLootLockerAcknowledgePlaytestDocumentResponseBP, FLootLockerAcknowledgePlaytestDocumentResponse, Response);
+// Submitting playtest answers reuses FLootLockerSetMetadataResponseBP, declared with the metadata delegates.
 
 //==================================================
 // Presence Delegates
@@ -4677,6 +4678,20 @@ public:
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Playtests", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static UPARAM(DisplayName = "RequestId") FString AcknowledgePlaytestDocument(const FString& Subdomain, const FString& DocumentId, const FLootLockerAcknowledgePlaytestDocumentRequest& Request, const FLootLockerAcknowledgePlaytestDocumentResponseBP& OnCompleteBP, const FString& ForPlayerWithUlid);
+
+    /**
+     Submit answers to a playtest for the current player.
+
+     Playtest answers are stored as player metadata, so this writes each answer to the player's own metadata
+     under the question's metadata_key. Call CompletePlaytestOnboarding afterwards to record the completion.
+
+     @param AnswersByMetadataKey Answer values keyed by the question's metadata_key
+     @param OnCompleteBP Delegate for handling the server response
+     @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied the default player is used
+     @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
+    */
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Playtests", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
+    static UPARAM(DisplayName = "RequestId") FString SubmitPlaytestAnswers(const TMap<FString, FString>& AnswersByMetadataKey, const FLootLockerSetMetadataResponseBP& OnCompleteBP, const FString& ForPlayerWithUlid);
 
     //==================================================
     // Presence
