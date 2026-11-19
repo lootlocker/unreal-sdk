@@ -100,9 +100,60 @@ void ULootLockerIdentityRequestHandler::ParseLinkConflict(FLootLockerIdentityLin
     }
 }
 
+void ULootLockerIdentityRequestHandler::MarkProvidersPresent(FLootLockerIdentityResponse& Response)
+{
+    // FJsonObjectConverter cannot tell an absent key from an empty array, so the flag is resolved from the raw
+    // body. Lookup and merge omit providers entirely; GetIdentity always sends it.
+    if (Response.FullTextFromServer.IsEmpty())
+    {
+        return;
+    }
+
+    const TSharedPtr<FJsonObject> JsonObject = LootLockerUtilities::JsonObjectFromFString(Response.FullTextFromServer);
+    if (!JsonObject.IsValid())
+    {
+        return;
+    }
+
+    const TSharedPtr<FJsonValue>* ProvidersValue = JsonObject->Values.Find(TEXT("providers"));
+    Response.has_providers = ProvidersValue != nullptr && (*ProvidersValue).IsValid() && (*ProvidersValue)->Type == EJson::Array;
+}
+
+FString ULootLockerIdentityRequestHandler::GetProviderCredentialId(const FLootLockerIdentityResponse& Identity, ELootLockerIdentityProvider Provider)
+{
+    // The backend stores whatever slug the client sent, and accepts the aliases ios/android/luna as well as
+    // the canonical slugs, so a match on the canonical slug alone would miss an alias-linked credential.
+    const FString Slug = ProviderToSlug(Provider);
+
+    FString Alias;
+    switch (Provider)
+    {
+    case ELootLockerIdentityProvider::Apple_app_store:   Alias = TEXT("ios");     break;
+    case ELootLockerIdentityProvider::Google_play_store: Alias = TEXT("android"); break;
+    case ELootLockerIdentityProvider::Amazon_luna:       Alias = TEXT("luna");    break;
+    default: break;
+    }
+
+    for (const FLootLockerIdentityProviderInfo& Linked : Identity.providers)
+    {
+        if (Linked.provider == Slug || (!Alias.IsEmpty() && Linked.provider == Alias))
+        {
+            return Linked.id;
+        }
+    }
+
+    return FString();
+}
+
 FString ULootLockerIdentityRequestHandler::GetIdentity(const FLootLockerPlayerData& PlayerData, const FLootLockerIdentityResponseDelegate& OnComplete)
 {
-    return LLAPI<FLootLockerIdentityResponse>::CallAPI(LootLockerEmptyRequest, ULootLockerGameEndpoints::GetIdentityEndpoint, {}, EmptyQueryParams, PlayerData, OnComplete);
+    return LLAPI<FLootLockerIdentityResponse>::CallAPI(LootLockerEmptyRequest, ULootLockerGameEndpoints::GetIdentityEndpoint, {}, EmptyQueryParams, PlayerData, OnComplete, LLAPI<FLootLockerIdentityResponse>::FResponseInspectorCallback::CreateLambda([](FLootLockerIdentityResponse& Response)
+        {
+            if (Response.success)
+            {
+                MarkProvidersPresent(Response);
+            }
+        }));
 }
 
 FString ULootLockerIdentityRequestHandler::LookupIdentities(const FLootLockerPlayerData& PlayerData, const FLootLockerIdentityLookupRequest& Request, const FLootLockerIdentityLookupResponseDelegate& OnComplete)

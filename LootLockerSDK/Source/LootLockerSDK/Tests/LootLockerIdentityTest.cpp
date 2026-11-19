@@ -58,6 +58,97 @@ void FLootLockerIdentitySpec::Define()
         });
     });
 
+    Describe("providers", [this]()
+    {
+        It("MarkProvidersPresent sets has_providers when the payload carries the array", [this]()
+        {
+            FLootLockerIdentityResponse Response;
+            Response.success = true;
+            Response.FullTextFromServer = TEXT("{\"id\":\"01K8Q3KH8N4R2V6W3Z0P5M9XDT\",\"publisher_id\":42,\"created_at\":\"2026-10-19T20:27:03Z\",\"game_activity\":[],\"providers\":[{\"id\":\"01K9CCCCCCCCCCCCCCCCCCCCCC\",\"provider\":\"steam\",\"created_at\":\"2026-10-19T20:27:03Z\"}]}");
+
+            ULootLockerIdentityRequestHandler::MarkProvidersPresent(Response);
+
+            TestTrue("has_providers must be set", Response.has_providers);
+        });
+
+        It("MarkProvidersPresent sets has_providers for an empty array", [this]()
+        {
+            // An identity with no credentials linked answers [], which is distinguishable from absent.
+            FLootLockerIdentityResponse Response;
+            Response.success = true;
+            Response.FullTextFromServer = TEXT("{\"id\":\"01K8Q3KH8N4R2V6W3Z0P5M9XDT\",\"publisher_id\":42,\"created_at\":\"2026-10-19T20:27:03Z\",\"game_activity\":[],\"providers\":[]}");
+
+            ULootLockerIdentityRequestHandler::MarkProvidersPresent(Response);
+
+            TestTrue("has_providers must be set for an empty array", Response.has_providers);
+        });
+
+        It("MarkProvidersPresent leaves has_providers false when providers is null", [this]()
+        {
+            // Lookup and merge do not load credentials.
+            FLootLockerIdentityResponse Response;
+            Response.success = true;
+            Response.FullTextFromServer = TEXT("{\"id\":\"01K8Q3KH8N4R2V6W3Z0P5M9XDT\",\"publisher_id\":42,\"created_at\":\"2026-10-19T20:27:03Z\",\"game_activity\":[],\"providers\":null}");
+
+            ULootLockerIdentityRequestHandler::MarkProvidersPresent(Response);
+
+            TestFalse("has_providers must not be set for null", Response.has_providers);
+        });
+
+        It("MarkProvidersPresent leaves has_providers false when providers is absent", [this]()
+        {
+            FLootLockerIdentityResponse Response;
+            Response.success = true;
+            Response.FullTextFromServer = TEXT("{\"id\":\"01K8Q3KH8N4R2V6W3Z0P5M9XDT\",\"publisher_id\":42,\"created_at\":\"2026-10-19T20:27:03Z\",\"game_activity\":[]}");
+
+            ULootLockerIdentityRequestHandler::MarkProvidersPresent(Response);
+
+            TestFalse("has_providers must not be set when absent", Response.has_providers);
+        });
+
+        It("GetProviderCredentialId returns the credential id for a linked provider", [this]()
+        {
+            FLootLockerIdentityResponse Response;
+            FLootLockerIdentityProviderInfo Steam;
+            Steam.id = TEXT("01K9CCCCCCCCCCCCCCCCCCCCCC");
+            Steam.provider = TEXT("steam");
+            Response.providers.Add(Steam);
+
+            TestEqual("steam credential id",
+                ULootLockerIdentityRequestHandler::GetProviderCredentialId(Response, ELootLockerIdentityProvider::Steam),
+                TEXT("01K9CCCCCCCCCCCCCCCCCCCCCC"));
+            TestTrue("an unlinked provider has no credential id",
+                ULootLockerIdentityRequestHandler::GetProviderCredentialId(Response, ELootLockerIdentityProvider::Xbox_one).IsEmpty());
+        });
+
+        It("GetProviderCredentialId accepts a stored alias", [this]()
+        {
+            // The backend accepts the aliases ios/android/luna when linking and stores whatever the client
+            // sent, so an alias-linked credential carries the alias as its provider slug.
+            FLootLockerIdentityResponse Response;
+            FLootLockerIdentityProviderInfo Apple;
+            Apple.id = TEXT("01K9CCCCCCCCCCCCCCCCCCCCCC");
+            Apple.provider = TEXT("ios");
+            Response.providers.Add(Apple);
+
+            TestEqual("ios alias resolves to apple_app_store",
+                ULootLockerIdentityRequestHandler::GetProviderCredentialId(Response, ELootLockerIdentityProvider::Apple_app_store),
+                TEXT("01K9CCCCCCCCCCCCCCCCCCCCCC"));
+            TestTrue("an unlinked provider has no credential id",
+                ULootLockerIdentityRequestHandler::GetProviderCredentialId(Response, ELootLockerIdentityProvider::Google_play_store).IsEmpty());
+        });
+
+        It("GetProviderCredentialId returns empty when providers was not loaded", [this]()
+        {
+            FLootLockerIdentityResponse Response;
+            Response.has_providers = false;
+
+            TestEqual("no credential id when providers is absent",
+                ULootLockerIdentityRequestHandler::GetProviderCredentialId(Response, ELootLockerIdentityProvider::Steam),
+                FString());
+        });
+    });
+
     Describe("link conflict parsing", [this]()
     {
         It("a 409 populates the conflict and sets has_conflict", [this]()
