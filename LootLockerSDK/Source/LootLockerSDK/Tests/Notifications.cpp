@@ -185,6 +185,18 @@ FLootLockerNotification GenerateLootLockerNotification(const FString& notificati
             }
         };
     }
+    else if (source.Equals(LootLockerNotificationsStaticStrings::NotificationSources::Referral, ESearchCase::IgnoreCase))
+    {
+        // Referral notifications carry the grant summary as context, which has no per-referral key, so the
+        // notification type is the identifying value.
+        context = TArray<FLootLockerNotificationContextEntry>
+        {
+            FLootLockerNotificationContextEntry {
+                "currencies",
+                FGuid::NewGuid().ToString()
+            }
+        };
+    }
     auto contentRewardBody = FLootLockerNotificationContentRewardBody{
         /*Kind*/
         ELootLockerNotificationContentRewardKind::currency,
@@ -294,6 +306,7 @@ void FTestLootLockerNotifications::Define()
             FString rewardCampaignNotification1Id = FGuid::NewGuid().ToString();
             FString RewardsGrantIdentifyingValue = "item_template_id";
             FString rewardsGrantNotification1Id = FGuid::NewGuid().ToString();
+            FString referralNotification1Id = FGuid::NewGuid().ToString();
             FString unknownSourceNotification1Id = FGuid::NewGuid().ToString();
 
             FLootLockerListNotificationsResponse fakeResponse;
@@ -315,10 +328,11 @@ void FTestLootLockerNotifications::Define()
                 GenerateLootLockerNotification(leaderboardRewardNotification1Id, LootLockerNotificationsStaticStrings::NotificationSources::LeaderboardReward, LeaderboardRewardIdentifyingValue),
                 GenerateLootLockerNotification(rewardCampaignNotification1Id, LootLockerNotificationsStaticStrings::NotificationSources::RewardCampaign, RewardCampaignIdentifyingValue),
                 GenerateLootLockerNotification(rewardsGrantNotification1Id, LootLockerNotificationsStaticStrings::NotificationSources::RewardsGrant, RewardsGrantIdentifyingValue),
+                GenerateLootLockerNotification(referralNotification1Id, LootLockerNotificationsStaticStrings::NotificationSources::Referral, LootLockerNotificationsStaticStrings::NotificationTypes::PullRewardAcquired),
                 GenerateLootLockerNotification(unknownSourceNotification1Id, "some.future_source", "some_identifying_value")
             };
             fakeResponse.Pagination = FLootLockerExtendedIndexBasedPagination{
-                14,
+                15,
                 0,
                 100,
                 1,
@@ -363,6 +377,9 @@ void FTestLootLockerNotifications::Define()
 
             TArray<FLootLockerNotification> rewardsGrantNotifications;
             bool rewardsGrantLookupSucceeded = fakeResponse.TryGetNotificationsByIdentifyingValue(RewardsGrantIdentifyingValue, rewardsGrantNotifications);
+
+            TArray<FLootLockerNotification> referralNotifications;
+            bool referralLookupSucceeded = fakeResponse.TryGetNotificationsByIdentifyingValue(LootLockerNotificationsStaticStrings::NotificationTypes::PullRewardAcquired, referralNotifications);
 
             // Then
 
@@ -422,6 +439,14 @@ void FTestLootLockerNotifications::Define()
             TestTrue("Rewards grant notification lookup array was empty", rewardsGrantNotifications.Num() > 0);
             TestEqual("The retrieved rewards grant notification id was not as expected", rewardsGrantNotifications[0].Id, rewardsGrantNotification1Id);
             TestTrue("The rewards grant notification source enum was not as expected", rewardsGrantNotifications[0].SourceEnum == ELootLockerNotificationSource::rewards_grant);
+
+            TestTrue("Referral notification lookup failed", referralLookupSucceeded);
+            const FLootLockerNotification* referralNotification = fakeResponse.Notifications.FindByPredicate([&referralNotification1Id](const FLootLockerNotification& Notification) { return Notification.Id == referralNotification1Id; });
+            TestNotNull("The referral notification was not found in the response", referralNotification);
+            if (referralNotification != nullptr)
+            {
+                TestTrue("The referral notification source enum was not as expected", referralNotification->SourceEnum == ELootLockerNotificationSource::referral);
+            }
 
             const FLootLockerNotification* unknownSourceNotification = fakeResponse.Notifications.FindByPredicate([&unknownSourceNotification1Id](const FLootLockerNotification& Notification) { return Notification.Id == unknownSourceNotification1Id; });
             TestNotNull("The unknown source notification was not found in the response", unknownSourceNotification);
