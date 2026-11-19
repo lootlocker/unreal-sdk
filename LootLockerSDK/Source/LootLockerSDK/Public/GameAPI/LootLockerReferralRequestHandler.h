@@ -8,6 +8,39 @@
 #include "LootLockerReferralRequestHandler.generated.h"
 
 //==================================================
+// Enum Definitions
+//==================================================
+
+/// @addtogroup Referrals
+/// @{
+/**
+ * The action that turns a claimed referral into a payout.
+ */
+UENUM(BlueprintType, Category = "LootLocker")
+enum class ELootLockerReferralQualifier : uint8
+{
+    session_started = 0,
+    entitlement_owned = 1,
+    game_asserted = 2,
+    publisher_currency_earned = 3,
+};
+/// @}
+
+/// @addtogroup Referrals
+/// @{
+/**
+ * The state of a referral relation.
+ */
+UENUM(BlueprintType, Category = "LootLocker")
+enum class ELootLockerReferralStatus : uint8
+{
+    claimed = 0,
+    qualified = 1,
+    Void = 2,
+};
+/// @}
+
+//==================================================
 // Data Definitions
 //==================================================
 
@@ -28,9 +61,9 @@ struct FLootLockerReferralProgram
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FString name = "";
 
-    /** The action that turns a claimed referral into a payout: session_started, entitlement_owned, game_asserted or publisher_currency_earned. */
+    /** The action that turns a claimed referral into a payout. */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString qualifier = "";
+    ELootLockerReferralQualifier qualifier = ELootLockerReferralQualifier::session_started;
 
     /** How many rewarded referrals the player has made under this program. */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
@@ -70,17 +103,25 @@ struct FLootLockerReferral
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FString referee_public_uid = "";
 
-    /** The state of the referral: claimed (pending the qualifying action), qualified (rewarded) or void (voided). */
+    /** The state of the referral. */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString status = "";
+    ELootLockerReferralStatus status = ELootLockerReferralStatus::claimed;
 
     /** When the referral was claimed. */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString claimed_at = "";
+    FDateTime claimed_at = FDateTime(0);
 
-    /** When the referral qualified. Empty while it is still pending. */
+    /** When the referral qualified. Only meaningful when HasQualifiedAt is true. */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    FString qualified_at = "";
+    FDateTime qualified_at = FDateTime(0);
+
+    /** True when the referral has qualified and Qualified_at holds the time. False while it is still pending. */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    bool HasQualifiedAt = false;
+
+    /** True when the referee's game-player row still exists, in which case Referee_public_uid holds their UID. */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    bool HasRefereePublicUid = false;
 };
 
 //==================================================
@@ -103,6 +144,12 @@ struct FLootLockerReferralInviteResponse : public FLootLockerResponse
     /** The game's active referral programs, each with the player's progress against its cap. */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     TArray<FLootLockerReferralProgram> programs;
+
+    /**
+     Populate the convenience structures that FJsonObjectConverter cannot derive on its own, notably
+     HasReferrerCap, which distinguishes an uncapped program from one capped at zero.
+     */
+    void PopulateConvenienceStructures();
 };
 
 /**
@@ -121,6 +168,12 @@ struct FLootLockerReferralListResponse : public FLootLockerResponse
     /** Pagination information for the referrals. */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FLootLockerExtendedIndexBasedPagination pagination;
+
+    /**
+     Populate the convenience structures that FJsonObjectConverter cannot derive on its own, notably the
+     status and qualifier enums and the nullable qualified_at and referee_public_uid.
+     */
+    void PopulateConvenienceStructures();
 };
 
 //==================================================

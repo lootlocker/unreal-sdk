@@ -3,58 +3,87 @@
 #include "GameAPI/LootLockerReferralRequestHandler.h"
 
 #include "LootLockerGameEndpoints.h"
+#include "LootLockerLogger.h"
 #include "Utils/LootLockerUtilities.h"
 
 namespace
 {
-    // Builds the page/per_page query map shared by the referral list. Both are only sent when positive,
-    // so the server applies its own defaults.
-    TMultiMap<FString, FString> MakePageQueryParams(int32 Page, int32 PerPage)
+    // FJsonObjectConverter skips a JSON null entirely, leaving the struct member at its default. That makes
+    // an absent value indistinguishable from a real one, so these flags record which keys actually carried a
+    // value. Non-null values are converted by FJsonObjectConverter itself.
+    bool HasNonNullField(const TSharedPtr<FJsonObject>& JsonObject, const FString& FieldName)
     {
-        TMultiMap<FString, FString> QueryParams;
-        if (Page > 0) { QueryParams.Add("page", FString::FromInt(Page)); }
-        if (PerPage > 0) { QueryParams.Add("per_page", FString::FromInt(PerPage)); }
-        return QueryParams;
-    }
-
-    // FJsonObjectConverter only fills a struct field when the JSON key is present, so a null referrer_cap
-    // leaves the member defaulted. This flag records which programs actually carried a cap.
-    void MarkReferrerCaps(FLootLockerReferralInviteResponse& Response)
-    {
-        if (Response.FullTextFromServer.IsEmpty())
-        {
-            return;
-        }
-
-        const TSharedPtr<FJsonObject> JsonObject = LootLockerUtilities::JsonObjectFromFString(Response.FullTextFromServer);
         if (!JsonObject.IsValid())
         {
-            return;
+            return false;
         }
 
-        const TArray<TSharedPtr<FJsonValue>>* ProgramsJson = nullptr;
-        if (!JsonObject->TryGetArrayField(TEXT("programs"), ProgramsJson) || ProgramsJson == nullptr)
+        const TSharedPtr<FJsonValue>* Value = JsonObject->Values.Find(FieldName);
+        return Value != nullptr && (*Value).IsValid() && (*Value)->Type != EJson::Null;
+    }
+
+    // Collects the objects of a top-level array field, or an empty array when the key is absent.
+    TArray<TSharedPtr<FJsonObject>> GetObjectArrayField(const TSharedPtr<FJsonObject>& JsonObject, const FString& FieldName)
+    {
+        TArray<TSharedPtr<FJsonObject>> Objects;
+        const TArray<TSharedPtr<FJsonValue>>* Values = nullptr;
+        if (!JsonObject.IsValid() || !JsonObject->TryGetArrayField(FieldName, Values) || Values == nullptr)
         {
-            return;
+            return Objects;
         }
 
-        const int32 ProgramCount = FMath::Min(ProgramsJson->Num(), Response.programs.Num());
-        for (int32 ProgramIndex = 0; ProgramIndex < ProgramCount; ++ProgramIndex)
+        for (const TSharedPtr<FJsonValue>& Value : *Values)
         {
-            if (!(*ProgramsJson)[ProgramIndex].IsValid())
+            const TSharedPtr<FJsonObject>* Object = nullptr;
+            if (Value.IsValid() && Value->TryGetObject(Object) && Object != nullptr)
             {
-                continue;
+                Objects.Add(*Object);
             }
-
-            const TSharedPtr<FJsonObject>* ProgramObject = nullptr;
-            if (!(*ProgramsJson)[ProgramIndex]->TryGetObject(ProgramObject) || ProgramObject == nullptr)
-            {
-                continue;
-            }
-
-            const TSharedPtr<FJsonValue>* CapValue = (*ProgramObject)->Values.Find(TEXT("referrer_cap"));
-            Response.programs[ProgramIndex].HasReferrerCap = CapValue != nullptr && (*CapValue).IsValid() && (*CapValue)->Type != EJson::Null;
         }
+        return Objects;
+    }
+}
+
+void FLootLockerReferralInviteResponse::PopulateConvenienceStructures()
+{
+    const TSharedPtr<FJsonObject> ResponseAsJson = LootLockerUtilities::JsonObjectFromFString(FullTextFromServer);
+    if (!ResponseAsJson.IsValid())
+    {
+        return;
+    }
+
+    const TArray<TSharedPtr<FJsonObject>> ProgramsJson = GetObjectArrayField(ResponseAsJson, TEXT("programs"));
+    if (ProgramsJson.Num() != programs.Num())
+    {
+        FLootLockerLogger::LogWarning("Failed to properly parse referral invite programs");
+        return;
+    }
+
+    for (int32 Index = 0; Index < programs.Num(); ++Index)
+    {
+        programs[Index].HasReferrerCap = HasNonNullField(ProgramsJson[Index], TEXT("referrer_cap"));
+    }
+}
+
+void FLootLockerReferralListResponse::PopulateConvenienceStructures()
+{
+    const TSharedPtr<FJsonObject> ResponseAsJson = LootLockerUtilities::JsonObjectFromFString(FullTextFromServer);
+    if (!ResponseAsJson.IsValid())
+    {
+        return;
+    }
+
+    const TArray<TSharedPtr<FJsonObject>> ReferralsJson = GetObjectArrayField(ResponseAsJson, TEXT("referrals"));
+    if (ReferralsJson.Num() != referrals.Num())
+    {
+        FLootLockerLogger::LogWarning("Failed to properly parse referrals");
+        return;
+    }
+
+    for (int32 Index = 0; Index < referrals.Num(); ++Index)
+    {
+        referrals[Index].HasRefereePublicUid = HasNonNullField(ReferralsJson[Index], TEXT("referee_public_uid"));
+        referrals[Index].HasQualifiedAt = HasNonNullField(ReferralsJson[Index], TEXT("qualified_at"));
     }
 }
 
@@ -64,12 +93,22 @@ FString ULLReferralRequestHandler::GetInvite(const FLootLockerPlayerData& Player
         {
             if (Response.success)
             {
-                MarkReferrerCaps(Response);
+                Response.PopulateConvenienceStructures();
             }
         }));
 }
 
 FString ULLReferralRequestHandler::ListMyReferrals(const FLootLockerPlayerData& PlayerData, int32 Page, int32 PerPage, const FLootLockerReferralListResponseDelegate& OnCompletedRequest)
 {
-    return LLAPI<FLootLockerReferralListResponse>::CallAPI(LootLockerEmptyRequest, ULootLockerGameEndpoints::ListMyReferralsEndpoint, { }, MakePageQueryParams(Page, PerPage), PlayerData, OnCompletedRequest);
+    TMultiMap<FString, FString> QueryParams;
+    if (Page > 0) { QueryParams.Add("page", FString::FromInt(Page)); }
+    if (PerPage > 0) { QueryParams.Add("per_page", FString::FromInt(PerPage)); }
+
+    return LLAPI<FLootLockerReferralListResponse>::CallAPI(LootLockerEmptyRequest, ULootLockerGameEndpoints::ListMyReferralsEndpoint, { }, QueryParams, PlayerData, OnCompletedRequest, LLAPI<FLootLockerReferralListResponse>::FResponseInspectorCallback::CreateLambda([](FLootLockerReferralListResponse& Response)
+        {
+            if (Response.success)
+            {
+                Response.PopulateConvenienceStructures();
+            }
+        }));
 }
