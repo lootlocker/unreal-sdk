@@ -16,7 +16,7 @@
 /// @{
 /**
  * Request to acknowledge a playtest document. Send every statement id in the document.
- * Omit the request entirely for documents that have no statements.
+ * Leave statement_ids empty for documents that have no statements.
  */
 USTRUCT(BlueprintType, Category = "LootLocker")
 struct FLootLockerAcknowledgePlaytestDocumentRequest

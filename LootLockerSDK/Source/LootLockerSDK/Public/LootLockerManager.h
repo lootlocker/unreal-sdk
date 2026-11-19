@@ -4676,7 +4676,7 @@ public:
      @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied the default player is used
      @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
     */
-    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Playtests", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
+    UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Playtests", meta = (AdvancedDisplay = "ForPlayerWithUlid,Request", ForPlayerWithUlid="", AutoCreateRefTerm = "Request"))
     static UPARAM(DisplayName = "RequestId") FString AcknowledgePlaytestDocument(const FString& Subdomain, const FString& DocumentId, const FLootLockerAcknowledgePlaytestDocumentRequest& Request, const FLootLockerAcknowledgePlaytestDocumentResponseBP& OnCompleteBP, const FString& ForPlayerWithUlid);
 
     /**
