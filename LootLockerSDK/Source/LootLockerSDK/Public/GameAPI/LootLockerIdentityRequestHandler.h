@@ -72,6 +72,32 @@ struct FLootLockerIdentityGameActivity
 };
 
 /**
+ * A provider credential linked to an identity.
+ *
+ * The enumerator-free `provider` string is the slug the backend stored. Its `id` is the value to pass to
+ * UnlinkProvider. The provider's own user identifier is deliberately not returned: identity-scoped reads
+ * span every game the identity has played, so exposing it would leak account identifiers from credentials
+ * linked through other games.
+ */
+USTRUCT(BlueprintType, Category = "LootLocker")
+struct FLootLockerIdentityProviderInfo
+{
+    GENERATED_BODY()
+
+    /** The ULID of the platform credential. Pass this to UnlinkProvider. */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FString id = "";
+
+    /** The provider slug, for example "steam", "psn" or "xbox_one". */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FString provider = "";
+
+    /** When the credential was linked to the identity. */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FString created_at = "";
+};
+
+/**
  * One game in which both identities being merged have a live player, and therefore needs a choice of
  * which player to keep.
  */
@@ -233,6 +259,20 @@ struct FLootLockerIdentityResponse : public FLootLockerResponse
     /** The games this identity has been active in. */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     TArray<FLootLockerIdentityGameActivity> game_activity;
+
+    /**
+     * The provider credentials linked to this identity.
+     *
+     * Only GetIdentity loads these. Lookup and merge share this shape but have no reason to carry them, so
+     * expect HasProviders to be false there, which is distinguishable from an identity with no credentials
+     * linked (HasProviders true, empty array).
+     */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    TArray<FLootLockerIdentityProviderInfo> providers;
+
+    /** Whether providers was present in the payload, because an empty array cannot be told from absent. */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    bool has_providers = false;
 };
 
 /**
@@ -340,6 +380,19 @@ struct FLootLockerIdentityMergeResponse : public FLootLockerResponse
     /** The games the surviving identity has been active in. */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     TArray<FLootLockerIdentityGameActivity> game_activity;
+
+    /**
+     * The provider credentials linked to the surviving identity.
+     *
+     * Merge does not load these, so HasProviders is false. Call GetIdentity after a merge if the caller needs
+     * the current credential list.
+     */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    TArray<FLootLockerIdentityProviderInfo> providers;
+
+    /** Whether providers was present in the payload. False for merge, which does not load credentials. */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    bool has_providers = false;
 };
 
 //==================================================
@@ -388,4 +441,15 @@ public:
      * Parses the 409 merge offer onto the response. Exposed so the conflict path can be asserted in tests.
      */
     static void ParseLinkConflict(FLootLockerIdentityLinkResponse& Response);
+
+    /**
+     * Sets has_providers when the payload carried a providers array. FJsonObjectConverter cannot tell an
+     * absent key from an empty array, so the flag is resolved from the raw body.
+     *
+     * Exposed so the flag can be asserted in tests.
+     */
+    static void MarkProvidersPresent(FLootLockerIdentityResponse& Response);
+
+    /** The credential id for a provider, or an empty string when no credential for it is linked. */
+    static FString GetProviderCredentialId(const FLootLockerIdentityResponse& Identity, ELootLockerIdentityProvider Provider);
 };
