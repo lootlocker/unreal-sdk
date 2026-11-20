@@ -1974,9 +1974,9 @@ FString ULootLockerSDKManager::AcknowledgePlaytestDocument(const FString& Subdom
     return ULootLockerPlaytestsRequestHandler::AcknowledgeDocument(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), Subdomain, DocumentId, Request, OnComplete);
 }
 
-FString ULootLockerSDKManager::SubmitPlaytestAnswers(const TMap<FString, FString>& AnswersByMetadataKey, const FLootLockerSetMetadataResponseDelegate& OnComplete, const FString& ForPlayerWithUlid /* = "" */)
+FString ULootLockerSDKManager::SubmitPlaytestAnswers(const TArray<FLootLockerPlaytestAnswerSubmission>& Answers, const FLootLockerSetMetadataResponseDelegate& OnComplete, const FString& ForPlayerWithUlid /* = "" */)
 {
-    return ULootLockerPlaytestsRequestHandler::SubmitAnswers(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), AnswersByMetadataKey, OnComplete);
+    return ULootLockerPlaytestsRequestHandler::SubmitAnswers(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), Answers, OnComplete);
 }
 
 // ========================================================================

@@ -168,8 +168,8 @@ void FTestLootLockerPlaytests::Define()
 			}
 
 			{
-				TMap<FString, FString> Answers;
-				Answers.Add(TEXT("ci_playtest_answer"), TEXT("From a friend"));
+				TArray<FLootLockerPlaytestAnswerSubmission> Answers;
+				Answers.Add(FLootLockerPlaytestAnswerSubmission::FromText(TEXT("ci_playtest_answer"), TEXT("From a friend")));
 				const auto [Promise, Delegate] = test_util::CreateDelegate<FLootLockerSetMetadataResponse, FLootLockerSetMetadataResponseDelegate>();
 				ULootLockerSDKManager::SubmitPlaytestAnswers(Answers, Delegate);
 				const auto Response = test_util::WaitAndGet(Promise, 30);

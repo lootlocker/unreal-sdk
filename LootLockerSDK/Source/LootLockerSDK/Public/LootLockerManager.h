@@ -4813,14 +4813,55 @@ public:
 
      Playtest answers are stored as player metadata, so this writes each answer to the player's own metadata
      under the question's metadata_key. Call CompletePlaytestOnboarding afterwards to record the completion.
+     Build the answers with MakePlaytestTextAnswer and friends so the declared type matches the question.
 
-     @param AnswersByMetadataKey Answer values keyed by the question's metadata_key
+     @param Answers The answers to submit
      @param OnCompleteBP Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied the default player is used
      @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Playtests", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static UPARAM(DisplayName = "RequestId") FString SubmitPlaytestAnswers(const TMap<FString, FString>& AnswersByMetadataKey, const FLootLockerSetMetadataResponseBP& OnCompleteBP, const FString& ForPlayerWithUlid);
+    static UPARAM(DisplayName = "RequestId") FString SubmitPlaytestAnswers(const TArray<FLootLockerPlaytestAnswerSubmission>& Answers, const FLootLockerSetMetadataResponseBP& OnCompleteBP, const FString& ForPlayerWithUlid);
+
+    /**
+     Build a text answer for a short_text, long_text, date or select playtest question.
+
+     @param MetadataKey The question's metadata_key
+     @param Value The answer text
+     @return The answer, ready for SubmitPlaytestAnswers
+    */
+    UFUNCTION(BlueprintPure, Category = "LootLocker Methods | Playtests")
+    static FLootLockerPlaytestAnswerSubmission MakePlaytestTextAnswer(const FString& MetadataKey, const FString& Value);
+
+    /**
+     Build a number answer for a number playtest question.
+
+     @param MetadataKey The question's metadata_key
+     @param Value The answer number
+     @return The answer, ready for SubmitPlaytestAnswers
+    */
+    UFUNCTION(BlueprintPure, Category = "LootLocker Methods | Playtests")
+    static FLootLockerPlaytestAnswerSubmission MakePlaytestNumberAnswer(const FString& MetadataKey, float Value);
+
+    /**
+     Build a bool answer for a checkbox playtest question.
+
+     @param MetadataKey The question's metadata_key
+     @param Value The answer value
+     @return The answer, ready for SubmitPlaytestAnswers
+    */
+    UFUNCTION(BlueprintPure, Category = "LootLocker Methods | Playtests")
+    static FLootLockerPlaytestAnswerSubmission MakePlaytestBoolAnswer(const FString& MetadataKey, bool Value);
+
+    /**
+     Build a multi-select answer for a multiselect playtest question.
+
+     @param MetadataKey The question's metadata_key
+     @param SelectedValues The selected option values
+     @return The answer, ready for SubmitPlaytestAnswers
+    */
+    UFUNCTION(BlueprintPure, Category = "LootLocker Methods | Playtests", meta = (AutoCreateRefTerm = "SelectedValues"))
+    static FLootLockerPlaytestAnswerSubmission MakePlaytestMultiSelectAnswer(const FString& MetadataKey, const TArray<FString>& SelectedValues);
 
     //==================================================
     // Presence
