@@ -125,14 +125,12 @@ struct FLootLockerSurvey
 // Request Definitions
 //==================================================
 
-/// @addtogroup Surveys
-/// @{
 /**
  * A single answer to a survey question, submitted through SubmitSurveyAnswers.
  *
- * The value is passed as a JSON literal string and parsed according to Type, because the
- * metadata API validates the declared type: a checkbox answer must be declared Bool and sent
- * as `true`/`false`, not as the string "true".
+ * The metadata API validates the declared type against the value, so a checkbox answer must be
+ * declared Bool, a number Number, and a multiselect Json — sending everything as String is
+ * rejected. Use the Make*Answer helpers to build one without hand-formatting a JSON literal.
  */
 USTRUCT(BlueprintType, Category = "LootLocker")
 struct FLootLockerSurveyAnswer
