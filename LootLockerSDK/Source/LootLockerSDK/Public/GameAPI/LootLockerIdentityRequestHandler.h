@@ -18,27 +18,42 @@ UENUM(BlueprintType, Category = "LootLocker")
  *
  * The enumerator names are the wire values the backend accepts, so they are sent as-is. These are the
  * platform catalog slugs used by LootLocker, which are not the same catalogue as ELootLockerAccountProvider.
+ *
+ * Always send the canonical enumerator when linking. The backend accepts the aliases "ios", "android" and
+ * "luna" and stores whichever form was sent, but a stored alias resolves to Unknown because this SDK only
+ * maps canonical slugs.
  */
 enum class ELootLockerIdentityProvider : uint8
 {
-    Steam = 0,
-    Psn = 1,
-    Apple_app_store = 2,
-    Google_play_store = 3,
-    Xbox_one = 4,
-    Nintendo_switch = 5,
-    Amazon_luna = 6,
-    White_label_login = 7,
-    Guest = 8,
-    Apple_sign_in = 9,
-    Google_sign_in = 10,
-    Epic_games = 11,
-    Apple_game_center = 12,
-    Meta = 13,
-    Twitch = 14,
-    Google_play_games = 15,
-    Discord = 16,
-    Lootlocker_delegation = 17
+    /**
+     * A provider this SDK does not recognise, or one the response did not populate.
+     *
+     * Zero on purpose: an unpopulated or unparseable value must not land on a real provider.
+     */
+    Unknown = 0,
+    Steam = 1,
+    Psn = 2,
+    Apple_app_store = 3,
+    Google_play_store = 4,
+    Xbox_one = 5,
+    Nintendo_switch = 6,
+    Amazon_luna = 7,
+    White_label_login = 8,
+    Guest = 9,
+    Apple_sign_in = 10,
+    Google_sign_in = 11,
+    Epic_games = 12,
+    Apple_game_center = 13,
+    Meta = 14,
+    Lootlocker_delegation = 15,
+    Twitch = 16,
+    Google_play_games = 17,
+    Discord = 18,
+    /**
+     * A publisher account credential (email). Every identity created through publisher sign-in carries one,
+     * so it appears in the provider list. It is not linkable through the link endpoint.
+     */
+    Publisher_account = 19
 };
 /// @}
 
@@ -88,9 +103,18 @@ struct FLootLockerIdentityProviderInfo
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FString id = "";
 
-    /** The provider slug, for example "steam", "psn" or "xbox_one". */
+    /** The provider slug, for example "steam", "psn" or "xbox_one", exactly as the backend stored it. */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FString provider = "";
+
+    /**
+     * The provider this credential belongs to, resolved from Provider.
+     *
+     * Unknown when the backend reported a slug this SDK does not map. A credential linked through a platform
+     * alias ("ios", "android", "luna") also reports Unknown, because this SDK only maps canonical slugs.
+     */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    ELootLockerIdentityProvider provider_type = ELootLockerIdentityProvider::Unknown;
 
     /** When the credential was linked to the identity. */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
@@ -178,9 +202,9 @@ struct FLootLockerIdentityLinkRequest
 {
     GENERATED_BODY()
 
-    /** The provider platform the credential belongs to. */
+    /** The provider platform the credential belongs to. Must be set explicitly; Unknown is rejected. */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    ELootLockerIdentityProvider provider = ELootLockerIdentityProvider::Steam;
+    ELootLockerIdentityProvider provider = ELootLockerIdentityProvider::Unknown;
 
     /** The provider's identifier for the player, for example the Steam ID. */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
@@ -441,6 +465,12 @@ public:
      * Parses the 409 merge offer onto the response. Exposed so the conflict path can be asserted in tests.
      */
     static void ParseLinkConflict(FLootLockerIdentityLinkResponse& Response);
+
+    /**
+     * Resolves a provider slug to its enumerator, or Unknown when this SDK does not map it. Exposed so the
+     * mapping can be asserted in tests.
+     */
+    static ELootLockerIdentityProvider SlugToProvider(const FString& Slug);
 
     /**
      * Sets has_providers when the payload carried a providers array. FJsonObjectConverter cannot tell an
