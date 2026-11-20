@@ -130,11 +130,11 @@ struct FLootLockerSurvey
  *
  * The metadata API validates the declared type against the value, so a checkbox answer must be
  * declared Bool, a number Number, and a multiselect Json — sending everything as String is
- * rejected. Use the From* helpers rather than filling the fields by hand: they format the value
- * with the metadata layer so it always matches Type.
+ * rejected. Build these with MakeSurveyTextAnswer and friends rather than filling the fields by
+ * hand: they format Value to match Type.
  */
 USTRUCT(BlueprintType, Category = "LootLocker")
-struct FLootLockerSurveyAnswer
+struct LOOTLOCKERSDK_API FLootLockerSurveyAnswer
 {
     GENERATED_BODY()
     /**
@@ -143,11 +143,12 @@ struct FLootLockerSurveyAnswer
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FString Metadata_key = "";
     /**
-     * The answer value, as a JSON literal matching Type:
-     * `"some text"` (with quotes) for String, `42` for Number, `true`/`false` for Bool,
-     * and a JSON array such as `["a","b"]` for a multiselect (Json).
+     * The answer value.
      *
-     * Prefer the From* helpers below, which format this for you.
+     * For String answers this is the raw text, stored verbatim (no quoting needed).
+     * For Number, Bool and Json answers it is a JSON literal: `42`, `true`, and `["a","b"]`.
+     *
+     * Prefer MakeSurveyTextAnswer and friends, which format this for you.
      */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     FString Value = "";
@@ -160,19 +161,16 @@ struct FLootLockerSurveyAnswer
     ELootLockerMetadataTypes Type = ELootLockerMetadataTypes::String;
 
     /** Build a String answer, for short_text, long_text, date and select questions. */
-    static FLootLockerSurveyAnswer FromText(const FString& MetadataKey, const FString& Value);
+    static LOOTLOCKERSDK_API FLootLockerSurveyAnswer FromText(const FString& MetadataKey, const FString& Value);
 
     /** Build a Number answer, for number questions. */
-    static FLootLockerSurveyAnswer FromNumber(const FString& MetadataKey, double Value);
+    static LOOTLOCKERSDK_API FLootLockerSurveyAnswer FromNumber(const FString& MetadataKey, double Value);
 
     /** Build a Bool answer, for checkbox questions. */
-    static FLootLockerSurveyAnswer FromBool(const FString& MetadataKey, bool Value);
+    static LOOTLOCKERSDK_API FLootLockerSurveyAnswer FromBool(const FString& MetadataKey, bool Value);
 
     /** Build a Json answer, for multiselect questions. */
-    static FLootLockerSurveyAnswer FromMultiSelect(const FString& MetadataKey, const TArray<FString>& SelectedValues);
-
-    /** Build the metadata entry for this answer, using the metadata layer's typed factories. */
-    FLootLockerMetadataEntry MakeEntry() const;
+    static LOOTLOCKERSDK_API FLootLockerSurveyAnswer FromMultiSelect(const FString& MetadataKey, const TArray<FString>& SelectedValues);
 };
 /// @}
 
