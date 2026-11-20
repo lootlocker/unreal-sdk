@@ -136,8 +136,9 @@ struct FLootLockerTestGame
 	 * @param Name         The survey name.
 	 * @param MetadataKey  The player metadata key the answer is stored under.
 	 * @param OutSurveyId  Populated with the created survey's ULID.
+	 * @param FieldType    The question's field_type; defaults to short_text.
 	 */
-	bool CreateSurvey(const FString& Name, const FString& MetadataKey, FString& OutSurveyId);
+	bool CreateSurvey(const FString& Name, const FString& MetadataKey, FString& OutSurveyId, const FString& FieldType = TEXT("short_text"));
 
 	/**
 	 * * Create a player progression with an additional tier at step = 2 so points can accumulate.

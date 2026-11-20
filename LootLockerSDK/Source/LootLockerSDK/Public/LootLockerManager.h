@@ -4322,14 +4322,55 @@ public:
 
      Survey answers are stored as player metadata, so this writes each answer to the player's own metadata
      under the question's metadata_key. Call CompleteSurvey afterwards to record the completion.
+     Build the answers with MakeSurveyTextAnswer and friends so the declared type matches the question.
 
-     @param AnswersByMetadataKey Map of question metadata_key to answer value
+     @param Answers The answers to submit
      @param OnCompleteBP Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied the default player is used
      @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Surveys", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
     static UPARAM(DisplayName = "RequestId") FString SubmitSurveyAnswers(const TArray<FLootLockerSurveyAnswer>& Answers, const FLootLockerSetMetadataResponseBP& OnCompleteBP, const FString& ForPlayerWithUlid);
+
+    /**
+     Build a text answer for a short_text, long_text, date or select question.
+
+     @param MetadataKey The question's metadata_key
+     @param Value The answer text
+     @return The answer, ready for SubmitSurveyAnswers
+    */
+    UFUNCTION(BlueprintPure, Category = "LootLocker Methods | Surveys")
+    static FLootLockerSurveyAnswer MakeSurveyTextAnswer(const FString& MetadataKey, const FString& Value);
+
+    /**
+     Build a number answer for a number question.
+
+     @param MetadataKey The question's metadata_key
+     @param Value The answer number
+     @return The answer, ready for SubmitSurveyAnswers
+    */
+    UFUNCTION(BlueprintPure, Category = "LootLocker Methods | Surveys")
+    static FLootLockerSurveyAnswer MakeSurveyNumberAnswer(const FString& MetadataKey, float Value);
+
+    /**
+     Build a bool answer for a checkbox question.
+
+     @param MetadataKey The question's metadata_key
+     @param Value The answer value
+     @return The answer, ready for SubmitSurveyAnswers
+    */
+    UFUNCTION(BlueprintPure, Category = "LootLocker Methods | Surveys")
+    static FLootLockerSurveyAnswer MakeSurveyBoolAnswer(const FString& MetadataKey, bool Value);
+
+    /**
+     Build a multi-select answer for a multiselect question.
+
+     @param MetadataKey The question's metadata_key
+     @param SelectedValues The selected option values
+     @return The answer, ready for SubmitSurveyAnswers
+    */
+    UFUNCTION(BlueprintPure, Category = "LootLocker Methods | Surveys", meta = (AutoCreateRefTerm = "SelectedValues"))
+    static FLootLockerSurveyAnswer MakeSurveyMultiSelectAnswer(const FString& MetadataKey, const TArray<FString>& SelectedValues);
 
     //==================================================
     // Followers

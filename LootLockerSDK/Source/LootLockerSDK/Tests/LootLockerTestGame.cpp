@@ -394,12 +394,12 @@ bool FLootLockerTestGame::CreateCurrency(
 	return true;
 }
 
-bool FLootLockerTestGame::CreateSurvey(const FString& Name, const FString& MetadataKey, FString& OutSurveyId)
+bool FLootLockerTestGame::CreateSurvey(const FString& Name, const FString& MetadataKey, FString& OutSurveyId, const FString& FieldType)
 {
 	TSharedRef<FJsonObject> Question = MakeShared<FJsonObject>();
 	Question->SetStringField(TEXT("question_text"), TEXT("How did you hear about us?"));
 	Question->SetStringField(TEXT("metadata_key"), MetadataKey);
-	Question->SetStringField(TEXT("field_type"), TEXT("short_text"));
+	Question->SetStringField(TEXT("field_type"), FieldType);
 	Question->SetBoolField(TEXT("required"), true);
 	Question->SetNumberField(TEXT("sort_order"), 0);
 

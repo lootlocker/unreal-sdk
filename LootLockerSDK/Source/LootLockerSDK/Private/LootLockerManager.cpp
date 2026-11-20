@@ -2590,6 +2590,26 @@ FString ULootLockerManager::SubmitPlaytestAnswers(const TArray<FLootLockerPlayte
     }), ForPlayerWithUlid);
 }
 
+FLootLockerPlaytestAnswerSubmission ULootLockerManager::MakePlaytestTextAnswer(const FString& MetadataKey, const FString& Value)
+{
+    return FLootLockerPlaytestAnswerSubmission::FromText(MetadataKey, Value);
+}
+
+FLootLockerPlaytestAnswerSubmission ULootLockerManager::MakePlaytestNumberAnswer(const FString& MetadataKey, float Value)
+{
+    return FLootLockerPlaytestAnswerSubmission::FromNumber(MetadataKey, static_cast<double>(Value));
+}
+
+FLootLockerPlaytestAnswerSubmission ULootLockerManager::MakePlaytestBoolAnswer(const FString& MetadataKey, bool Value)
+{
+    return FLootLockerPlaytestAnswerSubmission::FromBool(MetadataKey, Value);
+}
+
+FLootLockerPlaytestAnswerSubmission ULootLockerManager::MakePlaytestMultiSelectAnswer(const FString& MetadataKey, const TArray<FString>& SelectedValues)
+{
+    return FLootLockerPlaytestAnswerSubmission::FromMultiSelect(MetadataKey, SelectedValues);
+}
+
 // Surveys
 FString ULootLockerManager::ListSurveys(const FLootLockerListSurveysResponseBP& OnCompleteBP, const FString& ForPlayerWithUlid)
 {
@@ -2623,24 +2643,24 @@ FString ULootLockerManager::SubmitSurveyAnswers(const TArray<FLootLockerSurveyAn
     }), ForPlayerWithUlid);
 }
 
-FLootLockerPlaytestAnswerSubmission ULootLockerManager::MakePlaytestTextAnswer(const FString& MetadataKey, const FString& Value)
+FLootLockerSurveyAnswer ULootLockerManager::MakeSurveyTextAnswer(const FString& MetadataKey, const FString& Value)
 {
-    return FLootLockerPlaytestAnswerSubmission::FromText(MetadataKey, Value);
+    return FLootLockerSurveyAnswer::FromText(MetadataKey, Value);
 }
 
-FLootLockerPlaytestAnswerSubmission ULootLockerManager::MakePlaytestNumberAnswer(const FString& MetadataKey, float Value)
+FLootLockerSurveyAnswer ULootLockerManager::MakeSurveyNumberAnswer(const FString& MetadataKey, float Value)
 {
-    return FLootLockerPlaytestAnswerSubmission::FromNumber(MetadataKey, static_cast<double>(Value));
+    return FLootLockerSurveyAnswer::FromNumber(MetadataKey, static_cast<double>(Value));
 }
 
-FLootLockerPlaytestAnswerSubmission ULootLockerManager::MakePlaytestBoolAnswer(const FString& MetadataKey, bool Value)
+FLootLockerSurveyAnswer ULootLockerManager::MakeSurveyBoolAnswer(const FString& MetadataKey, bool Value)
 {
-    return FLootLockerPlaytestAnswerSubmission::FromBool(MetadataKey, Value);
+    return FLootLockerSurveyAnswer::FromBool(MetadataKey, Value);
 }
 
-FLootLockerPlaytestAnswerSubmission ULootLockerManager::MakePlaytestMultiSelectAnswer(const FString& MetadataKey, const TArray<FString>& SelectedValues)
+FLootLockerSurveyAnswer ULootLockerManager::MakeSurveyMultiSelectAnswer(const FString& MetadataKey, const TArray<FString>& SelectedValues)
 {
-    return FLootLockerPlaytestAnswerSubmission::FromMultiSelect(MetadataKey, SelectedValues);
+    return FLootLockerSurveyAnswer::FromMultiSelect(MetadataKey, SelectedValues);
 }
 
 // Followers (Unified with optional pagination parameters)
