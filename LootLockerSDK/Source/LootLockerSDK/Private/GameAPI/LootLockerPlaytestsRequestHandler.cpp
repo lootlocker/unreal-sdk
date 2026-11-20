@@ -62,16 +62,89 @@ FString ULootLockerPlaytestsRequestHandler::AcknowledgeDocument(const FLootLocke
     return LLAPI<FLootLockerAcknowledgePlaytestDocumentResponse>::CallAPIUsingRawJSON(ContentString, ULootLockerGameEndpoints::AcknowledgePlaytestDocumentEndpoint, { Subdomain, DocumentId }, EmptyQueryParams, PlayerData, OnComplete);
 }
 
-FString ULootLockerPlaytestsRequestHandler::SubmitAnswers(const FLootLockerPlayerData& PlayerData, const TMap<FString, FString>& AnswersByMetadataKey, const FLootLockerSetMetadataResponseDelegate& OnComplete)
+FLootLockerPlaytestAnswerSubmission FLootLockerPlaytestAnswerSubmission::FromText(const FString& MetadataKey, const FString& Value)
+{
+    FLootLockerPlaytestAnswerSubmission Answer;
+    Answer.Metadata_key = MetadataKey;
+    Answer.Value = Value;
+    Answer.Type = ELootLockerMetadataTypes::String;
+    return Answer;
+}
+
+FLootLockerPlaytestAnswerSubmission FLootLockerPlaytestAnswerSubmission::FromNumber(const FString& MetadataKey, double Value)
+{
+    FLootLockerPlaytestAnswerSubmission Answer;
+    Answer.Metadata_key = MetadataKey;
+    Answer.Value = FString::SanitizeFloat(Value, 0);
+    Answer.Type = ELootLockerMetadataTypes::Number;
+    return Answer;
+}
+
+FLootLockerPlaytestAnswerSubmission FLootLockerPlaytestAnswerSubmission::FromBool(const FString& MetadataKey, bool Value)
+{
+    FLootLockerPlaytestAnswerSubmission Answer;
+    Answer.Metadata_key = MetadataKey;
+    Answer.Value = Value ? TEXT("true") : TEXT("false");
+    Answer.Type = ELootLockerMetadataTypes::Bool;
+    return Answer;
+}
+
+FLootLockerPlaytestAnswerSubmission FLootLockerPlaytestAnswerSubmission::FromMultiSelect(const FString& MetadataKey, const TArray<FString>& SelectedValues)
+{
+    TArray<TSharedPtr<FJsonValue>> JsonValues;
+    JsonValues.Reserve(SelectedValues.Num());
+    for (const FString& SelectedValue : SelectedValues)
+    {
+        JsonValues.Add(MakeShared<FJsonValueString>(SelectedValue));
+    }
+
+    FLootLockerPlaytestAnswerSubmission Answer;
+    Answer.Metadata_key = MetadataKey;
+    Answer.Value = LootLockerUtilities::FStringFromJsonArray(JsonValues);
+    Answer.Type = ELootLockerMetadataTypes::Json;
+    return Answer;
+}
+
+FLootLockerMetadataEntry FLootLockerPlaytestAnswerSubmission::MakeEntry() const
+{
+    switch (Type)
+    {
+    case ELootLockerMetadataTypes::Number:
+    {
+        double Number = 0.0;
+        LexTryParseString(Number, *Value);
+        return FLootLockerMetadataEntry::MakeFloatEntry(Metadata_key, {}, {}, static_cast<float>(Number));
+    }
+    case ELootLockerMetadataTypes::Bool:
+    {
+        const FString Trimmed = Value.TrimStartAndEnd();
+        return FLootLockerMetadataEntry::MakeBoolEntry(Metadata_key, {}, {},
+            Trimmed.Equals(TEXT("true"), ESearchCase::IgnoreCase) || Trimmed == TEXT("1"));
+    }
+    case ELootLockerMetadataTypes::Json:
+    {
+        TArray<TSharedPtr<FJsonValue>> JsonValues;
+        LootLockerUtilities::JsonArrayFromFString(Value, JsonValues);
+        return FLootLockerMetadataEntry::MakeJsonArrayEntry(Metadata_key, {}, {}, JsonValues);
+    }
+    case ELootLockerMetadataTypes::String:
+    case ELootLockerMetadataTypes::Base64:
+    default:
+        // Base64 is folded into String: a playtest question cannot produce one.
+        return FLootLockerMetadataEntry::MakeStringEntry(Metadata_key, {}, {}, Value);
+    }
+}
+
+FString ULootLockerPlaytestsRequestHandler::SubmitAnswers(const FLootLockerPlayerData& PlayerData, const TArray<FLootLockerPlaytestAnswerSubmission>& Answers, const FLootLockerSetMetadataResponseDelegate& OnComplete)
 {
     TArray<FLootLockerSetMetadataAction> Actions;
-    Actions.Reserve(AnswersByMetadataKey.Num());
-    for (const TPair<FString, FString>& Answer : AnswersByMetadataKey)
+    Actions.Reserve(Answers.Num());
+    for (const FLootLockerPlaytestAnswerSubmission& Answer : Answers)
     {
-        FLootLockerSetMetadataAction Action;
-        Action.Action = ELootLockerMetadataActions::Create_or_Update;
-        Action.Entry = FLootLockerMetadataEntry::MakeStringEntry(Answer.Key, {}, {}, Answer.Value);
-        Actions.Add(Action);
+        // An answer is a single upsert of the player's own metadata under the question's
+        // metadata_key, so this reuses the metadata layer's typed entry factories rather than
+        // declaring every answer as a String.
+        Actions.Add(FLootLockerSetMetadataAction{ ELootLockerMetadataActions::Create_or_Update, Answer.MakeEntry() });
     }
 
     return ULootLockerMetadataRequestHandler::SetMetadata(PlayerData, ELootLockerMetadataSources::self, TEXT("self"), Actions, OnComplete);

@@ -2533,12 +2533,32 @@ FString ULootLockerManager::AcknowledgePlaytestDocument(const FString& Subdomain
     }), ForPlayerWithUlid);
 }
 
-FString ULootLockerManager::SubmitPlaytestAnswers(const TMap<FString, FString>& AnswersByMetadataKey, const FLootLockerSetMetadataResponseBP& OnCompleteBP, const FString& ForPlayerWithUlid)
+FString ULootLockerManager::SubmitPlaytestAnswers(const TArray<FLootLockerPlaytestAnswerSubmission>& Answers, const FLootLockerSetMetadataResponseBP& OnCompleteBP, const FString& ForPlayerWithUlid)
 {
-    return ULootLockerSDKManager::SubmitPlaytestAnswers(AnswersByMetadataKey, FLootLockerSetMetadataResponseDelegate::CreateLambda([OnCompleteBP](const FLootLockerSetMetadataResponse& Response)
+    return ULootLockerSDKManager::SubmitPlaytestAnswers(Answers, FLootLockerSetMetadataResponseDelegate::CreateLambda([OnCompleteBP](const FLootLockerSetMetadataResponse& Response)
     {
         OnCompleteBP.ExecuteIfBound(Response);
     }), ForPlayerWithUlid);
+}
+
+FLootLockerPlaytestAnswerSubmission ULootLockerManager::MakePlaytestTextAnswer(const FString& MetadataKey, const FString& Value)
+{
+    return FLootLockerPlaytestAnswerSubmission::FromText(MetadataKey, Value);
+}
+
+FLootLockerPlaytestAnswerSubmission ULootLockerManager::MakePlaytestNumberAnswer(const FString& MetadataKey, float Value)
+{
+    return FLootLockerPlaytestAnswerSubmission::FromNumber(MetadataKey, static_cast<double>(Value));
+}
+
+FLootLockerPlaytestAnswerSubmission ULootLockerManager::MakePlaytestBoolAnswer(const FString& MetadataKey, bool Value)
+{
+    return FLootLockerPlaytestAnswerSubmission::FromBool(MetadataKey, Value);
+}
+
+FLootLockerPlaytestAnswerSubmission ULootLockerManager::MakePlaytestMultiSelectAnswer(const FString& MetadataKey, const TArray<FString>& SelectedValues)
+{
+    return FLootLockerPlaytestAnswerSubmission::FromMultiSelect(MetadataKey, SelectedValues);
 }
 
 // Followers (Unified with optional pagination parameters)
