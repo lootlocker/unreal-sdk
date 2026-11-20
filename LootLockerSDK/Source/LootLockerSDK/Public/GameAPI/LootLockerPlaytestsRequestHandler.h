@@ -86,6 +86,61 @@ struct FLootLockerPlaytestAnswer
 /// @}
 
 //==================================================
+// Request Definitions
+//==================================================
+
+/**
+ * A single answer to a playtest question, submitted through SubmitPlaytestAnswers.
+ *
+ * The metadata API validates the declared type against the value, so a checkbox answer must be
+ * declared Bool, a number Number, and a multiselect Json — sending everything as String is
+ * rejected. Use the From* helpers rather than filling the fields by hand: they format the value
+ * with the metadata layer so it always matches Type.
+ */
+USTRUCT(BlueprintType, Category = "LootLocker")
+struct FLootLockerPlaytestAnswerSubmission
+{
+    GENERATED_BODY()
+    /**
+     * The metadata_key of the question this answers
+     */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FString Metadata_key = "";
+    /**
+     * The answer value, as a JSON literal matching Type:
+     * `"some text"` (with quotes) for String, `42` for Number, `true`/`false` for Bool,
+     * and a JSON array such as `["a","b"]` for a multiselect (Json).
+     *
+     * Prefer the From* helpers below, which format this for you.
+     */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FString Value = "";
+    /**
+     * The metadata type of the value. Must match the question's field_type:
+     * short_text/long_text/date/select -> String, number -> Number, checkbox -> Bool,
+     * multiselect -> Json.
+     */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    ELootLockerMetadataTypes Type = ELootLockerMetadataTypes::String;
+
+    /** Build a String answer, for short_text, long_text, date and select questions. */
+    static FLootLockerPlaytestAnswerSubmission FromText(const FString& MetadataKey, const FString& Value);
+
+    /** Build a Number answer, for number questions. */
+    static FLootLockerPlaytestAnswerSubmission FromNumber(const FString& MetadataKey, double Value);
+
+    /** Build a Bool answer, for checkbox questions. */
+    static FLootLockerPlaytestAnswerSubmission FromBool(const FString& MetadataKey, bool Value);
+
+    /** Build a Json answer, for multiselect questions. */
+    static FLootLockerPlaytestAnswerSubmission FromMultiSelect(const FString& MetadataKey, const TArray<FString>& SelectedValues);
+
+    /** Build the metadata entry for this answer, using the metadata layer's typed factories. */
+    FLootLockerMetadataEntry MakeEntry() const;
+};
+/// @}
+
+//==================================================
 // Response Definitions
 //==================================================
 
@@ -203,5 +258,5 @@ public:
      * Playtest answers are stored as player metadata, so this writes each answer to the player's own metadata
      * under the question's metadata_key. Call CompleteOnboarding afterwards to record the completion.
      */
-    static FString SubmitAnswers(const FLootLockerPlayerData& PlayerData, const TMap<FString, FString>& AnswersByMetadataKey, const FLootLockerSetMetadataResponseDelegate& OnComplete);
+    static FString SubmitAnswers(const FLootLockerPlayerData& PlayerData, const TArray<FLootLockerPlaytestAnswerSubmission>& Answers, const FLootLockerSetMetadataResponseDelegate& OnComplete);
 };

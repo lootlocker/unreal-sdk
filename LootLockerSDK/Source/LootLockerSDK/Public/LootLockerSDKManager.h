@@ -4410,7 +4410,7 @@ public:
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
      @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
      */
-    static FString SubmitPlaytestAnswers(const TMap<FString, FString>& AnswersByMetadataKey, const FLootLockerSetMetadataResponseDelegate& OnComplete, const FString& ForPlayerWithUlid = "");
+    static FString SubmitPlaytestAnswers(const TArray<FLootLockerPlaytestAnswerSubmission>& Answers, const FLootLockerSetMetadataResponseDelegate& OnComplete, const FString& ForPlayerWithUlid = "");
 
     /// @}
 
