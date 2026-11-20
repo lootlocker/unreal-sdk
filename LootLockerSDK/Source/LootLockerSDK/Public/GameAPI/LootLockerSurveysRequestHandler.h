@@ -122,6 +122,45 @@ struct FLootLockerSurvey
 /// @}
 
 //==================================================
+// Request Definitions
+//==================================================
+
+/// @addtogroup Surveys
+/// @{
+/**
+ * A single answer to a survey question, submitted through SubmitSurveyAnswers.
+ *
+ * The value is passed as a JSON literal string and parsed according to Type, because the
+ * metadata API validates the declared type: a checkbox answer must be declared Bool and sent
+ * as `true`/`false`, not as the string "true".
+ */
+USTRUCT(BlueprintType, Category = "LootLocker")
+struct FLootLockerSurveyAnswer
+{
+    GENERATED_BODY()
+    /**
+     * The metadata_key of the question this answers
+     */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FString Metadata_key = "";
+    /**
+     * The answer value, as a JSON literal matching Type:
+     * `"some text"` (with quotes) for String, `42` for Number, `true`/`false` for Bool,
+     * and a JSON array such as `["a","b"]` for a multiselect (Json).
+     */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    FString Value = "";
+    /**
+     * The metadata type of the value. Must match the question's field_type:
+     * short_text/long_text/date/select -> String, number -> Number, checkbox -> Bool,
+     * multiselect -> Json.
+     */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
+    ELootLockerMetadataTypes Type = ELootLockerMetadataTypes::String;
+};
+/// @}
+
+//==================================================
 // Response Definitions
 //==================================================
 
@@ -233,5 +272,5 @@ public:
      * Survey answers are stored as player metadata, so this writes each answer to the player's own metadata
      * under the question's metadata_key. Call CompleteSurvey afterwards to record the completion.
      */
-    static FString SubmitSurveyAnswers(const FLootLockerPlayerData& PlayerData, const TMap<FString, FString>& AnswersByMetadataKey, const FLootLockerSetMetadataResponseDelegate& OnComplete);
+    static FString SubmitSurveyAnswers(const FLootLockerPlayerData& PlayerData, const TArray<FLootLockerSurveyAnswer>& Answers, const FLootLockerSetMetadataResponseDelegate& OnComplete);
 };

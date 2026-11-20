@@ -1707,9 +1707,9 @@ FString ULootLockerSDKManager::CompleteSurvey(const FString& SurveyId, const FLo
     return ULootLockerSurveysRequestHandler::CompleteSurvey(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), SurveyId, OnComplete);
 }
 
-FString ULootLockerSDKManager::SubmitSurveyAnswers(const TMap<FString, FString>& AnswersByMetadataKey, const FLootLockerSetMetadataResponseDelegate& OnComplete, const FString& ForPlayerWithUlid /* = "" */)
+FString ULootLockerSDKManager::SubmitSurveyAnswers(const TArray<FLootLockerSurveyAnswer>& Answers, const FLootLockerSetMetadataResponseDelegate& OnComplete, const FString& ForPlayerWithUlid /* = "" */)
 {
-    return ULootLockerSurveysRequestHandler::SubmitSurveyAnswers(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), AnswersByMetadataKey, OnComplete);
+    return ULootLockerSurveysRequestHandler::SubmitSurveyAnswers(GetSavedStateOrDefaultOrEmptyForPlayer(ForPlayerWithUlid), Answers, OnComplete);
 }
 
 // Followers
