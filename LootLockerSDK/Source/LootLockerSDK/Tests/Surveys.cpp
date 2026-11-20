@@ -160,6 +160,28 @@ void FTestLootLockerSurveys::Define()
 
 			TestDone.Execute();
 		});
+		LatentIt("AnswerFactories_ProduceMatchingTypesAndValues", EAsyncExecution::ThreadPool, [this](const FDoneDelegate TestDone)
+		{
+			// Pure serialization checks: these would fail if a typed answer were ever declared or
+			// serialized as a String again, which is the regression being fixed.
+			FLootLockerSurveyAnswer NumberAnswer = FLootLockerSurveyAnswer::FromNumber(TEXT("k_number"), 42);
+			TestTrue("number answer is typed Number", NumberAnswer.Type == ELootLockerMetadataTypes::Number);
+			TestEqual("number answer serializes the literal", NumberAnswer.Value, TEXT("42"));
+
+			FLootLockerSurveyAnswer BadNumber = NumberAnswer;
+			BadNumber.Value = TEXT("not-a-number");
+			TestEqual("malformed number is preserved verbatim", BadNumber.Value, TEXT("not-a-number"));
+
+			FLootLockerSurveyAnswer BoolAnswer = FLootLockerSurveyAnswer::FromBool(TEXT("k_bool"), true);
+			TestTrue("bool answer is typed Bool", BoolAnswer.Type == ELootLockerMetadataTypes::Bool);
+			TestEqual("bool answer serializes as a json bool", BoolAnswer.Value, TEXT("true"));
+
+			FLootLockerSurveyAnswer MultiAnswer = FLootLockerSurveyAnswer::FromMultiSelect(TEXT("k_multi"), { TEXT("a"), TEXT("b") });
+			TestTrue("multiselect answer is typed Json", MultiAnswer.Type == ELootLockerMetadataTypes::Json);
+			TestTrue("multiselect value is a json array", MultiAnswer.Value.StartsWith(TEXT("[")));
+
+			TestDone.Execute();
+		});
 	});
 }
 #endif

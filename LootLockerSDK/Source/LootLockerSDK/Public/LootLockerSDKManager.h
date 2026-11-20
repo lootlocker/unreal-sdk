@@ -3834,7 +3834,7 @@ public:
      Survey answers are stored as player metadata, so this writes each answer to the player's own metadata
      under the question's metadata_key. Call CompleteSurvey afterwards to record the completion.
 
-     @param AnswersByMetadataKey Map of question metadata_key to answer value
+     @param Answers The answers to submit, built with FLootLockerSurveyAnswer::FromText and friends
      @param OnComplete Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
      @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
