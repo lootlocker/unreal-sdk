@@ -4329,7 +4329,7 @@ public:
      @return A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound
     */
     UFUNCTION(BlueprintCallable, Category = "LootLocker Methods | Surveys", meta = (AdvancedDisplay = "ForPlayerWithUlid", ForPlayerWithUlid=""))
-    static UPARAM(DisplayName = "RequestId") FString SubmitSurveyAnswers(const TMap<FString, FString>& AnswersByMetadataKey, const FLootLockerSetMetadataResponseBP& OnCompleteBP, const FString& ForPlayerWithUlid);
+    static UPARAM(DisplayName = "RequestId") FString SubmitSurveyAnswers(const TArray<FLootLockerSurveyAnswer>& Answers, const FLootLockerSetMetadataResponseBP& OnCompleteBP, const FString& ForPlayerWithUlid);
 
     //==================================================
     // Followers

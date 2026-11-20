@@ -2615,9 +2615,9 @@ FString ULootLockerManager::CompleteSurvey(const FString& SurveyId, const FLootL
     }), ForPlayerWithUlid);
 }
 
-FString ULootLockerManager::SubmitSurveyAnswers(const TMap<FString, FString>& AnswersByMetadataKey, const FLootLockerSetMetadataResponseBP& OnCompleteBP, const FString& ForPlayerWithUlid)
+FString ULootLockerManager::SubmitSurveyAnswers(const TArray<FLootLockerSurveyAnswer>& Answers, const FLootLockerSetMetadataResponseBP& OnCompleteBP, const FString& ForPlayerWithUlid)
 {
-    return ULootLockerSDKManager::SubmitSurveyAnswers(AnswersByMetadataKey, FLootLockerSetMetadataResponseDelegate::CreateLambda([OnCompleteBP](const FLootLockerSetMetadataResponse& Response)
+    return ULootLockerSDKManager::SubmitSurveyAnswers(Answers, FLootLockerSetMetadataResponseDelegate::CreateLambda([OnCompleteBP](const FLootLockerSetMetadataResponse& Response)
     {
         OnCompleteBP.ExecuteIfBound(Response);
     }), ForPlayerWithUlid);
