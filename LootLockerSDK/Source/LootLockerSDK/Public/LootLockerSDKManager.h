@@ -4198,8 +4198,12 @@ public:
     /// @{
 
     /**
-     Get the identity the current session is linked to, including the publisher it belongs to and, when
-     populated, the games it has been active in.
+     Get the identity the current session is linked to, including the publisher it belongs to, the provider
+     credentials linked to it and, when populated, the games it has been active in.
+
+     The Providers list carries the credential ids that UnlinkProvider takes; the provider's own user
+     identifier is deliberately not returned. Each entry's Provider_type is resolved from its Provider slug,
+     and is Unknown for a slug this SDK does not map.
 
      The session must be linked to an identity; a session that is not is answered with 403.
 
@@ -4229,6 +4233,10 @@ public:
      surfaced on the response's Conflict field and can be resolved with MergeIdentities. LootLocker never
      links a credential across identities on the player's behalf.
 
+     The backend stores the provider slug exactly as it is sent, so always send the canonical enumerator;
+     sending an alias would make the stored slug differ from what GetIdentity reports for other credentials
+     of the same provider. Unknown is rejected before the request is sent.
+
      @param Request The link request
      @param OnCompletedRequest Delegate for handling the server response
      @param ForPlayerWithUlid Optional: Execute for the specified player ULID (default player if empty)
@@ -4238,6 +4246,9 @@ public:
 
     /**
      Remove a provider credential from the current identity.
+
+     Get the credential id from the Providers list of GetIdentity. The provider's own user identifier is never
+     returned, so the id is the only reference available to a game client.
 
      The last remaining credential cannot be removed, because the identity would become unreachable; that case
      is answered with 422.

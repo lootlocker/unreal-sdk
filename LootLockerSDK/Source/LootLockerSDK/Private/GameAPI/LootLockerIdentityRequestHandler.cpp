@@ -117,26 +117,60 @@ void ULootLockerIdentityRequestHandler::MarkProvidersPresent(FLootLockerIdentity
 
     const TSharedPtr<FJsonValue>* ProvidersValue = JsonObject->Values.Find(TEXT("providers"));
     Response.has_providers = ProvidersValue != nullptr && (*ProvidersValue).IsValid() && (*ProvidersValue)->Type == EJson::Array;
+
+    if (!Response.has_providers)
+    {
+        return;
+    }
+
+    // FJsonObjectConverter fills the raw slug but cannot map it onto the enum without throwing or defaulting
+    // silently, so each entry's provider_type is resolved from its slug here.
+    for (FLootLockerIdentityProviderInfo& Provider : Response.providers)
+    {
+        Provider.provider_type = ULootLockerIdentityRequestHandler::SlugToProvider(Provider.provider);
+    }
+}
+
+ELootLockerIdentityProvider ULootLockerIdentityRequestHandler::SlugToProvider(const FString& Slug)
+{
+    // The enumerator name is the wire value. GetNameStringByValue is used rather than
+    // ULootLockerEnumUtils::GetEnum because that helper is backed by GetDisplayNameTextByValue, which reads
+    // editor-only display metadata.
+    const UEnum* Enum = StaticEnum<ELootLockerIdentityProvider>();
+    if (Enum == nullptr || Slug.IsEmpty())
+    {
+        return ELootLockerIdentityProvider::Unknown;
+    }
+
+    for (int32 Index = 0; Index < Enum->NumEnums() - 1; ++Index)
+    {
+        const int64 Value = Enum->GetValueByIndex(Index);
+        const ELootLockerIdentityProvider Candidate = static_cast<ELootLockerIdentityProvider>(Value);
+        if (Candidate == ELootLockerIdentityProvider::Unknown)
+        {
+            continue;
+        }
+
+        if (ProviderToSlug(Candidate).Equals(Slug, ESearchCase::IgnoreCase))
+        {
+            return Candidate;
+        }
+    }
+
+    return ELootLockerIdentityProvider::Unknown;
 }
 
 FString ULootLockerIdentityRequestHandler::GetProviderCredentialId(const FLootLockerIdentityResponse& Identity, ELootLockerIdentityProvider Provider)
 {
-    // The backend stores whatever slug the client sent, and accepts the aliases ios/android/luna as well as
-    // the canonical slugs, so a match on the canonical slug alone would miss an alias-linked credential.
-    const FString Slug = ProviderToSlug(Provider);
-
-    FString Alias;
-    switch (Provider)
+    if (Provider == ELootLockerIdentityProvider::Unknown)
     {
-    case ELootLockerIdentityProvider::Apple_app_store:   Alias = TEXT("ios");     break;
-    case ELootLockerIdentityProvider::Google_play_store: Alias = TEXT("android"); break;
-    case ELootLockerIdentityProvider::Amazon_luna:       Alias = TEXT("luna");    break;
-    default: break;
+        // unknown never identifies a specific credential.
+        return FString();
     }
 
     for (const FLootLockerIdentityProviderInfo& Linked : Identity.providers)
     {
-        if (Linked.provider == Slug || (!Alias.IsEmpty() && Linked.provider == Alias))
+        if (Linked.provider_type == Provider)
         {
             return Linked.id;
         }
@@ -207,6 +241,14 @@ FString ULootLockerIdentityRequestHandler::LinkProvider(const FLootLockerPlayerD
     if (Request.provider_uid.IsEmpty())
     {
         const FLootLockerIdentityLinkResponse ErrorResponse = LootLockerResponseFactory::Error<FLootLockerIdentityLinkResponse>(TEXT("provider_uid is required"), LootLockerStaticRequestErrorStatusCodes::LL_ERROR_INVALID_INPUT, PlayerData.PlayerUlid);
+        OnComplete.ExecuteIfBound(ErrorResponse);
+        return FString();
+    }
+
+    // Unknown is not a provider; sending it would fail the backend's platform catalog check with a 400.
+    if (Request.provider == ELootLockerIdentityProvider::Unknown)
+    {
+        const FLootLockerIdentityLinkResponse ErrorResponse = LootLockerResponseFactory::Error<FLootLockerIdentityLinkResponse>(TEXT("provider must be set to a known provider"), LootLockerStaticRequestErrorStatusCodes::LL_ERROR_INVALID_INPUT, PlayerData.PlayerUlid);
         OnComplete.ExecuteIfBound(ErrorResponse);
         return FString();
     }
