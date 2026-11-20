@@ -105,33 +105,44 @@ FLootLockerPlaytestAnswerSubmission FLootLockerPlaytestAnswerSubmission::FromMul
     return Answer;
 }
 
-FLootLockerMetadataEntry FLootLockerPlaytestAnswerSubmission::MakeEntry() const
+namespace
 {
-    switch (Type)
+    // Build the metadata entry for an answer, using the metadata layer's typed factories rather
+    // than declaring every answer as a String.
+    FLootLockerMetadataEntry MakeEntryForAnswer(const FLootLockerPlaytestAnswerSubmission& Answer)
     {
-    case ELootLockerMetadataTypes::Number:
-    {
-        double Number = 0.0;
-        LexTryParseString(Number, *Value);
-        return FLootLockerMetadataEntry::MakeFloatEntry(Metadata_key, {}, {}, static_cast<float>(Number));
-    }
-    case ELootLockerMetadataTypes::Bool:
-    {
-        const FString Trimmed = Value.TrimStartAndEnd();
-        return FLootLockerMetadataEntry::MakeBoolEntry(Metadata_key, {}, {},
-            Trimmed.Equals(TEXT("true"), ESearchCase::IgnoreCase) || Trimmed == TEXT("1"));
-    }
-    case ELootLockerMetadataTypes::Json:
-    {
-        TArray<TSharedPtr<FJsonValue>> JsonValues;
-        LootLockerUtilities::JsonArrayFromFString(Value, JsonValues);
-        return FLootLockerMetadataEntry::MakeJsonArrayEntry(Metadata_key, {}, {}, JsonValues);
-    }
-    case ELootLockerMetadataTypes::String:
-    case ELootLockerMetadataTypes::Base64:
-    default:
-        // Base64 is folded into String: a playtest question cannot produce one.
-        return FLootLockerMetadataEntry::MakeStringEntry(Metadata_key, {}, {}, Value);
+        switch (Answer.Type)
+        {
+        case ELootLockerMetadataTypes::Number:
+        {
+            double Number = 0.0;
+            if (!LexTryParseString(Number, *Answer.Value))
+            {
+                // Not a number. The struct is BlueprintReadWrite, so a caller can bypass
+                // FromNumber; storing a String instead of silently coercing to 0 keeps the
+                // answer as typed rather than persisting a wrong value.
+                return FLootLockerMetadataEntry::MakeStringEntry(Answer.Metadata_key, {}, {}, Answer.Value);
+            }
+            return FLootLockerMetadataEntry::MakeFloatEntry(Answer.Metadata_key, {}, {}, static_cast<float>(Number));
+        }
+        case ELootLockerMetadataTypes::Bool:
+        {
+            const FString Trimmed = Answer.Value.TrimStartAndEnd();
+            return FLootLockerMetadataEntry::MakeBoolEntry(Answer.Metadata_key, {}, {},
+                Trimmed.Equals(TEXT("true"), ESearchCase::IgnoreCase) || Trimmed == TEXT("1"));
+        }
+        case ELootLockerMetadataTypes::Json:
+        {
+            TArray<TSharedPtr<FJsonValue>> JsonValues;
+            LootLockerUtilities::JsonArrayFromFString(Answer.Value, JsonValues);
+            return FLootLockerMetadataEntry::MakeJsonArrayEntry(Answer.Metadata_key, {}, {}, JsonValues);
+        }
+        case ELootLockerMetadataTypes::String:
+        case ELootLockerMetadataTypes::Base64:
+        default:
+            // Base64 is folded into String: a playtest question cannot produce one.
+            return FLootLockerMetadataEntry::MakeStringEntry(Answer.Metadata_key, {}, {}, Answer.Value);
+        }
     }
 }
 
@@ -141,10 +152,7 @@ FString ULootLockerPlaytestsRequestHandler::SubmitAnswers(const FLootLockerPlaye
     Actions.Reserve(Answers.Num());
     for (const FLootLockerPlaytestAnswerSubmission& Answer : Answers)
     {
-        // An answer is a single upsert of the player's own metadata under the question's
-        // metadata_key, so this reuses the metadata layer's typed entry factories rather than
-        // declaring every answer as a String.
-        Actions.Add(FLootLockerSetMetadataAction{ ELootLockerMetadataActions::Create_or_Update, Answer.MakeEntry() });
+        Actions.Add(FLootLockerSetMetadataAction{ ELootLockerMetadataActions::Create_or_Update, MakeEntryForAnswer(Answer) });
     }
 
     return ULootLockerMetadataRequestHandler::SetMetadata(PlayerData, ELootLockerMetadataSources::self, TEXT("self"), Actions, OnComplete);
