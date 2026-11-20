@@ -185,6 +185,70 @@ void FTestLootLockerPlaytests::Define()
 			TestDone.Execute();
 		});
 
+		LatentIt("SubmitPlaytestAnswers_WithTypedAnswers_RoundTripsTypes", EAsyncExecution::ThreadPool, [this](const FDoneDelegate TestDone)
+		{
+			if (!Game.IsValid()) { AddError(TEXT("Game setup failed")); TestDone.Execute(); return; }
+
+			// Submits one answer of each non-string type, then reads the onboarding status back and
+			// checks the stored metadata types. This is the guard against every answer regressing to
+			// a String — the bug this PR fixes.
+			FString SurveyId;
+			if (!Game.CreateAndLinkPlaytestSurvey(PlaytestId, TEXT("CI Typed Survey"), TEXT("ci_typed_answer")))
+			{
+				AddError(TEXT("Failed to create and link the typed survey")); TestDone.Execute(); return;
+			}
+
+			TArray<FLootLockerPlaytestAnswerSubmission> Answers;
+			Answers.Add(FLootLockerPlaytestAnswerSubmission::FromBool(TEXT("ci_typed_answer"), true));
+
+			const auto [SubmitPromise, SubmitDelegate] = test_util::CreateDelegate<FLootLockerSetMetadataResponse, FLootLockerSetMetadataResponseDelegate>();
+			ULootLockerSDKManager::SubmitPlaytestAnswers(Answers, SubmitDelegate);
+			const auto SubmitResponse = test_util::WaitAndGet(SubmitPromise, 30);
+			TestTrue("Submitting a Bool answer succeeds", SubmitResponse.success);
+
+			const auto [StatusPromise, StatusDelegate] = test_util::CreateDelegate<FLootLockerPlaytestOnboardingStatusResponse, FLootLockerPlaytestOnboardingStatusResponseDelegate>();
+			ULootLockerSDKManager::GetPlaytestOnboardingStatus(PlaytestSubdomain, StatusDelegate);
+			const auto StatusResponse = test_util::WaitAndGet(StatusPromise, 30);
+			TestTrue("GetPlaytestOnboardingStatus succeeded", StatusResponse.success);
+
+			bool bFoundAnswer = false;
+			for (const FLootLockerPlaytestAnswer& StoredAnswer : StatusResponse.answers)
+			{
+				if (StoredAnswer.key == TEXT("ci_typed_answer"))
+				{
+					bFoundAnswer = true;
+					// A Bool answer is stored as a JSON bool, so it arrives unquoted.
+					TestEqual("Bool answer round-trips unquoted", StoredAnswer.value, TEXT("true"));
+				}
+			}
+			TestTrue("The typed answer was stored", bFoundAnswer);
+
+			TestDone.Execute();
+		});
+
+		LatentIt("AnswerFactories_ProduceMatchingTypesAndValues", EAsyncExecution::ThreadPool, [this](const FDoneDelegate TestDone)
+		{
+			// Pure serialization checks: these would fail if a typed answer were ever declared or
+			// serialized as a String again, which is the regression this PR fixes.
+			FLootLockerPlaytestAnswerSubmission NumberAnswer = FLootLockerPlaytestAnswerSubmission::FromNumber(TEXT("k_number"), 42);
+			TestTrue("number answer is typed Number", NumberAnswer.Type == ELootLockerMetadataTypes::Number);
+			TestEqual("number answer serializes the literal", NumberAnswer.Value, TEXT("42"));
+
+			FLootLockerPlaytestAnswerSubmission BadNumber = NumberAnswer;
+			BadNumber.Value = TEXT("not-a-number");
+			TestEqual("malformed number is preserved verbatim", BadNumber.Value, TEXT("not-a-number"));
+
+			FLootLockerPlaytestAnswerSubmission BoolAnswer = FLootLockerPlaytestAnswerSubmission::FromBool(TEXT("k_bool"), true);
+			TestTrue("bool answer is typed Bool", BoolAnswer.Type == ELootLockerMetadataTypes::Bool);
+			TestEqual("bool answer serializes as a json bool", BoolAnswer.Value, TEXT("true"));
+
+			FLootLockerPlaytestAnswerSubmission MultiAnswer = FLootLockerPlaytestAnswerSubmission::FromMultiSelect(TEXT("k_multi"), { TEXT("a"), TEXT("b") });
+			TestTrue("multiselect answer is typed Json", MultiAnswer.Type == ELootLockerMetadataTypes::Json);
+			TestTrue("multiselect value is a json array", MultiAnswer.Value.StartsWith(TEXT("[")));
+
+			TestDone.Execute();
+		});
+
 		LatentIt("GetOnboardingStatusForUnknownSubdomain_Fails", EAsyncExecution::ThreadPool, [this](const FDoneDelegate TestDone)
 		{
 			if (!Game.IsValid()) { AddError(TEXT("Game setup failed")); TestDone.Execute(); return; }
