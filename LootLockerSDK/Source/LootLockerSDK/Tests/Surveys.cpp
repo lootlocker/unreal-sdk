@@ -103,13 +103,8 @@ void FTestLootLockerSurveys::Define()
 			if (!Game.IsValid()) { AddError(TEXT("Game setup failed")); TestDone.Execute(); return; }
 
 			// Submit the answer through the survey convenience method.
-			FLootLockerSurveyAnswer Answer;
-			Answer.Metadata_key = TEXT("ci_survey_answer");
-			Answer.Value = TEXT("From a friend");
-			Answer.Type = ELootLockerMetadataTypes::String;
-
 			TArray<FLootLockerSurveyAnswer> Answers;
-			Answers.Add(Answer);
+			Answers.Add(FLootLockerSurveyAnswer::FromText(TEXT("ci_survey_answer"), TEXT("From a friend")));
 
 			const auto [SubmitPromise, SubmitDelegate] = test_util::CreateDelegate<FLootLockerSetMetadataResponse, FLootLockerSetMetadataResponseDelegate>();
 			ULootLockerSDKManager::SubmitSurveyAnswers(Answers, SubmitDelegate);
@@ -134,6 +129,34 @@ void FTestLootLockerSurveys::Define()
 				TestTrue("Survey is marked completed", ListResponse.Surveys[0].Completed);
 				TestTrue("completed_at is set on the listed survey", ListResponse.Surveys[0].Completed_at != FDateTime(0));
 			}
+
+			TestDone.Execute();
+		});
+
+		LatentIt("SubmitSurveyAnswers_WithBoolAnswer_Succeeds", EAsyncExecution::ThreadPool, [this](const FDoneDelegate TestDone)
+		{
+			if (!Game.IsValid()) { AddError(TEXT("Game setup failed")); TestDone.Execute(); return; }
+
+			FString CheckboxSurveyId;
+			if (!Game.CreateSurvey(TEXT("CI Checkbox Survey"), TEXT("ci_checkbox_answer"), CheckboxSurveyId, TEXT("checkbox")))
+			{
+				AddError(TEXT("Creating the checkbox survey failed")); TestDone.Execute(); return;
+			}
+
+			// A checkbox answer must be declared Bool; the metadata API rejects a String for a bool
+			// field. This exercises the typed path rather than the String-only one.
+			TArray<FLootLockerSurveyAnswer> Answers;
+			Answers.Add(FLootLockerSurveyAnswer::FromBool(TEXT("ci_checkbox_answer"), true));
+
+			const auto [SubmitPromise, SubmitDelegate] = test_util::CreateDelegate<FLootLockerSetMetadataResponse, FLootLockerSetMetadataResponseDelegate>();
+			ULootLockerSDKManager::SubmitSurveyAnswers(Answers, SubmitDelegate);
+			const auto SubmitResponse = test_util::WaitAndGet(SubmitPromise, 30);
+			TestTrue("SubmitSurveyAnswers with a Bool answer succeeded", SubmitResponse.success);
+
+			const auto [CompletePromise, CompleteDelegate] = test_util::CreateDelegate<FLootLockerCompleteSurveyResponse, FLootLockerCompleteSurveyResponseDelegate>();
+			ULootLockerSDKManager::CompleteSurvey(CheckboxSurveyId, CompleteDelegate);
+			const auto CompleteResponse = test_util::WaitAndGet(CompletePromise, 30);
+			TestTrue("CompleteSurvey succeeded after a Bool answer", CompleteResponse.success);
 
 			TestDone.Execute();
 		});

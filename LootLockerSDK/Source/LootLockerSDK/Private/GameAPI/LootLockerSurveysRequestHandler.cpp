@@ -19,50 +19,89 @@ FString ULootLockerSurveysRequestHandler::CompleteSurvey(const FLootLockerPlayer
     return LLAPI<FLootLockerCompleteSurveyResponse>::CallAPI(FLootLockerEmptyRequest(), ULootLockerGameEndpoints::CompleteSurveyEndpoint, { SurveyId }, {}, PlayerData, OnComplete);
 }
 
+FLootLockerSurveyAnswer FLootLockerSurveyAnswer::FromText(const FString& MetadataKey, const FString& Value)
+{
+    FLootLockerSurveyAnswer Answer;
+    Answer.Metadata_key = MetadataKey;
+    Answer.Value = Value;
+    Answer.Type = ELootLockerMetadataTypes::String;
+    return Answer;
+}
+
+FLootLockerSurveyAnswer FLootLockerSurveyAnswer::FromNumber(const FString& MetadataKey, double Value)
+{
+    FLootLockerSurveyAnswer Answer;
+    Answer.Metadata_key = MetadataKey;
+    Answer.Value = FString::SanitizeFloat(Value, 0);
+    Answer.Type = ELootLockerMetadataTypes::Number;
+    return Answer;
+}
+
+FLootLockerSurveyAnswer FLootLockerSurveyAnswer::FromBool(const FString& MetadataKey, bool Value)
+{
+    FLootLockerSurveyAnswer Answer;
+    Answer.Metadata_key = MetadataKey;
+    Answer.Value = Value ? TEXT("true") : TEXT("false");
+    Answer.Type = ELootLockerMetadataTypes::Bool;
+    return Answer;
+}
+
+FLootLockerSurveyAnswer FLootLockerSurveyAnswer::FromMultiSelect(const FString& MetadataKey, const TArray<FString>& SelectedValues)
+{
+    TArray<TSharedPtr<FJsonValue>> JsonValues;
+    JsonValues.Reserve(SelectedValues.Num());
+    for (const FString& SelectedValue : SelectedValues)
+    {
+        JsonValues.Add(MakeShared<FJsonValueString>(SelectedValue));
+    }
+
+    FLootLockerSurveyAnswer Answer;
+    Answer.Metadata_key = MetadataKey;
+    Answer.Value = LootLockerUtilities::FStringFromJsonArray(JsonValues);
+    Answer.Type = ELootLockerMetadataTypes::Json;
+    return Answer;
+}
+
+FLootLockerMetadataEntry FLootLockerSurveyAnswer::MakeEntry() const
+{
+    switch (Type)
+    {
+    case ELootLockerMetadataTypes::Number:
+    {
+        double Number = 0.0;
+        LexTryParseString(Number, *Value);
+        return FLootLockerMetadataEntry::MakeFloatEntry(Metadata_key, {}, {}, static_cast<float>(Number));
+    }
+    case ELootLockerMetadataTypes::Bool:
+    {
+        const FString Trimmed = Value.TrimStartAndEnd();
+        return FLootLockerMetadataEntry::MakeBoolEntry(Metadata_key, {}, {},
+            Trimmed.Equals(TEXT("true"), ESearchCase::IgnoreCase) || Trimmed == TEXT("1"));
+    }
+    case ELootLockerMetadataTypes::Json:
+    {
+        TArray<TSharedPtr<FJsonValue>> JsonValues;
+        LootLockerUtilities::JsonArrayFromFString(Value, JsonValues);
+        return FLootLockerMetadataEntry::MakeJsonArrayEntry(Metadata_key, {}, {}, JsonValues);
+    }
+    case ELootLockerMetadataTypes::String:
+    case ELootLockerMetadataTypes::Base64:
+    default:
+        // Base64 is folded into String: a survey question cannot produce one.
+        return FLootLockerMetadataEntry::MakeStringEntry(Metadata_key, {}, {}, Value);
+    }
+}
+
 FString ULootLockerSurveysRequestHandler::SubmitSurveyAnswers(const FLootLockerPlayerData& PlayerData, const TArray<FLootLockerSurveyAnswer>& Answers, const FLootLockerSetMetadataResponseDelegate& OnComplete)
 {
     TArray<FLootLockerSetMetadataAction> Actions;
     Actions.Reserve(Answers.Num());
     for (const FLootLockerSurveyAnswer& Answer : Answers)
     {
-        FLootLockerMetadataEntry Entry;
-        switch (Answer.Type)
-        {
-        case ELootLockerMetadataTypes::Number:
-        {
-            // The metadata API validates the declared type, so a number has to be sent as a JSON
-            // number rather than a string. Parse the caller's literal; 0 when it is not numeric.
-            double Number = 0.0;
-            LexTryParseString(Number, *Answer.Value);
-            Entry = FLootLockerMetadataEntry::MakeFloatEntry(Answer.Metadata_key, {}, {}, static_cast<float>(Number));
-            break;
-        }
-        case ELootLockerMetadataTypes::Bool:
-        {
-            const FString Trimmed = Answer.Value.TrimStartAndEnd();
-            const bool bBool = Trimmed.Equals(TEXT("true"), ESearchCase::IgnoreCase) || Trimmed == TEXT("1");
-            Entry = FLootLockerMetadataEntry::MakeBoolEntry(Answer.Metadata_key, {}, {}, bBool);
-            break;
-        }
-        case ELootLockerMetadataTypes::Json:
-            // Raw JSON, for example a multiselect array such as ["a","b"].
-            // MakeJsonValueEntry ignores its Type argument and always declares Json.
-            Entry = FLootLockerMetadataEntry::MakeJsonValueEntry(Answer.Metadata_key, {}, {},
-                ELootLockerMetadataTypes::Json, LootLockerUtilities::JsonValueFromFString(Answer.Value));
-            break;
-        case ELootLockerMetadataTypes::Base64:
-        case ELootLockerMetadataTypes::String:
-        default:
-            // Survey answers are text/number/bool/json; Base64 is folded into String for
-            // completeness since a survey question cannot produce one.
-            Entry = FLootLockerMetadataEntry::MakeStringEntry(Answer.Metadata_key, {}, {}, Answer.Value);
-            break;
-        }
-
-        FLootLockerSetMetadataAction Action;
-        Action.Action = ELootLockerMetadataActions::Create_or_Update;
-        Action.Entry = Entry;
-        Actions.Add(Action);
+        // An answer is a single upsert of the player's own metadata under the question's
+        // metadata_key, so this reuses the metadata layer's typed entry factories rather than
+        // declaring every answer as a String.
+        Actions.Add(FLootLockerSetMetadataAction{ ELootLockerMetadataActions::Create_or_Update, Answer.MakeEntry() });
     }
 
     return ULootLockerMetadataRequestHandler::SetMetadata(PlayerData, ELootLockerMetadataSources::self, TEXT("self"), Actions, OnComplete);
