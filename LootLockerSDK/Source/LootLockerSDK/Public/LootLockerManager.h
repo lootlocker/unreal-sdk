@@ -4628,8 +4628,11 @@ public:
     //==================================================
 
     /**
-     Get the identity the current session is linked to, including the publisher it belongs to and, when
-     populated, the games it has been active in.
+     Get the identity the current session is linked to, including the publisher it belongs to, the provider
+     credentials linked to it and, when populated, the games it has been active in.
+
+     The Providers list carries the credential ids that UnlinkProvider takes. Each entry's Provider_type is
+     resolved from its Provider slug, and is Unknown for a slug this SDK does not map.
 
      @param ForPlayerWithUlid Optional: Execute the request for the player with the specified ulid. If not supplied the default player is used
      @param OnCompletedRequestBP Delegate for handling the server response

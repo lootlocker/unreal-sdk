@@ -2,6 +2,7 @@
 
 #include "Runtime/Launch/Resources/Version.h"
 #include "GameAPI/LootLockerIdentityRequestHandler.h"
+#include "JsonObjectConverter.h"
 #include "Misc/AutomationTest.h"
 
 #if ENGINE_MAJOR_VERSION > 4
@@ -29,6 +30,7 @@ void FLootLockerIdentitySpec::Define()
             { ELootLockerIdentityProvider::Apple_game_center,  TEXT("apple_game_center")  },
             { ELootLockerIdentityProvider::Google_play_games,  TEXT("google_play_games")  },
             { ELootLockerIdentityProvider::Lootlocker_delegation, TEXT("lootlocker_delegation") },
+            { ELootLockerIdentityProvider::Publisher_account, TEXT("publisher_account") },
         };
 
         for (const TPair<ELootLockerIdentityProvider, FString>& Pair : Cases)
@@ -112,6 +114,7 @@ void FLootLockerIdentitySpec::Define()
             FLootLockerIdentityProviderInfo Steam;
             Steam.id = TEXT("01K9CCCCCCCCCCCCCCCCCCCCCC");
             Steam.provider = TEXT("steam");
+            Steam.provider_type = ELootLockerIdentityProvider::Steam;
             Response.providers.Add(Steam);
 
             TestEqual("steam credential id",
@@ -119,23 +122,22 @@ void FLootLockerIdentitySpec::Define()
                 TEXT("01K9CCCCCCCCCCCCCCCCCCCCCC"));
             TestTrue("an unlinked provider has no credential id",
                 ULootLockerIdentityRequestHandler::GetProviderCredentialId(Response, ELootLockerIdentityProvider::Xbox_one).IsEmpty());
+            TestTrue("unknown never matches a credential",
+                ULootLockerIdentityRequestHandler::GetProviderCredentialId(Response, ELootLockerIdentityProvider::Unknown).IsEmpty());
         });
 
-        It("GetProviderCredentialId accepts a stored alias", [this]()
+        It("MarkProvidersPresent resolves provider_type from the slug", [this]()
         {
-            // The backend accepts the aliases ios/android/luna when linking and stores whatever the client
-            // sent, so an alias-linked credential carries the alias as its provider slug.
             FLootLockerIdentityResponse Response;
-            FLootLockerIdentityProviderInfo Apple;
-            Apple.id = TEXT("01K9CCCCCCCCCCCCCCCCCCCCCC");
-            Apple.provider = TEXT("ios");
-            Response.providers.Add(Apple);
+            Response.success = true;
+            Response.FullTextFromServer = TEXT("{\"id\":\"01K8Q3KH8N4R2V6W3Z0P5M9XDT\",\"publisher_id\":42,\"created_at\":\"2026-10-19T20:27:03Z\",\"game_activity\":[],\"providers\":[{\"id\":\"a\",\"provider\":\"steam\",\"created_at\":\"2026-10-19T20:27:03Z\"},{\"id\":\"b\",\"provider\":\"publisher_account\",\"created_at\":\"2026-10-19T20:27:03Z\"}]}");
+            FJsonObjectConverter::JsonObjectStringToUStruct(Response.FullTextFromServer, &Response, 0, 0);
 
-            TestEqual("ios alias resolves to apple_app_store",
-                ULootLockerIdentityRequestHandler::GetProviderCredentialId(Response, ELootLockerIdentityProvider::Apple_app_store),
-                TEXT("01K9CCCCCCCCCCCCCCCCCCCCCC"));
-            TestTrue("an unlinked provider has no credential id",
-                ULootLockerIdentityRequestHandler::GetProviderCredentialId(Response, ELootLockerIdentityProvider::Google_play_store).IsEmpty());
+            ULootLockerIdentityRequestHandler::MarkProvidersPresent(Response);
+
+            TestEqual("providers count", Response.providers.Num(), 2);
+            TestEqual("steam resolves", static_cast<uint8>(Response.providers[0].provider_type), static_cast<uint8>(ELootLockerIdentityProvider::Steam));
+            TestEqual("publisher_account resolves", static_cast<uint8>(Response.providers[1].provider_type), static_cast<uint8>(ELootLockerIdentityProvider::Publisher_account));
         });
 
         It("GetProviderCredentialId returns empty when providers was not loaded", [this]()
@@ -143,9 +145,32 @@ void FLootLockerIdentitySpec::Define()
             FLootLockerIdentityResponse Response;
             Response.has_providers = false;
 
-            TestEqual("no credential id when providers is absent",
-                ULootLockerIdentityRequestHandler::GetProviderCredentialId(Response, ELootLockerIdentityProvider::Steam),
-                FString());
+            TestTrue("no credential id when providers is absent",
+                ULootLockerIdentityRequestHandler::GetProviderCredentialId(Response, ELootLockerIdentityProvider::Steam).IsEmpty());
+        });
+    });
+
+    Describe("provider slug resolution", [this]()
+    {
+        It("resolves canonical slugs to their enumerator", [this]()
+        {
+            TestEqual("steam", static_cast<uint8>(ULootLockerIdentityRequestHandler::SlugToProvider(TEXT("steam"))), static_cast<uint8>(ELootLockerIdentityProvider::Steam));
+            TestEqual("publisher_account", static_cast<uint8>(ULootLockerIdentityRequestHandler::SlugToProvider(TEXT("publisher_account"))), static_cast<uint8>(ELootLockerIdentityProvider::Publisher_account));
+            TestEqual("apple_app_store", static_cast<uint8>(ULootLockerIdentityRequestHandler::SlugToProvider(TEXT("apple_app_store"))), static_cast<uint8>(ELootLockerIdentityProvider::Apple_app_store));
+        });
+
+        It("resolves an unrecognised slug or alias to Unknown", [this]()
+        {
+            // The backend accepts the aliases ios/android/luna when linking, but this SDK only maps canonical
+            // slugs, so an alias-linked credential reports Unknown rather than being misattributed.
+            TestEqual("ios", static_cast<uint8>(ULootLockerIdentityRequestHandler::SlugToProvider(TEXT("ios"))), static_cast<uint8>(ELootLockerIdentityProvider::Unknown));
+            TestEqual("future provider", static_cast<uint8>(ULootLockerIdentityRequestHandler::SlugToProvider(TEXT("some_future_provider"))), static_cast<uint8>(ELootLockerIdentityProvider::Unknown));
+            TestEqual("empty", static_cast<uint8>(ULootLockerIdentityRequestHandler::SlugToProvider(TEXT(""))), static_cast<uint8>(ELootLockerIdentityProvider::Unknown));
+        });
+
+        It("Unknown is zero so an unpopulated value is never a real provider", [this]()
+        {
+            TestEqual("Unknown is the default", static_cast<uint8>(ELootLockerIdentityProvider::Unknown), static_cast<uint8>(0));
         });
     });
 
