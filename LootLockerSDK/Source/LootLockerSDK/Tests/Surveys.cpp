@@ -103,8 +103,16 @@ void FTestLootLockerSurveys::Define()
 			if (!Game.IsValid()) { AddError(TEXT("Game setup failed")); TestDone.Execute(); return; }
 
 			// Submit the answer through the survey convenience method.
+			FLootLockerSurveyAnswer Answer;
+			Answer.Metadata_key = TEXT("ci_survey_answer");
+			Answer.Value = TEXT("From a friend");
+			Answer.Type = ELootLockerMetadataTypes::String;
+
+			TArray<FLootLockerSurveyAnswer> Answers;
+			Answers.Add(Answer);
+
 			const auto [SubmitPromise, SubmitDelegate] = test_util::CreateDelegate<FLootLockerSetMetadataResponse, FLootLockerSetMetadataResponseDelegate>();
-			ULootLockerSDKManager::SubmitSurveyAnswers({ { TEXT("ci_survey_answer"), TEXT("From a friend") } }, SubmitDelegate);
+			ULootLockerSDKManager::SubmitSurveyAnswers(Answers, SubmitDelegate);
 			const auto SubmitResponse = test_util::WaitAndGet(SubmitPromise, 30);
 			TestTrue("SubmitSurveyAnswers succeeded", SubmitResponse.success);
 
