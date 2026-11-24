@@ -115,8 +115,8 @@ void ULootLockerIdentityRequestHandler::MarkProvidersPresent(FLootLockerIdentity
         return;
     }
 
-    const TSharedPtr<FJsonValue>* ProvidersValue = JsonObject->Values.Find(TEXT("providers"));
-    Response.has_providers = ProvidersValue != nullptr && (*ProvidersValue).IsValid() && (*ProvidersValue)->Type == EJson::Array;
+    const TSharedPtr<FJsonValue> ProvidersValue = JsonObject->TryGetField(TEXT("providers"));
+    Response.has_providers = ProvidersValue.IsValid() && ProvidersValue->Type == EJson::Array;
 
     if (!Response.has_providers)
     {

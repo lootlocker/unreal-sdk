@@ -42,7 +42,7 @@ bool FLootLockerMetadataEntry::TryGetRawValue(TSharedPtr<FJsonValue>& Output) co
 	{
 		return false;
 	}
-	Output = EntryAsJson.Values[TEXT("value")];
+	Output = EntryAsJson.TryGetField(TEXT("value"));
 	return Output.IsValid();
 }
 
