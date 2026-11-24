@@ -86,8 +86,8 @@ namespace
                     continue;
                 }
 
-                const TSharedPtr<FJsonValue>* StackValue = (*SlotObject)->Values.Find(TEXT("stack"));
-                Slots[SlotIndex].HasStack = StackValue != nullptr && (*StackValue).IsValid() && (*StackValue)->Type != EJson::Null;
+                const TSharedPtr<FJsonValue> StackValue = (*SlotObject)->TryGetField(TEXT("stack"));
+                Slots[SlotIndex].HasStack = StackValue.IsValid() && StackValue->Type != EJson::Null;
             }
         }
     }
