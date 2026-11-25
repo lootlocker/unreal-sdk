@@ -59,7 +59,7 @@
       </a>
       <span id="ll-topnav-divider" aria-hidden="true"></span>
       <a href="index.html" id="ll-topnav-product">Unreal SDK</a>
-      <span id="ll-topnav-version">v11.0.0</span>
+      <span id="ll-topnav-version">v11.1.0</span>
       <a href="https://github.com/lootlocker/unreal-sdk" target="_blank"
          rel="noopener noreferrer" id="ll-topnav-github" aria-label="GitHub repository">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
@@ -137,7 +137,7 @@ function llToggleDark() {
  <tr id="projectrow">
   <td id="projectlogo"><img alt="Logo" src="lootlocker-logo.png"/></td>
   <td id="projectalign">
-   <div id="projectname">LootLocker Unreal SDK<span id="projectnumber">&#160;11.0.0</span>
+   <div id="projectname">LootLocker Unreal SDK<span id="projectnumber">&#160;11.1.0</span>
    </div>
    <div id="projectbrief">Game backend SDK for Unreal Engine</div>
   </td>
@@ -423,7 +423,7 @@ $(function() {
 </div>
 </div>
 <a id="ga3af990df2fb9ab41c4641de9cb19b509" name="ga3af990df2fb9ab41c4641de9cb19b509"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga3af990df2fb9ab41c4641de9cb19b509">&#9670;&#160;</a></span>ListEntitlements() <span class="overload">[1/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ga3af990df2fb9ab41c4641de9cb19b509">&#9670;&#160;</a></span>ListEntitlements() <span class="overload">[1/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -462,7 +462,7 @@ $(function() {
 </div>
 </div>
 <a id="ga346aacfce6b8726a89785cacece3c652" name="ga346aacfce6b8726a89785cacece3c652"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga346aacfce6b8726a89785cacece3c652">&#9670;&#160;</a></span>ListEntitlements() <span class="overload">[2/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ga346aacfce6b8726a89785cacece3c652">&#9670;&#160;</a></span>ListEntitlements() <span class="overload">[2/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -503,6 +503,63 @@ $(function() {
   <table class="params">
     <tr><td class="paramname">Count</td><td>Optional: Entries to return (-1 for default) </td></tr>
     <tr><td class="paramname">After</td><td>Optional: Pagination cursor (empty for start) </td></tr>
+    <tr><td class="paramname">OnComplete</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="ga744c307a776902a75388aca1c3a4b114" name="ga744c307a776902a75388aca1c3a4b114"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga744c307a776902a75388aca1c3a4b114">&#9670;&#160;</a></span>ListEntitlements() <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">FString ULootLockerSDKManager::ListEntitlements </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>Count</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;</td>          <td class="paramname"><span class="paramname"><em>After</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const TArray&lt; FString &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>CatalogListingIds</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="#ga87af48c4881c61f319120b7fe5b748d6">FLootLockerListEntitlementsResponseDelegate</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>OnComplete</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;</td>          <td class="paramname"><span class="paramname"><em>ForPlayerWithUlid</em></span><span class="paramdefsep"> = </span><span class="paramdefval">&quot;&quot;</span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>List player's historical entitlements, optionally limited to entitlements that contain any of the given catalog listings. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Count</td><td>Optional: Entries to return (-1 for default) </td></tr>
+    <tr><td class="paramname">After</td><td>Optional: Pagination cursor (empty for start) </td></tr>
+    <tr><td class="paramname">CatalogListingIds</td><td>Optional: Only return entitlements that contain an item belonging to any of these catalog listings (empty for no filter) </td></tr>
     <tr><td class="paramname">OnComplete</td><td>Delegate for handling the server response </td></tr>
     <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
   </table>
@@ -566,6 +623,8 @@ Enumerations</h2></td></tr>
 Functions</h2></td></tr>
 <tr class="memitem:ga346aacfce6b8726a89785cacece3c652" id="r_ga346aacfce6b8726a89785cacece3c652"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ga346aacfce6b8726a89785cacece3c652">ULootLockerSDKManager::ListEntitlements</a> (int Count, const FString &amp;After, const <a class="el" href="#ga87af48c4881c61f319120b7fe5b748d6">FLootLockerListEntitlementsResponseDelegate</a> &amp;OnComplete, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
 <tr class="memdesc:ga346aacfce6b8726a89785cacece3c652"><td class="mdescLeft">&#160;</td><td class="mdescRight">List player's historical entitlements (paginated, all origins: progression, purchases, rewards).  <br /></td></tr>
+<tr class="memitem:ga744c307a776902a75388aca1c3a4b114" id="r_ga744c307a776902a75388aca1c3a4b114"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ga744c307a776902a75388aca1c3a4b114">ULootLockerSDKManager::ListEntitlements</a> (int Count, const FString &amp;After, const TArray&lt; FString &gt; &amp;CatalogListingIds, const <a class="el" href="#ga87af48c4881c61f319120b7fe5b748d6">FLootLockerListEntitlementsResponseDelegate</a> &amp;OnComplete, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:ga744c307a776902a75388aca1c3a4b114"><td class="mdescLeft">&#160;</td><td class="mdescRight">List player's historical entitlements, optionally limited to entitlements that contain any of the given catalog listings.  <br /></td></tr>
 <tr class="memitem:ga3af990df2fb9ab41c4641de9cb19b509" id="r_ga3af990df2fb9ab41c4641de9cb19b509"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ga3af990df2fb9ab41c4641de9cb19b509">ULootLockerSDKManager::ListEntitlements</a> (const <a class="el" href="#ga87af48c4881c61f319120b7fe5b748d6">FLootLockerListEntitlementsResponseDelegate</a> &amp;OnComplete, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
 <tr class="memdesc:ga3af990df2fb9ab41c4641de9cb19b509"><td class="mdescLeft">&#160;</td><td class="mdescRight">List player's historical entitlements (default pagination).  <br /></td></tr>
 <tr class="memitem:gaa870d8fa1cd6e31d58b7450ae8453f7a" id="r_gaa870d8fa1cd6e31d58b7450ae8453f7a"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#gaa870d8fa1cd6e31d58b7450ae8453f7a">ULootLockerSDKManager::GetEntitlement</a> (const FString &amp;EntitlementID, <a class="el" href="#ga1f163f6839b632a874aba50edf9ca0e7">FLootLockerSingleEntitlementResponseDelegate</a> &amp;OnComplete, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>

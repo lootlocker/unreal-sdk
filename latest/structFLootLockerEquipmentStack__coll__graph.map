@@ -1,0 +1,5 @@
+<map id="FLootLockerEquipmentStack" name="FLootLockerEquipmentStack">
+<area shape="rect" id="Node000001" title="A stack currently attached to an equipment slot." alt="" coords="5,123,211,151"/>
+<area shape="rect" id="Node000002" href="$structFLootLockerEquipmentItemTemplate.html" title="A summary of the item template an equipped stack was created from." alt="" coords="8,5,208,50"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="110,64,111,123,105,122,106,67"/>
+</map>

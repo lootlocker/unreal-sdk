@@ -54,6 +54,7 @@ var group__Notifications =
       [ "ELootLockerNotificationSource::leaderboard_reward", "group__Notifications.html#gga8a987ae78696b2456052a824e546c7f8ae4fd0a530a2d917b507c05ef0c2bdcca", null ],
       [ "ELootLockerNotificationSource::reward_campaign", "group__Notifications.html#gga8a987ae78696b2456052a824e546c7f8a4eced99af8559e12eea2429269008050", null ],
       [ "ELootLockerNotificationSource::rewards_grant", "group__Notifications.html#gga8a987ae78696b2456052a824e546c7f8ae37ff0a6172a4fecb162cbd85bf2e44e", null ],
+      [ "ELootLockerNotificationSource::referral", "group__Notifications.html#gga8a987ae78696b2456052a824e546c7f8acd9bcdcbf9ef392bb2bce89a7c150638", null ],
       [ "ELootLockerNotificationSource::unknown", "group__Notifications.html#gga8a987ae78696b2456052a824e546c7f8aad921d60486366258809553a3db49a4a", null ]
     ] ],
     [ "ULootLockerSDKManager::ListNotifications", "group__Notifications.html#ga3daab7a9746e98c663edfa234d396009", null ],

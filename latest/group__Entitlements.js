@@ -34,5 +34,6 @@ var group__Entitlements =
     ] ],
     [ "ULootLockerSDKManager::GetEntitlement", "group__Entitlements.html#gaa870d8fa1cd6e31d58b7450ae8453f7a", null ],
     [ "ULootLockerSDKManager::ListEntitlements", "group__Entitlements.html#ga3af990df2fb9ab41c4641de9cb19b509", null ],
-    [ "ULootLockerSDKManager::ListEntitlements", "group__Entitlements.html#ga346aacfce6b8726a89785cacece3c652", null ]
+    [ "ULootLockerSDKManager::ListEntitlements", "group__Entitlements.html#ga346aacfce6b8726a89785cacece3c652", null ],
+    [ "ULootLockerSDKManager::ListEntitlements", "group__Entitlements.html#ga744c307a776902a75388aca1c3a4b114", null ]
 ];

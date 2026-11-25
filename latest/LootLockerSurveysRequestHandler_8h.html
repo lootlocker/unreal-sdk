@@ -1,0 +1,335 @@
+<!-- HTML header for doxygen 1.15.0-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.15.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>LootLocker Unreal SDK: LootLockerSDK/Source/LootLockerSDK/Public/GameAPI/LootLockerSurveysRequestHandler.h File Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript">var page_layout=1;</script>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only.css" rel="stylesheet" type="text/css"/>
+<link href="custom-layout-fixes.css" rel="stylesheet" type="text/css"/>
+<link href="lootlocker-theme.css" rel="stylesheet" type="text/css"/>
+<!-- Apply saved color scheme before first paint to prevent flash -->
+<script type="text/javascript">
+(function () {
+  try {
+    var saved = localStorage.getItem('ll-colorscheme');
+    var html = document.documentElement;
+    if (saved === 'dark') {
+      html.classList.remove('light-mode');
+      html.classList.add('dark-mode');
+    } else if (saved === 'light') {
+      html.classList.remove('dark-mode');
+      html.classList.add('light-mode');
+    }
+    // No saved pref: OS preference handled by CSS media query
+  } catch (e) {}
+})();
+</script>
+</head>
+<body>
+<!-- ================================================================
+     LootLocker top navigation bar
+     ================================================================ -->
+<nav id="ll-topnav" role="navigation" aria-label="LootLocker navigation">
+  <div id="ll-topnav-inner">
+    <!-- Left: logo + product name + section tabs -->
+    <div id="ll-topnav-left">
+      <a href="index.html" id="ll-topnav-logo-link"
+         aria-label="LootLocker Unreal SDK — home">
+        <img src="lootlocker-logo.png" alt="LootLocker" id="ll-topnav-logo-img"/>
+      </a>
+      <span id="ll-topnav-divider" aria-hidden="true"></span>
+      <a href="index.html" id="ll-topnav-product">Unreal SDK</a>
+      <span id="ll-topnav-version">v11.1.0</span>
+      <a href="https://github.com/lootlocker/unreal-sdk" target="_blank"
+         rel="noopener noreferrer" id="ll-topnav-github" aria-label="GitHub repository">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+             fill="currentColor" aria-hidden="true">
+          <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
+        </svg>
+      </a>
+      <div id="ll-topnav-links">
+        <a href="https://ref.lootlocker.com/game" target="_blank"
+           rel="noopener noreferrer" class="ll-topnav-tab">Game API &#8599;</a>
+        <a href="https://console.lootlocker.com" target="_blank"
+           rel="noopener noreferrer" class="ll-topnav-tab">Console &#8599;</a>
+        <a href="https://docs.lootlocker.com/" target="_blank"
+           rel="noopener noreferrer" class="ll-topnav-tab">Docs &#8599;</a>
+      </div>
+    </div>
+    <!-- Right: sign-up CTA + dark mode toggle -->
+    <div id="ll-topnav-right">
+      <a href="https://lootlocker.com/sign-up" target="_blank"
+         rel="noopener noreferrer" class="ll-topnav-signup">Sign Up</a>
+      <button id="ll-dark-toggle" type="button"
+              aria-label="Toggle dark mode" title="Toggle dark/light mode"
+              onclick="llToggleDark()">
+        <!-- Sun icon — shown in dark mode -->
+        <svg id="ll-icon-sun" xmlns="http://www.w3.org/2000/svg"
+             width="16" height="16" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2"
+             stroke-linecap="round" stroke-linejoin="round"
+             aria-hidden="true">
+          <circle cx="12" cy="12" r="5"/>
+          <line x1="12" y1="1" x2="12" y2="3"/>
+          <line x1="12" y1="21" x2="12" y2="23"/>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+          <line x1="1" y1="12" x2="3" y2="12"/>
+          <line x1="21" y1="12" x2="23" y2="12"/>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+        </svg>
+        <!-- Moon icon — shown in light mode -->
+        <svg id="ll-icon-moon" xmlns="http://www.w3.org/2000/svg"
+             width="16" height="16" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2"
+             stroke-linecap="round" stroke-linejoin="round"
+             aria-hidden="true">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+</nav>
+<script type="text/javascript">
+function llToggleDark() {
+  var html = document.documentElement;
+  var isDark = html.classList.contains('dark-mode') ||
+               (!html.classList.contains('light-mode') &&
+                window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+  if (isDark) {
+    html.classList.remove('dark-mode');
+    html.classList.add('light-mode');
+    try { localStorage.setItem('ll-colorscheme', 'light'); } catch (e) {}
+  } else {
+    html.classList.remove('light-mode');
+    html.classList.add('dark-mode');
+    try { localStorage.setItem('ll-colorscheme', 'dark'); } catch (e) {}
+  }
+}
+</script>
+<script type="text/javascript" src="version-picker.js" defer="defer"></script>
+<div id="side-nav" class="ui-resizable side-nav-resizable"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="lootlocker-logo.png"/></td>
+  <td id="projectalign">
+   <div id="projectname">LootLocker Unreal SDK<span id="projectnumber">&#160;11.1.0</span>
+   </div>
+   <div id="projectbrief">Game backend SDK for Unreal Engine</div>
+  </td>
+ </tr>
+   <tr><td colspan="2">        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td></tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.15.0 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('LootLockerSurveysRequestHandler_8h.html','',''); });
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+$(function() {
+  initMenu('',false,false,'search.php','Search',true);
+});
+</script>
+<div id="main-nav"></div>
+<div id="container"><div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">LootLockerSurveysRequestHandler.h File Reference</div></div>
+</div><!--header-->
+<div class="contents">
+<div class="textblock"><code>#include &quot;CoreMinimal.h&quot;</code><br />
+<code>#include &quot;JsonObjectWrapper.h&quot;</code><br />
+<code>#include &quot;<a class="el" href="LootLockerResponse_8h_source.html">LootLockerResponse.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="LootLockerPlayerData_8h_source.html">LootLockerPlayerData.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="LootLockerMetadataRequestHandler_8h_source.html">GameAPI/LootLockerMetadataRequestHandler.h</a>&quot;</code><br />
+<code>#include &quot;LootLockerSurveysRequestHandler.generated.h&quot;</code><br />
+</div><div class="textblock"><div class="dynheader">
+Include dependency graph for LootLockerSurveysRequestHandler.h:</div>
+<div class="dyncontent">
+<div class="center"><img src="LootLockerSurveysRequestHandler_8h__incl.png" border="0" usemap="#aLootLockerSDK_2Source_2LootLockerSDK_2Public_2GameAPI_2LootLockerSurveysRequestHandler_8h" loading="lazy" alt=""/></div>
+<map name="aLootLockerSDK_2Source_2LootLockerSDK_2Public_2GameAPI_2LootLockerSurveysRequestHandler_8h" id="aLootLockerSDK_2Source_2LootLockerSDK_2Public_2GameAPI_2LootLockerSurveysRequestHandler_8h">
+<area shape="rect" title=" " alt="" coords="707,5,971,84"/>
+<area shape="rect" title=" " alt="" coords="796,393,912,421"/>
+<area shape="poly" title=" " alt="" coords="843,83,855,379,850,376,839,86"/>
+<area shape="rect" title=" " alt="" coords="620,140,776,168"/>
+<area shape="poly" title=" " alt="" coords="790,83,728,133,725,129,786,86"/>
+<area shape="rect" href="LootLockerResponse_8h.html" title=" " alt="" coords="529,233,696,261"/>
+<area shape="poly" title=" " alt="" coords="704,67,679,79,653,93,629,111,609,133,601,153,598,175,605,220,600,217,593,175,595,152,605,131,625,107,650,89,677,74,709,65"/>
+<area shape="rect" href="LootLockerPlayerData_8h.html" title=" " alt="" coords="922,233,1098,261"/>
+<area shape="poly" title=" " alt="" coords="849,82,866,130,878,154,893,175,926,203,964,227,958,226,923,208,889,178,873,156,861,132,846,87"/>
+<area shape="rect" href="LootLockerMetadataRequestHandler_8h.html" title=" " alt="" coords="902,132,1120,177"/>
+<area shape="poly" title=" " alt="" coords="902,82,967,124,961,123,901,87"/>
+<area shape="rect" title=" " alt="" coords="1144,132,1340,177"/>
+<area shape="poly" title=" " alt="" coords="972,79,1148,127,1143,128,971,84"/>
+<area shape="poly" title=" " alt="" coords="639,259,739,315,829,384,824,383,736,320,638,264"/>
+<area shape="rect" href="LootLockerErrorData_8h.html" title=" " alt="" coords="560,317,726,345"/>
+<area shape="poly" title=" " alt="" coords="619,259,635,304,631,302,616,264"/>
+<area shape="rect" href="LootLockerRequestContext_8h.html" title=" " alt="" coords="329,317,536,345"/>
+<area shape="poly" title=" " alt="" coords="586,261,476,313,474,308,581,262"/>
+<area shape="rect" title=" " alt="" coords="69,317,305,345"/>
+<area shape="poly" title=" " alt="" coords="543,264,271,316,270,311,546,259"/>
+<area shape="poly" title=" " alt="" coords="681,343,805,388,799,387,680,348"/>
+<area shape="rect" title=" " alt="" coords="536,393,772,421"/>
+<area shape="poly" title=" " alt="" coords="647,344,652,379,648,376,643,348"/>
+<area shape="poly" title=" " alt="" coords="509,343,783,392,778,393,509,348"/>
+<area shape="rect" title=" " alt="" coords="5,393,212,421"/>
+<area shape="poly" title=" " alt="" coords="375,348,182,392,181,386,373,343"/>
+<area shape="rect" title=" " alt="" coords="235,393,512,421"/>
+<area shape="poly" title=" " alt="" coords="424,344,395,383,392,378,420,347"/>
+<area shape="poly" title=" " alt="" coords="977,261,932,286,911,301,892,319,874,348,862,380,858,376,869,346,888,316,907,297,929,282,972,262"/>
+<area shape="rect" title=" " alt="" coords="902,317,1118,345"/>
+<area shape="poly" title=" " alt="" coords="1012,259,1012,304,1008,300,1008,263"/>
+<area shape="rect" href="LootLockerSessionOptionals_8h.html" title=" " alt="" coords="1412,317,1627,345"/>
+<area shape="poly" title=" " alt="" coords="1092,259,1425,314,1420,314,1091,264"/>
+<area shape="rect" title=" " alt="" coords="1142,317,1387,345"/>
+<area shape="poly" title=" " alt="" coords="1051,259,1212,312,1207,312,1050,264"/>
+<area shape="poly" title=" " alt="" coords="1414,344,928,400,927,395,1408,344"/>
+<area shape="rect" title=" " alt="" coords="1376,393,1662,421"/>
+<area shape="poly" title=" " alt="" coords="1521,344,1521,379,1517,375,1517,347"/>
+<area shape="poly" title=" " alt="" coords="1120,174,1270,204,1433,241,1570,280,1616,298,1641,316,1648,331,1641,347,1627,357,1603,365,1534,379,1442,389,1335,397,1110,405,927,408,927,403,1110,400,1335,391,1442,384,1534,373,1602,360,1624,352,1637,343,1642,331,1637,319,1613,303,1568,285,1431,246,1268,209,1120,179"/>
+<area shape="poly" title=" " alt="" coords="913,178,686,232,685,227,918,177"/>
+<area shape="poly" title=" " alt="" coords="1013,175,1012,219,1008,216,1009,179"/>
+<area shape="rect" title=" " alt="" coords="1702,233,1840,261"/>
+<area shape="poly" title=" " alt="" coords="1120,173,1131,174,1286,189,1408,195,1529,202,1684,222,1710,229,1705,229,1683,227,1528,208,1407,201,1286,195,1131,179,1120,178"/>
+<area shape="rect" title=" " alt="" coords="1864,225,2070,269"/>
+<area shape="poly" title=" " alt="" coords="1120,173,1131,174,1331,192,1489,198,1647,203,1851,224,1846,224,1647,209,1489,203,1331,197,1131,179,1120,178"/>
+</map>
+</div>
+</div><div class="textblock"><div class="dynheader">
+This graph shows which files directly or indirectly include this file:</div>
+<div class="dyncontent">
+<div class="center"><img src="LootLockerSurveysRequestHandler_8h__dep__incl.png" border="0" usemap="#aLootLockerSDK_2Source_2LootLockerSDK_2Public_2GameAPI_2LootLockerSurveysRequestHandler_8hdep" loading="lazy" alt=""/></div>
+<map name="aLootLockerSDK_2Source_2LootLockerSDK_2Public_2GameAPI_2LootLockerSurveysRequestHandler_8hdep" id="aLootLockerSDK_2Source_2LootLockerSDK_2Public_2GameAPI_2LootLockerSurveysRequestHandler_8hdep">
+<area shape="rect" title=" " alt="" coords="5,5,270,84"/>
+<area shape="rect" href="LootLockerSDKManager_8h.html" title=" " alt="" coords="42,132,233,194"/>
+<area shape="poly" title=" " alt="" coords="139,98,140,133,135,131,136,102"/>
+</map>
+</div>
+</div>
+<p><a href="LootLockerSurveysRequestHandler_8h_source.html">Go to the source code of this file.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+Data Structures</h2></td></tr>
+<tr class="memitem:FLootLockerSurveyQuestion" id="r_FLootLockerSurveyQuestion"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerSurveyQuestion.html">FLootLockerSurveyQuestion</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A single question in a survey.  <a href="structFLootLockerSurveyQuestion.html#details">More...</a><br /></td></tr>
+<tr class="memitem:FLootLockerSurvey" id="r_FLootLockerSurvey"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerSurvey.html">FLootLockerSurvey</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A survey that a player can see and complete.  <a href="structFLootLockerSurvey.html#details">More...</a><br /></td></tr>
+<tr class="memitem:FLootLockerSurveyAnswer" id="r_FLootLockerSurveyAnswer"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerSurveyAnswer.html">FLootLockerSurveyAnswer</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A single answer to a survey question, submitted through SubmitSurveyAnswers.  <a href="structFLootLockerSurveyAnswer.html#details">More...</a><br /></td></tr>
+<tr class="memitem:FLootLockerListSurveysResponse" id="r_FLootLockerListSurveysResponse"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerListSurveysResponse.html">FLootLockerListSurveysResponse</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Response containing the surveys the current player can see.  <a href="structFLootLockerListSurveysResponse.html#details">More...</a><br /></td></tr>
+<tr class="memitem:FLootLockerGetSurveyResponse" id="r_FLootLockerGetSurveyResponse"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerGetSurveyResponse.html">FLootLockerGetSurveyResponse</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Response containing a single survey and its questions.  <a href="structFLootLockerGetSurveyResponse.html#details">More...</a><br /></td></tr>
+<tr class="memitem:FLootLockerCompleteSurveyResponse" id="r_FLootLockerCompleteSurveyResponse"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerCompleteSurveyResponse.html">FLootLockerCompleteSurveyResponse</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Response returned after recording a survey completion for the current player.  <a href="structFLootLockerCompleteSurveyResponse.html#details">More...</a><br /></td></tr>
+<tr class="memitem:ULootLockerSurveysRequestHandler" id="r_ULootLockerSurveysRequestHandler"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classULootLockerSurveysRequestHandler.html">ULootLockerSurveysRequestHandler</a></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-typedef-members" class="groupheader"><a id="typedef-members" name="typedef-members"></a>
+Typedefs</h2></td></tr>
+<tr class="memitem:ga52a7cd23f42422eb364e16158ab7b8eb" id="r_ga52a7cd23f42422eb364e16158ab7b8eb"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Surveys.html#ga52a7cd23f42422eb364e16158ab7b8eb">FLootLockerListSurveysResponseDelegate</a>) (<a class="el" href="structFLootLockerListSurveysResponse.html">FLootLockerListSurveysResponse</a>)</td></tr>
+<tr class="memdesc:ga52a7cd23f42422eb364e16158ab7b8eb"><td class="mdescLeft">&#160;</td><td class="mdescRight">C++ response delegate for listing surveys.  <br /></td></tr>
+<tr class="memitem:ga468ebc7785f46e7b2465d0bd806c9728" id="r_ga468ebc7785f46e7b2465d0bd806c9728"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Surveys.html#ga468ebc7785f46e7b2465d0bd806c9728">FLootLockerGetSurveyResponseDelegate</a>) (<a class="el" href="structFLootLockerGetSurveyResponse.html">FLootLockerGetSurveyResponse</a>)</td></tr>
+<tr class="memdesc:ga468ebc7785f46e7b2465d0bd806c9728"><td class="mdescLeft">&#160;</td><td class="mdescRight">C++ response delegate for getting a single survey.  <br /></td></tr>
+<tr class="memitem:gabb2559811e5e3333b043e94edd2bd99b" id="r_gabb2559811e5e3333b043e94edd2bd99b"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Surveys.html#gabb2559811e5e3333b043e94edd2bd99b">FLootLockerCompleteSurveyResponseDelegate</a>) (<a class="el" href="structFLootLockerCompleteSurveyResponse.html">FLootLockerCompleteSurveyResponse</a>)</td></tr>
+<tr class="memdesc:gabb2559811e5e3333b043e94edd2bd99b"><td class="mdescLeft">&#160;</td><td class="mdescRight">C++ response delegate for completing a survey.  <br /></td></tr>
+</table>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- HTML footer for doxygen 1.15.0-->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="dir_426131f2e7e3782155028ac49ab5e11c.html">LootLockerSDK</a></li><li class="navelem"><a href="dir_63662f8d869795fbcfe09e29de292894.html">Source</a></li><li class="navelem"><a href="dir_529bffb88e47999e071ca27db50fed71.html">LootLockerSDK</a></li><li class="navelem"><a href="dir_6800d9c9fc95b443eb5325340bc06d03.html">Public</a></li><li class="navelem"><a href="dir_c4276055a6e8dd41429ac8d6d68c790b.html">GameAPI</a></li><li class="navelem"><a href="LootLockerSurveysRequestHandler_8h.html">LootLockerSurveysRequestHandler.h</a></li>
+    <li class="footer">
+      Generated by <a href="https://www.doxygen.org/index.html">Doxygen</a> 1.15.0
+      &nbsp;&mdash;&nbsp;
+      <a href="https://lootlocker.com" target="_blank" rel="noopener noreferrer">LootLocker</a>
+    </li>
+  </ul>
+</div>
+<script src="nav-customization.js" type="text/javascript"></script>
+</body>
+</html>

@@ -25,6 +25,8 @@ var topics =
     [ "Assets", "group__Assets.html", "group__Assets" ],
     [ "Asset Instances", "group__AssetInstance.html", "group__AssetInstance" ],
     [ "Asset Instance Progressions", "group__AssetInstanceProgressions.html", "group__AssetInstanceProgressions" ],
+    [ "Equipment", "group__Equipment.html", "group__Equipment" ],
+    [ "Identity", "group__Identity.html", "group__Identity" ],
     [ "User-Generated Content (UGC)", "group__UserGeneratedContent.html", "group__UserGeneratedContent" ],
     [ "Collectables", "group__Collectables.html", null ],
     [ "Progressions", "group__Progressions.html", "group__Progressions" ],
@@ -36,7 +38,10 @@ var topics =
     [ "Messages", "group__Messages.html", "group__Messages" ],
     [ "Notifications", "group__Notifications.html", "group__Notifications" ],
     [ "Broadcasts", "group__Broadcasts.html", "group__Broadcasts" ],
+    [ "Referrals", "group__Referrals.html", "group__Referrals" ],
     [ "Reports", "group__Reports.html", null ],
     [ "Feedback", "group__Feedback.html", "group__Feedback" ],
-    [ "Miscellaneous Utilities", "group__Misc.html", "group__Misc" ]
+    [ "Surveys", "group__Surveys.html", "group__Surveys" ],
+    [ "Miscellaneous Utilities", "group__Misc.html", "group__Misc" ],
+    [ "Playtests", "group__Playtests.html", "group__Playtests" ]
 ];

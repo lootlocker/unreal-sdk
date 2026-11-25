@@ -59,7 +59,7 @@
       </a>
       <span id="ll-topnav-divider" aria-hidden="true"></span>
       <a href="index.html" id="ll-topnav-product">Unreal SDK</a>
-      <span id="ll-topnav-version">v11.0.0</span>
+      <span id="ll-topnav-version">v11.1.0</span>
       <a href="https://github.com/lootlocker/unreal-sdk" target="_blank"
          rel="noopener noreferrer" id="ll-topnav-github" aria-label="GitHub repository">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
@@ -137,7 +137,7 @@ function llToggleDark() {
  <tr id="projectrow">
   <td id="projectlogo"><img alt="Logo" src="lootlocker-logo.png"/></td>
   <td id="projectalign">
-   <div id="projectname">LootLocker Unreal SDK<span id="projectnumber">&#160;11.0.0</span>
+   <div id="projectname">LootLocker Unreal SDK<span id="projectnumber">&#160;11.1.0</span>
    </div>
    <div id="projectbrief">Game backend SDK for Unreal Engine</div>
   </td>
@@ -232,6 +232,10 @@ Data Fields</h2></td></tr>
 <tr class="memdesc:a99268ffe0c40fafa2a6b830d5cfe588b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Whether to automatically create a profile for the player if one does not exist.  <br /></td></tr>
 <tr class="memitem:a55146eef128e3f09754a28b0ce3c8792" id="r_a55146eef128e3f09754a28b0ce3c8792"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a55146eef128e3f09754a28b0ce3c8792">Check_dlc</a> = false</td></tr>
 <tr class="memdesc:a55146eef128e3f09754a28b0ce3c8792"><td class="mdescLeft">&#160;</td><td class="mdescRight">Whether the client reports owning DLC for this player.  <br /></td></tr>
+<tr class="memitem:adb6e64900edc67d332830af2983854e7" id="r_adb6e64900edc67d332830af2983854e7"><td class="memItemLeft" align="right" valign="top">FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#adb6e64900edc67d332830af2983854e7">Referral_code</a> = &quot;&quot;</td></tr>
+<tr class="memdesc:adb6e64900edc67d332830af2983854e7"><td class="mdescLeft">&#160;</td><td class="mdescRight">The referral code of the player who invited this player, which is the referrer's public UID.  <br /></td></tr>
+<tr class="memitem:a136a0d4f44ab4a38f6e6c2ada478df02" id="r_a136a0d4f44ab4a38f6e6c2ada478df02"><td class="memItemLeft" align="right" valign="top">FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a136a0d4f44ab4a38f6e6c2ada478df02">Referral_program_key</a> = &quot;&quot;</td></tr>
+<tr class="memdesc:a136a0d4f44ab4a38f6e6c2ada478df02"><td class="mdescLeft">&#160;</td><td class="mdescRight">The key of the referral program the code redeems.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Optional parameters that can be sent when starting a session. </p>
@@ -312,6 +316,40 @@ Data Fields</h2></td></tr>
 
 <p>The name of the player (same as set by SetPlayerName). </p>
 <p>If not supplied, will be left blank. </p>
+
+</div>
+</div>
+<a id="adb6e64900edc67d332830af2983854e7" name="adb6e64900edc67d332830af2983854e7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adb6e64900edc67d332830af2983854e7">&#9670;&#160;</a></span>Referral_code</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">FString FLootLockerSessionOptionals::Referral_code = &quot;&quot;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The referral code of the player who invited this player, which is the referrer's public UID. </p>
+<p>Supply this when starting a first session to attribute the referral. Ignored for returning players. </p>
+
+</div>
+</div>
+<a id="a136a0d4f44ab4a38f6e6c2ada478df02" name="a136a0d4f44ab4a38f6e6c2ada478df02"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a136a0d4f44ab4a38f6e6c2ada478df02">&#9670;&#160;</a></span>Referral_program_key</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">FString FLootLockerSessionOptionals::Referral_program_key = &quot;&quot;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The key of the referral program the code redeems. </p>
+<p>Leave empty when the game has a single active program. </p>
 
 </div>
 </div>

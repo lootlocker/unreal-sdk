@@ -1,19 +1,16 @@
 var searchData=
 [
-  ['savedbutinactive_0',['SavedButInactive',['../LootLockerMiscellaneousRequestHandler_8h.html#aefd53f0a96307a49c3c05f68e8330959afc8e5ea09d47efb2edfa091d8f782a63',1,'LootLockerMiscellaneousRequestHandler.h']]],
-  ['self_1',['self',['../group__Metadata.html#gga3d86f36677809018b3cb5db0418ac804a590f53e8699817c6fa498cc11a4cbe63',1,'LootLockerMetadataRequestHandler.h']]],
-  ['servererror_2',['ServerError',['../LootLockerMiscellaneousRequestHandler_8h.html#aefd53f0a96307a49c3c05f68e8330959a7d65c64901711bc2cd2a33ff2641fbe9',1,'LootLockerMiscellaneousRequestHandler.h']]],
-  ['sessionexpired_3',['SessionExpired',['../LootLockerMiscellaneousRequestHandler_8h.html#aefd53f0a96307a49c3c05f68e8330959a6dce5c5e5103a68c8b614613db57b3a5',1,'LootLockerMiscellaneousRequestHandler.h']]],
-  ['shouldberetried_4',['ShouldBeRetried',['../LootLockerHTTPExecutionQueueItem_8h.html#a367c957239f49291c04402bc5fcf8fc3a2cd77660ca9876c199ea67485d3ac987',1,'LootLockerHTTPExecutionQueueItem.h']]],
-  ['signedinandconnected_5',['SignedInAndConnected',['../LootLockerMiscellaneousRequestHandler_8h.html#aefd53f0a96307a49c3c05f68e8330959ae20c79275fac9a3dca35cfdfef95a4ec',1,'LootLockerMiscellaneousRequestHandler.h']]],
-  ['singlesession_6',['SingleSession',['../group__Init.html#ggab6cbfe9c0c8733469624132e5afda1a5a7f38d7b441417b213701c616f7641745',1,'LootLockerConfig.h']]],
-  ['skipped_7',['skipped',['../group__Purchasing.html#gga0c28d2d074ad7998a1d90dd37980acd4ae52e279299e912838f689d4380c81f4a',1,'LootLockerPurchasesRequestHandler.h']]],
-  ['source_8',['Source',['../group__Items.html#ggacd59d9a537eb07ea7a6d091b57e95d32af31bbdd1b3e85bccd652680e16935819',1,'LootLockerItemRequestHandler.h']]],
-  ['stackable_9',['Stackable',['../group__Items.html#gga91186242c3669fe383f2b6745a19d26ca2f926bb2101ec30b73983332ddb9f661',1,'LootLockerItemRequestHandler.h']]],
-  ['steam_10',['Steam',['../group__ConnectedAccounts.html#gga52ca2d9826a43c89fc5913c416e0894da4db4563826bad0eb2f60ee6e42d0ea4b',1,'LootLockerConnectedAccountsRequestHandler.h']]],
-  ['steam_5fid_11',['Steam_id',['../group__Player.html#gga3ddeac62fd1e00996ae918cf2f732625a1c71924fd6b220e3ee1d126767703e2b',1,'LootLockerPlayerRequestHandler.h']]],
-  ['steam_5fstore_12',['Steam_store',['../group__Entitlements.html#ggaa8b3363f44f89367edb3391761eb7903a405bfe9e4b9a6d852b9f21a58f998eec',1,'LootLockerEntitlementRequestHandler.h']]],
-  ['string_13',['String',['../group__Metadata.html#gga7ae3db614872bb456a6b01bee377ec3ea27118326006d3829667a400ad23d5d98',1,'LootLockerMetadataRequestHandler.h']]],
-  ['subscription_14',['Subscription',['../group__Entitlements.html#gga9c9c8da68ce2cb9275c436451fe140faa787ad0b7a17de4ad6b1711bbf8d79fcb',1,'LootLockerEntitlementRequestHandler.h']]],
-  ['succeeded_15',['Succeeded',['../group__Purchasing.html#gga946691c7987a353ff57418eba974893ea66d02c2f8a582446f8dd8752366002b5',1,'LootLockerPurchasesRequestHandler.h']]]
+  ['referral_0',['referral',['../group__Notifications.html#gga8a987ae78696b2456052a824e546c7f8acd9bcdcbf9ef392bb2bce89a7c150638',1,'LootLockerNotificationsRequestHandler.h']]],
+  ['refund_5ffailed_1',['refund_failed',['../group__Purchasing.html#ggab2e52341cdc59639e6f0c7595778ed66a153dc3973f152526a16472cb67d4c114',1,'LootLockerPurchasesRequestHandler.h']]],
+  ['refunded_2',['Refunded',['../group__Entitlements.html#gga01dbb08b2160f96b89d68803979d5526acc61945cbbf46721a053467c395c666f',1,'Refunded:&#160;LootLockerEntitlementRequestHandler.h'],['../group__Purchasing.html#gga946691c7987a353ff57418eba974893eacc61945cbbf46721a053467c395c666f',1,'Refunded:&#160;LootLockerPurchasesRequestHandler.h']]],
+  ['refundedfriendlyfraud_3',['RefundedFriendlyFraud',['../group__Purchasing.html#gga946691c7987a353ff57418eba974893eac62fb5419229ad3fc585aa5cf6ba38a5',1,'LootLockerPurchasesRequestHandler.h']]],
+  ['refundedsuspectedfraud_4',['RefundedSuspectedFraud',['../group__Purchasing.html#gga946691c7987a353ff57418eba974893ea3b63d4d0647bef2bdb0533cfd11dda92',1,'LootLockerPurchasesRequestHandler.h']]],
+  ['removed_5',['removed',['../group__Purchasing.html#gga0c28d2d074ad7998a1d90dd37980acd4ab07286ebbb5bc7aa91cc3eaa8bc19711',1,'LootLockerPurchasesRequestHandler.h']]],
+  ['rentable_6',['Rentable',['../group__Assets.html#gga8ae3c9c1e8732f482e668772d87be798ab5f534543c4f3f2c7ec06476eff80187',1,'LootLockerAssetsRequestHandler.h']]],
+  ['replace_7',['Replace',['../group__Equipment.html#gga25b111e6b3bf1d66045554dd116c5c91a0ebe6df8a3ac338e0512acc741823fdb',1,'LootLockerEquipmentRequestHandler.h']]],
+  ['reward_8',['Reward',['../group__Items.html#gga0a21699e235f76f96727af3d9947f0a9a35281ac0e8d77e142fdcd41c07ce47dd',1,'LootLockerItemRequestHandler.h']]],
+  ['reward_9',['reward',['../group__Metadata.html#gga3d86f36677809018b3cb5db0418ac804af9b11ed03ce21394fd0e5b19ae2d3873',1,'reward:&#160;LootLockerMetadataRequestHandler.h'],['../group__Notifications.html#gga9f4e18af9784e0fa371ee72a21ab31d2af9b11ed03ce21394fd0e5b19ae2d3873',1,'reward:&#160;LootLockerNotificationsRequestHandler.h']]],
+  ['reward_5fcampaign_10',['reward_campaign',['../group__Notifications.html#gga8a987ae78696b2456052a824e546c7f8a4eced99af8559e12eea2429269008050',1,'LootLockerNotificationsRequestHandler.h']]],
+  ['reward_5fnot_5ffound_11',['Reward_not_found',['../group__Triggers.html#gga12edce0037bfffa3fb1c89165cf7777fa3ba9c248f0537d69bc8f68734ea1062e',1,'LootLockerTriggersRequestHandler.h']]],
+  ['rewards_5fgrant_12',['rewards_grant',['../group__Notifications.html#gga8a987ae78696b2456052a824e546c7f8ae37ff0a6172a4fecb162cbd85bf2e44e',1,'LootLockerNotificationsRequestHandler.h']]]
 ];

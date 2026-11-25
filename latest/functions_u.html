@@ -59,7 +59,7 @@
       </a>
       <span id="ll-topnav-divider" aria-hidden="true"></span>
       <a href="index.html" id="ll-topnav-product">Unreal SDK</a>
-      <span id="ll-topnav-version">v11.0.0</span>
+      <span id="ll-topnav-version">v11.1.0</span>
       <a href="https://github.com/lootlocker/unreal-sdk" target="_blank"
          rel="noopener noreferrer" id="ll-topnav-github" aria-label="GitHub repository">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
@@ -137,7 +137,7 @@ function llToggleDark() {
  <tr id="projectrow">
   <td id="projectlogo"><img alt="Logo" src="lootlocker-logo.png"/></td>
   <td id="projectalign">
-   <div id="projectname">LootLocker Unreal SDK<span id="projectnumber">&#160;11.0.0</span>
+   <div id="projectname">LootLocker Unreal SDK<span id="projectnumber">&#160;11.1.0</span>
    </div>
    <div id="projectbrief">Game backend SDK for Unreal Engine</div>
   </td>
@@ -215,7 +215,9 @@ $(function() {
 <li>ugc_only&#160;:&#160;<a class="el" href="structFLootLockerSimpleAssetFilters.html#aa271ae64220542faab6eeb54c2f68e85">FLootLockerSimpleAssetFilters</a></li>
 <li>Ulid&#160;:&#160;<a class="el" href="structFLootLockerSimpleInventoryItem.html#a8709a7f9217841b87dac2984e3c3b128">FLootLockerSimpleInventoryItem</a></li>
 <li>ulid&#160;:&#160;<a class="el" href="structFLootLockerAsset.html#ad23a342fc2f8ec8395c8f897df59a65e">FLootLockerAsset</a>, <a class="el" href="structFLootLockerCharacter.html#a2efe39239866e442784aea802c80ea67">FLootLockerCharacter</a>, <a class="el" href="structFLootLockerLeaderboard.html#a6f9d0f4b350d2ee9522e1ae892d90f69">FLootLockerLeaderboard</a>, <a class="el" href="structFLootLockerLeaderboardDetails.html#a342cb37f5990d66a6f2bc96974a20479">FLootLockerLeaderboardDetails</a>, <a class="el" href="structFLootLockerListCharacterResponseItem.html#abe2bd0978b7f3186b9fdcbe1a2534e5e">FLootLockerListCharacterResponseItem</a>, <a class="el" href="structFLootLockerMultiplePlayersNames.html#ac887b3565bd56e96d925b45e61e399ef">FLootLockerMultiplePlayersNames</a></li>
+<li>ULLEquipmentRequestHandler()&#160;:&#160;<a class="el" href="classULLEquipmentRequestHandler.html#a5a863fd0ebdd78458c53a073748199a8">ULLEquipmentRequestHandler</a></li>
 <li>ULLPlayerFilesRequestHandler()&#160;:&#160;<a class="el" href="classULLPlayerFilesRequestHandler.html#a12b2c413a9a45e0398831726450b279d">ULLPlayerFilesRequestHandler</a></li>
+<li>ULLReferralRequestHandler()&#160;:&#160;<a class="el" href="classULLReferralRequestHandler.html#abd817010e0a6cb957145450ecb1ee64f">ULLReferralRequestHandler</a></li>
 <li>ULootLockerAssetInstancesRequestHandler()&#160;:&#160;<a class="el" href="classULootLockerAssetInstancesRequestHandler.html#a6431b4788f594091dec7cac7a5c07f4e">ULootLockerAssetInstancesRequestHandler</a></li>
 <li>ULootLockerAssetsRequestHandler()&#160;:&#160;<a class="el" href="classULootLockerAssetsRequestHandler.html#a8d5816f6058c14563d115533d1192803">ULootLockerAssetsRequestHandler</a></li>
 <li>ULootLockerAuthenticationRequestHandler()&#160;:&#160;<a class="el" href="classULootLockerAuthenticationRequestHandler.html#a365fce7bddb4ca6025ce1ad7ee1a2261">ULootLockerAuthenticationRequestHandler</a></li>
@@ -232,6 +234,7 @@ $(function() {
 <li>ULootLockerFollowersRequestHandler()&#160;:&#160;<a class="el" href="classULootLockerFollowersRequestHandler.html#a374351b3747659ce63d4025c21c38193">ULootLockerFollowersRequestHandler</a></li>
 <li>ULootLockerFriendsRequestHandler()&#160;:&#160;<a class="el" href="classULootLockerFriendsRequestHandler.html#a97c798afcd04aad2d51f4a85af782e85">ULootLockerFriendsRequestHandler</a></li>
 <li>ULootLockerHeroRequestHandler()&#160;:&#160;<a class="el" href="classULootLockerHeroRequestHandler.html#a116c6c4c7edc7fb3a1941ef8de353225">ULootLockerHeroRequestHandler</a></li>
+<li>ULootLockerIdentityRequestHandler()&#160;:&#160;<a class="el" href="classULootLockerIdentityRequestHandler.html#a1df3d5e9a0a15af7ddeff29f759c8648">ULootLockerIdentityRequestHandler</a></li>
 <li>ULootLockerItemRequestHandler()&#160;:&#160;<a class="el" href="classULootLockerItemRequestHandler.html#aa5c560295fc236dc06a8a84a2ab386eb">ULootLockerItemRequestHandler</a></li>
 <li>ULootLockerLeaderboardArchiveRequestHandler()&#160;:&#160;<a class="el" href="classULootLockerLeaderboardArchiveRequestHandler.html#acbca7f07a93efc6bf404c5f74398b85e">ULootLockerLeaderboardArchiveRequestHandler</a></li>
 <li>ULootLockerLeaderboardRequestHandler()&#160;:&#160;<a class="el" href="classULootLockerLeaderboardRequestHandler.html#a70a0d643304bf450e850047b57e80926">ULootLockerLeaderboardRequestHandler</a></li>
@@ -243,21 +246,25 @@ $(function() {
 <li>ULootLockerPersistentStorageRequestHandler()&#160;:&#160;<a class="el" href="classULootLockerPersistentStorageRequestHandler.html#a6108dace6f89dbe5e4e4988e67ca37da">ULootLockerPersistentStorageRequestHandler</a></li>
 <li>ULootLockerPlatformKeyRequestHandler()&#160;:&#160;<a class="el" href="classULootLockerPlatformKeyRequestHandler.html#abdd42afeb6d44c28c75d6ee2b94b2f28">ULootLockerPlatformKeyRequestHandler</a></li>
 <li>ULootLockerPlayerRequestHandler()&#160;:&#160;<a class="el" href="classULootLockerPlayerRequestHandler.html#a9f5c620050267d6a66425547b55336c5">ULootLockerPlayerRequestHandler</a></li>
+<li>ULootLockerPlaytestsRequestHandler()&#160;:&#160;<a class="el" href="classULootLockerPlaytestsRequestHandler.html#afef9da6221b9c3ed8cb2dcf8dfd4129e">ULootLockerPlaytestsRequestHandler</a></li>
 <li>ULootLockerPresenceManager()&#160;:&#160;<a class="el" href="classULootLockerPresenceManager.html#af74c8a8bbcd01736a8c02acfca1acb81">ULootLockerPresenceManager</a></li>
 <li>ULootLockerProgressionsRequestHandler()&#160;:&#160;<a class="el" href="classULootLockerProgressionsRequestHandler.html#adcacf2435ed90f6e672789958045a58a">ULootLockerProgressionsRequestHandler</a></li>
 <li>ULootLockerPurchasesRequestHandler()&#160;:&#160;<a class="el" href="classULootLockerPurchasesRequestHandler.html#a7fe4b8f2093c3a8f98c654ca2be217df">ULootLockerPurchasesRequestHandler</a></li>
 <li>ULootLockerRemoteSessionRequestHandler()&#160;:&#160;<a class="el" href="classULootLockerRemoteSessionRequestHandler.html#a27b618c8fdd348373b3b44a04ff3ef64">ULootLockerRemoteSessionRequestHandler</a></li>
 <li>ULootLockerStateData()&#160;:&#160;<a class="el" href="classULootLockerStateData.html#aeaec87e78cef78955c47f87d9cf63a6a">ULootLockerStateData</a></li>
 <li>ULootLockerStaticNotificationStringBlueprintCallables()&#160;:&#160;<a class="el" href="classULootLockerStaticNotificationStringBlueprintCallables.html#a6baa192c92b6c93f8df101e635b18932">ULootLockerStaticNotificationStringBlueprintCallables</a></li>
+<li>ULootLockerSurveysRequestHandler()&#160;:&#160;<a class="el" href="classULootLockerSurveysRequestHandler.html#a3de5b682f961152b27a7a5871ca40a42">ULootLockerSurveysRequestHandler</a></li>
 <li>ULootLockerTriggersRequestHandler()&#160;:&#160;<a class="el" href="classULootLockerTriggersRequestHandler.html#af3436edb57397ee73e4fe745636d2a79">ULootLockerTriggersRequestHandler</a></li>
 <li>ULootLockerUserGeneratedContentRequestHandler()&#160;:&#160;<a class="el" href="classULootLockerUserGeneratedContentRequestHandler.html#a0fca7ef776e8ad304665d443ba634529">ULootLockerUserGeneratedContentRequestHandler</a></li>
 <li>UnblockPlayer()&#160;:&#160;<a class="el" href="classULootLockerFriendsRequestHandler.html#a248284865db0b599acb9231c0285182b">ULootLockerFriendsRequestHandler</a>, <a class="el" href="group__Friends.html#gacfdc207a132575521718d90feb2fc15e">ULootLockerSDKManager</a></li>
 <li>UnEquipAssetToCharacterById()&#160;:&#160;<a class="el" href="classULootLockerCharacterRequestHandler.html#a24b5a857fab863d775f7e21e1d4b1a66">ULootLockerCharacterRequestHandler</a>, <a class="el" href="group__Hero.html#ga96285206e6c10e7f39f4a2a0890992f5">ULootLockerSDKManager</a></li>
 <li>UnEquipAssetToDefaultCharacter()&#160;:&#160;<a class="el" href="classULootLockerCharacterRequestHandler.html#abcba924efd8b9633a89e8aa633b33f53">ULootLockerCharacterRequestHandler</a>, <a class="el" href="group__Hero.html#ga276389913a8ebab437372e897e071c3a">ULootLockerSDKManager</a></li>
+<li>UnequipStack()&#160;:&#160;<a class="el" href="classULLEquipmentRequestHandler.html#a927aea8e3e80a6878a78d12633d3969d">ULLEquipmentRequestHandler</a>, <a class="el" href="group__Equipment.html#ga3f9137e9940791b563dc79a50c0744dc">ULootLockerSDKManager</a></li>
 <li>UnfollowPlayer()&#160;:&#160;<a class="el" href="classULootLockerFollowersRequestHandler.html#a9603bd2f2c8b6d42322e39759b48156b">ULootLockerFollowersRequestHandler</a>, <a class="el" href="group__Followers.html#ga6a8e1de9cf47b688cbf42f26cd402552">ULootLockerSDKManager</a></li>
 <li>unique_instance&#160;:&#160;<a class="el" href="structFLootLockerAsset.html#afd59e4050b52d79916e0439725bc2237">FLootLockerAsset</a></li>
 <li>universal_id&#160;:&#160;<a class="el" href="structFLootLockerUniversalAssets.html#a877c30a16c9452a3a67279883da20c07">FLootLockerUniversalAssets</a></li>
 <li>Unknown&#160;:&#160;<a class="el" href="structLootLockerNotificationsStaticStrings_1_1NotificationSources.html#a1e32088c1b22690e6aae6304bf0f9c64">LootLockerNotificationsStaticStrings::NotificationSources</a></li>
+<li>UnlinkProvider()&#160;:&#160;<a class="el" href="classULootLockerIdentityRequestHandler.html#aaf9ac6a5564dd8f58241aaf8d04ca088">ULootLockerIdentityRequestHandler</a>, <a class="el" href="group__Identity.html#ga0bb1ecf69aecfc5139701451b5376cd3">ULootLockerSDKManager</a></li>
 <li>unlocks_context&#160;:&#160;<a class="el" href="structFLootLockerAsset.html#aa1d13dc16b321ed4666e1c105bf8dfa9">FLootLockerAsset</a></li>
 <li>Upcoming_resets&#160;:&#160;<a class="el" href="structFLootLockerLeaderboardDetails.html#a7946b00a7236e1bd9a661c2cb3c27310">FLootLockerLeaderboardDetails</a>, <a class="el" href="structFLootLockerLeaderboardDetailsResponse.html#a7fa835d0344cdc6e8c97ca048d89b9ae">FLootLockerLeaderboardDetailsResponse</a></li>
 <li>UpdateAKeyValuePairByIdForAssetInstance()&#160;:&#160;<a class="el" href="classULootLockerAssetInstancesRequestHandler.html#a6f9d2cd4254e1d9807b9dbf123c8fc4f">ULootLockerAssetInstancesRequestHandler</a>, <a class="el" href="group__AssetInstance.html#gad47d230baa2e17eed614602461abc3ed">ULootLockerSDKManager</a></li>

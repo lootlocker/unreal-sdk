@@ -6,6 +6,7 @@ var structLootLockerNotificationsStaticStrings_1_1NotificationSources =
     [ "LootLockerConsole", "structLootLockerNotificationsStaticStrings_1_1NotificationSources.html#a2b3cf140b4501eadb3fcbf19aa4a6b84", null ],
     [ "LootLockerServerApi", "structLootLockerNotificationsStaticStrings_1_1NotificationSources.html#a14206a9696868e21e643164f26095a91", null ],
     [ "MagicTriggers", "structLootLockerNotificationsStaticStrings_1_1NotificationSources.html#a7a577b4d216b895c492adc15a618e11c", null ],
+    [ "Referral", "structLootLockerNotificationsStaticStrings_1_1NotificationSources.html#a85af7b6fbc539c22cb0e07b74f2da023", null ],
     [ "RewardCampaign", "structLootLockerNotificationsStaticStrings_1_1NotificationSources.html#af26a0283abe6879117977b892294a684", null ],
     [ "RewardsGrant", "structLootLockerNotificationsStaticStrings_1_1NotificationSources.html#ae916d8c16d5c32cdafe588b933f74b66", null ],
     [ "Triggers", "structLootLockerNotificationsStaticStrings_1_1NotificationSources.html#ad44605fe48927c35a12fdcdb9cc2b13d", null ],

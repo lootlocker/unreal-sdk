@@ -1,0 +1,5 @@
+<map id="FLootLockerIdentityLinkConflict" name="FLootLockerIdentityLinkConflict">
+<area shape="rect" id="Node000001" title="The body of the 409 returned when the credential being linked already belongs to another identity." alt="" coords="5,123,231,151"/>
+<area shape="rect" id="Node000002" href="$structFLootLockerIdentityMergePreview.html" title="What merging two identities would resolve, without executing anything." alt="" coords="23,5,213,50"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="120,64,121,124,115,122,116,67"/>
+</map>

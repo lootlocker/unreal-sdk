@@ -1,0 +1,15 @@
+<map id="FLootLockerEquipmentSlotCandidatesResponse" name="FLootLockerEquipmentSlotCandidatesResponse">
+<area shape="rect" id="Node000001" title="Response containing the inventory stacks that a slot would accept for the calling player." alt="" coords="877,88,1072,133"/>
+<area shape="rect" id="Node000002" href="$structFLootLockerResponse.html" title="Base response struct — every SDK callback receives a struct that derives from this." alt="" coords="573,44,735,72"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="751,64,854,78,888,88,882,87,853,84,751,69"/>
+<area shape="rect" id="Node000003" href="$structFLootLockerErrorData.html" title=" " alt="" coords="256,16,417,44"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="432,36,575,51,570,52,433,41"/>
+<area shape="rect" id="Node000004" href="$structFLootLockerBanInfo.html" title="Details about a player&#39;s active ban." alt="" coords="5,16,155,44"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="170,28,258,29,253,32,171,33"/>
+<area shape="rect" id="Node000005" href="$structFLootLockerRequestContext.html" title=" " alt="" coords="235,72,438,100"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="453,80,532,74,575,71,570,72,532,79,454,85"/>
+<area shape="rect" id="Node000006" href="$structFLootLockerEquipmentSlot.html" title="An equipment slot definition belonging to an equipment group." alt="" coords="557,96,751,124"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="767,108,879,110,874,111,767,113"/>
+<area shape="rect" id="Node000007" href="$structFLootLockerExtendedIndexBasedPagination.html" title=" " alt="" coords="556,148,752,193"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="768,153,853,138,884,134,890,133,854,143,768,158"/>
+</map>

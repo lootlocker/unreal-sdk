@@ -59,7 +59,7 @@
       </a>
       <span id="ll-topnav-divider" aria-hidden="true"></span>
       <a href="index.html" id="ll-topnav-product">Unreal SDK</a>
-      <span id="ll-topnav-version">v11.0.0</span>
+      <span id="ll-topnav-version">v11.1.0</span>
       <a href="https://github.com/lootlocker/unreal-sdk" target="_blank"
          rel="noopener noreferrer" id="ll-topnav-github" aria-label="GitHub repository">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
@@ -137,7 +137,7 @@ function llToggleDark() {
  <tr id="projectrow">
   <td id="projectlogo"><img alt="Logo" src="lootlocker-logo.png"/></td>
   <td id="projectalign">
-   <div id="projectname">LootLocker Unreal SDK<span id="projectnumber">&#160;11.0.0</span>
+   <div id="projectname">LootLocker Unreal SDK<span id="projectnumber">&#160;11.1.0</span>
    </div>
    <div id="projectbrief">Game backend SDK for Unreal Engine</div>
   </td>
@@ -308,6 +308,10 @@ Data Structures</h2></td></tr>
 <tr class="memitem:FLootLockerListPlayerInfoResponse" id="r_FLootLockerListPlayerInfoResponse"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerListPlayerInfoResponse.html">FLootLockerListPlayerInfoResponse</a></td></tr>
 <tr class="memitem:FLootLockerBalanceResponse" id="r_FLootLockerBalanceResponse"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerBalanceResponse.html">FLootLockerBalanceResponse</a></td></tr>
 <tr class="memitem:FLootLockerDlcResponse" id="r_FLootLockerDlcResponse"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerDlcResponse.html">FLootLockerDlcResponse</a></td></tr>
+<tr class="memitem:FLootLockerDlcCheckEntry" id="r_FLootLockerDlcCheckEntry"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerDlcCheckEntry.html">FLootLockerDlcCheckEntry</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A DLC the player currently holds, as reported by the DLC check endpoint.  <a href="structFLootLockerDlcCheckEntry.html#details">More...</a><br /></td></tr>
+<tr class="memitem:FLootLockerCheckDLCsResponse" id="r_FLootLockerCheckDLCsResponse"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerCheckDLCsResponse.html">FLootLockerCheckDLCsResponse</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Response for checking the player's DLCs, containing the DLCs they currently hold for the session's platform.  <a href="structFLootLockerCheckDLCsResponse.html#details">More...</a><br /></td></tr>
 <tr class="memitem:FLootLockerRental" id="r_FLootLockerRental"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerRental.html">FLootLockerRental</a></td></tr>
 <tr class="memitem:FLootLockerInventory" id="r_FLootLockerInventory"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerInventory.html">FLootLockerInventory</a></td></tr>
 <tr class="memitem:FLootLockerInventoryResponse" id="r_FLootLockerInventoryResponse"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFLootLockerInventoryResponse.html">FLootLockerInventoryResponse</a></td></tr>
@@ -359,6 +363,8 @@ Typedefs</h2></td></tr>
 <tr class="memdesc:ga6e66afffaad465fc1ab37dcba3911f64"><td class="mdescLeft">&#160;</td><td class="mdescRight">C++ response callback delegate; receives an <a class="el" href="structFLootLockerBalanceResponse.html">FLootLockerBalanceResponse</a> result.  <br /></td></tr>
 <tr class="memitem:ga7c15a58a2ec51588db75cc22ba24781c" id="r_ga7c15a58a2ec51588db75cc22ba24781c"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Player.html#ga7c15a58a2ec51588db75cc22ba24781c">FPDlcResponse</a>) (<a class="el" href="structFLootLockerDlcResponse.html">FLootLockerDlcResponse</a>)</td></tr>
 <tr class="memdesc:ga7c15a58a2ec51588db75cc22ba24781c"><td class="mdescLeft">&#160;</td><td class="mdescRight">C++ response callback delegate; receives an <a class="el" href="structFLootLockerDlcResponse.html">FLootLockerDlcResponse</a> result.  <br /></td></tr>
+<tr class="memitem:gadc04a6154ba6a0ee5e6423ebc3363520" id="r_gadc04a6154ba6a0ee5e6423ebc3363520"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Player.html#gadc04a6154ba6a0ee5e6423ebc3363520">FPCheckDLCsResponse</a>) (<a class="el" href="structFLootLockerCheckDLCsResponse.html">FLootLockerCheckDLCsResponse</a>)</td></tr>
+<tr class="memdesc:gadc04a6154ba6a0ee5e6423ebc3363520"><td class="mdescLeft">&#160;</td><td class="mdescRight">C++ response callback delegate; receives an <a class="el" href="structFLootLockerCheckDLCsResponse.html">FLootLockerCheckDLCsResponse</a> result.  <br /></td></tr>
 <tr class="memitem:gaf62055ff0b2f04d0980684091b18e049" id="r_gaf62055ff0b2f04d0980684091b18e049"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Player.html#gaf62055ff0b2f04d0980684091b18e049">FPNameResponse</a>) (<a class="el" href="structFLootLockerNameResponse.html">FLootLockerNameResponse</a>)</td></tr>
 <tr class="memdesc:gaf62055ff0b2f04d0980684091b18e049"><td class="mdescLeft">&#160;</td><td class="mdescRight">C++ response callback delegate; receives an <a class="el" href="structFLootLockerNameResponse.html">FLootLockerNameResponse</a> result.  <br /></td></tr>
 <tr class="memitem:ga6b9edb26ba7b208a7fc6b9205d5f687a" id="r_ga6b9edb26ba7b208a7fc6b9205d5f687a"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Player.html#ga6b9edb26ba7b208a7fc6b9205d5f687a">FPMultiplePlayerNames</a>) (<a class="el" href="structFLootLockerMultiplePlayersNamesResponse.html">FLootLockerMultiplePlayersNamesResponse</a>)</td></tr>

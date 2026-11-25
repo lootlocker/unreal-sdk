@@ -12,6 +12,7 @@ var classULootLockerStaticNotificationStringBlueprintCallables =
     [ "GetNotificationsSourcePurchasingPlaystationStoreString", "classULootLockerStaticNotificationStringBlueprintCallables.html#ab0ae6315a6035af03d83acd4bb5d747d", null ],
     [ "GetNotificationsSourcePurchasingSteamStoreString", "classULootLockerStaticNotificationStringBlueprintCallables.html#ae50733d2c3d9b9930e58e05bd9ca67d0", null ],
     [ "GetNotificationsSourcePurchasingStripeStoreString", "classULootLockerStaticNotificationStringBlueprintCallables.html#a3ad60ff87d391b73802ab91c077b51b5", null ],
+    [ "GetNotificationsSourceReferralString", "classULootLockerStaticNotificationStringBlueprintCallables.html#a314f9d733ab02abf42579c21f4a6a136", null ],
     [ "GetNotificationsSourceRewardCampaignString", "classULootLockerStaticNotificationStringBlueprintCallables.html#a19c83a4a53e4075baece67b92140e89a", null ],
     [ "GetNotificationsSourceRewardsGrantString", "classULootLockerStaticNotificationStringBlueprintCallables.html#a03cf955284b6f7525560fd4e07b44178", null ],
     [ "GetNotificationsSourceTriggersString", "classULootLockerStaticNotificationStringBlueprintCallables.html#ae2b60b4974afe8385218e6aebf17f4ed", null ],

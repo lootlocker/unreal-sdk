@@ -1,0 +1,692 @@
+<!-- HTML header for doxygen 1.15.0-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.15.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>LootLocker Unreal SDK: LootLockerSDK/Source/LootLockerSDK/Public/GameAPI/LootLockerIdentityRequestHandler.h Source File</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript">var page_layout=1;</script>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only.css" rel="stylesheet" type="text/css"/>
+<link href="custom-layout-fixes.css" rel="stylesheet" type="text/css"/>
+<link href="lootlocker-theme.css" rel="stylesheet" type="text/css"/>
+<!-- Apply saved color scheme before first paint to prevent flash -->
+<script type="text/javascript">
+(function () {
+  try {
+    var saved = localStorage.getItem('ll-colorscheme');
+    var html = document.documentElement;
+    if (saved === 'dark') {
+      html.classList.remove('light-mode');
+      html.classList.add('dark-mode');
+    } else if (saved === 'light') {
+      html.classList.remove('dark-mode');
+      html.classList.add('light-mode');
+    }
+    // No saved pref: OS preference handled by CSS media query
+  } catch (e) {}
+})();
+</script>
+</head>
+<body>
+<!-- ================================================================
+     LootLocker top navigation bar
+     ================================================================ -->
+<nav id="ll-topnav" role="navigation" aria-label="LootLocker navigation">
+  <div id="ll-topnav-inner">
+    <!-- Left: logo + product name + section tabs -->
+    <div id="ll-topnav-left">
+      <a href="index.html" id="ll-topnav-logo-link"
+         aria-label="LootLocker Unreal SDK — home">
+        <img src="lootlocker-logo.png" alt="LootLocker" id="ll-topnav-logo-img"/>
+      </a>
+      <span id="ll-topnav-divider" aria-hidden="true"></span>
+      <a href="index.html" id="ll-topnav-product">Unreal SDK</a>
+      <span id="ll-topnav-version">v11.1.0</span>
+      <a href="https://github.com/lootlocker/unreal-sdk" target="_blank"
+         rel="noopener noreferrer" id="ll-topnav-github" aria-label="GitHub repository">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+             fill="currentColor" aria-hidden="true">
+          <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
+        </svg>
+      </a>
+      <div id="ll-topnav-links">
+        <a href="https://ref.lootlocker.com/game" target="_blank"
+           rel="noopener noreferrer" class="ll-topnav-tab">Game API &#8599;</a>
+        <a href="https://console.lootlocker.com" target="_blank"
+           rel="noopener noreferrer" class="ll-topnav-tab">Console &#8599;</a>
+        <a href="https://docs.lootlocker.com/" target="_blank"
+           rel="noopener noreferrer" class="ll-topnav-tab">Docs &#8599;</a>
+      </div>
+    </div>
+    <!-- Right: sign-up CTA + dark mode toggle -->
+    <div id="ll-topnav-right">
+      <a href="https://lootlocker.com/sign-up" target="_blank"
+         rel="noopener noreferrer" class="ll-topnav-signup">Sign Up</a>
+      <button id="ll-dark-toggle" type="button"
+              aria-label="Toggle dark mode" title="Toggle dark/light mode"
+              onclick="llToggleDark()">
+        <!-- Sun icon — shown in dark mode -->
+        <svg id="ll-icon-sun" xmlns="http://www.w3.org/2000/svg"
+             width="16" height="16" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2"
+             stroke-linecap="round" stroke-linejoin="round"
+             aria-hidden="true">
+          <circle cx="12" cy="12" r="5"/>
+          <line x1="12" y1="1" x2="12" y2="3"/>
+          <line x1="12" y1="21" x2="12" y2="23"/>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+          <line x1="1" y1="12" x2="3" y2="12"/>
+          <line x1="21" y1="12" x2="23" y2="12"/>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+        </svg>
+        <!-- Moon icon — shown in light mode -->
+        <svg id="ll-icon-moon" xmlns="http://www.w3.org/2000/svg"
+             width="16" height="16" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2"
+             stroke-linecap="round" stroke-linejoin="round"
+             aria-hidden="true">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+</nav>
+<script type="text/javascript">
+function llToggleDark() {
+  var html = document.documentElement;
+  var isDark = html.classList.contains('dark-mode') ||
+               (!html.classList.contains('light-mode') &&
+                window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+  if (isDark) {
+    html.classList.remove('dark-mode');
+    html.classList.add('light-mode');
+    try { localStorage.setItem('ll-colorscheme', 'light'); } catch (e) {}
+  } else {
+    html.classList.remove('light-mode');
+    html.classList.add('dark-mode');
+    try { localStorage.setItem('ll-colorscheme', 'dark'); } catch (e) {}
+  }
+}
+</script>
+<script type="text/javascript" src="version-picker.js" defer="defer"></script>
+<div id="side-nav" class="ui-resizable side-nav-resizable"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="lootlocker-logo.png"/></td>
+  <td id="projectalign">
+   <div id="projectname">LootLocker Unreal SDK<span id="projectnumber">&#160;11.1.0</span>
+   </div>
+   <div id="projectbrief">Game backend SDK for Unreal Engine</div>
+  </td>
+ </tr>
+   <tr><td colspan="2">        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td></tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.15.0 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('LootLockerIdentityRequestHandler_8h_source.html','',''); });
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+$(function() {
+  initMenu('',false,false,'search.php','Search',true);
+});
+</script>
+<div id="main-nav"></div>
+<div id="container"><div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">LootLockerIdentityRequestHandler.h</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="LootLockerIdentityRequestHandler_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">// Copyright LootLocker AB</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#pragma once</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> </div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &quot;CoreMinimal.h&quot;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &quot;<a class="code" href="LootLockerResponse_8h.html">LootLockerResponse.h</a>&quot;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &quot;<a class="code" href="LootLockerPlayerData_8h.html">LootLockerPlayerData.h</a>&quot;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &quot;LootLockerIdentityRequestHandler.generated.h&quot;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="comment">//==================================================</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="comment">// Data Type Definitions</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="comment">//==================================================</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>UENUM(BlueprintType, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="foldopen" id="foldopen00026" data-start="{" data-end="};">
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno"><a class="line" href="group__Identity.html#ga618aed69239e8218de86d9b74b86c452">   26</a></span>enum class <a class="code hl_enumeration" href="group__Identity.html#ga618aed69239e8218de86d9b74b86c452">ELootLockerIdentityProvider</a> : uint8</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>{</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno"><a class="line" href="group__Identity.html#gga618aed69239e8218de86d9b74b86c452a88183b946cc5f0e8c96b2e66e1c74a7e">   33</a></span>    <a class="code hl_enumvalue" href="group__Identity.html#gga618aed69239e8218de86d9b74b86c452a88183b946cc5f0e8c96b2e66e1c74a7e">Unknown</a> = 0,</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno"><a class="line" href="group__Identity.html#gga618aed69239e8218de86d9b74b86c452a4db4563826bad0eb2f60ee6e42d0ea4b">   34</a></span>    <a class="code hl_enumvalue" href="group__Identity.html#gga618aed69239e8218de86d9b74b86c452a4db4563826bad0eb2f60ee6e42d0ea4b">Steam</a> = 1,</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno"><a class="line" href="group__Identity.html#gga618aed69239e8218de86d9b74b86c452a903c4ed61f8bcfb072ae0cd2e35615ec">   35</a></span>    <a class="code hl_enumvalue" href="group__Identity.html#gga618aed69239e8218de86d9b74b86c452a903c4ed61f8bcfb072ae0cd2e35615ec">Psn</a> = 2,</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno"><a class="line" href="group__Identity.html#gga618aed69239e8218de86d9b74b86c452a7af51761a9dc3e558b8f8c3c96f1facd">   36</a></span>    <a class="code hl_enumvalue" href="group__Identity.html#gga618aed69239e8218de86d9b74b86c452a7af51761a9dc3e558b8f8c3c96f1facd">Apple_app_store</a> = 3,</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno"><a class="line" href="group__Identity.html#gga618aed69239e8218de86d9b74b86c452a6abfec52c2173bbda0d29243559c74bb">   37</a></span>    <a class="code hl_enumvalue" href="group__Identity.html#gga618aed69239e8218de86d9b74b86c452a6abfec52c2173bbda0d29243559c74bb">Google_play_store</a> = 4,</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno"><a class="line" href="group__Identity.html#gga618aed69239e8218de86d9b74b86c452acf72a9db6ccce375e5492a2b82cd58c8">   38</a></span>    <a class="code hl_enumvalue" href="group__Identity.html#gga618aed69239e8218de86d9b74b86c452acf72a9db6ccce375e5492a2b82cd58c8">Xbox_one</a> = 5,</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno"><a class="line" href="group__Identity.html#gga618aed69239e8218de86d9b74b86c452a33e9ca8143c729f162d3223005ab7026">   39</a></span>    <a class="code hl_enumvalue" href="group__Identity.html#gga618aed69239e8218de86d9b74b86c452a33e9ca8143c729f162d3223005ab7026">Nintendo_switch</a> = 6,</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno"><a class="line" href="group__Identity.html#gga618aed69239e8218de86d9b74b86c452abff1a56c20314b583c851d6d8ec7b7b2">   40</a></span>    <a class="code hl_enumvalue" href="group__Identity.html#gga618aed69239e8218de86d9b74b86c452abff1a56c20314b583c851d6d8ec7b7b2">Amazon_luna</a> = 7,</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno"><a class="line" href="group__Identity.html#gga618aed69239e8218de86d9b74b86c452a75b34430e667823f62efc98857e8e0d2">   41</a></span>    <a class="code hl_enumvalue" href="group__Identity.html#gga618aed69239e8218de86d9b74b86c452a75b34430e667823f62efc98857e8e0d2">White_label_login</a> = 8,</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno"><a class="line" href="group__Identity.html#gga618aed69239e8218de86d9b74b86c452aadb831a7fdd83dd1e2a309ce7591dff8">   42</a></span>    <a class="code hl_enumvalue" href="group__Identity.html#gga618aed69239e8218de86d9b74b86c452aadb831a7fdd83dd1e2a309ce7591dff8">Guest</a> = 9,</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno"><a class="line" href="group__Identity.html#gga618aed69239e8218de86d9b74b86c452a9c764b7a4c5b909d643407eb120f9a23">   43</a></span>    <a class="code hl_enumvalue" href="group__Identity.html#gga618aed69239e8218de86d9b74b86c452a9c764b7a4c5b909d643407eb120f9a23">Apple_sign_in</a> = 10,</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno"><a class="line" href="group__Identity.html#gga618aed69239e8218de86d9b74b86c452a0de1fa08a8e2de796af8c36cf62342df">   44</a></span>    <a class="code hl_enumvalue" href="group__Identity.html#gga618aed69239e8218de86d9b74b86c452a0de1fa08a8e2de796af8c36cf62342df">Google_sign_in</a> = 11,</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno"><a class="line" href="group__Identity.html#gga618aed69239e8218de86d9b74b86c452a54c97686ee5f90f5da86d03c84be7015">   45</a></span>    <a class="code hl_enumvalue" href="group__Identity.html#gga618aed69239e8218de86d9b74b86c452a54c97686ee5f90f5da86d03c84be7015">Epic_games</a> = 12,</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno"><a class="line" href="group__Identity.html#gga618aed69239e8218de86d9b74b86c452aa04afbbeabb5ebe7b63f06d38bf89373">   46</a></span>    <a class="code hl_enumvalue" href="group__Identity.html#gga618aed69239e8218de86d9b74b86c452aa04afbbeabb5ebe7b63f06d38bf89373">Apple_game_center</a> = 13,</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno"><a class="line" href="group__Identity.html#gga618aed69239e8218de86d9b74b86c452ab6755d218d5f4e1cef9cce9cc39aeda9">   47</a></span>    <a class="code hl_enumvalue" href="group__Identity.html#gga618aed69239e8218de86d9b74b86c452ab6755d218d5f4e1cef9cce9cc39aeda9">Meta</a> = 14,</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno"><a class="line" href="group__Identity.html#gga618aed69239e8218de86d9b74b86c452a5cd7e67cf5116e37f7f91f266291201d">   48</a></span>    <a class="code hl_enumvalue" href="group__Identity.html#gga618aed69239e8218de86d9b74b86c452a5cd7e67cf5116e37f7f91f266291201d">Lootlocker_delegation</a> = 15,</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno"><a class="line" href="group__Identity.html#gga618aed69239e8218de86d9b74b86c452a6a057ee64a34177e388abe7304fd3d78">   49</a></span>    <a class="code hl_enumvalue" href="group__Identity.html#gga618aed69239e8218de86d9b74b86c452a6a057ee64a34177e388abe7304fd3d78">Twitch</a> = 16,</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno"><a class="line" href="group__Identity.html#gga618aed69239e8218de86d9b74b86c452a15b8772f2d06a15fee9f32b6477660b8">   50</a></span>    <a class="code hl_enumvalue" href="group__Identity.html#gga618aed69239e8218de86d9b74b86c452a15b8772f2d06a15fee9f32b6477660b8">Google_play_games</a> = 17,</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno"><a class="line" href="group__Identity.html#gga618aed69239e8218de86d9b74b86c452a8f5cc6430613f1c12f36965050bb7197">   51</a></span>    <a class="code hl_enumvalue" href="group__Identity.html#gga618aed69239e8218de86d9b74b86c452a8f5cc6430613f1c12f36965050bb7197">Discord</a> = 18,</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno"><a class="line" href="group__Identity.html#gga618aed69239e8218de86d9b74b86c452a74f255bce3797bacb29dc0c18636dbf2">   56</a></span>    <a class="code hl_enumvalue" href="group__Identity.html#gga618aed69239e8218de86d9b74b86c452a74f255bce3797bacb29dc0c18636dbf2">Publisher_account</a> = 19</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>};</div>
+</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span></div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span> </div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span><span class="comment">//==================================================</span></div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span><span class="comment">// Data Definitions</span></div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span><span class="comment">//==================================================</span></div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span></div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>USTRUCT(BlueprintType, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="foldopen" id="foldopen00068" data-start="{" data-end="};">
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno"><a class="line" href="structFLootLockerIdentityGameActivity.html">   68</a></span>struct <a class="code hl_struct" href="structFLootLockerIdentityGameActivity.html">FLootLockerIdentityGameActivity</a></div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>{</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    GENERATED_BODY()</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span> </div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>    </div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno"><a class="line" href="structFLootLockerIdentityGameActivity.html#a2e60757c61a6baefa3f1f6fcdab6414c">   74</a></span>    int32 <a class="code hl_variable" href="structFLootLockerIdentityGameActivity.html#a2e60757c61a6baefa3f1f6fcdab6414c">game_id</a> = 0;</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span></div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno"><a class="line" href="structFLootLockerIdentityGameActivity.html#a64a9fe682869042850c7c25a57666044">   78</a></span>    FString <a class="code hl_variable" href="structFLootLockerIdentityGameActivity.html#a64a9fe682869042850c7c25a57666044">first_session_at</a> = <span class="stringliteral">&quot;&quot;</span>;</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span></div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno"><a class="line" href="structFLootLockerIdentityGameActivity.html#a87fd65280626af9d5784edd59d122656">   82</a></span>    FString <a class="code hl_variable" href="structFLootLockerIdentityGameActivity.html#a87fd65280626af9d5784edd59d122656">last_session_at</a> = <span class="stringliteral">&quot;&quot;</span>;</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span></div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno"><a class="line" href="structFLootLockerIdentityGameActivity.html#a8b4b0b68dc4cd640b619f914679d49da">   86</a></span>    int32 <a class="code hl_variable" href="structFLootLockerIdentityGameActivity.html#a8b4b0b68dc4cd640b619f914679d49da">session_count</a> = 0;</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>};</div>
+</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span></div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>USTRUCT(BlueprintType, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="foldopen" id="foldopen00098" data-start="{" data-end="};">
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno"><a class="line" href="structFLootLockerIdentityProviderInfo.html">   98</a></span>struct <a class="code hl_struct" href="structFLootLockerIdentityProviderInfo.html">FLootLockerIdentityProviderInfo</a></div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>{</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>    GENERATED_BODY()</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span> </div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>    </div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno"><a class="line" href="structFLootLockerIdentityProviderInfo.html#a9f8de1b662e025e6ea01b55334d9ca60">  104</a></span>    FString <span class="keywordtype">id</span> = <span class="stringliteral">&quot;&quot;</span>;</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span></div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno"><a class="line" href="structFLootLockerIdentityProviderInfo.html#a4ef3d839d1e62970014d0dbbbc62fa8b">  108</a></span>    FString <a class="code hl_variable" href="structFLootLockerIdentityProviderInfo.html#a4ef3d839d1e62970014d0dbbbc62fa8b">provider</a> = <span class="stringliteral">&quot;&quot;</span>;</div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span></div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno"><a class="line" href="structFLootLockerIdentityProviderInfo.html#a45080b1f7c88a06b36b314a2112f1a97">  117</a></span>    <a class="code hl_enumeration" href="group__Identity.html#ga618aed69239e8218de86d9b74b86c452">ELootLockerIdentityProvider</a> <a class="code hl_variable" href="structFLootLockerIdentityProviderInfo.html#a45080b1f7c88a06b36b314a2112f1a97">provider_type</a> = <a class="code hl_enumeration" href="group__Identity.html#ga618aed69239e8218de86d9b74b86c452">ELootLockerIdentityProvider</a>::<a class="code hl_enumvalue" href="group__Identity.html#gga618aed69239e8218de86d9b74b86c452a88183b946cc5f0e8c96b2e66e1c74a7e">Unknown</a>;</div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span></div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno"><a class="line" href="structFLootLockerIdentityProviderInfo.html#a062196a801246ce5cd522612bf5de1cc">  121</a></span>    FString <a class="code hl_variable" href="structFLootLockerIdentityProviderInfo.html#a062196a801246ce5cd522612bf5de1cc">created_at</a> = <span class="stringliteral">&quot;&quot;</span>;</div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>};</div>
+</div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span></div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>USTRUCT(BlueprintType, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="foldopen" id="foldopen00129" data-start="{" data-end="};">
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno"><a class="line" href="structFLootLockerIdentityPlayerConflict.html">  129</a></span>struct <a class="code hl_struct" href="structFLootLockerIdentityPlayerConflict.html">FLootLockerIdentityPlayerConflict</a></div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>{</div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>    GENERATED_BODY()</div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span> </div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>    </div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno"><a class="line" href="structFLootLockerIdentityPlayerConflict.html#ab8bf6cc6e4453a39daae6032986206d6">  135</a></span>    int32 <a class="code hl_variable" href="structFLootLockerIdentityPlayerConflict.html#ab8bf6cc6e4453a39daae6032986206d6">game_id</a> = 0;</div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span></div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno"><a class="line" href="structFLootLockerIdentityPlayerConflict.html#ace49dd4ab72cff95a16c2def30b3aa85">  139</a></span>    int32 <a class="code hl_variable" href="structFLootLockerIdentityPlayerConflict.html#ace49dd4ab72cff95a16c2def30b3aa85">keep_player_id</a> = 0;</div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span></div>
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno"><a class="line" href="structFLootLockerIdentityPlayerConflict.html#a830237fd4596e24dcf4eb4de8b080ef5">  143</a></span>    int32 <a class="code hl_variable" href="structFLootLockerIdentityPlayerConflict.html#a830237fd4596e24dcf4eb4de8b080ef5">merge_player_id</a> = 0;</div>
+<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>};</div>
+</div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span></div>
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>USTRUCT(BlueprintType, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="foldopen" id="foldopen00152" data-start="{" data-end="};">
+<div class="line"><a id="l00152" name="l00152"></a><span class="lineno"><a class="line" href="structFLootLockerIdentityMergePreview.html">  152</a></span>struct <a class="code hl_struct" href="structFLootLockerIdentityMergePreview.html">FLootLockerIdentityMergePreview</a></div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>{</div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>    GENERATED_BODY()</div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span> </div>
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>    </div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00158" name="l00158"></a><span class="lineno"><a class="line" href="structFLootLockerIdentityMergePreview.html#ae67b098136e44fe683dd5d907be7387f">  158</a></span>    FString <a class="code hl_variable" href="structFLootLockerIdentityMergePreview.html#ae67b098136e44fe683dd5d907be7387f">keep_identity_id</a> = <span class="stringliteral">&quot;&quot;</span>;</div>
+<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span></div>
+<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00162" name="l00162"></a><span class="lineno"><a class="line" href="structFLootLockerIdentityMergePreview.html#a9d19518212d74250038dd34123a7354d">  162</a></span>    FString <a class="code hl_variable" href="structFLootLockerIdentityMergePreview.html#a9d19518212d74250038dd34123a7354d">merge_identity_id</a> = <span class="stringliteral">&quot;&quot;</span>;</div>
+<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span></div>
+<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00166" name="l00166"></a><span class="lineno"><a class="line" href="structFLootLockerIdentityMergePreview.html#a57847cebd41af06d856ff6b20f14d7be">  166</a></span>    TArray&lt;<a class="code hl_struct" href="structFLootLockerIdentityPlayerConflict.html">FLootLockerIdentityPlayerConflict</a>&gt; <a class="code hl_variable" href="structFLootLockerIdentityMergePreview.html#a57847cebd41af06d856ff6b20f14d7be">player_conflicts</a>;</div>
+<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span>};</div>
+</div>
+<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span> </div>
+<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span><span class="comment">//==================================================</span></div>
+<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span><span class="comment">// Request Definitions</span></div>
+<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span><span class="comment">//==================================================</span></div>
+<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span></div>
+<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span>USTRUCT(BlueprintType, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="foldopen" id="foldopen00180" data-start="{" data-end="};">
+<div class="line"><a id="l00180" name="l00180"></a><span class="lineno"><a class="line" href="structFLootLockerIdentityLookupRequest.html">  180</a></span>struct <a class="code hl_struct" href="structFLootLockerIdentityLookupRequest.html">FLootLockerIdentityLookupRequest</a></div>
+<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span>{</div>
+<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span>    GENERATED_BODY()</div>
+<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span> </div>
+<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span>    </div>
+<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00186" name="l00186"></a><span class="lineno"><a class="line" href="structFLootLockerIdentityLookupRequest.html#a9329241ee17402e75968175044deffeb">  186</a></span>    TArray&lt;FString&gt; <a class="code hl_variable" href="structFLootLockerIdentityLookupRequest.html#a9329241ee17402e75968175044deffeb">identity_ids</a>;</div>
+<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span></div>
+<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00190" name="l00190"></a><span class="lineno"><a class="line" href="structFLootLockerIdentityLookupRequest.html#ab21002f38b147cb30bcf8d96afef2f5b">  190</a></span>    TArray&lt;int32&gt; <a class="code hl_variable" href="structFLootLockerIdentityLookupRequest.html#ab21002f38b147cb30bcf8d96afef2f5b">game_ids</a>;</div>
+<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span></div>
+<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00194" name="l00194"></a><span class="lineno"><a class="line" href="structFLootLockerIdentityLookupRequest.html#aacc04774f60b241958c14d8de92f835d">  194</a></span>    <span class="keywordtype">bool</span> <a class="code hl_variable" href="structFLootLockerIdentityLookupRequest.html#aacc04774f60b241958c14d8de92f835d">include_game_activity</a> = false;</div>
+<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span>};</div>
+</div>
+<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span></div>
+<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span>USTRUCT(BlueprintType, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="foldopen" id="foldopen00201" data-start="{" data-end="};">
+<div class="line"><a id="l00201" name="l00201"></a><span class="lineno"><a class="line" href="structFLootLockerIdentityLinkRequest.html">  201</a></span>struct <a class="code hl_struct" href="structFLootLockerIdentityLinkRequest.html">FLootLockerIdentityLinkRequest</a></div>
+<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span>{</div>
+<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span>    GENERATED_BODY()</div>
+<div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span> </div>
+<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span>    </div>
+<div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00207" name="l00207"></a><span class="lineno"><a class="line" href="structFLootLockerIdentityLinkRequest.html#a34ae24cebb604245627031ea5c5f1bf2">  207</a></span>    <a class="code hl_enumeration" href="group__Identity.html#ga618aed69239e8218de86d9b74b86c452">ELootLockerIdentityProvider</a> <a class="code hl_variable" href="structFLootLockerIdentityLinkRequest.html#a34ae24cebb604245627031ea5c5f1bf2">provider</a> = <a class="code hl_enumeration" href="group__Identity.html#ga618aed69239e8218de86d9b74b86c452">ELootLockerIdentityProvider</a>::<a class="code hl_enumvalue" href="group__Identity.html#gga618aed69239e8218de86d9b74b86c452a88183b946cc5f0e8c96b2e66e1c74a7e">Unknown</a>;</div>
+<div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span></div>
+<div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00211" name="l00211"></a><span class="lineno"><a class="line" href="structFLootLockerIdentityLinkRequest.html#aa8359d41e2b7d3a118e57447b60165be">  211</a></span>    FString <a class="code hl_variable" href="structFLootLockerIdentityLinkRequest.html#aa8359d41e2b7d3a118e57447b60165be">provider_uid</a> = <span class="stringliteral">&quot;&quot;</span>;</div>
+<div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span>};</div>
+</div>
+<div class="line"><a id="l00213" name="l00213"></a><span class="lineno">  213</span></div>
+<div class="line"><a id="l00217" name="l00217"></a><span class="lineno">  217</span>USTRUCT(BlueprintType, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="foldopen" id="foldopen00218" data-start="{" data-end="};">
+<div class="line"><a id="l00218" name="l00218"></a><span class="lineno"><a class="line" href="structFLootLockerIdentityMergeResolution.html">  218</a></span>struct <a class="code hl_struct" href="structFLootLockerIdentityMergeResolution.html">FLootLockerIdentityMergeResolution</a></div>
+<div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span>{</div>
+<div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span>    GENERATED_BODY()</div>
+<div class="line"><a id="l00221" name="l00221"></a><span class="lineno">  221</span> </div>
+<div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span>    </div>
+<div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00224" name="l00224"></a><span class="lineno"><a class="line" href="structFLootLockerIdentityMergeResolution.html#a0f48e12d4b8c93456b251bafb87c97a8">  224</a></span>    int32 <a class="code hl_variable" href="structFLootLockerIdentityMergeResolution.html#a0f48e12d4b8c93456b251bafb87c97a8">game_id</a> = 0;</div>
+<div class="line"><a id="l00225" name="l00225"></a><span class="lineno">  225</span></div>
+<div class="line"><a id="l00227" name="l00227"></a><span class="lineno">  227</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00228" name="l00228"></a><span class="lineno"><a class="line" href="structFLootLockerIdentityMergeResolution.html#ab912f4afde561e368ccb23d048769eb6">  228</a></span>    int32 <a class="code hl_variable" href="structFLootLockerIdentityMergeResolution.html#ab912f4afde561e368ccb23d048769eb6">keep_player_id</a> = 0;</div>
+<div class="line"><a id="l00229" name="l00229"></a><span class="lineno">  229</span>};</div>
+</div>
+<div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span></div>
+<div class="line"><a id="l00237" name="l00237"></a><span class="lineno">  237</span>USTRUCT(BlueprintType, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="foldopen" id="foldopen00238" data-start="{" data-end="};">
+<div class="line"><a id="l00238" name="l00238"></a><span class="lineno"><a class="line" href="structFLootLockerIdentityMergeRequest.html">  238</a></span>struct <a class="code hl_struct" href="structFLootLockerIdentityMergeRequest.html">FLootLockerIdentityMergeRequest</a></div>
+<div class="line"><a id="l00239" name="l00239"></a><span class="lineno">  239</span>{</div>
+<div class="line"><a id="l00240" name="l00240"></a><span class="lineno">  240</span>    GENERATED_BODY()</div>
+<div class="line"><a id="l00241" name="l00241"></a><span class="lineno">  241</span> </div>
+<div class="line"><a id="l00242" name="l00242"></a><span class="lineno">  242</span>    </div>
+<div class="line"><a id="l00243" name="l00243"></a><span class="lineno">  243</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00244" name="l00244"></a><span class="lineno"><a class="line" href="structFLootLockerIdentityMergeRequest.html#ae487c1b4fce1cee740213f42a668f2da">  244</a></span>    FString <a class="code hl_variable" href="structFLootLockerIdentityMergeRequest.html#ae487c1b4fce1cee740213f42a668f2da">merge_identity_id</a> = <span class="stringliteral">&quot;&quot;</span>;</div>
+<div class="line"><a id="l00245" name="l00245"></a><span class="lineno">  245</span></div>
+<div class="line"><a id="l00247" name="l00247"></a><span class="lineno">  247</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00248" name="l00248"></a><span class="lineno"><a class="line" href="structFLootLockerIdentityMergeRequest.html#a7fd0e6c6479bdc1da125ef2380d2e2c4">  248</a></span>    TArray&lt;<a class="code hl_struct" href="structFLootLockerIdentityMergeResolution.html">FLootLockerIdentityMergeResolution</a>&gt; <a class="code hl_variable" href="structFLootLockerIdentityMergeRequest.html#a7fd0e6c6479bdc1da125ef2380d2e2c4">resolutions</a>;</div>
+<div class="line"><a id="l00249" name="l00249"></a><span class="lineno">  249</span></div>
+<div class="line"><a id="l00251" name="l00251"></a><span class="lineno">  251</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00252" name="l00252"></a><span class="lineno"><a class="line" href="structFLootLockerIdentityMergeRequest.html#a6135342c369766f263d4c6b757eba429">  252</a></span>    FString <a class="code hl_variable" href="structFLootLockerIdentityMergeRequest.html#a6135342c369766f263d4c6b757eba429">trigger_provider</a> = <span class="stringliteral">&quot;&quot;</span>;</div>
+<div class="line"><a id="l00253" name="l00253"></a><span class="lineno">  253</span></div>
+<div class="line"><a id="l00255" name="l00255"></a><span class="lineno">  255</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00256" name="l00256"></a><span class="lineno"><a class="line" href="structFLootLockerIdentityMergeRequest.html#ac7a753cb5b5e3ae606e6819ac1ed1580">  256</a></span>    FString <a class="code hl_variable" href="structFLootLockerIdentityMergeRequest.html#ac7a753cb5b5e3ae606e6819ac1ed1580">trigger_provider_uid</a> = <span class="stringliteral">&quot;&quot;</span>;</div>
+<div class="line"><a id="l00257" name="l00257"></a><span class="lineno">  257</span>};</div>
+</div>
+<div class="line"><a id="l00258" name="l00258"></a><span class="lineno">  258</span> </div>
+<div class="line"><a id="l00259" name="l00259"></a><span class="lineno">  259</span><span class="comment">//==================================================</span></div>
+<div class="line"><a id="l00260" name="l00260"></a><span class="lineno">  260</span><span class="comment">// Response Definitions</span></div>
+<div class="line"><a id="l00261" name="l00261"></a><span class="lineno">  261</span><span class="comment">//==================================================</span></div>
+<div class="line"><a id="l00262" name="l00262"></a><span class="lineno">  262</span></div>
+<div class="line"><a id="l00266" name="l00266"></a><span class="lineno">  266</span>USTRUCT(BlueprintType, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="foldopen" id="foldopen00267" data-start="{" data-end="};">
+<div class="line"><a id="l00267" name="l00267"></a><span class="lineno"><a class="line" href="structFLootLockerIdentityResponse.html">  267</a></span>struct <a class="code hl_struct" href="structFLootLockerIdentityResponse.html">FLootLockerIdentityResponse</a> : public <a class="code hl_struct" href="structFLootLockerResponse.html">FLootLockerResponse</a></div>
+<div class="line"><a id="l00268" name="l00268"></a><span class="lineno">  268</span>{</div>
+<div class="line"><a id="l00269" name="l00269"></a><span class="lineno">  269</span>    GENERATED_BODY()</div>
+<div class="line"><a id="l00270" name="l00270"></a><span class="lineno">  270</span> </div>
+<div class="line"><a id="l00271" name="l00271"></a><span class="lineno">  271</span>    </div>
+<div class="line"><a id="l00272" name="l00272"></a><span class="lineno">  272</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00273" name="l00273"></a><span class="lineno"><a class="line" href="structFLootLockerIdentityResponse.html#a64067415a2bf905efe48891713984429">  273</a></span>    FString <span class="keywordtype">id</span> = <span class="stringliteral">&quot;&quot;</span>;</div>
+<div class="line"><a id="l00274" name="l00274"></a><span class="lineno">  274</span></div>
+<div class="line"><a id="l00276" name="l00276"></a><span class="lineno">  276</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00277" name="l00277"></a><span class="lineno"><a class="line" href="structFLootLockerIdentityResponse.html#a15abbeb1eb7372bf45de1d7842745c1b">  277</a></span>    int32 <a class="code hl_variable" href="structFLootLockerIdentityResponse.html#a15abbeb1eb7372bf45de1d7842745c1b">publisher_id</a> = 0;</div>
+<div class="line"><a id="l00278" name="l00278"></a><span class="lineno">  278</span></div>
+<div class="line"><a id="l00280" name="l00280"></a><span class="lineno">  280</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00281" name="l00281"></a><span class="lineno"><a class="line" href="structFLootLockerIdentityResponse.html#a9826c1ff6d347587a25e76042725a5ee">  281</a></span>    FString <a class="code hl_variable" href="structFLootLockerIdentityResponse.html#a9826c1ff6d347587a25e76042725a5ee">created_at</a> = <span class="stringliteral">&quot;&quot;</span>;</div>
+<div class="line"><a id="l00282" name="l00282"></a><span class="lineno">  282</span></div>
+<div class="line"><a id="l00284" name="l00284"></a><span class="lineno">  284</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00285" name="l00285"></a><span class="lineno"><a class="line" href="structFLootLockerIdentityResponse.html#a42de75952caa7ff3272fc4f095cff942">  285</a></span>    TArray&lt;<a class="code hl_struct" href="structFLootLockerIdentityGameActivity.html">FLootLockerIdentityGameActivity</a>&gt; <a class="code hl_variable" href="structFLootLockerIdentityResponse.html#a42de75952caa7ff3272fc4f095cff942">game_activity</a>;</div>
+<div class="line"><a id="l00286" name="l00286"></a><span class="lineno">  286</span></div>
+<div class="line"><a id="l00294" name="l00294"></a><span class="lineno">  294</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00295" name="l00295"></a><span class="lineno"><a class="line" href="structFLootLockerIdentityResponse.html#ac0972fe37c797804742e93c92ed7d2e8">  295</a></span>    TArray&lt;<a class="code hl_struct" href="structFLootLockerIdentityProviderInfo.html">FLootLockerIdentityProviderInfo</a>&gt; <a class="code hl_variable" href="structFLootLockerIdentityResponse.html#ac0972fe37c797804742e93c92ed7d2e8">providers</a>;</div>
+<div class="line"><a id="l00296" name="l00296"></a><span class="lineno">  296</span></div>
+<div class="line"><a id="l00298" name="l00298"></a><span class="lineno">  298</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00299" name="l00299"></a><span class="lineno"><a class="line" href="structFLootLockerIdentityResponse.html#a50e4533bd57612a995e6c1d091772414">  299</a></span>    <span class="keywordtype">bool</span> <a class="code hl_variable" href="structFLootLockerIdentityResponse.html#a50e4533bd57612a995e6c1d091772414">has_providers</a> = false;</div>
+<div class="line"><a id="l00300" name="l00300"></a><span class="lineno">  300</span>};</div>
+</div>
+<div class="line"><a id="l00301" name="l00301"></a><span class="lineno">  301</span></div>
+<div class="line"><a id="l00305" name="l00305"></a><span class="lineno">  305</span>USTRUCT(BlueprintType, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="foldopen" id="foldopen00306" data-start="{" data-end="};">
+<div class="line"><a id="l00306" name="l00306"></a><span class="lineno"><a class="line" href="structFLootLockerIdentityLookupResponse.html">  306</a></span>struct <a class="code hl_struct" href="structFLootLockerIdentityLookupResponse.html">FLootLockerIdentityLookupResponse</a> : public <a class="code hl_struct" href="structFLootLockerResponse.html">FLootLockerResponse</a></div>
+<div class="line"><a id="l00307" name="l00307"></a><span class="lineno">  307</span>{</div>
+<div class="line"><a id="l00308" name="l00308"></a><span class="lineno">  308</span>    GENERATED_BODY()</div>
+<div class="line"><a id="l00309" name="l00309"></a><span class="lineno">  309</span> </div>
+<div class="line"><a id="l00310" name="l00310"></a><span class="lineno">  310</span>    </div>
+<div class="line"><a id="l00311" name="l00311"></a><span class="lineno">  311</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00312" name="l00312"></a><span class="lineno"><a class="line" href="structFLootLockerIdentityLookupResponse.html#a5aadf97a6ebc472f45d3bbaa2ae9c8e8">  312</a></span>    TArray&lt;<a class="code hl_struct" href="structFLootLockerIdentityResponse.html">FLootLockerIdentityResponse</a>&gt; <a class="code hl_variable" href="structFLootLockerIdentityLookupResponse.html#a5aadf97a6ebc472f45d3bbaa2ae9c8e8">identities</a>;</div>
+<div class="line"><a id="l00313" name="l00313"></a><span class="lineno">  313</span>};</div>
+</div>
+<div class="line"><a id="l00314" name="l00314"></a><span class="lineno">  314</span></div>
+<div class="line"><a id="l00321" name="l00321"></a><span class="lineno">  321</span>USTRUCT(BlueprintType, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="foldopen" id="foldopen00322" data-start="{" data-end="};">
+<div class="line"><a id="l00322" name="l00322"></a><span class="lineno"><a class="line" href="structFLootLockerIdentityLinkConflict.html">  322</a></span>struct <a class="code hl_struct" href="structFLootLockerIdentityLinkConflict.html">FLootLockerIdentityLinkConflict</a></div>
+<div class="line"><a id="l00323" name="l00323"></a><span class="lineno">  323</span>{</div>
+<div class="line"><a id="l00324" name="l00324"></a><span class="lineno">  324</span>    GENERATED_BODY()</div>
+<div class="line"><a id="l00325" name="l00325"></a><span class="lineno">  325</span> </div>
+<div class="line"><a id="l00326" name="l00326"></a><span class="lineno">  326</span>    </div>
+<div class="line"><a id="l00327" name="l00327"></a><span class="lineno">  327</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00328" name="l00328"></a><span class="lineno"><a class="line" href="structFLootLockerIdentityLinkConflict.html#a5161e143cf0c8f0e456a07bbc42ea057">  328</a></span>    FString <a class="code hl_variable" href="structFLootLockerIdentityLinkConflict.html#a5161e143cf0c8f0e456a07bbc42ea057">message</a> = <span class="stringliteral">&quot;&quot;</span>;</div>
+<div class="line"><a id="l00329" name="l00329"></a><span class="lineno">  329</span></div>
+<div class="line"><a id="l00331" name="l00331"></a><span class="lineno">  331</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00332" name="l00332"></a><span class="lineno"><a class="line" href="structFLootLockerIdentityLinkConflict.html#ac26128e755625e36c5bbc920ef7fc8da">  332</a></span>    FString <a class="code hl_variable" href="structFLootLockerIdentityLinkConflict.html#ac26128e755625e36c5bbc920ef7fc8da">conflicting_identity_id</a> = <span class="stringliteral">&quot;&quot;</span>;</div>
+<div class="line"><a id="l00333" name="l00333"></a><span class="lineno">  333</span></div>
+<div class="line"><a id="l00335" name="l00335"></a><span class="lineno">  335</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00336" name="l00336"></a><span class="lineno"><a class="line" href="structFLootLockerIdentityLinkConflict.html#ac52dabdf30fae2daaaa26c4fb77bdc16">  336</a></span>    <a class="code hl_struct" href="structFLootLockerIdentityMergePreview.html">FLootLockerIdentityMergePreview</a> <a class="code hl_variable" href="structFLootLockerIdentityLinkConflict.html#ac52dabdf30fae2daaaa26c4fb77bdc16">merge_preview</a>;</div>
+<div class="line"><a id="l00337" name="l00337"></a><span class="lineno">  337</span>};</div>
+</div>
+<div class="line"><a id="l00338" name="l00338"></a><span class="lineno">  338</span></div>
+<div class="line"><a id="l00342" name="l00342"></a><span class="lineno">  342</span>USTRUCT(BlueprintType, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="foldopen" id="foldopen00343" data-start="{" data-end="};">
+<div class="line"><a id="l00343" name="l00343"></a><span class="lineno"><a class="line" href="structFLootLockerIdentityLinkResponse.html">  343</a></span>struct <a class="code hl_struct" href="structFLootLockerIdentityLinkResponse.html">FLootLockerIdentityLinkResponse</a> : public <a class="code hl_struct" href="structFLootLockerResponse.html">FLootLockerResponse</a></div>
+<div class="line"><a id="l00344" name="l00344"></a><span class="lineno">  344</span>{</div>
+<div class="line"><a id="l00345" name="l00345"></a><span class="lineno">  345</span>    GENERATED_BODY()</div>
+<div class="line"><a id="l00346" name="l00346"></a><span class="lineno">  346</span> </div>
+<div class="line"><a id="l00347" name="l00347"></a><span class="lineno">  347</span>    </div>
+<div class="line"><a id="l00348" name="l00348"></a><span class="lineno">  348</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00349" name="l00349"></a><span class="lineno"><a class="line" href="structFLootLockerIdentityLinkResponse.html#aedb54f279273a71def3c0aa530ab7b89">  349</a></span>    bool <a class="code hl_variable" href="structFLootLockerIdentityLinkResponse.html#aedb54f279273a71def3c0aa530ab7b89">created</a> = false;</div>
+<div class="line"><a id="l00350" name="l00350"></a><span class="lineno">  350</span></div>
+<div class="line"><a id="l00355" name="l00355"></a><span class="lineno">  355</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00356" name="l00356"></a><span class="lineno"><a class="line" href="structFLootLockerIdentityLinkResponse.html#ab9cddf020f455e11c4bb62b247ccf1f0">  356</a></span>    <a class="code hl_struct" href="structFLootLockerIdentityLinkConflict.html">FLootLockerIdentityLinkConflict</a> <a class="code hl_variable" href="structFLootLockerIdentityLinkResponse.html#ab9cddf020f455e11c4bb62b247ccf1f0">conflict</a>;</div>
+<div class="line"><a id="l00357" name="l00357"></a><span class="lineno">  357</span></div>
+<div class="line"><a id="l00359" name="l00359"></a><span class="lineno">  359</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00360" name="l00360"></a><span class="lineno"><a class="line" href="structFLootLockerIdentityLinkResponse.html#a68ec10dbec6e8b2fcd2dc62c340f20aa">  360</a></span>    <span class="keywordtype">bool</span> <a class="code hl_variable" href="structFLootLockerIdentityLinkResponse.html#a68ec10dbec6e8b2fcd2dc62c340f20aa">has_conflict</a> = false;</div>
+<div class="line"><a id="l00361" name="l00361"></a><span class="lineno">  361</span>};</div>
+</div>
+<div class="line"><a id="l00362" name="l00362"></a><span class="lineno">  362</span></div>
+<div class="line"><a id="l00366" name="l00366"></a><span class="lineno">  366</span>USTRUCT(BlueprintType, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="foldopen" id="foldopen00367" data-start="{" data-end="};">
+<div class="line"><a id="l00367" name="l00367"></a><span class="lineno"><a class="line" href="structFLootLockerIdentityMergePreviewResponse.html">  367</a></span>struct <a class="code hl_struct" href="structFLootLockerIdentityMergePreviewResponse.html">FLootLockerIdentityMergePreviewResponse</a> : public <a class="code hl_struct" href="structFLootLockerResponse.html">FLootLockerResponse</a></div>
+<div class="line"><a id="l00368" name="l00368"></a><span class="lineno">  368</span>{</div>
+<div class="line"><a id="l00369" name="l00369"></a><span class="lineno">  369</span>    GENERATED_BODY()</div>
+<div class="line"><a id="l00370" name="l00370"></a><span class="lineno">  370</span> </div>
+<div class="line"><a id="l00371" name="l00371"></a><span class="lineno">  371</span>    </div>
+<div class="line"><a id="l00372" name="l00372"></a><span class="lineno">  372</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00373" name="l00373"></a><span class="lineno"><a class="line" href="structFLootLockerIdentityMergePreviewResponse.html#ab14e28f485c3423ae5fd3fa32a66e219">  373</a></span>    FString <a class="code hl_variable" href="structFLootLockerIdentityMergePreviewResponse.html#ab14e28f485c3423ae5fd3fa32a66e219">keep_identity_id</a> = <span class="stringliteral">&quot;&quot;</span>;</div>
+<div class="line"><a id="l00374" name="l00374"></a><span class="lineno">  374</span></div>
+<div class="line"><a id="l00376" name="l00376"></a><span class="lineno">  376</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00377" name="l00377"></a><span class="lineno"><a class="line" href="structFLootLockerIdentityMergePreviewResponse.html#a7bd551b026c2bcfa72cdae411c890096">  377</a></span>    FString <a class="code hl_variable" href="structFLootLockerIdentityMergePreviewResponse.html#a7bd551b026c2bcfa72cdae411c890096">merge_identity_id</a> = <span class="stringliteral">&quot;&quot;</span>;</div>
+<div class="line"><a id="l00378" name="l00378"></a><span class="lineno">  378</span></div>
+<div class="line"><a id="l00380" name="l00380"></a><span class="lineno">  380</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00381" name="l00381"></a><span class="lineno"><a class="line" href="structFLootLockerIdentityMergePreviewResponse.html#af3a2472a6a4cfc44b69173406c2ab221">  381</a></span>    TArray&lt;<a class="code hl_struct" href="structFLootLockerIdentityPlayerConflict.html">FLootLockerIdentityPlayerConflict</a>&gt; <a class="code hl_variable" href="structFLootLockerIdentityMergePreviewResponse.html#af3a2472a6a4cfc44b69173406c2ab221">player_conflicts</a>;</div>
+<div class="line"><a id="l00382" name="l00382"></a><span class="lineno">  382</span>};</div>
+</div>
+<div class="line"><a id="l00383" name="l00383"></a><span class="lineno">  383</span></div>
+<div class="line"><a id="l00387" name="l00387"></a><span class="lineno">  387</span>USTRUCT(BlueprintType, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="foldopen" id="foldopen00388" data-start="{" data-end="};">
+<div class="line"><a id="l00388" name="l00388"></a><span class="lineno"><a class="line" href="structFLootLockerIdentityMergeResponse.html">  388</a></span>struct <a class="code hl_struct" href="structFLootLockerIdentityMergeResponse.html">FLootLockerIdentityMergeResponse</a> : public <a class="code hl_struct" href="structFLootLockerResponse.html">FLootLockerResponse</a></div>
+<div class="line"><a id="l00389" name="l00389"></a><span class="lineno">  389</span>{</div>
+<div class="line"><a id="l00390" name="l00390"></a><span class="lineno">  390</span>    GENERATED_BODY()</div>
+<div class="line"><a id="l00391" name="l00391"></a><span class="lineno">  391</span> </div>
+<div class="line"><a id="l00392" name="l00392"></a><span class="lineno">  392</span>    </div>
+<div class="line"><a id="l00393" name="l00393"></a><span class="lineno">  393</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00394" name="l00394"></a><span class="lineno"><a class="line" href="structFLootLockerIdentityMergeResponse.html#a86a6d01f33db73f298dfa1c02feb8c39">  394</a></span>    FString <span class="keywordtype">id</span> = <span class="stringliteral">&quot;&quot;</span>;</div>
+<div class="line"><a id="l00395" name="l00395"></a><span class="lineno">  395</span></div>
+<div class="line"><a id="l00397" name="l00397"></a><span class="lineno">  397</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00398" name="l00398"></a><span class="lineno"><a class="line" href="structFLootLockerIdentityMergeResponse.html#aa0352c975b9eb89044b7833633a66ecb">  398</a></span>    int32 <a class="code hl_variable" href="structFLootLockerIdentityMergeResponse.html#aa0352c975b9eb89044b7833633a66ecb">publisher_id</a> = 0;</div>
+<div class="line"><a id="l00399" name="l00399"></a><span class="lineno">  399</span></div>
+<div class="line"><a id="l00401" name="l00401"></a><span class="lineno">  401</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00402" name="l00402"></a><span class="lineno"><a class="line" href="structFLootLockerIdentityMergeResponse.html#a400e624ed8f447410ca55ab15b42cb4e">  402</a></span>    FString <a class="code hl_variable" href="structFLootLockerIdentityMergeResponse.html#a400e624ed8f447410ca55ab15b42cb4e">created_at</a> = <span class="stringliteral">&quot;&quot;</span>;</div>
+<div class="line"><a id="l00403" name="l00403"></a><span class="lineno">  403</span></div>
+<div class="line"><a id="l00405" name="l00405"></a><span class="lineno">  405</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00406" name="l00406"></a><span class="lineno"><a class="line" href="structFLootLockerIdentityMergeResponse.html#a3eccba76f2869817a87104253229a041">  406</a></span>    TArray&lt;<a class="code hl_struct" href="structFLootLockerIdentityGameActivity.html">FLootLockerIdentityGameActivity</a>&gt; <a class="code hl_variable" href="structFLootLockerIdentityMergeResponse.html#a3eccba76f2869817a87104253229a041">game_activity</a>;</div>
+<div class="line"><a id="l00407" name="l00407"></a><span class="lineno">  407</span></div>
+<div class="line"><a id="l00414" name="l00414"></a><span class="lineno">  414</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00415" name="l00415"></a><span class="lineno"><a class="line" href="structFLootLockerIdentityMergeResponse.html#a99391e97e2f94894a9968911dd29e240">  415</a></span>    TArray&lt;<a class="code hl_struct" href="structFLootLockerIdentityProviderInfo.html">FLootLockerIdentityProviderInfo</a>&gt; <a class="code hl_variable" href="structFLootLockerIdentityMergeResponse.html#a99391e97e2f94894a9968911dd29e240">providers</a>;</div>
+<div class="line"><a id="l00416" name="l00416"></a><span class="lineno">  416</span></div>
+<div class="line"><a id="l00418" name="l00418"></a><span class="lineno">  418</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00419" name="l00419"></a><span class="lineno"><a class="line" href="structFLootLockerIdentityMergeResponse.html#ae06914a4c97cd373bd9d9ba33d12d008">  419</a></span>    <span class="keywordtype">bool</span> <a class="code hl_variable" href="structFLootLockerIdentityMergeResponse.html#ae06914a4c97cd373bd9d9ba33d12d008">has_providers</a> = false;</div>
+<div class="line"><a id="l00420" name="l00420"></a><span class="lineno">  420</span>};</div>
+</div>
+<div class="line"><a id="l00421" name="l00421"></a><span class="lineno">  421</span> </div>
+<div class="line"><a id="l00422" name="l00422"></a><span class="lineno">  422</span><span class="comment">//==================================================</span></div>
+<div class="line"><a id="l00423" name="l00423"></a><span class="lineno">  423</span><span class="comment">// Delegate Definitions</span></div>
+<div class="line"><a id="l00424" name="l00424"></a><span class="lineno">  424</span><span class="comment">//==================================================</span></div>
+<div class="line"><a id="l00427" name="l00427"></a><span class="lineno">  427</span></div>
+<div class="line"><a id="l00428" name="l00428"></a><span class="lineno"><a class="line" href="group__Identity.html#ga33c9f560e20861255d3a68e875ee4757">  428</a></span>DECLARE_DELEGATE_OneParam(<a class="code hl_typedef" href="group__Identity.html#ga33c9f560e20861255d3a68e875ee4757">FLootLockerIdentityResponseDelegate</a>, <a class="code hl_struct" href="structFLootLockerIdentityResponse.html">FLootLockerIdentityResponse</a>);</div>
+<div class="line"><a id="l00430" name="l00430"></a><span class="lineno"><a class="line" href="group__Identity.html#ga51fd616c1055d72b0c6bed99523408a1">  430</a></span>DECLARE_DELEGATE_OneParam(<a class="code hl_typedef" href="group__Identity.html#ga51fd616c1055d72b0c6bed99523408a1">FLootLockerIdentityLookupResponseDelegate</a>, <a class="code hl_struct" href="structFLootLockerIdentityLookupResponse.html">FLootLockerIdentityLookupResponse</a>);</div>
+<div class="line"><a id="l00432" name="l00432"></a><span class="lineno"><a class="line" href="group__Identity.html#ga8cbadd2e451bf74e5c070c265f4e1761">  432</a></span>DECLARE_DELEGATE_OneParam(<a class="code hl_typedef" href="group__Identity.html#ga8cbadd2e451bf74e5c070c265f4e1761">FLootLockerIdentityLinkResponseDelegate</a>, <a class="code hl_struct" href="structFLootLockerIdentityLinkResponse.html">FLootLockerIdentityLinkResponse</a>);</div>
+<div class="line"><a id="l00434" name="l00434"></a><span class="lineno"><a class="line" href="group__Identity.html#ga504a747480d1d9737e0ff29353ab2788">  434</a></span>DECLARE_DELEGATE_OneParam(<a class="code hl_typedef" href="group__Identity.html#ga504a747480d1d9737e0ff29353ab2788">FLootLockerIdentityMergePreviewResponseDelegate</a>, <a class="code hl_struct" href="structFLootLockerIdentityMergePreviewResponse.html">FLootLockerIdentityMergePreviewResponse</a>);</div>
+<div class="line"><a id="l00436" name="l00436"></a><span class="lineno"><a class="line" href="group__Identity.html#ga8f41aabb2c9745877058c36330cb5bfe">  436</a></span>DECLARE_DELEGATE_OneParam(<a class="code hl_typedef" href="group__Identity.html#ga8f41aabb2c9745877058c36330cb5bfe">FLootLockerIdentityMergeResponseDelegate</a>, <a class="code hl_struct" href="structFLootLockerIdentityMergeResponse.html">FLootLockerIdentityMergeResponse</a>);</div>
+<div class="line"><a id="l00437" name="l00437"></a><span class="lineno">  437</span> </div>
+<div class="line"><a id="l00438" name="l00438"></a><span class="lineno">  438</span><span class="comment">//==================================================</span></div>
+<div class="line"><a id="l00439" name="l00439"></a><span class="lineno">  439</span><span class="comment">// API Class Definition</span></div>
+<div class="line"><a id="l00440" name="l00440"></a><span class="lineno">  440</span><span class="comment">//==================================================</span></div>
+<div class="line"><a id="l00441" name="l00441"></a><span class="lineno">  441</span></div>
+<div class="line"><a id="l00443" name="l00443"></a><span class="lineno">  443</span>UCLASS()</div>
+<div class="foldopen" id="foldopen00444" data-start="{" data-end="};">
+<div class="line"><a id="l00444" name="l00444"></a><span class="lineno"><a class="line" href="classULootLockerIdentityRequestHandler.html">  444</a></span>class LOOTLOCKERSDK_API <a class="code hl_function" href="classULootLockerIdentityRequestHandler.html#a1df3d5e9a0a15af7ddeff29f759c8648">ULootLockerIdentityRequestHandler</a> : public UObject</div>
+<div class="line"><a id="l00445" name="l00445"></a><span class="lineno">  445</span>{</div>
+<div class="line"><a id="l00446" name="l00446"></a><span class="lineno">  446</span>    GENERATED_BODY()</div>
+<div class="line"><a id="l00447" name="l00447"></a><span class="lineno">  447</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00448" name="l00448"></a><span class="lineno"><a class="line" href="classULootLockerIdentityRequestHandler.html#a1df3d5e9a0a15af7ddeff29f759c8648">  448</a></span>    <a class="code hl_function" href="classULootLockerIdentityRequestHandler.html#a1df3d5e9a0a15af7ddeff29f759c8648">ULootLockerIdentityRequestHandler</a>() {};</div>
+<div class="line"><a id="l00449" name="l00449"></a><span class="lineno">  449</span> </div>
+<div class="line"><a id="l00450" name="l00450"></a><span class="lineno"><a class="line" href="classULootLockerIdentityRequestHandler.html#a27a0699c792c8ed02d7ee0b2c6285a1f">  450</a></span>    <span class="keyword">static</span> FString <a class="code hl_function" href="classULootLockerIdentityRequestHandler.html#a27a0699c792c8ed02d7ee0b2c6285a1f">GetIdentity</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a>&amp; PlayerData, <span class="keyword">const</span> <a class="code hl_typedef" href="group__Identity.html#ga33c9f560e20861255d3a68e875ee4757">FLootLockerIdentityResponseDelegate</a>&amp; OnComplete);</div>
+<div class="line"><a id="l00451" name="l00451"></a><span class="lineno"><a class="line" href="classULootLockerIdentityRequestHandler.html#ab87cccf358ed6c3fa2488c181928c712">  451</a></span>    <span class="keyword">static</span> FString <a class="code hl_function" href="classULootLockerIdentityRequestHandler.html#ab87cccf358ed6c3fa2488c181928c712">LookupIdentities</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a>&amp; PlayerData, <span class="keyword">const</span> <a class="code hl_struct" href="structFLootLockerIdentityLookupRequest.html">FLootLockerIdentityLookupRequest</a>&amp; Request, <span class="keyword">const</span> <a class="code hl_typedef" href="group__Identity.html#ga51fd616c1055d72b0c6bed99523408a1">FLootLockerIdentityLookupResponseDelegate</a>&amp; OnComplete);</div>
+<div class="line"><a id="l00452" name="l00452"></a><span class="lineno"><a class="line" href="classULootLockerIdentityRequestHandler.html#abd3969eff193654f2a7388a5a1f3af0b">  452</a></span>    <span class="keyword">static</span> FString <a class="code hl_function" href="classULootLockerIdentityRequestHandler.html#abd3969eff193654f2a7388a5a1f3af0b">LinkProvider</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a>&amp; PlayerData, <span class="keyword">const</span> <a class="code hl_struct" href="structFLootLockerIdentityLinkRequest.html">FLootLockerIdentityLinkRequest</a>&amp; Request, <span class="keyword">const</span> <a class="code hl_typedef" href="group__Identity.html#ga8cbadd2e451bf74e5c070c265f4e1761">FLootLockerIdentityLinkResponseDelegate</a>&amp; OnComplete);</div>
+<div class="line"><a id="l00453" name="l00453"></a><span class="lineno"><a class="line" href="classULootLockerIdentityRequestHandler.html#aaf9ac6a5564dd8f58241aaf8d04ca088">  453</a></span>    <span class="keyword">static</span> FString <a class="code hl_function" href="classULootLockerIdentityRequestHandler.html#aaf9ac6a5564dd8f58241aaf8d04ca088">UnlinkProvider</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a>&amp; PlayerData, <span class="keyword">const</span> FString&amp; CredentialId, <span class="keyword">const</span> <a class="code hl_typedef" href="LootLockerResponse_8h.html#a5d3509fd52be6960e390df86b764fcdb">FLootLockerDefaultDelegate</a>&amp; OnComplete);</div>
+<div class="line"><a id="l00454" name="l00454"></a><span class="lineno"><a class="line" href="classULootLockerIdentityRequestHandler.html#a4bf06e7d6392470ac5c72121f0909347">  454</a></span>    <span class="keyword">static</span> FString <a class="code hl_function" href="classULootLockerIdentityRequestHandler.html#a4bf06e7d6392470ac5c72121f0909347">PreviewIdentityMerge</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a>&amp; PlayerData, <span class="keyword">const</span> FString&amp; MergeIdentityId, <span class="keyword">const</span> <a class="code hl_typedef" href="group__Identity.html#ga504a747480d1d9737e0ff29353ab2788">FLootLockerIdentityMergePreviewResponseDelegate</a>&amp; OnComplete);</div>
+<div class="line"><a id="l00455" name="l00455"></a><span class="lineno"><a class="line" href="classULootLockerIdentityRequestHandler.html#ae2e5a1a1ced5ef63451d866b26c81282">  455</a></span>    <span class="keyword">static</span> FString <a class="code hl_function" href="classULootLockerIdentityRequestHandler.html#ae2e5a1a1ced5ef63451d866b26c81282">MergeIdentities</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a>&amp; PlayerData, <span class="keyword">const</span> <a class="code hl_struct" href="structFLootLockerIdentityMergeRequest.html">FLootLockerIdentityMergeRequest</a>&amp; Request, <span class="keyword">const</span> <a class="code hl_typedef" href="group__Identity.html#ga8f41aabb2c9745877058c36330cb5bfe">FLootLockerIdentityMergeResponseDelegate</a>&amp; OnComplete);</div>
+<div class="line"><a id="l00456" name="l00456"></a><span class="lineno">  456</span></div>
+<div class="line"><a id="l00462" name="l00462"></a><span class="lineno"><a class="line" href="classULootLockerIdentityRequestHandler.html#ab878f442bec5092080432a7802830826">  462</a></span>    <span class="keyword">static</span> FString <a class="code hl_function" href="classULootLockerIdentityRequestHandler.html#ab878f442bec5092080432a7802830826">ProviderToSlug</a>(<a class="code hl_enumeration" href="group__Identity.html#ga618aed69239e8218de86d9b74b86c452">ELootLockerIdentityProvider</a> Provider);</div>
+<div class="line"><a id="l00463" name="l00463"></a><span class="lineno">  463</span></div>
+<div class="line"><a id="l00467" name="l00467"></a><span class="lineno"><a class="line" href="classULootLockerIdentityRequestHandler.html#a726cd6cee84ef4a6d72bcf8c183324d4">  467</a></span>    <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code hl_function" href="classULootLockerIdentityRequestHandler.html#a726cd6cee84ef4a6d72bcf8c183324d4">ParseLinkConflict</a>(<a class="code hl_struct" href="structFLootLockerIdentityLinkResponse.html">FLootLockerIdentityLinkResponse</a>&amp; Response);</div>
+<div class="line"><a id="l00468" name="l00468"></a><span class="lineno">  468</span></div>
+<div class="line"><a id="l00473" name="l00473"></a><span class="lineno"><a class="line" href="classULootLockerIdentityRequestHandler.html#a9a4dbec3eae1ce2e31444b9354fec52a">  473</a></span>    <span class="keyword">static</span> <a class="code hl_enumeration" href="group__Identity.html#ga618aed69239e8218de86d9b74b86c452">ELootLockerIdentityProvider</a> <a class="code hl_function" href="classULootLockerIdentityRequestHandler.html#a9a4dbec3eae1ce2e31444b9354fec52a">SlugToProvider</a>(<span class="keyword">const</span> FString&amp; Slug);</div>
+<div class="line"><a id="l00474" name="l00474"></a><span class="lineno">  474</span></div>
+<div class="line"><a id="l00481" name="l00481"></a><span class="lineno"><a class="line" href="classULootLockerIdentityRequestHandler.html#af14dff9761541add6c92988b53d3985e">  481</a></span>    <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code hl_function" href="classULootLockerIdentityRequestHandler.html#af14dff9761541add6c92988b53d3985e">MarkProvidersPresent</a>(<a class="code hl_struct" href="structFLootLockerIdentityResponse.html">FLootLockerIdentityResponse</a>&amp; Response);</div>
+<div class="line"><a id="l00482" name="l00482"></a><span class="lineno">  482</span></div>
+<div class="line"><a id="l00484" name="l00484"></a><span class="lineno"><a class="line" href="classULootLockerIdentityRequestHandler.html#aa0f4909df17212632097d964611fc6ce">  484</a></span>    <span class="keyword">static</span> FString <a class="code hl_function" href="classULootLockerIdentityRequestHandler.html#aa0f4909df17212632097d964611fc6ce">GetProviderCredentialId</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structFLootLockerIdentityResponse.html">FLootLockerIdentityResponse</a>&amp; Identity, <a class="code hl_enumeration" href="group__Identity.html#ga618aed69239e8218de86d9b74b86c452">ELootLockerIdentityProvider</a> Provider);</div>
+<div class="line"><a id="l00485" name="l00485"></a><span class="lineno">  485</span>};</div>
+</div>
+<div class="ttc" id="aLootLockerPlayerData_8h_html"><div class="ttname"><a href="LootLockerPlayerData_8h.html">LootLockerPlayerData.h</a></div></div>
+<div class="ttc" id="aLootLockerResponse_8h_html"><div class="ttname"><a href="LootLockerResponse_8h.html">LootLockerResponse.h</a></div></div>
+<div class="ttc" id="aLootLockerResponse_8h_html_a5d3509fd52be6960e390df86b764fcdb"><div class="ttname"><a href="LootLockerResponse_8h.html#a5d3509fd52be6960e390df86b764fcdb">FLootLockerDefaultDelegate</a></div><div class="ttdeci">void(* FLootLockerDefaultDelegate)(FLootLockerResponse)</div><div class="ttdef"><b>Definition</b> LootLockerResponse.h:38</div></div>
+<div class="ttc" id="aclassULootLockerIdentityRequestHandler_html_a1df3d5e9a0a15af7ddeff29f759c8648"><div class="ttname"><a href="classULootLockerIdentityRequestHandler.html#a1df3d5e9a0a15af7ddeff29f759c8648">ULootLockerIdentityRequestHandler::ULootLockerIdentityRequestHandler</a></div><div class="ttdeci">ULootLockerIdentityRequestHandler()</div><div class="ttdef"><b>Definition</b> LootLockerIdentityRequestHandler.h:448</div></div>
+<div class="ttc" id="aclassULootLockerIdentityRequestHandler_html_a27a0699c792c8ed02d7ee0b2c6285a1f"><div class="ttname"><a href="classULootLockerIdentityRequestHandler.html#a27a0699c792c8ed02d7ee0b2c6285a1f">ULootLockerIdentityRequestHandler::GetIdentity</a></div><div class="ttdeci">static FString GetIdentity(const FLootLockerPlayerData &amp;PlayerData, const FLootLockerIdentityResponseDelegate &amp;OnComplete)</div></div>
+<div class="ttc" id="aclassULootLockerIdentityRequestHandler_html_a4bf06e7d6392470ac5c72121f0909347"><div class="ttname"><a href="classULootLockerIdentityRequestHandler.html#a4bf06e7d6392470ac5c72121f0909347">ULootLockerIdentityRequestHandler::PreviewIdentityMerge</a></div><div class="ttdeci">static FString PreviewIdentityMerge(const FLootLockerPlayerData &amp;PlayerData, const FString &amp;MergeIdentityId, const FLootLockerIdentityMergePreviewResponseDelegate &amp;OnComplete)</div></div>
+<div class="ttc" id="aclassULootLockerIdentityRequestHandler_html_a726cd6cee84ef4a6d72bcf8c183324d4"><div class="ttname"><a href="classULootLockerIdentityRequestHandler.html#a726cd6cee84ef4a6d72bcf8c183324d4">ULootLockerIdentityRequestHandler::ParseLinkConflict</a></div><div class="ttdeci">static void ParseLinkConflict(FLootLockerIdentityLinkResponse &amp;Response)</div><div class="ttdoc">Parses the 409 merge offer onto the response.</div></div>
+<div class="ttc" id="aclassULootLockerIdentityRequestHandler_html_a9a4dbec3eae1ce2e31444b9354fec52a"><div class="ttname"><a href="classULootLockerIdentityRequestHandler.html#a9a4dbec3eae1ce2e31444b9354fec52a">ULootLockerIdentityRequestHandler::SlugToProvider</a></div><div class="ttdeci">static ELootLockerIdentityProvider SlugToProvider(const FString &amp;Slug)</div><div class="ttdoc">Resolves a provider slug to its enumerator, or Unknown when this SDK does not map it.</div></div>
+<div class="ttc" id="aclassULootLockerIdentityRequestHandler_html_aa0f4909df17212632097d964611fc6ce"><div class="ttname"><a href="classULootLockerIdentityRequestHandler.html#aa0f4909df17212632097d964611fc6ce">ULootLockerIdentityRequestHandler::GetProviderCredentialId</a></div><div class="ttdeci">static FString GetProviderCredentialId(const FLootLockerIdentityResponse &amp;Identity, ELootLockerIdentityProvider Provider)</div><div class="ttdoc">The credential id for a provider, or an empty string when no credential for it is linked.</div></div>
+<div class="ttc" id="aclassULootLockerIdentityRequestHandler_html_aaf9ac6a5564dd8f58241aaf8d04ca088"><div class="ttname"><a href="classULootLockerIdentityRequestHandler.html#aaf9ac6a5564dd8f58241aaf8d04ca088">ULootLockerIdentityRequestHandler::UnlinkProvider</a></div><div class="ttdeci">static FString UnlinkProvider(const FLootLockerPlayerData &amp;PlayerData, const FString &amp;CredentialId, const FLootLockerDefaultDelegate &amp;OnComplete)</div></div>
+<div class="ttc" id="aclassULootLockerIdentityRequestHandler_html_ab878f442bec5092080432a7802830826"><div class="ttname"><a href="classULootLockerIdentityRequestHandler.html#ab878f442bec5092080432a7802830826">ULootLockerIdentityRequestHandler::ProviderToSlug</a></div><div class="ttdeci">static FString ProviderToSlug(ELootLockerIdentityProvider Provider)</div><div class="ttdoc">The wire slug for a provider, which is the lowercased enumerator name.</div></div>
+<div class="ttc" id="aclassULootLockerIdentityRequestHandler_html_ab87cccf358ed6c3fa2488c181928c712"><div class="ttname"><a href="classULootLockerIdentityRequestHandler.html#ab87cccf358ed6c3fa2488c181928c712">ULootLockerIdentityRequestHandler::LookupIdentities</a></div><div class="ttdeci">static FString LookupIdentities(const FLootLockerPlayerData &amp;PlayerData, const FLootLockerIdentityLookupRequest &amp;Request, const FLootLockerIdentityLookupResponseDelegate &amp;OnComplete)</div></div>
+<div class="ttc" id="aclassULootLockerIdentityRequestHandler_html_abd3969eff193654f2a7388a5a1f3af0b"><div class="ttname"><a href="classULootLockerIdentityRequestHandler.html#abd3969eff193654f2a7388a5a1f3af0b">ULootLockerIdentityRequestHandler::LinkProvider</a></div><div class="ttdeci">static FString LinkProvider(const FLootLockerPlayerData &amp;PlayerData, const FLootLockerIdentityLinkRequest &amp;Request, const FLootLockerIdentityLinkResponseDelegate &amp;OnComplete)</div></div>
+<div class="ttc" id="aclassULootLockerIdentityRequestHandler_html_ae2e5a1a1ced5ef63451d866b26c81282"><div class="ttname"><a href="classULootLockerIdentityRequestHandler.html#ae2e5a1a1ced5ef63451d866b26c81282">ULootLockerIdentityRequestHandler::MergeIdentities</a></div><div class="ttdeci">static FString MergeIdentities(const FLootLockerPlayerData &amp;PlayerData, const FLootLockerIdentityMergeRequest &amp;Request, const FLootLockerIdentityMergeResponseDelegate &amp;OnComplete)</div></div>
+<div class="ttc" id="aclassULootLockerIdentityRequestHandler_html_af14dff9761541add6c92988b53d3985e"><div class="ttname"><a href="classULootLockerIdentityRequestHandler.html#af14dff9761541add6c92988b53d3985e">ULootLockerIdentityRequestHandler::MarkProvidersPresent</a></div><div class="ttdeci">static void MarkProvidersPresent(FLootLockerIdentityResponse &amp;Response)</div><div class="ttdoc">Sets has_providers when the payload carried a providers array.</div></div>
+<div class="ttc" id="agroup__Identity_html_ga33c9f560e20861255d3a68e875ee4757"><div class="ttname"><a href="group__Identity.html#ga33c9f560e20861255d3a68e875ee4757">FLootLockerIdentityResponseDelegate</a></div><div class="ttdeci">void(* FLootLockerIdentityResponseDelegate)(FLootLockerIdentityResponse)</div><div class="ttdoc">C++ response delegate for reading the current identity.</div><div class="ttdef"><b>Definition</b> LootLockerIdentityRequestHandler.h:428</div></div>
+<div class="ttc" id="agroup__Identity_html_ga504a747480d1d9737e0ff29353ab2788"><div class="ttname"><a href="group__Identity.html#ga504a747480d1d9737e0ff29353ab2788">FLootLockerIdentityMergePreviewResponseDelegate</a></div><div class="ttdeci">void(* FLootLockerIdentityMergePreviewResponseDelegate)(FLootLockerIdentityMergePreviewResponse)</div><div class="ttdoc">C++ response delegate for previewing an identity merge.</div><div class="ttdef"><b>Definition</b> LootLockerIdentityRequestHandler.h:434</div></div>
+<div class="ttc" id="agroup__Identity_html_ga51fd616c1055d72b0c6bed99523408a1"><div class="ttname"><a href="group__Identity.html#ga51fd616c1055d72b0c6bed99523408a1">FLootLockerIdentityLookupResponseDelegate</a></div><div class="ttdeci">void(* FLootLockerIdentityLookupResponseDelegate)(FLootLockerIdentityLookupResponse)</div><div class="ttdoc">C++ response delegate for looking identities up.</div><div class="ttdef"><b>Definition</b> LootLockerIdentityRequestHandler.h:430</div></div>
+<div class="ttc" id="agroup__Identity_html_ga618aed69239e8218de86d9b74b86c452"><div class="ttname"><a href="group__Identity.html#ga618aed69239e8218de86d9b74b86c452">ELootLockerIdentityProvider</a></div><div class="ttdeci">ELootLockerIdentityProvider</div><div class="ttdoc">Platforms that can be presented as a credential when linking a provider to an identity.</div><div class="ttdef"><b>Definition</b> LootLockerIdentityRequestHandler.h:27</div></div>
+<div class="ttc" id="agroup__Identity_html_ga8cbadd2e451bf74e5c070c265f4e1761"><div class="ttname"><a href="group__Identity.html#ga8cbadd2e451bf74e5c070c265f4e1761">FLootLockerIdentityLinkResponseDelegate</a></div><div class="ttdeci">void(* FLootLockerIdentityLinkResponseDelegate)(FLootLockerIdentityLinkResponse)</div><div class="ttdoc">C++ response delegate for linking a provider credential.</div><div class="ttdef"><b>Definition</b> LootLockerIdentityRequestHandler.h:432</div></div>
+<div class="ttc" id="agroup__Identity_html_ga8f41aabb2c9745877058c36330cb5bfe"><div class="ttname"><a href="group__Identity.html#ga8f41aabb2c9745877058c36330cb5bfe">FLootLockerIdentityMergeResponseDelegate</a></div><div class="ttdeci">void(* FLootLockerIdentityMergeResponseDelegate)(FLootLockerIdentityMergeResponse)</div><div class="ttdoc">C++ response delegate for merging identities.</div><div class="ttdef"><b>Definition</b> LootLockerIdentityRequestHandler.h:436</div></div>
+<div class="ttc" id="agroup__Identity_html_gga618aed69239e8218de86d9b74b86c452a0de1fa08a8e2de796af8c36cf62342df"><div class="ttname"><a href="group__Identity.html#gga618aed69239e8218de86d9b74b86c452a0de1fa08a8e2de796af8c36cf62342df">ELootLockerIdentityProvider::Google_sign_in</a></div><div class="ttdeci">@ Google_sign_in</div><div class="ttdef"><b>Definition</b> LootLockerIdentityRequestHandler.h:44</div></div>
+<div class="ttc" id="agroup__Identity_html_gga618aed69239e8218de86d9b74b86c452a15b8772f2d06a15fee9f32b6477660b8"><div class="ttname"><a href="group__Identity.html#gga618aed69239e8218de86d9b74b86c452a15b8772f2d06a15fee9f32b6477660b8">ELootLockerIdentityProvider::Google_play_games</a></div><div class="ttdeci">@ Google_play_games</div><div class="ttdef"><b>Definition</b> LootLockerIdentityRequestHandler.h:50</div></div>
+<div class="ttc" id="agroup__Identity_html_gga618aed69239e8218de86d9b74b86c452a33e9ca8143c729f162d3223005ab7026"><div class="ttname"><a href="group__Identity.html#gga618aed69239e8218de86d9b74b86c452a33e9ca8143c729f162d3223005ab7026">ELootLockerIdentityProvider::Nintendo_switch</a></div><div class="ttdeci">@ Nintendo_switch</div><div class="ttdef"><b>Definition</b> LootLockerIdentityRequestHandler.h:39</div></div>
+<div class="ttc" id="agroup__Identity_html_gga618aed69239e8218de86d9b74b86c452a4db4563826bad0eb2f60ee6e42d0ea4b"><div class="ttname"><a href="group__Identity.html#gga618aed69239e8218de86d9b74b86c452a4db4563826bad0eb2f60ee6e42d0ea4b">ELootLockerIdentityProvider::Steam</a></div><div class="ttdeci">@ Steam</div><div class="ttdef"><b>Definition</b> LootLockerIdentityRequestHandler.h:34</div></div>
+<div class="ttc" id="agroup__Identity_html_gga618aed69239e8218de86d9b74b86c452a54c97686ee5f90f5da86d03c84be7015"><div class="ttname"><a href="group__Identity.html#gga618aed69239e8218de86d9b74b86c452a54c97686ee5f90f5da86d03c84be7015">ELootLockerIdentityProvider::Epic_games</a></div><div class="ttdeci">@ Epic_games</div><div class="ttdef"><b>Definition</b> LootLockerIdentityRequestHandler.h:45</div></div>
+<div class="ttc" id="agroup__Identity_html_gga618aed69239e8218de86d9b74b86c452a5cd7e67cf5116e37f7f91f266291201d"><div class="ttname"><a href="group__Identity.html#gga618aed69239e8218de86d9b74b86c452a5cd7e67cf5116e37f7f91f266291201d">ELootLockerIdentityProvider::Lootlocker_delegation</a></div><div class="ttdeci">@ Lootlocker_delegation</div><div class="ttdef"><b>Definition</b> LootLockerIdentityRequestHandler.h:48</div></div>
+<div class="ttc" id="agroup__Identity_html_gga618aed69239e8218de86d9b74b86c452a6a057ee64a34177e388abe7304fd3d78"><div class="ttname"><a href="group__Identity.html#gga618aed69239e8218de86d9b74b86c452a6a057ee64a34177e388abe7304fd3d78">ELootLockerIdentityProvider::Twitch</a></div><div class="ttdeci">@ Twitch</div><div class="ttdef"><b>Definition</b> LootLockerIdentityRequestHandler.h:49</div></div>
+<div class="ttc" id="agroup__Identity_html_gga618aed69239e8218de86d9b74b86c452a6abfec52c2173bbda0d29243559c74bb"><div class="ttname"><a href="group__Identity.html#gga618aed69239e8218de86d9b74b86c452a6abfec52c2173bbda0d29243559c74bb">ELootLockerIdentityProvider::Google_play_store</a></div><div class="ttdeci">@ Google_play_store</div><div class="ttdef"><b>Definition</b> LootLockerIdentityRequestHandler.h:37</div></div>
+<div class="ttc" id="agroup__Identity_html_gga618aed69239e8218de86d9b74b86c452a74f255bce3797bacb29dc0c18636dbf2"><div class="ttname"><a href="group__Identity.html#gga618aed69239e8218de86d9b74b86c452a74f255bce3797bacb29dc0c18636dbf2">ELootLockerIdentityProvider::Publisher_account</a></div><div class="ttdeci">@ Publisher_account</div><div class="ttdoc">A publisher account credential (email).</div><div class="ttdef"><b>Definition</b> LootLockerIdentityRequestHandler.h:56</div></div>
+<div class="ttc" id="agroup__Identity_html_gga618aed69239e8218de86d9b74b86c452a75b34430e667823f62efc98857e8e0d2"><div class="ttname"><a href="group__Identity.html#gga618aed69239e8218de86d9b74b86c452a75b34430e667823f62efc98857e8e0d2">ELootLockerIdentityProvider::White_label_login</a></div><div class="ttdeci">@ White_label_login</div><div class="ttdef"><b>Definition</b> LootLockerIdentityRequestHandler.h:41</div></div>
+<div class="ttc" id="agroup__Identity_html_gga618aed69239e8218de86d9b74b86c452a7af51761a9dc3e558b8f8c3c96f1facd"><div class="ttname"><a href="group__Identity.html#gga618aed69239e8218de86d9b74b86c452a7af51761a9dc3e558b8f8c3c96f1facd">ELootLockerIdentityProvider::Apple_app_store</a></div><div class="ttdeci">@ Apple_app_store</div><div class="ttdef"><b>Definition</b> LootLockerIdentityRequestHandler.h:36</div></div>
+<div class="ttc" id="agroup__Identity_html_gga618aed69239e8218de86d9b74b86c452a88183b946cc5f0e8c96b2e66e1c74a7e"><div class="ttname"><a href="group__Identity.html#gga618aed69239e8218de86d9b74b86c452a88183b946cc5f0e8c96b2e66e1c74a7e">ELootLockerIdentityProvider::Unknown</a></div><div class="ttdeci">@ Unknown</div><div class="ttdoc">A provider this SDK does not recognise, or one the response did not populate.</div><div class="ttdef"><b>Definition</b> LootLockerIdentityRequestHandler.h:33</div></div>
+<div class="ttc" id="agroup__Identity_html_gga618aed69239e8218de86d9b74b86c452a8f5cc6430613f1c12f36965050bb7197"><div class="ttname"><a href="group__Identity.html#gga618aed69239e8218de86d9b74b86c452a8f5cc6430613f1c12f36965050bb7197">ELootLockerIdentityProvider::Discord</a></div><div class="ttdeci">@ Discord</div><div class="ttdef"><b>Definition</b> LootLockerIdentityRequestHandler.h:51</div></div>
+<div class="ttc" id="agroup__Identity_html_gga618aed69239e8218de86d9b74b86c452a903c4ed61f8bcfb072ae0cd2e35615ec"><div class="ttname"><a href="group__Identity.html#gga618aed69239e8218de86d9b74b86c452a903c4ed61f8bcfb072ae0cd2e35615ec">ELootLockerIdentityProvider::Psn</a></div><div class="ttdeci">@ Psn</div><div class="ttdef"><b>Definition</b> LootLockerIdentityRequestHandler.h:35</div></div>
+<div class="ttc" id="agroup__Identity_html_gga618aed69239e8218de86d9b74b86c452a9c764b7a4c5b909d643407eb120f9a23"><div class="ttname"><a href="group__Identity.html#gga618aed69239e8218de86d9b74b86c452a9c764b7a4c5b909d643407eb120f9a23">ELootLockerIdentityProvider::Apple_sign_in</a></div><div class="ttdeci">@ Apple_sign_in</div><div class="ttdef"><b>Definition</b> LootLockerIdentityRequestHandler.h:43</div></div>
+<div class="ttc" id="agroup__Identity_html_gga618aed69239e8218de86d9b74b86c452aa04afbbeabb5ebe7b63f06d38bf89373"><div class="ttname"><a href="group__Identity.html#gga618aed69239e8218de86d9b74b86c452aa04afbbeabb5ebe7b63f06d38bf89373">ELootLockerIdentityProvider::Apple_game_center</a></div><div class="ttdeci">@ Apple_game_center</div><div class="ttdef"><b>Definition</b> LootLockerIdentityRequestHandler.h:46</div></div>
+<div class="ttc" id="agroup__Identity_html_gga618aed69239e8218de86d9b74b86c452aadb831a7fdd83dd1e2a309ce7591dff8"><div class="ttname"><a href="group__Identity.html#gga618aed69239e8218de86d9b74b86c452aadb831a7fdd83dd1e2a309ce7591dff8">ELootLockerIdentityProvider::Guest</a></div><div class="ttdeci">@ Guest</div><div class="ttdef"><b>Definition</b> LootLockerIdentityRequestHandler.h:42</div></div>
+<div class="ttc" id="agroup__Identity_html_gga618aed69239e8218de86d9b74b86c452ab6755d218d5f4e1cef9cce9cc39aeda9"><div class="ttname"><a href="group__Identity.html#gga618aed69239e8218de86d9b74b86c452ab6755d218d5f4e1cef9cce9cc39aeda9">ELootLockerIdentityProvider::Meta</a></div><div class="ttdeci">@ Meta</div><div class="ttdef"><b>Definition</b> LootLockerIdentityRequestHandler.h:47</div></div>
+<div class="ttc" id="agroup__Identity_html_gga618aed69239e8218de86d9b74b86c452abff1a56c20314b583c851d6d8ec7b7b2"><div class="ttname"><a href="group__Identity.html#gga618aed69239e8218de86d9b74b86c452abff1a56c20314b583c851d6d8ec7b7b2">ELootLockerIdentityProvider::Amazon_luna</a></div><div class="ttdeci">@ Amazon_luna</div><div class="ttdef"><b>Definition</b> LootLockerIdentityRequestHandler.h:40</div></div>
+<div class="ttc" id="agroup__Identity_html_gga618aed69239e8218de86d9b74b86c452acf72a9db6ccce375e5492a2b82cd58c8"><div class="ttname"><a href="group__Identity.html#gga618aed69239e8218de86d9b74b86c452acf72a9db6ccce375e5492a2b82cd58c8">ELootLockerIdentityProvider::Xbox_one</a></div><div class="ttdeci">@ Xbox_one</div><div class="ttdef"><b>Definition</b> LootLockerIdentityRequestHandler.h:38</div></div>
+<div class="ttc" id="astructFLootLockerIdentityGameActivity_html"><div class="ttname"><a href="structFLootLockerIdentityGameActivity.html">FLootLockerIdentityGameActivity</a></div><div class="ttdoc">One game in which a player of this identity has been active.</div><div class="ttdef"><b>Definition</b> LootLockerIdentityRequestHandler.h:69</div></div>
+<div class="ttc" id="astructFLootLockerIdentityGameActivity_html_a2e60757c61a6baefa3f1f6fcdab6414c"><div class="ttname"><a href="structFLootLockerIdentityGameActivity.html#a2e60757c61a6baefa3f1f6fcdab6414c">FLootLockerIdentityGameActivity::game_id</a></div><div class="ttdeci">int32 game_id</div><div class="ttdoc">The legacy integer id of the game.</div><div class="ttdef"><b>Definition</b> LootLockerIdentityRequestHandler.h:74</div></div>
+<div class="ttc" id="astructFLootLockerIdentityGameActivity_html_a64a9fe682869042850c7c25a57666044"><div class="ttname"><a href="structFLootLockerIdentityGameActivity.html#a64a9fe682869042850c7c25a57666044">FLootLockerIdentityGameActivity::first_session_at</a></div><div class="ttdeci">FString first_session_at</div><div class="ttdoc">The first time a session was started for this identity in the game.</div><div class="ttdef"><b>Definition</b> LootLockerIdentityRequestHandler.h:78</div></div>
+<div class="ttc" id="astructFLootLockerIdentityGameActivity_html_a87fd65280626af9d5784edd59d122656"><div class="ttname"><a href="structFLootLockerIdentityGameActivity.html#a87fd65280626af9d5784edd59d122656">FLootLockerIdentityGameActivity::last_session_at</a></div><div class="ttdeci">FString last_session_at</div><div class="ttdoc">The most recent time a session was started for this identity in the game.</div><div class="ttdef"><b>Definition</b> LootLockerIdentityRequestHandler.h:82</div></div>
+<div class="ttc" id="astructFLootLockerIdentityGameActivity_html_a8b4b0b68dc4cd640b619f914679d49da"><div class="ttname"><a href="structFLootLockerIdentityGameActivity.html#a8b4b0b68dc4cd640b619f914679d49da">FLootLockerIdentityGameActivity::session_count</a></div><div class="ttdeci">int32 session_count</div><div class="ttdoc">The number of sessions started for this identity in the game.</div><div class="ttdef"><b>Definition</b> LootLockerIdentityRequestHandler.h:86</div></div>
+<div class="ttc" id="astructFLootLockerIdentityLinkConflict_html"><div class="ttname"><a href="structFLootLockerIdentityLinkConflict.html">FLootLockerIdentityLinkConflict</a></div><div class="ttdoc">The body of the 409 returned when the credential being linked already belongs to another identity.</div><div class="ttdef"><b>Definition</b> LootLockerIdentityRequestHandler.h:323</div></div>
+<div class="ttc" id="astructFLootLockerIdentityLinkConflict_html_a5161e143cf0c8f0e456a07bbc42ea057"><div class="ttname"><a href="structFLootLockerIdentityLinkConflict.html#a5161e143cf0c8f0e456a07bbc42ea057">FLootLockerIdentityLinkConflict::message</a></div><div class="ttdeci">FString message</div><div class="ttdoc">The message the server attached to the conflict.</div><div class="ttdef"><b>Definition</b> LootLockerIdentityRequestHandler.h:328</div></div>
+<div class="ttc" id="astructFLootLockerIdentityLinkConflict_html_ac26128e755625e36c5bbc920ef7fc8da"><div class="ttname"><a href="structFLootLockerIdentityLinkConflict.html#ac26128e755625e36c5bbc920ef7fc8da">FLootLockerIdentityLinkConflict::conflicting_identity_id</a></div><div class="ttdeci">FString conflicting_identity_id</div><div class="ttdoc">The ULID of the identity that already owns the credential.</div><div class="ttdef"><b>Definition</b> LootLockerIdentityRequestHandler.h:332</div></div>
+<div class="ttc" id="astructFLootLockerIdentityLinkConflict_html_ac52dabdf30fae2daaaa26c4fb77bdc16"><div class="ttname"><a href="structFLootLockerIdentityLinkConflict.html#ac52dabdf30fae2daaaa26c4fb77bdc16">FLootLockerIdentityLinkConflict::merge_preview</a></div><div class="ttdeci">FLootLockerIdentityMergePreview merge_preview</div><div class="ttdoc">What a merge of the requesting identity (keep) into the conflicting identity (merge) would resolve.</div><div class="ttdef"><b>Definition</b> LootLockerIdentityRequestHandler.h:336</div></div>
+<div class="ttc" id="astructFLootLockerIdentityLinkRequest_html"><div class="ttname"><a href="structFLootLockerIdentityLinkRequest.html">FLootLockerIdentityLinkRequest</a></div><div class="ttdoc">Request to record a provider credential against the player&#39;s identity.</div><div class="ttdef"><b>Definition</b> LootLockerIdentityRequestHandler.h:202</div></div>
+<div class="ttc" id="astructFLootLockerIdentityLinkRequest_html_a34ae24cebb604245627031ea5c5f1bf2"><div class="ttname"><a href="structFLootLockerIdentityLinkRequest.html#a34ae24cebb604245627031ea5c5f1bf2">FLootLockerIdentityLinkRequest::provider</a></div><div class="ttdeci">ELootLockerIdentityProvider provider</div><div class="ttdoc">The provider platform the credential belongs to.</div><div class="ttdef"><b>Definition</b> LootLockerIdentityRequestHandler.h:207</div></div>
+<div class="ttc" id="astructFLootLockerIdentityLinkRequest_html_aa8359d41e2b7d3a118e57447b60165be"><div class="ttname"><a href="structFLootLockerIdentityLinkRequest.html#aa8359d41e2b7d3a118e57447b60165be">FLootLockerIdentityLinkRequest::provider_uid</a></div><div class="ttdeci">FString provider_uid</div><div class="ttdoc">The provider&#39;s identifier for the player, for example the Steam ID.</div><div class="ttdef"><b>Definition</b> LootLockerIdentityRequestHandler.h:211</div></div>
+<div class="ttc" id="astructFLootLockerIdentityLinkResponse_html"><div class="ttname"><a href="structFLootLockerIdentityLinkResponse.html">FLootLockerIdentityLinkResponse</a></div><div class="ttdoc">Response returned after linking a provider credential.</div><div class="ttdef"><b>Definition</b> LootLockerIdentityRequestHandler.h:344</div></div>
+<div class="ttc" id="astructFLootLockerIdentityLinkResponse_html_a68ec10dbec6e8b2fcd2dc62c340f20aa"><div class="ttname"><a href="structFLootLockerIdentityLinkResponse.html#a68ec10dbec6e8b2fcd2dc62c340f20aa">FLootLockerIdentityLinkResponse::has_conflict</a></div><div class="ttdeci">bool has_conflict</div><div class="ttdoc">Whether Conflict was populated, because Conflict itself is a value type that cannot be null.</div><div class="ttdef"><b>Definition</b> LootLockerIdentityRequestHandler.h:360</div></div>
+<div class="ttc" id="astructFLootLockerIdentityLinkResponse_html_ab9cddf020f455e11c4bb62b247ccf1f0"><div class="ttname"><a href="structFLootLockerIdentityLinkResponse.html#ab9cddf020f455e11c4bb62b247ccf1f0">FLootLockerIdentityLinkResponse::conflict</a></div><div class="ttdeci">FLootLockerIdentityLinkConflict conflict</div><div class="ttdoc">Set when the request was answered with 409 because the credential belongs to another identity.</div><div class="ttdef"><b>Definition</b> LootLockerIdentityRequestHandler.h:356</div></div>
+<div class="ttc" id="astructFLootLockerIdentityLinkResponse_html_aedb54f279273a71def3c0aa530ab7b89"><div class="ttname"><a href="structFLootLockerIdentityLinkResponse.html#aedb54f279273a71def3c0aa530ab7b89">FLootLockerIdentityLinkResponse::created</a></div><div class="ttdeci">bool created</div><div class="ttdoc">True when a new credential was recorded, false when the identity already owned it.</div><div class="ttdef"><b>Definition</b> LootLockerIdentityRequestHandler.h:349</div></div>
+<div class="ttc" id="astructFLootLockerIdentityLookupRequest_html"><div class="ttname"><a href="structFLootLockerIdentityLookupRequest.html">FLootLockerIdentityLookupRequest</a></div><div class="ttdoc">Request to look identities up by id and/or by the games they have been active in.</div><div class="ttdef"><b>Definition</b> LootLockerIdentityRequestHandler.h:181</div></div>
+<div class="ttc" id="astructFLootLockerIdentityLookupRequest_html_a9329241ee17402e75968175044deffeb"><div class="ttname"><a href="structFLootLockerIdentityLookupRequest.html#a9329241ee17402e75968175044deffeb">FLootLockerIdentityLookupRequest::identity_ids</a></div><div class="ttdeci">TArray&lt; FString &gt; identity_ids</div><div class="ttdoc">Optional: The ULIDs of the identities to look up.</div><div class="ttdef"><b>Definition</b> LootLockerIdentityRequestHandler.h:186</div></div>
+<div class="ttc" id="astructFLootLockerIdentityLookupRequest_html_aacc04774f60b241958c14d8de92f835d"><div class="ttname"><a href="structFLootLockerIdentityLookupRequest.html#aacc04774f60b241958c14d8de92f835d">FLootLockerIdentityLookupRequest::include_game_activity</a></div><div class="ttdeci">bool include_game_activity</div><div class="ttdoc">Optional: Whether to populate game_activity on each result.</div><div class="ttdef"><b>Definition</b> LootLockerIdentityRequestHandler.h:194</div></div>
+<div class="ttc" id="astructFLootLockerIdentityLookupRequest_html_ab21002f38b147cb30bcf8d96afef2f5b"><div class="ttname"><a href="structFLootLockerIdentityLookupRequest.html#ab21002f38b147cb30bcf8d96afef2f5b">FLootLockerIdentityLookupRequest::game_ids</a></div><div class="ttdeci">TArray&lt; int32 &gt; game_ids</div><div class="ttdoc">Optional: The legacy integer ids of games to filter the identities by.</div><div class="ttdef"><b>Definition</b> LootLockerIdentityRequestHandler.h:190</div></div>
+<div class="ttc" id="astructFLootLockerIdentityLookupResponse_html"><div class="ttname"><a href="structFLootLockerIdentityLookupResponse.html">FLootLockerIdentityLookupResponse</a></div><div class="ttdoc">Response containing zero or more identities.</div><div class="ttdef"><b>Definition</b> LootLockerIdentityRequestHandler.h:307</div></div>
+<div class="ttc" id="astructFLootLockerIdentityLookupResponse_html_a5aadf97a6ebc472f45d3bbaa2ae9c8e8"><div class="ttname"><a href="structFLootLockerIdentityLookupResponse.html#a5aadf97a6ebc472f45d3bbaa2ae9c8e8">FLootLockerIdentityLookupResponse::identities</a></div><div class="ttdeci">TArray&lt; FLootLockerIdentityResponse &gt; identities</div><div class="ttdoc">The identities matching the lookup.</div><div class="ttdef"><b>Definition</b> LootLockerIdentityRequestHandler.h:312</div></div>
+<div class="ttc" id="astructFLootLockerIdentityMergePreviewResponse_html"><div class="ttname"><a href="structFLootLockerIdentityMergePreviewResponse.html">FLootLockerIdentityMergePreviewResponse</a></div><div class="ttdoc">Response containing a merge preview.</div><div class="ttdef"><b>Definition</b> LootLockerIdentityRequestHandler.h:368</div></div>
+<div class="ttc" id="astructFLootLockerIdentityMergePreviewResponse_html_a7bd551b026c2bcfa72cdae411c890096"><div class="ttname"><a href="structFLootLockerIdentityMergePreviewResponse.html#a7bd551b026c2bcfa72cdae411c890096">FLootLockerIdentityMergePreviewResponse::merge_identity_id</a></div><div class="ttdeci">FString merge_identity_id</div><div class="ttdoc">The ULID of the identity that would be merged into the kept identity.</div><div class="ttdef"><b>Definition</b> LootLockerIdentityRequestHandler.h:377</div></div>
+<div class="ttc" id="astructFLootLockerIdentityMergePreviewResponse_html_ab14e28f485c3423ae5fd3fa32a66e219"><div class="ttname"><a href="structFLootLockerIdentityMergePreviewResponse.html#ab14e28f485c3423ae5fd3fa32a66e219">FLootLockerIdentityMergePreviewResponse::keep_identity_id</a></div><div class="ttdeci">FString keep_identity_id</div><div class="ttdoc">The ULID of the identity the caller keeps.</div><div class="ttdef"><b>Definition</b> LootLockerIdentityRequestHandler.h:373</div></div>
+<div class="ttc" id="astructFLootLockerIdentityMergePreviewResponse_html_af3a2472a6a4cfc44b69173406c2ab221"><div class="ttname"><a href="structFLootLockerIdentityMergePreviewResponse.html#af3a2472a6a4cfc44b69173406c2ab221">FLootLockerIdentityMergePreviewResponse::player_conflicts</a></div><div class="ttdeci">TArray&lt; FLootLockerIdentityPlayerConflict &gt; player_conflicts</div><div class="ttdoc">The games in which both identities have a live player.</div><div class="ttdef"><b>Definition</b> LootLockerIdentityRequestHandler.h:381</div></div>
+<div class="ttc" id="astructFLootLockerIdentityMergePreview_html"><div class="ttname"><a href="structFLootLockerIdentityMergePreview.html">FLootLockerIdentityMergePreview</a></div><div class="ttdoc">What merging two identities would resolve, without executing anything.</div><div class="ttdef"><b>Definition</b> LootLockerIdentityRequestHandler.h:153</div></div>
+<div class="ttc" id="astructFLootLockerIdentityMergePreview_html_a57847cebd41af06d856ff6b20f14d7be"><div class="ttname"><a href="structFLootLockerIdentityMergePreview.html#a57847cebd41af06d856ff6b20f14d7be">FLootLockerIdentityMergePreview::player_conflicts</a></div><div class="ttdeci">TArray&lt; FLootLockerIdentityPlayerConflict &gt; player_conflicts</div><div class="ttdoc">The games in which both identities have a live player.</div><div class="ttdef"><b>Definition</b> LootLockerIdentityRequestHandler.h:166</div></div>
+<div class="ttc" id="astructFLootLockerIdentityMergePreview_html_a9d19518212d74250038dd34123a7354d"><div class="ttname"><a href="structFLootLockerIdentityMergePreview.html#a9d19518212d74250038dd34123a7354d">FLootLockerIdentityMergePreview::merge_identity_id</a></div><div class="ttdeci">FString merge_identity_id</div><div class="ttdoc">The ULID of the identity that would be merged into the kept identity.</div><div class="ttdef"><b>Definition</b> LootLockerIdentityRequestHandler.h:162</div></div>
+<div class="ttc" id="astructFLootLockerIdentityMergePreview_html_ae67b098136e44fe683dd5d907be7387f"><div class="ttname"><a href="structFLootLockerIdentityMergePreview.html#ae67b098136e44fe683dd5d907be7387f">FLootLockerIdentityMergePreview::keep_identity_id</a></div><div class="ttdeci">FString keep_identity_id</div><div class="ttdoc">The ULID of the identity the caller keeps.</div><div class="ttdef"><b>Definition</b> LootLockerIdentityRequestHandler.h:158</div></div>
+<div class="ttc" id="astructFLootLockerIdentityMergeRequest_html"><div class="ttname"><a href="structFLootLockerIdentityMergeRequest.html">FLootLockerIdentityMergeRequest</a></div><div class="ttdoc">Request to merge another identity into the current one.</div><div class="ttdef"><b>Definition</b> LootLockerIdentityRequestHandler.h:239</div></div>
+<div class="ttc" id="astructFLootLockerIdentityMergeRequest_html_a6135342c369766f263d4c6b757eba429"><div class="ttname"><a href="structFLootLockerIdentityMergeRequest.html#a6135342c369766f263d4c6b757eba429">FLootLockerIdentityMergeRequest::trigger_provider</a></div><div class="ttdeci">FString trigger_provider</div><div class="ttdoc">Optional: The provider whose credential conflict led to this merge, recorded in the merge log.</div><div class="ttdef"><b>Definition</b> LootLockerIdentityRequestHandler.h:252</div></div>
+<div class="ttc" id="astructFLootLockerIdentityMergeRequest_html_a7fd0e6c6479bdc1da125ef2380d2e2c4"><div class="ttname"><a href="structFLootLockerIdentityMergeRequest.html#a7fd0e6c6479bdc1da125ef2380d2e2c4">FLootLockerIdentityMergeRequest::resolutions</a></div><div class="ttdeci">TArray&lt; FLootLockerIdentityMergeResolution &gt; resolutions</div><div class="ttdoc">One entry per game listed in the merge preview&#39;s player_conflicts.</div><div class="ttdef"><b>Definition</b> LootLockerIdentityRequestHandler.h:248</div></div>
+<div class="ttc" id="astructFLootLockerIdentityMergeRequest_html_ac7a753cb5b5e3ae606e6819ac1ed1580"><div class="ttname"><a href="structFLootLockerIdentityMergeRequest.html#ac7a753cb5b5e3ae606e6819ac1ed1580">FLootLockerIdentityMergeRequest::trigger_provider_uid</a></div><div class="ttdeci">FString trigger_provider_uid</div><div class="ttdoc">Optional: The provider credential that led to this merge, recorded in the merge log.</div><div class="ttdef"><b>Definition</b> LootLockerIdentityRequestHandler.h:256</div></div>
+<div class="ttc" id="astructFLootLockerIdentityMergeRequest_html_ae487c1b4fce1cee740213f42a668f2da"><div class="ttname"><a href="structFLootLockerIdentityMergeRequest.html#ae487c1b4fce1cee740213f42a668f2da">FLootLockerIdentityMergeRequest::merge_identity_id</a></div><div class="ttdeci">FString merge_identity_id</div><div class="ttdoc">The ULID of the identity to merge into the authenticated identity.</div><div class="ttdef"><b>Definition</b> LootLockerIdentityRequestHandler.h:244</div></div>
+<div class="ttc" id="astructFLootLockerIdentityMergeResolution_html"><div class="ttname"><a href="structFLootLockerIdentityMergeResolution.html">FLootLockerIdentityMergeResolution</a></div><div class="ttdoc">The choice of which player to keep in one game where both identities have a live player.</div><div class="ttdef"><b>Definition</b> LootLockerIdentityRequestHandler.h:219</div></div>
+<div class="ttc" id="astructFLootLockerIdentityMergeResolution_html_a0f48e12d4b8c93456b251bafb87c97a8"><div class="ttname"><a href="structFLootLockerIdentityMergeResolution.html#a0f48e12d4b8c93456b251bafb87c97a8">FLootLockerIdentityMergeResolution::game_id</a></div><div class="ttdeci">int32 game_id</div><div class="ttdoc">The legacy integer id of the game this resolution is for.</div><div class="ttdef"><b>Definition</b> LootLockerIdentityRequestHandler.h:224</div></div>
+<div class="ttc" id="astructFLootLockerIdentityMergeResolution_html_ab912f4afde561e368ccb23d048769eb6"><div class="ttname"><a href="structFLootLockerIdentityMergeResolution.html#ab912f4afde561e368ccb23d048769eb6">FLootLockerIdentityMergeResolution::keep_player_id</a></div><div class="ttdeci">int32 keep_player_id</div><div class="ttdoc">The player to keep in this game.</div><div class="ttdef"><b>Definition</b> LootLockerIdentityRequestHandler.h:228</div></div>
+<div class="ttc" id="astructFLootLockerIdentityMergeResponse_html"><div class="ttname"><a href="structFLootLockerIdentityMergeResponse.html">FLootLockerIdentityMergeResponse</a></div><div class="ttdoc">Response returned after merging two identities, containing the surviving identity.</div><div class="ttdef"><b>Definition</b> LootLockerIdentityRequestHandler.h:389</div></div>
+<div class="ttc" id="astructFLootLockerIdentityMergeResponse_html_a3eccba76f2869817a87104253229a041"><div class="ttname"><a href="structFLootLockerIdentityMergeResponse.html#a3eccba76f2869817a87104253229a041">FLootLockerIdentityMergeResponse::game_activity</a></div><div class="ttdeci">TArray&lt; FLootLockerIdentityGameActivity &gt; game_activity</div><div class="ttdoc">The games the surviving identity has been active in.</div><div class="ttdef"><b>Definition</b> LootLockerIdentityRequestHandler.h:406</div></div>
+<div class="ttc" id="astructFLootLockerIdentityMergeResponse_html_a400e624ed8f447410ca55ab15b42cb4e"><div class="ttname"><a href="structFLootLockerIdentityMergeResponse.html#a400e624ed8f447410ca55ab15b42cb4e">FLootLockerIdentityMergeResponse::created_at</a></div><div class="ttdeci">FString created_at</div><div class="ttdoc">When the surviving identity was created.</div><div class="ttdef"><b>Definition</b> LootLockerIdentityRequestHandler.h:402</div></div>
+<div class="ttc" id="astructFLootLockerIdentityMergeResponse_html_a99391e97e2f94894a9968911dd29e240"><div class="ttname"><a href="structFLootLockerIdentityMergeResponse.html#a99391e97e2f94894a9968911dd29e240">FLootLockerIdentityMergeResponse::providers</a></div><div class="ttdeci">TArray&lt; FLootLockerIdentityProviderInfo &gt; providers</div><div class="ttdoc">The provider credentials linked to the surviving identity.</div><div class="ttdef"><b>Definition</b> LootLockerIdentityRequestHandler.h:415</div></div>
+<div class="ttc" id="astructFLootLockerIdentityMergeResponse_html_aa0352c975b9eb89044b7833633a66ecb"><div class="ttname"><a href="structFLootLockerIdentityMergeResponse.html#aa0352c975b9eb89044b7833633a66ecb">FLootLockerIdentityMergeResponse::publisher_id</a></div><div class="ttdeci">int32 publisher_id</div><div class="ttdoc">The legacy integer id of the publisher that owns the identity.</div><div class="ttdef"><b>Definition</b> LootLockerIdentityRequestHandler.h:398</div></div>
+<div class="ttc" id="astructFLootLockerIdentityMergeResponse_html_ae06914a4c97cd373bd9d9ba33d12d008"><div class="ttname"><a href="structFLootLockerIdentityMergeResponse.html#ae06914a4c97cd373bd9d9ba33d12d008">FLootLockerIdentityMergeResponse::has_providers</a></div><div class="ttdeci">bool has_providers</div><div class="ttdoc">Whether providers was present in the payload.</div><div class="ttdef"><b>Definition</b> LootLockerIdentityRequestHandler.h:419</div></div>
+<div class="ttc" id="astructFLootLockerIdentityPlayerConflict_html"><div class="ttname"><a href="structFLootLockerIdentityPlayerConflict.html">FLootLockerIdentityPlayerConflict</a></div><div class="ttdoc">One game in which both identities being merged have a live player, and therefore needs a choice of wh...</div><div class="ttdef"><b>Definition</b> LootLockerIdentityRequestHandler.h:130</div></div>
+<div class="ttc" id="astructFLootLockerIdentityPlayerConflict_html_a830237fd4596e24dcf4eb4de8b080ef5"><div class="ttname"><a href="structFLootLockerIdentityPlayerConflict.html#a830237fd4596e24dcf4eb4de8b080ef5">FLootLockerIdentityPlayerConflict::merge_player_id</a></div><div class="ttdeci">int32 merge_player_id</div><div class="ttdoc">The player id belonging to the identity that is merged away.</div><div class="ttdef"><b>Definition</b> LootLockerIdentityRequestHandler.h:143</div></div>
+<div class="ttc" id="astructFLootLockerIdentityPlayerConflict_html_ab8bf6cc6e4453a39daae6032986206d6"><div class="ttname"><a href="structFLootLockerIdentityPlayerConflict.html#ab8bf6cc6e4453a39daae6032986206d6">FLootLockerIdentityPlayerConflict::game_id</a></div><div class="ttdeci">int32 game_id</div><div class="ttdoc">The legacy integer id of the game the conflict is in.</div><div class="ttdef"><b>Definition</b> LootLockerIdentityRequestHandler.h:135</div></div>
+<div class="ttc" id="astructFLootLockerIdentityPlayerConflict_html_ace49dd4ab72cff95a16c2def30b3aa85"><div class="ttname"><a href="structFLootLockerIdentityPlayerConflict.html#ace49dd4ab72cff95a16c2def30b3aa85">FLootLockerIdentityPlayerConflict::keep_player_id</a></div><div class="ttdeci">int32 keep_player_id</div><div class="ttdoc">The player id belonging to the identity that is kept.</div><div class="ttdef"><b>Definition</b> LootLockerIdentityRequestHandler.h:139</div></div>
+<div class="ttc" id="astructFLootLockerIdentityProviderInfo_html"><div class="ttname"><a href="structFLootLockerIdentityProviderInfo.html">FLootLockerIdentityProviderInfo</a></div><div class="ttdoc">A provider credential linked to an identity.</div><div class="ttdef"><b>Definition</b> LootLockerIdentityRequestHandler.h:99</div></div>
+<div class="ttc" id="astructFLootLockerIdentityProviderInfo_html_a062196a801246ce5cd522612bf5de1cc"><div class="ttname"><a href="structFLootLockerIdentityProviderInfo.html#a062196a801246ce5cd522612bf5de1cc">FLootLockerIdentityProviderInfo::created_at</a></div><div class="ttdeci">FString created_at</div><div class="ttdoc">When the credential was linked to the identity.</div><div class="ttdef"><b>Definition</b> LootLockerIdentityRequestHandler.h:121</div></div>
+<div class="ttc" id="astructFLootLockerIdentityProviderInfo_html_a45080b1f7c88a06b36b314a2112f1a97"><div class="ttname"><a href="structFLootLockerIdentityProviderInfo.html#a45080b1f7c88a06b36b314a2112f1a97">FLootLockerIdentityProviderInfo::provider_type</a></div><div class="ttdeci">ELootLockerIdentityProvider provider_type</div><div class="ttdoc">The provider this credential belongs to, resolved from Provider.</div><div class="ttdef"><b>Definition</b> LootLockerIdentityRequestHandler.h:117</div></div>
+<div class="ttc" id="astructFLootLockerIdentityProviderInfo_html_a4ef3d839d1e62970014d0dbbbc62fa8b"><div class="ttname"><a href="structFLootLockerIdentityProviderInfo.html#a4ef3d839d1e62970014d0dbbbc62fa8b">FLootLockerIdentityProviderInfo::provider</a></div><div class="ttdeci">FString provider</div><div class="ttdoc">The provider slug, for example &quot;steam&quot;, &quot;psn&quot; or &quot;xbox_one&quot;, exactly as the backend stored it.</div><div class="ttdef"><b>Definition</b> LootLockerIdentityRequestHandler.h:108</div></div>
+<div class="ttc" id="astructFLootLockerIdentityResponse_html"><div class="ttname"><a href="structFLootLockerIdentityResponse.html">FLootLockerIdentityResponse</a></div><div class="ttdoc">Response containing a single identity.</div><div class="ttdef"><b>Definition</b> LootLockerIdentityRequestHandler.h:268</div></div>
+<div class="ttc" id="astructFLootLockerIdentityResponse_html_a15abbeb1eb7372bf45de1d7842745c1b"><div class="ttname"><a href="structFLootLockerIdentityResponse.html#a15abbeb1eb7372bf45de1d7842745c1b">FLootLockerIdentityResponse::publisher_id</a></div><div class="ttdeci">int32 publisher_id</div><div class="ttdoc">The legacy integer id of the publisher that owns the identity.</div><div class="ttdef"><b>Definition</b> LootLockerIdentityRequestHandler.h:277</div></div>
+<div class="ttc" id="astructFLootLockerIdentityResponse_html_a42de75952caa7ff3272fc4f095cff942"><div class="ttname"><a href="structFLootLockerIdentityResponse.html#a42de75952caa7ff3272fc4f095cff942">FLootLockerIdentityResponse::game_activity</a></div><div class="ttdeci">TArray&lt; FLootLockerIdentityGameActivity &gt; game_activity</div><div class="ttdoc">The games this identity has been active in.</div><div class="ttdef"><b>Definition</b> LootLockerIdentityRequestHandler.h:285</div></div>
+<div class="ttc" id="astructFLootLockerIdentityResponse_html_a50e4533bd57612a995e6c1d091772414"><div class="ttname"><a href="structFLootLockerIdentityResponse.html#a50e4533bd57612a995e6c1d091772414">FLootLockerIdentityResponse::has_providers</a></div><div class="ttdeci">bool has_providers</div><div class="ttdoc">Whether providers was present in the payload, because an empty array cannot be told from absent.</div><div class="ttdef"><b>Definition</b> LootLockerIdentityRequestHandler.h:299</div></div>
+<div class="ttc" id="astructFLootLockerIdentityResponse_html_a9826c1ff6d347587a25e76042725a5ee"><div class="ttname"><a href="structFLootLockerIdentityResponse.html#a9826c1ff6d347587a25e76042725a5ee">FLootLockerIdentityResponse::created_at</a></div><div class="ttdeci">FString created_at</div><div class="ttdoc">When the identity was created.</div><div class="ttdef"><b>Definition</b> LootLockerIdentityRequestHandler.h:281</div></div>
+<div class="ttc" id="astructFLootLockerIdentityResponse_html_ac0972fe37c797804742e93c92ed7d2e8"><div class="ttname"><a href="structFLootLockerIdentityResponse.html#ac0972fe37c797804742e93c92ed7d2e8">FLootLockerIdentityResponse::providers</a></div><div class="ttdeci">TArray&lt; FLootLockerIdentityProviderInfo &gt; providers</div><div class="ttdoc">The provider credentials linked to this identity.</div><div class="ttdef"><b>Definition</b> LootLockerIdentityRequestHandler.h:295</div></div>
+<div class="ttc" id="astructFLootLockerPlayerData_html"><div class="ttname"><a href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a></div><div class="ttdef"><b>Definition</b> LootLockerPlayerData.h:12</div></div>
+<div class="ttc" id="astructFLootLockerResponse_html"><div class="ttname"><a href="structFLootLockerResponse.html">FLootLockerResponse</a></div><div class="ttdoc">Base response struct — every SDK callback receives a struct that derives from this.</div><div class="ttdef"><b>Definition</b> LootLockerResponse.h:19</div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+</div><!-- container -->
+<!-- HTML footer for doxygen 1.15.0-->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="dir_426131f2e7e3782155028ac49ab5e11c.html">LootLockerSDK</a></li><li class="navelem"><a href="dir_63662f8d869795fbcfe09e29de292894.html">Source</a></li><li class="navelem"><a href="dir_529bffb88e47999e071ca27db50fed71.html">LootLockerSDK</a></li><li class="navelem"><a href="dir_6800d9c9fc95b443eb5325340bc06d03.html">Public</a></li><li class="navelem"><a href="dir_c4276055a6e8dd41429ac8d6d68c790b.html">GameAPI</a></li><li class="navelem"><a href="LootLockerIdentityRequestHandler_8h.html">LootLockerIdentityRequestHandler.h</a></li>
+    <li class="footer">
+      Generated by <a href="https://www.doxygen.org/index.html">Doxygen</a> 1.15.0
+      &nbsp;&mdash;&nbsp;
+      <a href="https://lootlocker.com" target="_blank" rel="noopener noreferrer">LootLocker</a>
+    </li>
+  </ul>
+</div>
+<script src="nav-customization.js" type="text/javascript"></script>
+</body>
+</html>

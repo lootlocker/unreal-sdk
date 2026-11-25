@@ -8,7 +8,8 @@ var searchData=
   ['lootlocker_5',['Lootlocker',['../group__Entitlements.html#ggaa8b3363f44f89367edb3391761eb7903a2b0d034755b04e2926fba39a21f41c84',1,'LootLockerEntitlementRequestHandler.h']]],
   ['lootlocker_5fadmin_5fapi_6',['lootlocker_admin_api',['../group__Notifications.html#gga8a987ae78696b2456052a824e546c7f8a0d57a7ee7dd392100c6186e668b0628a',1,'LootLockerNotificationsRequestHandler.h']]],
   ['lootlocker_5fconsole_7',['lootlocker_console',['../group__Notifications.html#gga8a987ae78696b2456052a824e546c7f8aef073c0340734d168105e41b6e1b149e',1,'LootLockerNotificationsRequestHandler.h']]],
-  ['lootlocker_5fonly_8',['LootLocker_only',['../group__Notifications.html#gga62a981521752e480537c7c1e6a478ec3a87dc1229992ec96a5384620133dd4455',1,'LootLockerNotificationsRequestHandler.h']]],
-  ['lootlocker_5fserver_5fapi_9',['lootlocker_server_api',['../group__Notifications.html#gga8a987ae78696b2456052a824e546c7f8a281e71b5970c406b0ceb0765786411d6',1,'LootLockerNotificationsRequestHandler.h']]],
-  ['low_10',['low',['../group__Notifications.html#ggae525a3b5a85f7b2814f2a1582144eaaea53cced8d281a1a0ace3cb6594daaa4f7',1,'LootLockerNotificationsRequestHandler.h']]]
+  ['lootlocker_5fdelegation_8',['Lootlocker_delegation',['../group__Identity.html#gga618aed69239e8218de86d9b74b86c452a5cd7e67cf5116e37f7f91f266291201d',1,'LootLockerIdentityRequestHandler.h']]],
+  ['lootlocker_5fonly_9',['LootLocker_only',['../group__Notifications.html#gga62a981521752e480537c7c1e6a478ec3a87dc1229992ec96a5384620133dd4455',1,'LootLockerNotificationsRequestHandler.h']]],
+  ['lootlocker_5fserver_5fapi_10',['lootlocker_server_api',['../group__Notifications.html#gga8a987ae78696b2456052a824e546c7f8a281e71b5970c406b0ceb0765786411d6',1,'LootLockerNotificationsRequestHandler.h']]],
+  ['low_11',['low',['../group__Notifications.html#ggae525a3b5a85f7b2814f2a1582144eaaea53cced8d281a1a0ace3cb6594daaa4f7',1,'LootLockerNotificationsRequestHandler.h']]]
 ];

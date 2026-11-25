@@ -1,6 +1,7 @@
 var classULootLockerPlayerRequestHandler =
 [
     [ "ULootLockerPlayerRequestHandler", "classULootLockerPlayerRequestHandler.html#a9f5c620050267d6a66425547b55336c5", null ],
+    [ "CheckDLCs", "classULootLockerPlayerRequestHandler.html#a632889510aa3af6310225ab3b0570924", null ],
     [ "CheckPlayerAssetNotification", "classULootLockerPlayerRequestHandler.html#a9db8d501179bcc305e388834e2728d01", null ],
     [ "DeletePlayer", "classULootLockerPlayerRequestHandler.html#a3d383c81d56b7c817466f9e80959f98a", null ],
     [ "GetCurrencyBalance", "classULootLockerPlayerRequestHandler.html#a2534b8f947c8e3c450caee43439eb777", null ],

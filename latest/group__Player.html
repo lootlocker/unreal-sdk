@@ -59,7 +59,7 @@
       </a>
       <span id="ll-topnav-divider" aria-hidden="true"></span>
       <a href="index.html" id="ll-topnav-product">Unreal SDK</a>
-      <span id="ll-topnav-version">v11.0.0</span>
+      <span id="ll-topnav-version">v11.1.0</span>
       <a href="https://github.com/lootlocker/unreal-sdk" target="_blank"
          rel="noopener noreferrer" id="ll-topnav-github" aria-label="GitHub repository">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
@@ -137,7 +137,7 @@ function llToggleDark() {
  <tr id="projectrow">
   <td id="projectlogo"><img alt="Logo" src="lootlocker-logo.png"/></td>
   <td id="projectalign">
-   <div id="projectname">LootLocker Unreal SDK<span id="projectnumber">&#160;11.0.0</span>
+   <div id="projectname">LootLocker Unreal SDK<span id="projectnumber">&#160;11.1.0</span>
    </div>
    <div id="projectbrief">Game backend SDK for Unreal Engine</div>
   </td>
@@ -313,6 +313,22 @@ $(function() {
 
 </div>
 </div>
+<a id="gadc04a6154ba6a0ee5e6423ebc3363520" name="gadc04a6154ba6a0ee5e6423ebc3363520"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gadc04a6154ba6a0ee5e6423ebc3363520">&#9670;&#160;</a></span>FPCheckDLCsResponse</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef void(* FPCheckDLCsResponse) (<a class="el" href="structFLootLockerCheckDLCsResponse.html">FLootLockerCheckDLCsResponse</a>)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>C++ response callback delegate; receives an <a class="el" href="structFLootLockerCheckDLCsResponse.html">FLootLockerCheckDLCsResponse</a> result. </p>
+
+</div>
+</div>
 <a id="ga7c15a58a2ec51588db75cc22ba24781c" name="ga7c15a58a2ec51588db75cc22ba24781c"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ga7c15a58a2ec51588db75cc22ba24781c">&#9670;&#160;</a></span>FPDlcResponse</h2>
 
@@ -413,6 +429,48 @@ $(function() {
 </div>
 </div>
 <a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
+<a id="ga247aeba64c770aa86b8fb0915c649e69" name="ga247aeba64c770aa86b8fb0915c649e69"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga247aeba64c770aa86b8fb0915c649e69">&#9670;&#160;</a></span>CheckDLCs()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">FString ULootLockerSDKManager::CheckDLCs </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="#gadc04a6154ba6a0ee5e6423ebc3363520">FPCheckDLCsResponse</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>OnCompletedRequest</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;</td>          <td class="paramname"><span class="paramname"><em>ForPlayerWithUlid</em></span><span class="paramdefsep"> = </span><span class="paramdefval">&quot;&quot;</span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Reconcile the player's platform-owned DLCs and return the DLCs they currently hold. </p>
+<p>Ownership is verified server-side against the player's linked platform account (Meta or Steam), so the client cannot grant itself DLCs. Missing DLCs are granted and DLCs the player no longer owns are revoked.</p>
+<p>Reconciliation is serialized per player. If another reconciliation for the same player is already in flight this call does not reconcile and returns the player's current DLC list as-is, which may be slightly stale. Call it again shortly afterwards for an up-to-date list.</p>
+<p>Only Meta or Steam accounts support DLC checks. If the player has no linked account for the session's platform, or the platform is not supported, the request fails with a 400 status code.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">OnCompletedRequest</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
 <a id="ga8ea44b96c8b5d2fc1ef5d7e67a0a9fc3" name="ga8ea44b96c8b5d2fc1ef5d7e67a0a9fc3"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ga8ea44b96c8b5d2fc1ef5d7e67a0a9fc3">&#9670;&#160;</a></span>CheckPlayerAssetActivationNotification()</h2>
 
@@ -1322,6 +1380,8 @@ Typedefs</h2></td></tr>
 <tr class="memdesc:ga6e66afffaad465fc1ab37dcba3911f64"><td class="mdescLeft">&#160;</td><td class="mdescRight">C++ response callback delegate; receives an <a class="el" href="structFLootLockerBalanceResponse.html">FLootLockerBalanceResponse</a> result.  <br /></td></tr>
 <tr class="memitem:ga7c15a58a2ec51588db75cc22ba24781c" id="r_ga7c15a58a2ec51588db75cc22ba24781c"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ga7c15a58a2ec51588db75cc22ba24781c">FPDlcResponse</a>) (<a class="el" href="structFLootLockerDlcResponse.html">FLootLockerDlcResponse</a>)</td></tr>
 <tr class="memdesc:ga7c15a58a2ec51588db75cc22ba24781c"><td class="mdescLeft">&#160;</td><td class="mdescRight">C++ response callback delegate; receives an <a class="el" href="structFLootLockerDlcResponse.html">FLootLockerDlcResponse</a> result.  <br /></td></tr>
+<tr class="memitem:gadc04a6154ba6a0ee5e6423ebc3363520" id="r_gadc04a6154ba6a0ee5e6423ebc3363520"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#gadc04a6154ba6a0ee5e6423ebc3363520">FPCheckDLCsResponse</a>) (<a class="el" href="structFLootLockerCheckDLCsResponse.html">FLootLockerCheckDLCsResponse</a>)</td></tr>
+<tr class="memdesc:gadc04a6154ba6a0ee5e6423ebc3363520"><td class="mdescLeft">&#160;</td><td class="mdescRight">C++ response callback delegate; receives an <a class="el" href="structFLootLockerCheckDLCsResponse.html">FLootLockerCheckDLCsResponse</a> result.  <br /></td></tr>
 <tr class="memitem:gaf62055ff0b2f04d0980684091b18e049" id="r_gaf62055ff0b2f04d0980684091b18e049"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#gaf62055ff0b2f04d0980684091b18e049">FPNameResponse</a>) (<a class="el" href="structFLootLockerNameResponse.html">FLootLockerNameResponse</a>)</td></tr>
 <tr class="memdesc:gaf62055ff0b2f04d0980684091b18e049"><td class="mdescLeft">&#160;</td><td class="mdescRight">C++ response callback delegate; receives an <a class="el" href="structFLootLockerNameResponse.html">FLootLockerNameResponse</a> result.  <br /></td></tr>
 <tr class="memitem:ga6b9edb26ba7b208a7fc6b9205d5f687a" id="r_ga6b9edb26ba7b208a7fc6b9205d5f687a"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ga6b9edb26ba7b208a7fc6b9205d5f687a">FPMultiplePlayerNames</a>) (<a class="el" href="structFLootLockerMultiplePlayersNamesResponse.html">FLootLockerMultiplePlayersNamesResponse</a>)</td></tr>
@@ -1375,6 +1435,8 @@ Functions</h2></td></tr>
 <tr class="memdesc:ga6a07bf16befc3abf19da9458266df74a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initiate a DLC migration for the current player.  <br /></td></tr>
 <tr class="memitem:gaa2ec4db212df3242c0e4fd65dfcf9733" id="r_gaa2ec4db212df3242c0e4fd65dfcf9733"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#gaa2ec4db212df3242c0e4fd65dfcf9733">ULootLockerSDKManager::GetDLCsMigration</a> (const <a class="el" href="#ga7c15a58a2ec51588db75cc22ba24781c">FPDlcResponse</a> &amp;OnCompletedRequest, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
 <tr class="memdesc:gaa2ec4db212df3242c0e4fd65dfcf9733"><td class="mdescLeft">&#160;</td><td class="mdescRight">List DLC identifiers migrated for the player (always returned as strings regardless of numeric value).  <br /></td></tr>
+<tr class="memitem:ga247aeba64c770aa86b8fb0915c649e69" id="r_ga247aeba64c770aa86b8fb0915c649e69"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ga247aeba64c770aa86b8fb0915c649e69">ULootLockerSDKManager::CheckDLCs</a> (const <a class="el" href="#gadc04a6154ba6a0ee5e6423ebc3363520">FPCheckDLCsResponse</a> &amp;OnCompletedRequest, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:ga247aeba64c770aa86b8fb0915c649e69"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reconcile the player's platform-owned DLCs and return the DLCs they currently hold.  <br /></td></tr>
 <tr class="memitem:gab6f7c34bf641c683d80caa04a30a9023" id="r_gab6f7c34bf641c683d80caa04a30a9023"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#gab6f7c34bf641c683d80caa04a30a9023">ULootLockerSDKManager::SetProfilePrivate</a> (const <a class="el" href="LootLockerResponse_8h.html#aa97cce4df0064cb2cd714143a427c861">FResponseCallback</a> &amp;OnCompletedRequest, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
 <tr class="memdesc:gab6f7c34bf641c683d80caa04a30a9023"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the player's profile visibility to private (inventory not publicly visible on external platforms).  <br /></td></tr>
 <tr class="memitem:ga701dff515a1a3fe0b67c4c2e665a542c" id="r_ga701dff515a1a3fe0b67c4c2e665a542c"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ga701dff515a1a3fe0b67c4c2e665a542c">ULootLockerSDKManager::SetProfilePublic</a> (const <a class="el" href="LootLockerResponse_8h.html#aa97cce4df0064cb2cd714143a427c861">FResponseCallback</a> &amp;OnCompletedRequest, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>

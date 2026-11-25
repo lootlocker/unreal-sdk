@@ -6,6 +6,7 @@ var group__Player =
     [ "FLootLockerListPlayerInfoResponseDelegate", "group__Player.html#ga803167ab236a7e03694b1472541370d1", null ],
     [ "FLootLockerSimpleInventoryResponseDelegate", "group__Player.html#gab586bc5bffe3498e3059f213cdd977ba", null ],
     [ "FPBalanceResponse", "group__Player.html#ga6e66afffaad465fc1ab37dcba3911f64", null ],
+    [ "FPCheckDLCsResponse", "group__Player.html#gadc04a6154ba6a0ee5e6423ebc3363520", null ],
     [ "FPDlcResponse", "group__Player.html#ga7c15a58a2ec51588db75cc22ba24781c", null ],
     [ "FPMultiplePlayerNames", "group__Player.html#ga6b9edb26ba7b208a7fc6b9205d5f687a", null ],
     [ "FPMultiplePlayersPlatformIdsNames", "group__Player.html#ga1248176434bf9693f36b3832f7cf6ec3", null ],
@@ -22,6 +23,7 @@ var group__Player =
       [ "ELootLockerPlayerDataLookupIdType::Epic_games_id", "group__Player.html#gga3ddeac62fd1e00996ae918cf2f732625a3e995cc2d87d5ed406ed24433a849029", null ],
       [ "ELootLockerPlayerDataLookupIdType::Google_play_games_id", "group__Player.html#gga3ddeac62fd1e00996ae918cf2f732625a49462796097120e64bf97ad903a3e7c4", null ]
     ] ],
+    [ "ULootLockerSDKManager::CheckDLCs", "group__Player.html#ga247aeba64c770aa86b8fb0915c649e69", null ],
     [ "ULootLockerSDKManager::CheckPlayerAssetActivationNotification", "group__Player.html#ga8ea44b96c8b5d2fc1ef5d7e67a0a9fc3", null ],
     [ "ULootLockerSDKManager::DeletePlayer", "group__Player.html#gaef55997de080a36ddc9d2b61a1f5b70b", null ],
     [ "ULootLockerSDKManager::GetCurrencyBalance", "group__Player.html#ga95f498299801c489ee4e2dcaf13199a6", null ],

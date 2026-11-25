@@ -59,7 +59,7 @@
       </a>
       <span id="ll-topnav-divider" aria-hidden="true"></span>
       <a href="index.html" id="ll-topnav-product">Unreal SDK</a>
-      <span id="ll-topnav-version">v11.0.0</span>
+      <span id="ll-topnav-version">v11.1.0</span>
       <a href="https://github.com/lootlocker/unreal-sdk" target="_blank"
          rel="noopener noreferrer" id="ll-topnav-github" aria-label="GitHub repository">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
@@ -137,7 +137,7 @@ function llToggleDark() {
  <tr id="projectrow">
   <td id="projectlogo"><img alt="Logo" src="lootlocker-logo.png"/></td>
   <td id="projectalign">
-   <div id="projectname">LootLocker Unreal SDK<span id="projectnumber">&#160;11.0.0</span>
+   <div id="projectname">LootLocker Unreal SDK<span id="projectnumber">&#160;11.1.0</span>
    </div>
    <div id="projectbrief">Game backend SDK for Unreal Engine</div>
   </td>
@@ -223,6 +223,7 @@ $(function() {
 <li>default_variation_id&#160;:&#160;<a class="el" href="structFLootLockerAsset.html#a142ce77de9c293c617d37151e00b8e6b">FLootLockerAsset</a></li>
 <li>DefaultPlayer&#160;:&#160;<a class="el" href="structFLootLockerStateMetaData.html#a933297117018f64aa9d22712ae4d58eb">FLootLockerStateMetaData</a>, <a class="el" href="classULootLockerStateMetaDataSaveGame.html#aec6c3bc16892d76482e8bbf8ea8fcf0f">ULootLockerStateMetaDataSaveGame</a></li>
 <li>Deletable&#160;:&#160;<a class="el" href="structFLootLockerGetPlayerInventoryItemResponse.html#afc7ac8c2e159270748cb3686ef3300e7">FLootLockerGetPlayerInventoryItemResponse</a>, <a class="el" href="structFLootLockerInventoryItem.html#a457680d3deb4e422d7e259fc21a195d8">FLootLockerInventoryItem</a>, <a class="el" href="structFLootLockerItemTemplate.html#aa3e7666076bad9e10df09cfe3f047301">FLootLockerItemTemplate</a></li>
+<li>deletable&#160;:&#160;<a class="el" href="structFLootLockerEquipmentItemTemplate.html#ae8bcaf1f6c5c0467998769cc7ebd3d84">FLootLockerEquipmentItemTemplate</a></li>
 <li>DeleteAKeyValuePairByIdForAssetInstance()&#160;:&#160;<a class="el" href="classULootLockerAssetInstancesRequestHandler.html#a1e056f072061ca1d05f26c6d8c373b17">ULootLockerAssetInstancesRequestHandler</a>, <a class="el" href="group__AssetInstance.html#gae5c01fbd6c4505de48eac24fa4501a0e">ULootLockerSDKManager</a></li>
 <li>DeleteAssetCandidate()&#160;:&#160;<a class="el" href="group__UserGeneratedContent.html#gabb8d93f7ec2281603caa8fad69ae5d85">ULootLockerSDKManager</a>, <a class="el" href="classULootLockerUserGeneratedContentRequestHandler.html#a0a19e721dc6246c3a0cdcd5f16962894">ULootLockerUserGeneratedContentRequestHandler</a></li>
 <li>DeleteAssetInstanceFromPlayerInventory()&#160;:&#160;<a class="el" href="classULootLockerAssetInstancesRequestHandler.html#ae69ff0675f8602129264a7c0923883ef">ULootLockerAssetInstancesRequestHandler</a>, <a class="el" href="group__AssetInstance.html#gabd30258c86c0e70f6f4e726aa99fdb9e">ULootLockerSDKManager</a></li>
@@ -257,8 +258,11 @@ $(function() {
 <li>Display_amount&#160;:&#160;<a class="el" href="structFLootLockerCatalogEntryPrice.html#af6a444412db8cfc4e83e0bb394473421">FLootLockerCatalogEntryPrice</a></li>
 <li>display_price&#160;:&#160;<a class="el" href="structFLootLockerAsset.html#a7d3339fa2ad0272eae67727a94a65051">FLootLockerAsset</a></li>
 <li>Display_url&#160;:&#160;<a class="el" href="structFLootLockerLeaseRemoteSessionResponse.html#ae6c2f3eb548d77d230e0b20881a6b12d">FLootLockerLeaseRemoteSessionResponse</a>, <a class="el" href="structFLootLockerRemoteSessionLeaseData.html#a2e7a64637c493262d3bebd563c10e60a">FLootLockerRemoteSessionLeaseData</a></li>
-<li>dlcs&#160;:&#160;<a class="el" href="structFLootLockerDlcResponse.html#a8c853c552bc6b751a6ea6af1a7dbdeff">FLootLockerDlcResponse</a></li>
+<li>dlc_identifier&#160;:&#160;<a class="el" href="structFLootLockerDlcCheckEntry.html#a65cafddcb7a886e92c4a63c5854b6e4b">FLootLockerDlcCheckEntry</a></li>
+<li>dlcs&#160;:&#160;<a class="el" href="structFLootLockerCheckDLCsResponse.html#ab8dd4158fa398429fd44b8dadc042004">FLootLockerCheckDLCsResponse</a>, <a class="el" href="structFLootLockerDlcResponse.html#a8c853c552bc6b751a6ea6af1a7dbdeff">FLootLockerDlcResponse</a></li>
 <li>Doc_url&#160;:&#160;<a class="el" href="structFLootLockerErrorData.html#ab1f71de118ae8abd82a50d068dd7a3ed">FLootLockerErrorData</a></li>
+<li>document_id&#160;:&#160;<a class="el" href="structFLootLockerAcknowledgePlaytestDocumentResponse.html#a40a230cc64bf122f6d66048cca6987c2">FLootLockerAcknowledgePlaytestDocumentResponse</a>, <a class="el" href="structFLootLockerPlaytestAcknowledgedDocument.html#aa9914c9f2d1461aa3bd1f0ba612c338c">FLootLockerPlaytestAcknowledgedDocument</a></li>
+<li>documents&#160;:&#160;<a class="el" href="structFLootLockerPlaytestOnboardingStatusResponse.html#acda14107533c43c3e2f8fafa5435df34">FLootLockerPlaytestOnboardingStatusResponse</a></li>
 <li>domain_key&#160;:&#160;<a class="el" href="structFLootLockerFileConfig.html#ad6534efd67f54b66fc318e8ae0fbd6ce">FLootLockerFileConfig</a></li>
 <li>DomainKey&#160;:&#160;<a class="el" href="classULootLockerConfig.html#ae7999a895b54756160e9d334f96d08e6">ULootLockerConfig</a></li>
 <li>drop_table_max_picks&#160;:&#160;<a class="el" href="structFLootLockerAsset.html#a9fb119947142259816375d521de33609">FLootLockerAsset</a></li>

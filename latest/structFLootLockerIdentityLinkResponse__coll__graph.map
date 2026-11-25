@@ -1,0 +1,15 @@
+<map id="FLootLockerIdentityLinkResponse" name="FLootLockerIdentityLinkResponse">
+<area shape="rect" id="Node000001" title="Response returned after linking a provider credential." alt="" coords="282,324,522,352"/>
+<area shape="rect" id="Node000002" href="$structFLootLockerResponse.html" title="Base response struct — every SDK callback receives a struct that derives from this." alt="" coords="212,224,374,251"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="319,259,390,324,385,323,317,264"/>
+<area shape="rect" id="Node000003" href="$structFLootLockerErrorData.html" title=" " alt="" coords="5,114,167,142"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="123,147,219,197,268,223,262,224,216,202,123,153"/>
+<area shape="rect" id="Node000004" href="$structFLootLockerBanInfo.html" title="Details about a player&#39;s active ban." alt="" coords="11,5,161,33"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="87,46,89,114,83,114,85,51"/>
+<area shape="rect" id="Node000005" href="$structFLootLockerRequestContext.html" title=" " alt="" coords="191,114,394,142"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="294,156,295,224,290,222,291,160"/>
+<area shape="rect" id="Node000006" href="$structFLootLockerIdentityLinkConflict.html" title="The body of the 409 returned when the credential being linked already belongs to another identity." alt="" coords="400,224,625,251"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="490,261,418,326,416,321,485,262"/>
+<area shape="rect" id="Node000007" href="$structFLootLockerIdentityMergePreview.html" title="What merging two identities would resolve, without executing anything." alt="" coords="419,106,609,151"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="515,164,515,225,511,222,512,168"/>
+</map>

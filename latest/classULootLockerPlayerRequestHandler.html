@@ -59,7 +59,7 @@
       </a>
       <span id="ll-topnav-divider" aria-hidden="true"></span>
       <a href="index.html" id="ll-topnav-product">Unreal SDK</a>
-      <span id="ll-topnav-version">v11.0.0</span>
+      <span id="ll-topnav-version">v11.1.0</span>
       <a href="https://github.com/lootlocker/unreal-sdk" target="_blank"
          rel="noopener noreferrer" id="ll-topnav-github" aria-label="GitHub repository">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
@@ -137,7 +137,7 @@ function llToggleDark() {
  <tr id="projectrow">
   <td id="projectlogo"><img alt="Logo" src="lootlocker-logo.png"/></td>
   <td id="projectalign">
-   <div id="projectname">LootLocker Unreal SDK<span id="projectnumber">&#160;11.0.0</span>
+   <div id="projectname">LootLocker Unreal SDK<span id="projectnumber">&#160;11.1.0</span>
    </div>
    <div id="projectbrief">Game backend SDK for Unreal Engine</div>
   </td>
@@ -249,6 +249,7 @@ Static Public Member Functions</h2></td></tr>
 <tr class="memitem:a2534b8f947c8e3c450caee43439eb777" id="r_a2534b8f947c8e3c450caee43439eb777"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2534b8f947c8e3c450caee43439eb777">GetCurrencyBalance</a> (const <a class="el" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a> &amp;PlayerData, const <a class="el" href="group__Player.html#ga6e66afffaad465fc1ab37dcba3911f64">FPBalanceResponse</a> &amp;OnCompletedRequest)</td></tr>
 <tr class="memitem:aaa502d0d635ed1575869ea1a3f169bc0" id="r_aaa502d0d635ed1575869ea1a3f169bc0"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aaa502d0d635ed1575869ea1a3f169bc0">InitiateDLCMigration</a> (const <a class="el" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a> &amp;PlayerData, const <a class="el" href="LootLockerResponse_8h.html#aa97cce4df0064cb2cd714143a427c861">FResponseCallback</a> &amp;OnCompletedRequest)</td></tr>
 <tr class="memitem:add5a480abacfba7410b870109f61b259" id="r_add5a480abacfba7410b870109f61b259"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#add5a480abacfba7410b870109f61b259">GetDLCsMigration</a> (const <a class="el" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a> &amp;PlayerData, const <a class="el" href="group__Player.html#ga7c15a58a2ec51588db75cc22ba24781c">FPDlcResponse</a> &amp;OnCompletedRequest)</td></tr>
+<tr class="memitem:a632889510aa3af6310225ab3b0570924" id="r_a632889510aa3af6310225ab3b0570924"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a632889510aa3af6310225ab3b0570924">CheckDLCs</a> (const <a class="el" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a> &amp;PlayerData, const <a class="el" href="group__Player.html#gadc04a6154ba6a0ee5e6423ebc3363520">FPCheckDLCsResponse</a> &amp;OnCompletedRequest)</td></tr>
 <tr class="memitem:a08efc55873878235974c4631ff68bafd" id="r_a08efc55873878235974c4631ff68bafd"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a08efc55873878235974c4631ff68bafd">SetProfilePrivate</a> (const <a class="el" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a> &amp;PlayerData, const <a class="el" href="LootLockerResponse_8h.html#aa97cce4df0064cb2cd714143a427c861">FResponseCallback</a> &amp;OnCompletedRequest)</td></tr>
 <tr class="memitem:ad231abb2444a14da92959ea45fca6eae" id="r_ad231abb2444a14da92959ea45fca6eae"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad231abb2444a14da92959ea45fca6eae">SetProfilePublic</a> (const <a class="el" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a> &amp;PlayerData, const <a class="el" href="LootLockerResponse_8h.html#aa97cce4df0064cb2cd714143a427c861">FResponseCallback</a> &amp;OnCompletedRequest)</td></tr>
 <tr class="memitem:ae5dcb9f8e31971d485a59d814ebc9330" id="r_ae5dcb9f8e31971d485a59d814ebc9330"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae5dcb9f8e31971d485a59d814ebc9330">SetPlayerName</a> (const <a class="el" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a> &amp;PlayerData, FString Name, const <a class="el" href="group__Player.html#gaf62055ff0b2f04d0980684091b18e049">FPNameResponse</a> &amp;OnCompletedRequest)</td></tr>
@@ -287,6 +288,35 @@ Static Public Member Functions</h2></td></tr>
 </div>
 </div>
 <a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
+<a id="a632889510aa3af6310225ab3b0570924" name="a632889510aa3af6310225ab3b0570924"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a632889510aa3af6310225ab3b0570924">&#9670;&#160;</a></span>CheckDLCs()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">FString ULootLockerPlayerRequestHandler::CheckDLCs </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>PlayerData</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Player.html#gadc04a6154ba6a0ee5e6423ebc3363520">FPCheckDLCsResponse</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>OnCompletedRequest</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a9db8d501179bcc305e388834e2728d01" name="a9db8d501179bcc305e388834e2728d01"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a9db8d501179bcc305e388834e2728d01">&#9670;&#160;</a></span>CheckPlayerAssetNotification()</h2>
 

@@ -59,7 +59,7 @@
       </a>
       <span id="ll-topnav-divider" aria-hidden="true"></span>
       <a href="index.html" id="ll-topnav-product">Unreal SDK</a>
-      <span id="ll-topnav-version">v11.0.0</span>
+      <span id="ll-topnav-version">v11.1.0</span>
       <a href="https://github.com/lootlocker/unreal-sdk" target="_blank"
          rel="noopener noreferrer" id="ll-topnav-github" aria-label="GitHub repository">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
@@ -137,7 +137,7 @@ function llToggleDark() {
  <tr id="projectrow">
   <td id="projectlogo"><img alt="Logo" src="lootlocker-logo.png"/></td>
   <td id="projectalign">
-   <div id="projectname">LootLocker Unreal SDK<span id="projectnumber">&#160;11.0.0</span>
+   <div id="projectname">LootLocker Unreal SDK<span id="projectnumber">&#160;11.1.0</span>
    </div>
    <div id="projectbrief">Game backend SDK for Unreal Engine</div>
   </td>
@@ -230,21 +230,28 @@ $(function() {
 <div class="line"><a id="l00030" name="l00030"></a><span class="lineno"><a class="line" href="structFLootLockerSessionOptionals.html#a99268ffe0c40fafa2a6b830d5cfe588b">   30</a></span>    <span class="keywordtype">bool</span> <a class="code hl_variable" href="structFLootLockerSessionOptionals.html#a99268ffe0c40fafa2a6b830d5cfe588b">Auto_create_profile</a> = true;</div>
 <div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
 <div class="line"><a id="l00036" name="l00036"></a><span class="lineno"><a class="line" href="structFLootLockerSessionOptionals.html#a55146eef128e3f09754a28b0ce3c8792">   36</a></span>    <span class="keywordtype">bool</span> <a class="code hl_variable" href="structFLootLockerSessionOptionals.html#a55146eef128e3f09754a28b0ce3c8792">Check_dlc</a> = false;</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
-<div class="foldopen" id="foldopen00038" data-start="{" data-end="}">
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno"><a class="line" href="structFLootLockerSessionOptionals.html#a784f399e548153d01a93c4cc30af03e1">   38</a></span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="structFLootLockerSessionOptionals.html#a784f399e548153d01a93c4cc30af03e1">IsSet</a>()<span class="keyword"> const</span></div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="keyword">    </span>{</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>        <span class="keywordflow">return</span> !<a class="code hl_variable" href="structFLootLockerSessionOptionals.html#a0272037467968c03b8defbd64dddf1ca">Timezone</a>.IsEmpty() || !<a class="code hl_variable" href="structFLootLockerSessionOptionals.html#ad8dac19641b86f5e20666ed6238b513a">Player_name</a>.IsEmpty() || <a class="code hl_variable" href="structFLootLockerSessionOptionals.html#a99268ffe0c40fafa2a6b830d5cfe588b">Auto_create_profile</a> != <span class="keyword">true</span> || <a class="code hl_variable" href="structFLootLockerSessionOptionals.html#a55146eef128e3f09754a28b0ce3c8792">Check_dlc</a>;</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    }</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno"><a class="line" href="structFLootLockerSessionOptionals.html#adb6e64900edc67d332830af2983854e7">   42</a></span>    FString <a class="code hl_variable" href="structFLootLockerSessionOptionals.html#adb6e64900edc67d332830af2983854e7">Referral_code</a> = <span class="stringliteral">&quot;&quot;</span>;</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno"><a class="line" href="structFLootLockerSessionOptionals.html#a136a0d4f44ab4a38f6e6c2ada478df02">   47</a></span>    FString <a class="code hl_variable" href="structFLootLockerSessionOptionals.html#a136a0d4f44ab4a38f6e6c2ada478df02">Referral_program_key</a> = <span class="stringliteral">&quot;&quot;</span>;</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span> </div>
+<div class="foldopen" id="foldopen00049" data-start="{" data-end="}">
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno"><a class="line" href="structFLootLockerSessionOptionals.html#a784f399e548153d01a93c4cc30af03e1">   49</a></span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="structFLootLockerSessionOptionals.html#a784f399e548153d01a93c4cc30af03e1">IsSet</a>()<span class="keyword"> const</span></div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span><span class="keyword">    </span>{</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>        <span class="keywordflow">return</span> !<a class="code hl_variable" href="structFLootLockerSessionOptionals.html#a0272037467968c03b8defbd64dddf1ca">Timezone</a>.IsEmpty() || !<a class="code hl_variable" href="structFLootLockerSessionOptionals.html#ad8dac19641b86f5e20666ed6238b513a">Player_name</a>.IsEmpty() || <a class="code hl_variable" href="structFLootLockerSessionOptionals.html#a99268ffe0c40fafa2a6b830d5cfe588b">Auto_create_profile</a> != <span class="keyword">true</span> || <a class="code hl_variable" href="structFLootLockerSessionOptionals.html#a55146eef128e3f09754a28b0ce3c8792">Check_dlc</a></div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>            || !<a class="code hl_variable" href="structFLootLockerSessionOptionals.html#adb6e64900edc67d332830af2983854e7">Referral_code</a>.IsEmpty() || !<a class="code hl_variable" href="structFLootLockerSessionOptionals.html#a136a0d4f44ab4a38f6e6c2ada478df02">Referral_program_key</a>.IsEmpty();</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    }</div>
 </div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>};</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>};</div>
 </div>
 <div class="ttc" id="astructFLootLockerSessionOptionals_html"><div class="ttname"><a href="structFLootLockerSessionOptionals.html">FLootLockerSessionOptionals</a></div><div class="ttdoc">Optional parameters that can be sent when starting a session.</div><div class="ttdef"><b>Definition</b> LootLockerSessionOptionals.h:12</div></div>
 <div class="ttc" id="astructFLootLockerSessionOptionals_html_a0272037467968c03b8defbd64dddf1ca"><div class="ttname"><a href="structFLootLockerSessionOptionals.html#a0272037467968c03b8defbd64dddf1ca">FLootLockerSessionOptionals::Timezone</a></div><div class="ttdeci">FString Timezone</div><div class="ttdoc">Timezone in IANA format.</div><div class="ttdef"><b>Definition</b> LootLockerSessionOptionals.h:18</div></div>
+<div class="ttc" id="astructFLootLockerSessionOptionals_html_a136a0d4f44ab4a38f6e6c2ada478df02"><div class="ttname"><a href="structFLootLockerSessionOptionals.html#a136a0d4f44ab4a38f6e6c2ada478df02">FLootLockerSessionOptionals::Referral_program_key</a></div><div class="ttdeci">FString Referral_program_key</div><div class="ttdoc">The key of the referral program the code redeems.</div><div class="ttdef"><b>Definition</b> LootLockerSessionOptionals.h:47</div></div>
 <div class="ttc" id="astructFLootLockerSessionOptionals_html_a55146eef128e3f09754a28b0ce3c8792"><div class="ttname"><a href="structFLootLockerSessionOptionals.html#a55146eef128e3f09754a28b0ce3c8792">FLootLockerSessionOptionals::Check_dlc</a></div><div class="ttdeci">bool Check_dlc</div><div class="ttdoc">Whether the client reports owning DLC for this player.</div><div class="ttdef"><b>Definition</b> LootLockerSessionOptionals.h:36</div></div>
-<div class="ttc" id="astructFLootLockerSessionOptionals_html_a784f399e548153d01a93c4cc30af03e1"><div class="ttname"><a href="structFLootLockerSessionOptionals.html#a784f399e548153d01a93c4cc30af03e1">FLootLockerSessionOptionals::IsSet</a></div><div class="ttdeci">bool IsSet() const</div><div class="ttdef"><b>Definition</b> LootLockerSessionOptionals.h:38</div></div>
+<div class="ttc" id="astructFLootLockerSessionOptionals_html_a784f399e548153d01a93c4cc30af03e1"><div class="ttname"><a href="structFLootLockerSessionOptionals.html#a784f399e548153d01a93c4cc30af03e1">FLootLockerSessionOptionals::IsSet</a></div><div class="ttdeci">bool IsSet() const</div><div class="ttdef"><b>Definition</b> LootLockerSessionOptionals.h:49</div></div>
 <div class="ttc" id="astructFLootLockerSessionOptionals_html_a99268ffe0c40fafa2a6b830d5cfe588b"><div class="ttname"><a href="structFLootLockerSessionOptionals.html#a99268ffe0c40fafa2a6b830d5cfe588b">FLootLockerSessionOptionals::Auto_create_profile</a></div><div class="ttdeci">bool Auto_create_profile</div><div class="ttdoc">Whether to automatically create a profile for the player if one does not exist.</div><div class="ttdef"><b>Definition</b> LootLockerSessionOptionals.h:30</div></div>
 <div class="ttc" id="astructFLootLockerSessionOptionals_html_ad8dac19641b86f5e20666ed6238b513a"><div class="ttname"><a href="structFLootLockerSessionOptionals.html#ad8dac19641b86f5e20666ed6238b513a">FLootLockerSessionOptionals::Player_name</a></div><div class="ttdeci">FString Player_name</div><div class="ttdoc">The name of the player (same as set by SetPlayerName).</div><div class="ttdef"><b>Definition</b> LootLockerSessionOptionals.h:23</div></div>
+<div class="ttc" id="astructFLootLockerSessionOptionals_html_adb6e64900edc67d332830af2983854e7"><div class="ttname"><a href="structFLootLockerSessionOptionals.html#adb6e64900edc67d332830af2983854e7">FLootLockerSessionOptionals::Referral_code</a></div><div class="ttdeci">FString Referral_code</div><div class="ttdoc">The referral code of the player who invited this player, which is the referrer&#39;s public UID.</div><div class="ttdef"><b>Definition</b> LootLockerSessionOptionals.h:42</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 </div><!-- container -->

@@ -1,0 +1,682 @@
+<!-- HTML header for doxygen 1.15.0-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.15.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>LootLocker Unreal SDK: Equipment</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript">var page_layout=1;</script>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only.css" rel="stylesheet" type="text/css"/>
+<link href="custom-layout-fixes.css" rel="stylesheet" type="text/css"/>
+<link href="lootlocker-theme.css" rel="stylesheet" type="text/css"/>
+<!-- Apply saved color scheme before first paint to prevent flash -->
+<script type="text/javascript">
+(function () {
+  try {
+    var saved = localStorage.getItem('ll-colorscheme');
+    var html = document.documentElement;
+    if (saved === 'dark') {
+      html.classList.remove('light-mode');
+      html.classList.add('dark-mode');
+    } else if (saved === 'light') {
+      html.classList.remove('dark-mode');
+      html.classList.add('light-mode');
+    }
+    // No saved pref: OS preference handled by CSS media query
+  } catch (e) {}
+})();
+</script>
+</head>
+<body>
+<!-- ================================================================
+     LootLocker top navigation bar
+     ================================================================ -->
+<nav id="ll-topnav" role="navigation" aria-label="LootLocker navigation">
+  <div id="ll-topnav-inner">
+    <!-- Left: logo + product name + section tabs -->
+    <div id="ll-topnav-left">
+      <a href="index.html" id="ll-topnav-logo-link"
+         aria-label="LootLocker Unreal SDK — home">
+        <img src="lootlocker-logo.png" alt="LootLocker" id="ll-topnav-logo-img"/>
+      </a>
+      <span id="ll-topnav-divider" aria-hidden="true"></span>
+      <a href="index.html" id="ll-topnav-product">Unreal SDK</a>
+      <span id="ll-topnav-version">v11.1.0</span>
+      <a href="https://github.com/lootlocker/unreal-sdk" target="_blank"
+         rel="noopener noreferrer" id="ll-topnav-github" aria-label="GitHub repository">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+             fill="currentColor" aria-hidden="true">
+          <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
+        </svg>
+      </a>
+      <div id="ll-topnav-links">
+        <a href="https://ref.lootlocker.com/game" target="_blank"
+           rel="noopener noreferrer" class="ll-topnav-tab">Game API &#8599;</a>
+        <a href="https://console.lootlocker.com" target="_blank"
+           rel="noopener noreferrer" class="ll-topnav-tab">Console &#8599;</a>
+        <a href="https://docs.lootlocker.com/" target="_blank"
+           rel="noopener noreferrer" class="ll-topnav-tab">Docs &#8599;</a>
+      </div>
+    </div>
+    <!-- Right: sign-up CTA + dark mode toggle -->
+    <div id="ll-topnav-right">
+      <a href="https://lootlocker.com/sign-up" target="_blank"
+         rel="noopener noreferrer" class="ll-topnav-signup">Sign Up</a>
+      <button id="ll-dark-toggle" type="button"
+              aria-label="Toggle dark mode" title="Toggle dark/light mode"
+              onclick="llToggleDark()">
+        <!-- Sun icon — shown in dark mode -->
+        <svg id="ll-icon-sun" xmlns="http://www.w3.org/2000/svg"
+             width="16" height="16" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2"
+             stroke-linecap="round" stroke-linejoin="round"
+             aria-hidden="true">
+          <circle cx="12" cy="12" r="5"/>
+          <line x1="12" y1="1" x2="12" y2="3"/>
+          <line x1="12" y1="21" x2="12" y2="23"/>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+          <line x1="1" y1="12" x2="3" y2="12"/>
+          <line x1="21" y1="12" x2="23" y2="12"/>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+        </svg>
+        <!-- Moon icon — shown in light mode -->
+        <svg id="ll-icon-moon" xmlns="http://www.w3.org/2000/svg"
+             width="16" height="16" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2"
+             stroke-linecap="round" stroke-linejoin="round"
+             aria-hidden="true">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+</nav>
+<script type="text/javascript">
+function llToggleDark() {
+  var html = document.documentElement;
+  var isDark = html.classList.contains('dark-mode') ||
+               (!html.classList.contains('light-mode') &&
+                window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+  if (isDark) {
+    html.classList.remove('dark-mode');
+    html.classList.add('light-mode');
+    try { localStorage.setItem('ll-colorscheme', 'light'); } catch (e) {}
+  } else {
+    html.classList.remove('light-mode');
+    html.classList.add('dark-mode');
+    try { localStorage.setItem('ll-colorscheme', 'dark'); } catch (e) {}
+  }
+}
+</script>
+<script type="text/javascript" src="version-picker.js" defer="defer"></script>
+<div id="side-nav" class="ui-resizable side-nav-resizable"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="lootlocker-logo.png"/></td>
+  <td id="projectalign">
+   <div id="projectname">LootLocker Unreal SDK<span id="projectnumber">&#160;11.1.0</span>
+   </div>
+   <div id="projectbrief">Game backend SDK for Unreal Engine</div>
+  </td>
+ </tr>
+   <tr><td colspan="2">        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td></tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.15.0 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('group__Equipment.html','',''); });
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+$(function() {
+  initMenu('',false,false,'search.php','Search',true);
+});
+</script>
+<div id="main-nav"></div>
+<div id="container"><div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">Equipment </div></div>
+</div><!--header-->
+<div class="contents">
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<p>Attach inventory stacks to game-defined equipment slots and read loadouts. </p>
+<p>A publisher defines equipment groups per game, each bound to one entity type (<code>player</code> today), and slots inside them. A slot carries tags and a <code>max_items</code> cap; it accepts a stack only when the item template shares at least one of the slot's tags. Equipping a stack larger than the cap splits it, and equipped stacks leave the normal inventory listing until unequipped. Every loadout read is paged over groups, and each attached stack reports <code>valid</code> and <code>over_limit</code> so config drift is visible instead of silent.</p>
+<p>See the <a href="https://docs.lootlocker.com/players/equipment/overview">LootLocker documentation</a>. </p>
+<a name="doc-typedef-members" id="doc-typedef-members"></a><h2 id="header-doc-typedef-members" class="groupheader">Typedef Documentation</h2>
+<a id="gaf32f1ff6206242cb85b5ea1460dd76c9" name="gaf32f1ff6206242cb85b5ea1460dd76c9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaf32f1ff6206242cb85b5ea1460dd76c9">&#9670;&#160;</a></span>FLootLockerEquipmentEquipResponseDelegate</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef void(* FLootLockerEquipmentEquipResponseDelegate) (<a class="el" href="structFLootLockerEquipmentEquipResponse.html">FLootLockerEquipmentEquipResponse</a>)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>C++ response callback delegate; receives an <a class="el" href="structFLootLockerEquipmentEquipResponse.html">FLootLockerEquipmentEquipResponse</a> result. </p>
+
+</div>
+</div>
+<a id="gaea655a7db9f27b7a6bdad0661b68858d" name="gaea655a7db9f27b7a6bdad0661b68858d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaea655a7db9f27b7a6bdad0661b68858d">&#9670;&#160;</a></span>FLootLockerEquipmentLoadoutResponseDelegate</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef void(* FLootLockerEquipmentLoadoutResponseDelegate) (<a class="el" href="structFLootLockerEquipmentLoadoutResponse.html">FLootLockerEquipmentLoadoutResponse</a>)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>C++ response callback delegate; receives an <a class="el" href="structFLootLockerEquipmentLoadoutResponse.html">FLootLockerEquipmentLoadoutResponse</a> result. </p>
+
+</div>
+</div>
+<a id="gaad9efeffab8fa27f88307217ca06c9a8" name="gaad9efeffab8fa27f88307217ca06c9a8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaad9efeffab8fa27f88307217ca06c9a8">&#9670;&#160;</a></span>FLootLockerEquipmentSlotCandidatesResponseDelegate</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef void(* FLootLockerEquipmentSlotCandidatesResponseDelegate) (<a class="el" href="structFLootLockerEquipmentSlotCandidatesResponse.html">FLootLockerEquipmentSlotCandidatesResponse</a>)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>C++ response callback delegate; receives an <a class="el" href="structFLootLockerEquipmentSlotCandidatesResponse.html">FLootLockerEquipmentSlotCandidatesResponse</a> result. </p>
+
+</div>
+</div>
+<a name="doc-enum-members" id="doc-enum-members"></a><h2 id="header-doc-enum-members" class="groupheader">Enumeration Type Documentation</h2>
+<a id="ga25b111e6b3bf1d66045554dd116c5c91" name="ga25b111e6b3bf1d66045554dd116c5c91"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga25b111e6b3bf1d66045554dd116c5c91">&#9670;&#160;</a></span>ELootLockerEquipmentReplaceMode</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum class <a class="el" href="#ga25b111e6b3bf1d66045554dd116c5c91">ELootLockerEquipmentReplaceMode</a> : uint8</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel strong">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Whether an occupied equipment slot should be auto-unequipped when equipping into it. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="gga25b111e6b3bf1d66045554dd116c5c91ac9f88e098f6fe4e4e112eeb05ccb9671" name="gga25b111e6b3bf1d66045554dd116c5c91ac9f88e098f6fe4e4e112eeb05ccb9671"></a>Unset&#160;</td><td class="fielddoc"><p>Leave replace out of the request so the server applies its own default. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="gga25b111e6b3bf1d66045554dd116c5c91a0ebe6df8a3ac338e0512acc741823fdb" name="gga25b111e6b3bf1d66045554dd116c5c91a0ebe6df8a3ac338e0512acc741823fdb"></a>Replace&#160;</td><td class="fielddoc"><p>Auto-unequip the stack already occupying the slot. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="gga25b111e6b3bf1d66045554dd116c5c91af1d4ac54357cc0932f385d56814ba7e4" name="gga25b111e6b3bf1d66045554dd116c5c91af1d4ac54357cc0932f385d56814ba7e4"></a>Conflict&#160;</td><td class="fielddoc"><p>Do not replace the occupant; the request fails with a conflict instead. </p>
+</td></tr>
+</table>
+
+</div>
+</div>
+<a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
+<a id="ga7b3bb7480ff107a55c7152a43d326d10" name="ga7b3bb7480ff107a55c7152a43d326d10"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga7b3bb7480ff107a55c7152a43d326d10">&#9670;&#160;</a></span>EquipStack()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">FString ULootLockerSDKManager::EquipStack </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structFLootLockerEquipmentEquipRequest.html">FLootLockerEquipmentEquipRequest</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>Request</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="#gaf32f1ff6206242cb85b5ea1460dd76c9">FLootLockerEquipmentEquipResponseDelegate</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>OnCompletedRequest</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;</td>          <td class="paramname"><span class="paramname"><em>ForPlayerWithUlid</em></span><span class="paramdefsep"> = </span><span class="paramdefval">&quot;&quot;</span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Equip an inventory stack into an equipment slot. </p>
+<p>When the stack holds more than the slot accepts the equipped amount splits off and the remainder stays in the inventory. An occupied slot is auto-unequipped first unless the request's replace mode is set to Conflict.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Request</td><td>The equip request </td></tr>
+    <tr><td class="paramname">OnCompletedRequest</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="ga60b07324baf2db6b9a678122622e7bb3" name="ga60b07324baf2db6b9a678122622e7bb3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga60b07324baf2db6b9a678122622e7bb3">&#9670;&#160;</a></span>GetEntityEquipmentLoadout()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">FString ULootLockerSDKManager::GetEntityEquipmentLoadout </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;</td>          <td class="paramname"><span class="paramname"><em>EntityType</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;</td>          <td class="paramname"><span class="paramname"><em>SourceId</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>Page</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>PerPage</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="#gaea655a7db9f27b7a6bdad0661b68858d">FLootLockerEquipmentLoadoutResponseDelegate</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>OnCompletedRequest</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;</td>          <td class="paramname"><span class="paramname"><em>ForPlayerWithUlid</em></span><span class="paramdefsep"> = </span><span class="paramdefval">&quot;&quot;</span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get the loadout attached to one entity. </p>
+<p>Only the "player" entity type is supported, and a player may only read their own entity. Paged over equipment groups.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">EntityType</td><td>The entity type to read the loadout for. Only "player" is supported </td></tr>
+    <tr><td class="paramname">SourceId</td><td>The ULID of the entity. For the "player" entity type this is the player ULID </td></tr>
+    <tr><td class="paramname">Page</td><td>Optional: 1-based page of equipment groups (server default when 0) </td></tr>
+    <tr><td class="paramname">PerPage</td><td>Optional: Number of equipment groups per page (server default when 0) </td></tr>
+    <tr><td class="paramname">OnCompletedRequest</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="gad6b7cd1e732d28ef4f88285ee2caddd1" name="gad6b7cd1e732d28ef4f88285ee2caddd1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gad6b7cd1e732d28ef4f88285ee2caddd1">&#9670;&#160;</a></span>GetEquipmentLoadout()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">FString ULootLockerSDKManager::GetEquipmentLoadout </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>Page</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>PerPage</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="#gaea655a7db9f27b7a6bdad0661b68858d">FLootLockerEquipmentLoadoutResponseDelegate</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>OnCompletedRequest</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;</td>          <td class="paramname"><span class="paramname"><em>ForPlayerWithUlid</em></span><span class="paramdefsep"> = </span><span class="paramdefval">&quot;&quot;</span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get the calling player's loadout: every equipment slot the game defines for the player entity, each with the stack attached to it (or a null stack for empty slots). </p>
+<p>Paged over equipment groups.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Page</td><td>Optional: 1-based page of equipment groups (server default when 0) </td></tr>
+    <tr><td class="paramname">PerPage</td><td>Optional: Number of equipment groups per page (server default when 0) </td></tr>
+    <tr><td class="paramname">OnCompletedRequest</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="ga8895d64baf577a480a166a36dc9aa9ed" name="ga8895d64baf577a480a166a36dc9aa9ed"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga8895d64baf577a480a166a36dc9aa9ed">&#9670;&#160;</a></span>GetOtherPlayersEquipmentLoadout()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">FString ULootLockerSDKManager::GetOtherPlayersEquipmentLoadout </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;</td>          <td class="paramname"><span class="paramname"><em>PlayerPublicUid</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>Page</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>PerPage</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="#gaea655a7db9f27b7a6bdad0661b68858d">FLootLockerEquipmentLoadoutResponseDelegate</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>OnCompletedRequest</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;</td>          <td class="paramname"><span class="paramname"><em>ForPlayerWithUlid</em></span><span class="paramdefsep"> = </span><span class="paramdefval">&quot;&quot;</span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get another player's loadout by their public UID, addressed within the caller's game. </p>
+<p>A public UID from another game is reported as not found. Paged over equipment groups.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">PlayerPublicUid</td><td>The public UID of the player whose loadout to read </td></tr>
+    <tr><td class="paramname">Page</td><td>Optional: 1-based page of equipment groups (server default when 0) </td></tr>
+    <tr><td class="paramname">PerPage</td><td>Optional: Number of equipment groups per page (server default when 0) </td></tr>
+    <tr><td class="paramname">OnCompletedRequest</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="gafb5efb72ee9689b4c0b938a5802e688d" name="gafb5efb72ee9689b4c0b938a5802e688d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gafb5efb72ee9689b4c0b938a5802e688d">&#9670;&#160;</a></span>ListEquipmentSlotCandidates()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">FString ULootLockerSDKManager::ListEquipmentSlotCandidates </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;</td>          <td class="paramname"><span class="paramname"><em>SlotId</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>Page</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>PerPage</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="#gaad9efeffab8fa27f88307217ca06c9a8">FLootLockerEquipmentSlotCandidatesResponseDelegate</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>OnCompletedRequest</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;</td>          <td class="paramname"><span class="paramname"><em>ForPlayerWithUlid</em></span><span class="paramdefsep"> = </span><span class="paramdefval">&quot;&quot;</span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>List the calling player's unequipped inventory stacks that a slot would accept, meaning the item template shares at least one tag with the slot. </p>
+<p>Equipped stacks are excluded.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">SlotId</td><td>The ULID of the equipment slot to list candidates for </td></tr>
+    <tr><td class="paramname">Page</td><td>Optional: 1-based page of candidates (server default when 0) </td></tr>
+    <tr><td class="paramname">PerPage</td><td>Optional: Number of candidates per page (server default when 0) </td></tr>
+    <tr><td class="paramname">OnCompletedRequest</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="ga3f9137e9940791b563dc79a50c0744dc" name="ga3f9137e9940791b563dc79a50c0744dc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga3f9137e9940791b563dc79a50c0744dc">&#9670;&#160;</a></span>UnequipStack()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">FString ULootLockerSDKManager::UnequipStack </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;</td>          <td class="paramname"><span class="paramname"><em>EntryId</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="LootLockerResponse_8h.html#a5d3509fd52be6960e390df86b764fcdb">FLootLockerDefaultDelegate</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>OnCompletedRequest</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;</td>          <td class="paramname"><span class="paramname"><em>ForPlayerWithUlid</em></span><span class="paramdefsep"> = </span><span class="paramdefval">&quot;&quot;</span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Detach an equipment entry. </p>
+<p>The stack returns to the player's inventory with its count unchanged.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">EntryId</td><td>The equipment entry ULID, as reported by the loadout read or the equip response </td></tr>
+    <tr><td class="paramname">OnCompletedRequest</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-typedef-members" class="groupheader"><a id="typedef-members" name="typedef-members"></a>
+Typedefs</h2></td></tr>
+<tr class="memitem:gaea655a7db9f27b7a6bdad0661b68858d" id="r_gaea655a7db9f27b7a6bdad0661b68858d"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#gaea655a7db9f27b7a6bdad0661b68858d">FLootLockerEquipmentLoadoutResponseDelegate</a>) (<a class="el" href="structFLootLockerEquipmentLoadoutResponse.html">FLootLockerEquipmentLoadoutResponse</a>)</td></tr>
+<tr class="memdesc:gaea655a7db9f27b7a6bdad0661b68858d"><td class="mdescLeft">&#160;</td><td class="mdescRight">C++ response callback delegate; receives an <a class="el" href="structFLootLockerEquipmentLoadoutResponse.html">FLootLockerEquipmentLoadoutResponse</a> result.  <br /></td></tr>
+<tr class="memitem:gaad9efeffab8fa27f88307217ca06c9a8" id="r_gaad9efeffab8fa27f88307217ca06c9a8"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#gaad9efeffab8fa27f88307217ca06c9a8">FLootLockerEquipmentSlotCandidatesResponseDelegate</a>) (<a class="el" href="structFLootLockerEquipmentSlotCandidatesResponse.html">FLootLockerEquipmentSlotCandidatesResponse</a>)</td></tr>
+<tr class="memdesc:gaad9efeffab8fa27f88307217ca06c9a8"><td class="mdescLeft">&#160;</td><td class="mdescRight">C++ response callback delegate; receives an <a class="el" href="structFLootLockerEquipmentSlotCandidatesResponse.html">FLootLockerEquipmentSlotCandidatesResponse</a> result.  <br /></td></tr>
+<tr class="memitem:gaf32f1ff6206242cb85b5ea1460dd76c9" id="r_gaf32f1ff6206242cb85b5ea1460dd76c9"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#gaf32f1ff6206242cb85b5ea1460dd76c9">FLootLockerEquipmentEquipResponseDelegate</a>) (<a class="el" href="structFLootLockerEquipmentEquipResponse.html">FLootLockerEquipmentEquipResponse</a>)</td></tr>
+<tr class="memdesc:gaf32f1ff6206242cb85b5ea1460dd76c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">C++ response callback delegate; receives an <a class="el" href="structFLootLockerEquipmentEquipResponse.html">FLootLockerEquipmentEquipResponse</a> result.  <br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-enum-members" class="groupheader"><a id="enum-members" name="enum-members"></a>
+Enumerations</h2></td></tr>
+<tr class="memitem:ga25b111e6b3bf1d66045554dd116c5c91" id="r_ga25b111e6b3bf1d66045554dd116c5c91"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ga25b111e6b3bf1d66045554dd116c5c91">ELootLockerEquipmentReplaceMode</a> : uint8 { <a class="el" href="#gga25b111e6b3bf1d66045554dd116c5c91ac9f88e098f6fe4e4e112eeb05ccb9671">ELootLockerEquipmentReplaceMode::Unset</a> = 0
+, <a class="el" href="#gga25b111e6b3bf1d66045554dd116c5c91a0ebe6df8a3ac338e0512acc741823fdb">ELootLockerEquipmentReplaceMode::Replace</a> = 1
+, <a class="el" href="#gga25b111e6b3bf1d66045554dd116c5c91af1d4ac54357cc0932f385d56814ba7e4">ELootLockerEquipmentReplaceMode::Conflict</a> = 2
+ }</td></tr>
+<tr class="memdesc:ga25b111e6b3bf1d66045554dd116c5c91"><td class="mdescLeft">&#160;</td><td class="mdescRight">Whether an occupied equipment slot should be auto-unequipped when equipping into it.  <a href="#ga25b111e6b3bf1d66045554dd116c5c91">More...</a><br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:gad6b7cd1e732d28ef4f88285ee2caddd1" id="r_gad6b7cd1e732d28ef4f88285ee2caddd1"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#gad6b7cd1e732d28ef4f88285ee2caddd1">ULootLockerSDKManager::GetEquipmentLoadout</a> (int Page, int PerPage, const <a class="el" href="#gaea655a7db9f27b7a6bdad0661b68858d">FLootLockerEquipmentLoadoutResponseDelegate</a> &amp;OnCompletedRequest, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:gad6b7cd1e732d28ef4f88285ee2caddd1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the calling player's loadout: every equipment slot the game defines for the player entity, each with the stack attached to it (or a null stack for empty slots).  <br /></td></tr>
+<tr class="memitem:ga60b07324baf2db6b9a678122622e7bb3" id="r_ga60b07324baf2db6b9a678122622e7bb3"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ga60b07324baf2db6b9a678122622e7bb3">ULootLockerSDKManager::GetEntityEquipmentLoadout</a> (const FString &amp;EntityType, const FString &amp;SourceId, int Page, int PerPage, const <a class="el" href="#gaea655a7db9f27b7a6bdad0661b68858d">FLootLockerEquipmentLoadoutResponseDelegate</a> &amp;OnCompletedRequest, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:ga60b07324baf2db6b9a678122622e7bb3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the loadout attached to one entity.  <br /></td></tr>
+<tr class="memitem:ga8895d64baf577a480a166a36dc9aa9ed" id="r_ga8895d64baf577a480a166a36dc9aa9ed"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ga8895d64baf577a480a166a36dc9aa9ed">ULootLockerSDKManager::GetOtherPlayersEquipmentLoadout</a> (const FString &amp;PlayerPublicUid, int Page, int PerPage, const <a class="el" href="#gaea655a7db9f27b7a6bdad0661b68858d">FLootLockerEquipmentLoadoutResponseDelegate</a> &amp;OnCompletedRequest, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:ga8895d64baf577a480a166a36dc9aa9ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get another player's loadout by their public UID, addressed within the caller's game.  <br /></td></tr>
+<tr class="memitem:gafb5efb72ee9689b4c0b938a5802e688d" id="r_gafb5efb72ee9689b4c0b938a5802e688d"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#gafb5efb72ee9689b4c0b938a5802e688d">ULootLockerSDKManager::ListEquipmentSlotCandidates</a> (const FString &amp;SlotId, int Page, int PerPage, const <a class="el" href="#gaad9efeffab8fa27f88307217ca06c9a8">FLootLockerEquipmentSlotCandidatesResponseDelegate</a> &amp;OnCompletedRequest, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:gafb5efb72ee9689b4c0b938a5802e688d"><td class="mdescLeft">&#160;</td><td class="mdescRight">List the calling player's unequipped inventory stacks that a slot would accept, meaning the item template shares at least one tag with the slot.  <br /></td></tr>
+<tr class="memitem:ga7b3bb7480ff107a55c7152a43d326d10" id="r_ga7b3bb7480ff107a55c7152a43d326d10"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ga7b3bb7480ff107a55c7152a43d326d10">ULootLockerSDKManager::EquipStack</a> (const <a class="el" href="structFLootLockerEquipmentEquipRequest.html">FLootLockerEquipmentEquipRequest</a> &amp;Request, const <a class="el" href="#gaf32f1ff6206242cb85b5ea1460dd76c9">FLootLockerEquipmentEquipResponseDelegate</a> &amp;OnCompletedRequest, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:ga7b3bb7480ff107a55c7152a43d326d10"><td class="mdescLeft">&#160;</td><td class="mdescRight">Equip an inventory stack into an equipment slot.  <br /></td></tr>
+<tr class="memitem:ga3f9137e9940791b563dc79a50c0744dc" id="r_ga3f9137e9940791b563dc79a50c0744dc"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ga3f9137e9940791b563dc79a50c0744dc">ULootLockerSDKManager::UnequipStack</a> (const FString &amp;EntryId, const <a class="el" href="LootLockerResponse_8h.html#a5d3509fd52be6960e390df86b764fcdb">FLootLockerDefaultDelegate</a> &amp;OnCompletedRequest, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:ga3f9137e9940791b563dc79a50c0744dc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Detach an equipment entry.  <br /></td></tr>
+</table>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- HTML footer for doxygen 1.15.0-->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="footer">
+      Generated by <a href="https://www.doxygen.org/index.html">Doxygen</a> 1.15.0
+      &nbsp;&mdash;&nbsp;
+      <a href="https://lootlocker.com" target="_blank" rel="noopener noreferrer">LootLocker</a>
+    </li>
+  </ul>
+</div>
+<script src="nav-customization.js" type="text/javascript"></script>
+</body>
+</html>

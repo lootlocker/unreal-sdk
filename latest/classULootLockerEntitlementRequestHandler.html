@@ -59,7 +59,7 @@
       </a>
       <span id="ll-topnav-divider" aria-hidden="true"></span>
       <a href="index.html" id="ll-topnav-product">Unreal SDK</a>
-      <span id="ll-topnav-version">v11.0.0</span>
+      <span id="ll-topnav-version">v11.1.0</span>
       <a href="https://github.com/lootlocker/unreal-sdk" target="_blank"
          rel="noopener noreferrer" id="ll-topnav-github" aria-label="GitHub repository">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
@@ -137,7 +137,7 @@ function llToggleDark() {
  <tr id="projectrow">
   <td id="projectlogo"><img alt="Logo" src="lootlocker-logo.png"/></td>
   <td id="projectalign">
-   <div id="projectname">LootLocker Unreal SDK<span id="projectnumber">&#160;11.0.0</span>
+   <div id="projectname">LootLocker Unreal SDK<span id="projectnumber">&#160;11.1.0</span>
    </div>
    <div id="projectbrief">Game backend SDK for Unreal Engine</div>
   </td>
@@ -242,6 +242,7 @@ Public Member Functions</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 id="header-pub-static-methods" class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
 <tr class="memitem:aad68b930988ea6c40b9d2e5ab8c7883d" id="r_aad68b930988ea6c40b9d2e5ab8c7883d"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aad68b930988ea6c40b9d2e5ab8c7883d">ListEntitlements</a> (const <a class="el" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a> &amp;PlayerData, int Count, const FString &amp;After, const <a class="el" href="group__Entitlements.html#ga87af48c4881c61f319120b7fe5b748d6">FLootLockerListEntitlementsResponseDelegate</a> &amp;OnComplete)</td></tr>
+<tr class="memitem:a5eda6cc9838b958d288283a138e5a172" id="r_a5eda6cc9838b958d288283a138e5a172"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5eda6cc9838b958d288283a138e5a172">ListEntitlements</a> (const <a class="el" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a> &amp;PlayerData, int Count, const FString &amp;After, const TArray&lt; FString &gt; &amp;CatalogListingIds, const <a class="el" href="group__Entitlements.html#ga87af48c4881c61f319120b7fe5b748d6">FLootLockerListEntitlementsResponseDelegate</a> &amp;OnComplete)</td></tr>
 <tr class="memitem:aa744900e18e132df143b383fe42200ad" id="r_aa744900e18e132df143b383fe42200ad"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa744900e18e132df143b383fe42200ad">GetEntitlement</a> (const <a class="el" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a> &amp;PlayerData, FString EntitlementID, const <a class="el" href="group__Entitlements.html#ga1f163f6839b632a874aba50edf9ca0e7">FLootLockerSingleEntitlementResponseDelegate</a> &amp;OnComplete)</td></tr>
 </table>
 <a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
@@ -306,7 +307,7 @@ Static Public Member Functions</h2></td></tr>
 </div>
 </div>
 <a id="aad68b930988ea6c40b9d2e5ab8c7883d" name="aad68b930988ea6c40b9d2e5ab8c7883d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aad68b930988ea6c40b9d2e5ab8c7883d">&#9670;&#160;</a></span>ListEntitlements()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#aad68b930988ea6c40b9d2e5ab8c7883d">&#9670;&#160;</a></span>ListEntitlements() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -328,6 +329,50 @@ Static Public Member Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const FString &amp;</td>          <td class="paramname"><span class="paramname"><em>After</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__Entitlements.html#ga87af48c4881c61f319120b7fe5b748d6">FLootLockerListEntitlementsResponseDelegate</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>OnComplete</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a5eda6cc9838b958d288283a138e5a172" name="a5eda6cc9838b958d288283a138e5a172"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5eda6cc9838b958d288283a138e5a172">&#9670;&#160;</a></span>ListEntitlements() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">FString ULootLockerEntitlementRequestHandler::ListEntitlements </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>PlayerData</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>Count</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;</td>          <td class="paramname"><span class="paramname"><em>After</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const TArray&lt; FString &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>CatalogListingIds</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
