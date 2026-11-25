@@ -1,0 +1,9 @@
+<map id="FLootLockerGooglePlayGamesSessionResponse" name="FLootLockerGooglePlayGamesSessionResponse">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,249,225,294"/>
+<area shape="rect" id="Node000002" href="$structFLootLockerAuthenticationResponse.html" title=" " alt="" coords="18,157,212,201"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="117,215,117,250,113,248,113,219"/>
+<area shape="rect" id="Node000003" href="$structFLootLockerAuthResponse.html" title=" " alt="" coords="19,81,211,109"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="116,122,118,157,112,155,114,127"/>
+<area shape="rect" id="Node000004" href="$structFLootLockerResponse.html" title="Base response struct — every SDK callback receives a struct that derives from this." alt="" coords="34,5,196,33"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="116,46,118,81,112,80,114,51"/>
+</map>

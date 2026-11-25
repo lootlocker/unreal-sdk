@@ -1,0 +1,5 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="Node000000" href="$structFLootLockerRedeemEpicStorePurchaseForPlayerRequest.html" title="Request to redeem one or more Epic Games Store entitlements for the current player using an Epic acco..." alt="" coords="5,5,220,50"/>
+<area shape="rect" id="Node000001" href="$structFLootLockerRedeemEpicStorePurchaseForCharacterRequest.html" title="Request to redeem one or more Epic Games Store entitlements for a specific character,..." alt="" coords="268,5,484,50"/>
+<area shape="poly" id="edge36_Node000000_Node000001" title=" " alt="" coords="235,25,270,28,265,28,235,30"/>
+</map>

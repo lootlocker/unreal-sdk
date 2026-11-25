@@ -1,0 +1,36 @@
+var group__Identity =
+[
+    [ "FLootLockerIdentityLinkResponseDelegate", "group__Identity.html#ga8cbadd2e451bf74e5c070c265f4e1761", null ],
+    [ "FLootLockerIdentityLookupResponseDelegate", "group__Identity.html#ga51fd616c1055d72b0c6bed99523408a1", null ],
+    [ "FLootLockerIdentityMergePreviewResponseDelegate", "group__Identity.html#ga504a747480d1d9737e0ff29353ab2788", null ],
+    [ "FLootLockerIdentityMergeResponseDelegate", "group__Identity.html#ga8f41aabb2c9745877058c36330cb5bfe", null ],
+    [ "FLootLockerIdentityResponseDelegate", "group__Identity.html#ga33c9f560e20861255d3a68e875ee4757", null ],
+    [ "ELootLockerIdentityProvider", "group__Identity.html#ga618aed69239e8218de86d9b74b86c452", [
+      [ "ELootLockerIdentityProvider::Unknown", "group__Identity.html#gga618aed69239e8218de86d9b74b86c452a88183b946cc5f0e8c96b2e66e1c74a7e", null ],
+      [ "ELootLockerIdentityProvider::Steam", "group__Identity.html#gga618aed69239e8218de86d9b74b86c452a4db4563826bad0eb2f60ee6e42d0ea4b", null ],
+      [ "ELootLockerIdentityProvider::Psn", "group__Identity.html#gga618aed69239e8218de86d9b74b86c452a903c4ed61f8bcfb072ae0cd2e35615ec", null ],
+      [ "ELootLockerIdentityProvider::Apple_app_store", "group__Identity.html#gga618aed69239e8218de86d9b74b86c452a7af51761a9dc3e558b8f8c3c96f1facd", null ],
+      [ "ELootLockerIdentityProvider::Google_play_store", "group__Identity.html#gga618aed69239e8218de86d9b74b86c452a6abfec52c2173bbda0d29243559c74bb", null ],
+      [ "ELootLockerIdentityProvider::Xbox_one", "group__Identity.html#gga618aed69239e8218de86d9b74b86c452acf72a9db6ccce375e5492a2b82cd58c8", null ],
+      [ "ELootLockerIdentityProvider::Nintendo_switch", "group__Identity.html#gga618aed69239e8218de86d9b74b86c452a33e9ca8143c729f162d3223005ab7026", null ],
+      [ "ELootLockerIdentityProvider::Amazon_luna", "group__Identity.html#gga618aed69239e8218de86d9b74b86c452abff1a56c20314b583c851d6d8ec7b7b2", null ],
+      [ "ELootLockerIdentityProvider::White_label_login", "group__Identity.html#gga618aed69239e8218de86d9b74b86c452a75b34430e667823f62efc98857e8e0d2", null ],
+      [ "ELootLockerIdentityProvider::Guest", "group__Identity.html#gga618aed69239e8218de86d9b74b86c452aadb831a7fdd83dd1e2a309ce7591dff8", null ],
+      [ "ELootLockerIdentityProvider::Apple_sign_in", "group__Identity.html#gga618aed69239e8218de86d9b74b86c452a9c764b7a4c5b909d643407eb120f9a23", null ],
+      [ "ELootLockerIdentityProvider::Google_sign_in", "group__Identity.html#gga618aed69239e8218de86d9b74b86c452a0de1fa08a8e2de796af8c36cf62342df", null ],
+      [ "ELootLockerIdentityProvider::Epic_games", "group__Identity.html#gga618aed69239e8218de86d9b74b86c452a54c97686ee5f90f5da86d03c84be7015", null ],
+      [ "ELootLockerIdentityProvider::Apple_game_center", "group__Identity.html#gga618aed69239e8218de86d9b74b86c452aa04afbbeabb5ebe7b63f06d38bf89373", null ],
+      [ "ELootLockerIdentityProvider::Meta", "group__Identity.html#gga618aed69239e8218de86d9b74b86c452ab6755d218d5f4e1cef9cce9cc39aeda9", null ],
+      [ "ELootLockerIdentityProvider::Lootlocker_delegation", "group__Identity.html#gga618aed69239e8218de86d9b74b86c452a5cd7e67cf5116e37f7f91f266291201d", null ],
+      [ "ELootLockerIdentityProvider::Twitch", "group__Identity.html#gga618aed69239e8218de86d9b74b86c452a6a057ee64a34177e388abe7304fd3d78", null ],
+      [ "ELootLockerIdentityProvider::Google_play_games", "group__Identity.html#gga618aed69239e8218de86d9b74b86c452a15b8772f2d06a15fee9f32b6477660b8", null ],
+      [ "ELootLockerIdentityProvider::Discord", "group__Identity.html#gga618aed69239e8218de86d9b74b86c452a8f5cc6430613f1c12f36965050bb7197", null ],
+      [ "ELootLockerIdentityProvider::Publisher_account", "group__Identity.html#gga618aed69239e8218de86d9b74b86c452a74f255bce3797bacb29dc0c18636dbf2", null ]
+    ] ],
+    [ "ULootLockerSDKManager::GetIdentity", "group__Identity.html#ga1e62606cdbf37e44b79ac29eb70d9b78", null ],
+    [ "ULootLockerSDKManager::LinkProvider", "group__Identity.html#ga2f9676ef31e3d6afdac64bfb10ffd494", null ],
+    [ "ULootLockerSDKManager::LookupIdentities", "group__Identity.html#ga90824f17bce953ccf41e3713e0635c8b", null ],
+    [ "ULootLockerSDKManager::MergeIdentities", "group__Identity.html#gac2ff263c17c6c9c0f280305db6acd7a6", null ],
+    [ "ULootLockerSDKManager::PreviewIdentityMerge", "group__Identity.html#ga926a32c43960df0905afd0ad608e441e", null ],
+    [ "ULootLockerSDKManager::UnlinkProvider", "group__Identity.html#ga0bb1ecf69aecfc5139701451b5376cd3", null ]
+];

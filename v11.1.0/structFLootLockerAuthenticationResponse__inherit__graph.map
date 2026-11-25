@@ -1,0 +1,25 @@
+<map id="FLootLockerAuthenticationResponse" name="FLootLockerAuthenticationResponse">
+<area shape="rect" id="Node000001" title=" " alt="" coords="456,245,650,290"/>
+<area shape="rect" id="Node000004" href="$structFLootLockerAppleGameCenterSessionResponse.html" title=" " alt="" coords="714,5,932,50"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="568,230,589,190,617,145,653,99,697,60,721,49,717,52,700,64,657,103,622,148,593,193,572,233"/>
+<area shape="rect" id="Node000005" href="$structFLootLockerAppleSessionResponse.html" title=" " alt="" coords="698,74,948,102"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="575,231,626,169,659,137,697,111,726,101,721,103,700,115,663,141,630,172,579,235"/>
+<area shape="rect" id="Node000006" href="$structFLootLockerDiscordSessionResponse.html" title=" " alt="" coords="724,125,922,170"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="599,234,645,206,697,180,732,169,727,172,699,185,648,211,602,239"/>
+<area shape="rect" id="Node000007" href="$structFLootLockerEpicSessionResponse.html" title=" " alt="" coords="703,194,943,222"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="662,239,698,230,752,221,747,223,699,236,663,244"/>
+<area shape="rect" id="Node000008" href="$structFLootLockerGooglePlayGamesSessionResponse.html" title=" " alt="" coords="713,245,933,290"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="666,265,716,267,711,268,667,270"/>
+<area shape="rect" id="Node000009" href="$structFLootLockerGoogleSessionResponse.html" title=" " alt="" coords="725,315,921,359"/>
+<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="658,292,736,314,731,314,658,297"/>
+<area shape="rect" id="Node000010" href="$structFLootLockerMetaSessionResponse.html" title=" " alt="" coords="700,383,946,411"/>
+<area shape="poly" id="edge9_Node000001_Node000010" title=" " alt="" coords="591,298,641,336,699,369,732,383,727,382,697,374,638,340,590,303"/>
+<area shape="rect" id="Node000011" href="$structFLootLockerRefreshRemoteSessionResponse.html" title="Response containing the refreshed authentication data and a new refresh token for an existing remote ..." alt="" coords="723,435,923,479"/>
+<area shape="poly" id="edge10_Node000001_Node000011" title=" " alt="" coords="579,300,631,362,663,393,700,420,725,435,720,434,697,425,660,398,627,366,577,305"/>
+<area shape="rect" id="Node000012" href="$structFLootLockerStartRemoteSessionResponse.html" title="Response returned when remote session polling completes, containing the lease status and,..." alt="" coords="707,504,939,549"/>
+<area shape="poly" id="edge11_Node000001_Node000012" title=" " alt="" coords="570,302,591,347,619,397,655,447,700,490,721,504,715,503,697,494,651,451,614,400,586,349,567,307"/>
+<area shape="rect" id="Node000002" href="$structFLootLockerAuthResponse.html" title=" " alt="" coords="216,254,408,282"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="423,265,458,267,453,268,424,270"/>
+<area shape="rect" id="Node000003" href="$structFLootLockerResponse.html" title="Base response struct — every SDK callback receives a struct that derives from this." alt="" coords="5,254,168,282"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="182,265,217,266,213,269,185,270"/>
+</map>

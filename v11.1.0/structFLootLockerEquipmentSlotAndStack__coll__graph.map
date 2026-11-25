@@ -1,0 +1,9 @@
+<map id="FLootLockerEquipmentSlotAndStack" name="FLootLockerEquipmentSlotAndStack">
+<area shape="rect" id="Node000001" title="An equipment slot together with the stack attached to it, if any." alt="" coords="36,224,230,268"/>
+<area shape="rect" id="Node000002" href="$structFLootLockerEquipmentSlot.html" title="An equipment slot definition belonging to an equipment group." alt="" coords="5,123,200,151"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="112,164,130,223,124,223,109,168"/>
+<area shape="rect" id="Node000003" href="$structFLootLockerEquipmentStack.html" title="A stack currently attached to an equipment slot." alt="" coords="224,123,429,151"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="292,158,174,225,171,221,287,159"/>
+<area shape="rect" id="Node000004" href="$structFLootLockerEquipmentItemTemplate.html" title="A summary of the item template an equipped stack was created from." alt="" coords="227,5,426,50"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="328,63,329,124,324,122,325,68"/>
+</map>

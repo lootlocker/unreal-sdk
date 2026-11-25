@@ -1,0 +1,7 @@
+<map id="FLootLockerPaginatedInstanceProgressionResponse" name="FLootLockerPaginatedInstanceProgressionResponse">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,174,224,218"/>
+<area shape="rect" id="Node000002" href="$structFLootLockerPaginatedGenericProgressionResponse.html" title=" " alt="" coords="8,81,221,126"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="116,139,117,175,112,172,113,143"/>
+<area shape="rect" id="Node000003" href="$structFLootLockerResponse.html" title="Base response struct — every SDK callback receives a struct that derives from this." alt="" coords="33,5,196,33"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="116,46,117,81,112,80,113,51"/>
+</map>

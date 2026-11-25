@@ -1,0 +1,5 @@
+<map id="FLootLockerCheckDLCsResponse" name="FLootLockerCheckDLCsResponse">
+<area shape="rect" id="Node000001" title="Response for checking the player&#39;s DLCs, containing the DLCs they currently hold for the session&#39;s pl..." alt="" coords="5,81,241,109"/>
+<area shape="rect" id="Node000002" href="$structFLootLockerResponse.html" title="Base response struct — every SDK callback receives a struct that derives from this." alt="" coords="42,5,204,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="125,47,125,82,121,79,121,51"/>
+</map>

@@ -1,0 +1,711 @@
+<!-- HTML header for doxygen 1.15.0-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.15.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>LootLocker Unreal SDK: Identity</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript">var page_layout=1;</script>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only.css" rel="stylesheet" type="text/css"/>
+<link href="custom-layout-fixes.css" rel="stylesheet" type="text/css"/>
+<link href="lootlocker-theme.css" rel="stylesheet" type="text/css"/>
+<!-- Apply saved color scheme before first paint to prevent flash -->
+<script type="text/javascript">
+(function () {
+  try {
+    var saved = localStorage.getItem('ll-colorscheme');
+    var html = document.documentElement;
+    if (saved === 'dark') {
+      html.classList.remove('light-mode');
+      html.classList.add('dark-mode');
+    } else if (saved === 'light') {
+      html.classList.remove('dark-mode');
+      html.classList.add('light-mode');
+    }
+    // No saved pref: OS preference handled by CSS media query
+  } catch (e) {}
+})();
+</script>
+</head>
+<body>
+<!-- ================================================================
+     LootLocker top navigation bar
+     ================================================================ -->
+<nav id="ll-topnav" role="navigation" aria-label="LootLocker navigation">
+  <div id="ll-topnav-inner">
+    <!-- Left: logo + product name + section tabs -->
+    <div id="ll-topnav-left">
+      <a href="index.html" id="ll-topnav-logo-link"
+         aria-label="LootLocker Unreal SDK — home">
+        <img src="lootlocker-logo.png" alt="LootLocker" id="ll-topnav-logo-img"/>
+      </a>
+      <span id="ll-topnav-divider" aria-hidden="true"></span>
+      <a href="index.html" id="ll-topnav-product">Unreal SDK</a>
+      <span id="ll-topnav-version">v11.1.0</span>
+      <a href="https://github.com/lootlocker/unreal-sdk" target="_blank"
+         rel="noopener noreferrer" id="ll-topnav-github" aria-label="GitHub repository">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+             fill="currentColor" aria-hidden="true">
+          <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
+        </svg>
+      </a>
+      <div id="ll-topnav-links">
+        <a href="https://ref.lootlocker.com/game" target="_blank"
+           rel="noopener noreferrer" class="ll-topnav-tab">Game API &#8599;</a>
+        <a href="https://console.lootlocker.com" target="_blank"
+           rel="noopener noreferrer" class="ll-topnav-tab">Console &#8599;</a>
+        <a href="https://docs.lootlocker.com/" target="_blank"
+           rel="noopener noreferrer" class="ll-topnav-tab">Docs &#8599;</a>
+      </div>
+    </div>
+    <!-- Right: sign-up CTA + dark mode toggle -->
+    <div id="ll-topnav-right">
+      <a href="https://lootlocker.com/sign-up" target="_blank"
+         rel="noopener noreferrer" class="ll-topnav-signup">Sign Up</a>
+      <button id="ll-dark-toggle" type="button"
+              aria-label="Toggle dark mode" title="Toggle dark/light mode"
+              onclick="llToggleDark()">
+        <!-- Sun icon — shown in dark mode -->
+        <svg id="ll-icon-sun" xmlns="http://www.w3.org/2000/svg"
+             width="16" height="16" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2"
+             stroke-linecap="round" stroke-linejoin="round"
+             aria-hidden="true">
+          <circle cx="12" cy="12" r="5"/>
+          <line x1="12" y1="1" x2="12" y2="3"/>
+          <line x1="12" y1="21" x2="12" y2="23"/>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+          <line x1="1" y1="12" x2="3" y2="12"/>
+          <line x1="21" y1="12" x2="23" y2="12"/>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+        </svg>
+        <!-- Moon icon — shown in light mode -->
+        <svg id="ll-icon-moon" xmlns="http://www.w3.org/2000/svg"
+             width="16" height="16" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2"
+             stroke-linecap="round" stroke-linejoin="round"
+             aria-hidden="true">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+</nav>
+<script type="text/javascript">
+function llToggleDark() {
+  var html = document.documentElement;
+  var isDark = html.classList.contains('dark-mode') ||
+               (!html.classList.contains('light-mode') &&
+                window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+  if (isDark) {
+    html.classList.remove('dark-mode');
+    html.classList.add('light-mode');
+    try { localStorage.setItem('ll-colorscheme', 'light'); } catch (e) {}
+  } else {
+    html.classList.remove('light-mode');
+    html.classList.add('dark-mode');
+    try { localStorage.setItem('ll-colorscheme', 'dark'); } catch (e) {}
+  }
+}
+</script>
+<script type="text/javascript" src="version-picker.js" defer="defer"></script>
+<div id="side-nav" class="ui-resizable side-nav-resizable"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="lootlocker-logo.png"/></td>
+  <td id="projectalign">
+   <div id="projectname">LootLocker Unreal SDK<span id="projectnumber">&#160;11.1.0</span>
+   </div>
+   <div id="projectbrief">Game backend SDK for Unreal Engine</div>
+  </td>
+ </tr>
+   <tr><td colspan="2">        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td></tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.15.0 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('group__Identity.html','',''); });
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+$(function() {
+  initMenu('',false,false,'search.php','Search',true);
+});
+</script>
+<div id="main-nav"></div>
+<div id="container"><div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">Identity </div></div>
+</div><!--header-->
+<div class="contents">
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<p>Work with the cross-game identity behind a player's sessions. </p>
+<p>An identity is the human behind one or more player accounts in a publisher, shared across every game that publisher owns. Use the identity methods to read the identity a session is linked to, look identities up, record a provider credential against an identity, and preview or execute a merge of two identities that turn out to belong to the same person.</p>
+<p>Merging is destructive and never happens automatically: LootLocker returns the games in which both identities have a live player and the calling code must choose which player to keep in each. </p>
+<a name="doc-typedef-members" id="doc-typedef-members"></a><h2 id="header-doc-typedef-members" class="groupheader">Typedef Documentation</h2>
+<a id="ga8cbadd2e451bf74e5c070c265f4e1761" name="ga8cbadd2e451bf74e5c070c265f4e1761"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga8cbadd2e451bf74e5c070c265f4e1761">&#9670;&#160;</a></span>FLootLockerIdentityLinkResponseDelegate</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef void(* FLootLockerIdentityLinkResponseDelegate) (<a class="el" href="structFLootLockerIdentityLinkResponse.html">FLootLockerIdentityLinkResponse</a>)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>C++ response delegate for linking a provider credential. </p>
+
+</div>
+</div>
+<a id="ga51fd616c1055d72b0c6bed99523408a1" name="ga51fd616c1055d72b0c6bed99523408a1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga51fd616c1055d72b0c6bed99523408a1">&#9670;&#160;</a></span>FLootLockerIdentityLookupResponseDelegate</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef void(* FLootLockerIdentityLookupResponseDelegate) (<a class="el" href="structFLootLockerIdentityLookupResponse.html">FLootLockerIdentityLookupResponse</a>)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>C++ response delegate for looking identities up. </p>
+
+</div>
+</div>
+<a id="ga504a747480d1d9737e0ff29353ab2788" name="ga504a747480d1d9737e0ff29353ab2788"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga504a747480d1d9737e0ff29353ab2788">&#9670;&#160;</a></span>FLootLockerIdentityMergePreviewResponseDelegate</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef void(* FLootLockerIdentityMergePreviewResponseDelegate) (<a class="el" href="structFLootLockerIdentityMergePreviewResponse.html">FLootLockerIdentityMergePreviewResponse</a>)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>C++ response delegate for previewing an identity merge. </p>
+
+</div>
+</div>
+<a id="ga8f41aabb2c9745877058c36330cb5bfe" name="ga8f41aabb2c9745877058c36330cb5bfe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga8f41aabb2c9745877058c36330cb5bfe">&#9670;&#160;</a></span>FLootLockerIdentityMergeResponseDelegate</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef void(* FLootLockerIdentityMergeResponseDelegate) (<a class="el" href="structFLootLockerIdentityMergeResponse.html">FLootLockerIdentityMergeResponse</a>)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>C++ response delegate for merging identities. </p>
+
+</div>
+</div>
+<a id="ga33c9f560e20861255d3a68e875ee4757" name="ga33c9f560e20861255d3a68e875ee4757"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga33c9f560e20861255d3a68e875ee4757">&#9670;&#160;</a></span>FLootLockerIdentityResponseDelegate</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef void(* FLootLockerIdentityResponseDelegate) (<a class="el" href="structFLootLockerIdentityResponse.html">FLootLockerIdentityResponse</a>)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>C++ response delegate for reading the current identity. </p>
+
+</div>
+</div>
+<a name="doc-enum-members" id="doc-enum-members"></a><h2 id="header-doc-enum-members" class="groupheader">Enumeration Type Documentation</h2>
+<a id="ga618aed69239e8218de86d9b74b86c452" name="ga618aed69239e8218de86d9b74b86c452"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga618aed69239e8218de86d9b74b86c452">&#9670;&#160;</a></span>ELootLockerIdentityProvider</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum class <a class="el" href="#ga618aed69239e8218de86d9b74b86c452">ELootLockerIdentityProvider</a> : uint8</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel strong">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Platforms that can be presented as a credential when linking a provider to an identity. </p>
+<p>The enumerator names are the wire values the backend accepts, so they are sent as-is. These are the platform catalog slugs used by LootLocker, which are not the same catalogue as <a class="el" href="group__ConnectedAccounts.html#ga52ca2d9826a43c89fc5913c416e0894d" title="Account providers possible to use for connected accounts.">ELootLockerAccountProvider</a>.</p>
+<p>Always send the canonical enumerator when linking. The backend accepts the aliases "ios", "android" and "luna" and stores whichever form was sent, but a stored alias resolves to Unknown because this SDK only maps canonical slugs. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="gga618aed69239e8218de86d9b74b86c452a88183b946cc5f0e8c96b2e66e1c74a7e" name="gga618aed69239e8218de86d9b74b86c452a88183b946cc5f0e8c96b2e66e1c74a7e"></a>Unknown&#160;</td><td class="fielddoc"><p>A provider this SDK does not recognise, or one the response did not populate. </p>
+<p>Zero on purpose: an unpopulated or unparseable value must not land on a real provider. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="gga618aed69239e8218de86d9b74b86c452a4db4563826bad0eb2f60ee6e42d0ea4b" name="gga618aed69239e8218de86d9b74b86c452a4db4563826bad0eb2f60ee6e42d0ea4b"></a>Steam&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="gga618aed69239e8218de86d9b74b86c452a903c4ed61f8bcfb072ae0cd2e35615ec" name="gga618aed69239e8218de86d9b74b86c452a903c4ed61f8bcfb072ae0cd2e35615ec"></a>Psn&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="gga618aed69239e8218de86d9b74b86c452a7af51761a9dc3e558b8f8c3c96f1facd" name="gga618aed69239e8218de86d9b74b86c452a7af51761a9dc3e558b8f8c3c96f1facd"></a>Apple_app_store&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="gga618aed69239e8218de86d9b74b86c452a6abfec52c2173bbda0d29243559c74bb" name="gga618aed69239e8218de86d9b74b86c452a6abfec52c2173bbda0d29243559c74bb"></a>Google_play_store&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="gga618aed69239e8218de86d9b74b86c452acf72a9db6ccce375e5492a2b82cd58c8" name="gga618aed69239e8218de86d9b74b86c452acf72a9db6ccce375e5492a2b82cd58c8"></a>Xbox_one&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="gga618aed69239e8218de86d9b74b86c452a33e9ca8143c729f162d3223005ab7026" name="gga618aed69239e8218de86d9b74b86c452a33e9ca8143c729f162d3223005ab7026"></a>Nintendo_switch&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="gga618aed69239e8218de86d9b74b86c452abff1a56c20314b583c851d6d8ec7b7b2" name="gga618aed69239e8218de86d9b74b86c452abff1a56c20314b583c851d6d8ec7b7b2"></a>Amazon_luna&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="gga618aed69239e8218de86d9b74b86c452a75b34430e667823f62efc98857e8e0d2" name="gga618aed69239e8218de86d9b74b86c452a75b34430e667823f62efc98857e8e0d2"></a>White_label_login&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="gga618aed69239e8218de86d9b74b86c452aadb831a7fdd83dd1e2a309ce7591dff8" name="gga618aed69239e8218de86d9b74b86c452aadb831a7fdd83dd1e2a309ce7591dff8"></a>Guest&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="gga618aed69239e8218de86d9b74b86c452a9c764b7a4c5b909d643407eb120f9a23" name="gga618aed69239e8218de86d9b74b86c452a9c764b7a4c5b909d643407eb120f9a23"></a>Apple_sign_in&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="gga618aed69239e8218de86d9b74b86c452a0de1fa08a8e2de796af8c36cf62342df" name="gga618aed69239e8218de86d9b74b86c452a0de1fa08a8e2de796af8c36cf62342df"></a>Google_sign_in&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="gga618aed69239e8218de86d9b74b86c452a54c97686ee5f90f5da86d03c84be7015" name="gga618aed69239e8218de86d9b74b86c452a54c97686ee5f90f5da86d03c84be7015"></a>Epic_games&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="gga618aed69239e8218de86d9b74b86c452aa04afbbeabb5ebe7b63f06d38bf89373" name="gga618aed69239e8218de86d9b74b86c452aa04afbbeabb5ebe7b63f06d38bf89373"></a>Apple_game_center&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="gga618aed69239e8218de86d9b74b86c452ab6755d218d5f4e1cef9cce9cc39aeda9" name="gga618aed69239e8218de86d9b74b86c452ab6755d218d5f4e1cef9cce9cc39aeda9"></a>Meta&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="gga618aed69239e8218de86d9b74b86c452a5cd7e67cf5116e37f7f91f266291201d" name="gga618aed69239e8218de86d9b74b86c452a5cd7e67cf5116e37f7f91f266291201d"></a>Lootlocker_delegation&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="gga618aed69239e8218de86d9b74b86c452a6a057ee64a34177e388abe7304fd3d78" name="gga618aed69239e8218de86d9b74b86c452a6a057ee64a34177e388abe7304fd3d78"></a>Twitch&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="gga618aed69239e8218de86d9b74b86c452a15b8772f2d06a15fee9f32b6477660b8" name="gga618aed69239e8218de86d9b74b86c452a15b8772f2d06a15fee9f32b6477660b8"></a>Google_play_games&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="gga618aed69239e8218de86d9b74b86c452a8f5cc6430613f1c12f36965050bb7197" name="gga618aed69239e8218de86d9b74b86c452a8f5cc6430613f1c12f36965050bb7197"></a>Discord&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="gga618aed69239e8218de86d9b74b86c452a74f255bce3797bacb29dc0c18636dbf2" name="gga618aed69239e8218de86d9b74b86c452a74f255bce3797bacb29dc0c18636dbf2"></a>Publisher_account&#160;</td><td class="fielddoc"><p>A publisher account credential (email). </p>
+<p>Every identity created through publisher sign-in carries one, so it appears in the provider list. It is not linkable through the link endpoint. </p>
+</td></tr>
+</table>
+
+</div>
+</div>
+<a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
+<a id="ga1e62606cdbf37e44b79ac29eb70d9b78" name="ga1e62606cdbf37e44b79ac29eb70d9b78"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga1e62606cdbf37e44b79ac29eb70d9b78">&#9670;&#160;</a></span>GetIdentity()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">FString ULootLockerSDKManager::GetIdentity </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="#ga33c9f560e20861255d3a68e875ee4757">FLootLockerIdentityResponseDelegate</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>OnCompletedRequest</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;</td>          <td class="paramname"><span class="paramname"><em>ForPlayerWithUlid</em></span><span class="paramdefsep"> = </span><span class="paramdefval">&quot;&quot;</span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get the identity the current session is linked to, including the publisher it belongs to, the provider credentials linked to it and, when populated, the games it has been active in. </p>
+<p>The Providers list carries the credential ids that UnlinkProvider takes; the provider's own user identifier is deliberately not returned. Each entry's Provider_type is resolved from its Provider slug, and is Unknown for a slug this SDK does not map.</p>
+<p>The session must be linked to an identity; a session that is not is answered with 403.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">OnCompletedRequest</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="ga2f9676ef31e3d6afdac64bfb10ffd494" name="ga2f9676ef31e3d6afdac64bfb10ffd494"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga2f9676ef31e3d6afdac64bfb10ffd494">&#9670;&#160;</a></span>LinkProvider()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">FString ULootLockerSDKManager::LinkProvider </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structFLootLockerIdentityLinkRequest.html">FLootLockerIdentityLinkRequest</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>Request</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="#ga8cbadd2e451bf74e5c070c265f4e1761">FLootLockerIdentityLinkResponseDelegate</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>OnCompletedRequest</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;</td>          <td class="paramname"><span class="paramname"><em>ForPlayerWithUlid</em></span><span class="paramdefsep"> = </span><span class="paramdefval">&quot;&quot;</span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Record a provider credential against the identity of the current session, so a later session presenting the same credential resolves to this identity instead of minting a second one. </p>
+<p>Linking is idempotent: a credential this identity already owns answers created = false. When another identity in the publisher owns the credential the call answers 409 and links nothing; the merge offer is surfaced on the response's Conflict field and can be resolved with MergeIdentities. LootLocker never links a credential across identities on the player's behalf.</p>
+<p>The backend stores the provider slug exactly as it is sent, so always send the canonical enumerator; sending an alias would make the stored slug differ from what GetIdentity reports for other credentials of the same provider. Unknown is rejected before the request is sent.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Request</td><td>The link request </td></tr>
+    <tr><td class="paramname">OnCompletedRequest</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="ga90824f17bce953ccf41e3713e0635c8b" name="ga90824f17bce953ccf41e3713e0635c8b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga90824f17bce953ccf41e3713e0635c8b">&#9670;&#160;</a></span>LookupIdentities()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">FString ULootLockerSDKManager::LookupIdentities </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structFLootLockerIdentityLookupRequest.html">FLootLockerIdentityLookupRequest</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>Request</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="#ga51fd616c1055d72b0c6bed99523408a1">FLootLockerIdentityLookupResponseDelegate</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>OnCompletedRequest</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;</td>          <td class="paramname"><span class="paramname"><em>ForPlayerWithUlid</em></span><span class="paramdefsep"> = </span><span class="paramdefval">&quot;&quot;</span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Look up identities by id and/or by the games they have been active in. </p>
+<p>At least one of the two filters must be supplied. Results are always scoped to the caller's publisher.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Request</td><td>The lookup request </td></tr>
+    <tr><td class="paramname">OnCompletedRequest</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="gac2ff263c17c6c9c0f280305db6acd7a6" name="gac2ff263c17c6c9c0f280305db6acd7a6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gac2ff263c17c6c9c0f280305db6acd7a6">&#9670;&#160;</a></span>MergeIdentities()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">FString ULootLockerSDKManager::MergeIdentities </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structFLootLockerIdentityMergeRequest.html">FLootLockerIdentityMergeRequest</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>Request</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="#ga8f41aabb2c9745877058c36330cb5bfe">FLootLockerIdentityMergeResponseDelegate</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>OnCompletedRequest</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;</td>          <td class="paramname"><span class="paramname"><em>ForPlayerWithUlid</em></span><span class="paramdefsep"> = </span><span class="paramdefval">&quot;&quot;</span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Merge another identity into the current one, keeping the current identity. </p>
+<p>The merged identity is tombstoned, its credentials and player links move to the kept identity, and its sessions are revoked. Every game in which both identities have a live player must carry a resolution naming the player to keep; the other player of that game is soft-deleted. A missing or invalid resolution answers 400 and writes nothing.</p>
+<p>This is destructive and never runs automatically. Get the conflicts from PreviewIdentityMerge (or from the conflict of LinkProvider) and let the player choose.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Request</td><td>The merge request </td></tr>
+    <tr><td class="paramname">OnCompletedRequest</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="ga926a32c43960df0905afd0ad608e441e" name="ga926a32c43960df0905afd0ad608e441e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga926a32c43960df0905afd0ad608e441e">&#9670;&#160;</a></span>PreviewIdentityMerge()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">FString ULootLockerSDKManager::PreviewIdentityMerge </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;</td>          <td class="paramname"><span class="paramname"><em>MergeIdentityId</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="#ga504a747480d1d9737e0ff29353ab2788">FLootLockerIdentityMergePreviewResponseDelegate</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>OnCompletedRequest</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;</td>          <td class="paramname"><span class="paramname"><em>ForPlayerWithUlid</em></span><span class="paramdefsep"> = </span><span class="paramdefval">&quot;&quot;</span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>See what merging another identity into the current one would resolve, without executing anything. </p>
+<p>Use it to show the player the games in which both identities have a live player before calling MergeIdentities. An empty Player_conflicts array means the merge needs no choice. Both identities must belong to the same publisher.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">MergeIdentityId</td><td>The ULID of the identity to merge into the authenticated identity </td></tr>
+    <tr><td class="paramname">OnCompletedRequest</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<a id="ga0bb1ecf69aecfc5139701451b5376cd3" name="ga0bb1ecf69aecfc5139701451b5376cd3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga0bb1ecf69aecfc5139701451b5376cd3">&#9670;&#160;</a></span>UnlinkProvider()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">FString ULootLockerSDKManager::UnlinkProvider </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;</td>          <td class="paramname"><span class="paramname"><em>CredentialId</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="LootLockerResponse_8h.html#a5d3509fd52be6960e390df86b764fcdb">FLootLockerDefaultDelegate</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>OnCompletedRequest</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;</td>          <td class="paramname"><span class="paramname"><em>ForPlayerWithUlid</em></span><span class="paramdefsep"> = </span><span class="paramdefval">&quot;&quot;</span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Remove a provider credential from the current identity. </p>
+<p>Get the credential id from the Providers list of GetIdentity. The provider's own user identifier is never returned, so the id is the only reference available to a game client.</p>
+<p>The last remaining credential cannot be removed, because the identity would become unreachable; that case is answered with 422.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">CredentialId</td><td>The ULID of the credential to remove </td></tr>
+    <tr><td class="paramname">OnCompletedRequest</td><td>Delegate for handling the server response </td></tr>
+    <tr><td class="paramname">ForPlayerWithUlid</td><td>Optional: Execute for the specified player ULID (default player if empty) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A unique id for this request, use this to match callbacks to requests when you have multiple simultaneous requests outbound </dd></dl>
+
+</div>
+</div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-typedef-members" class="groupheader"><a id="typedef-members" name="typedef-members"></a>
+Typedefs</h2></td></tr>
+<tr class="memitem:ga33c9f560e20861255d3a68e875ee4757" id="r_ga33c9f560e20861255d3a68e875ee4757"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ga33c9f560e20861255d3a68e875ee4757">FLootLockerIdentityResponseDelegate</a>) (<a class="el" href="structFLootLockerIdentityResponse.html">FLootLockerIdentityResponse</a>)</td></tr>
+<tr class="memdesc:ga33c9f560e20861255d3a68e875ee4757"><td class="mdescLeft">&#160;</td><td class="mdescRight">C++ response delegate for reading the current identity.  <br /></td></tr>
+<tr class="memitem:ga51fd616c1055d72b0c6bed99523408a1" id="r_ga51fd616c1055d72b0c6bed99523408a1"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ga51fd616c1055d72b0c6bed99523408a1">FLootLockerIdentityLookupResponseDelegate</a>) (<a class="el" href="structFLootLockerIdentityLookupResponse.html">FLootLockerIdentityLookupResponse</a>)</td></tr>
+<tr class="memdesc:ga51fd616c1055d72b0c6bed99523408a1"><td class="mdescLeft">&#160;</td><td class="mdescRight">C++ response delegate for looking identities up.  <br /></td></tr>
+<tr class="memitem:ga8cbadd2e451bf74e5c070c265f4e1761" id="r_ga8cbadd2e451bf74e5c070c265f4e1761"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ga8cbadd2e451bf74e5c070c265f4e1761">FLootLockerIdentityLinkResponseDelegate</a>) (<a class="el" href="structFLootLockerIdentityLinkResponse.html">FLootLockerIdentityLinkResponse</a>)</td></tr>
+<tr class="memdesc:ga8cbadd2e451bf74e5c070c265f4e1761"><td class="mdescLeft">&#160;</td><td class="mdescRight">C++ response delegate for linking a provider credential.  <br /></td></tr>
+<tr class="memitem:ga504a747480d1d9737e0ff29353ab2788" id="r_ga504a747480d1d9737e0ff29353ab2788"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ga504a747480d1d9737e0ff29353ab2788">FLootLockerIdentityMergePreviewResponseDelegate</a>) (<a class="el" href="structFLootLockerIdentityMergePreviewResponse.html">FLootLockerIdentityMergePreviewResponse</a>)</td></tr>
+<tr class="memdesc:ga504a747480d1d9737e0ff29353ab2788"><td class="mdescLeft">&#160;</td><td class="mdescRight">C++ response delegate for previewing an identity merge.  <br /></td></tr>
+<tr class="memitem:ga8f41aabb2c9745877058c36330cb5bfe" id="r_ga8f41aabb2c9745877058c36330cb5bfe"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ga8f41aabb2c9745877058c36330cb5bfe">FLootLockerIdentityMergeResponseDelegate</a>) (<a class="el" href="structFLootLockerIdentityMergeResponse.html">FLootLockerIdentityMergeResponse</a>)</td></tr>
+<tr class="memdesc:ga8f41aabb2c9745877058c36330cb5bfe"><td class="mdescLeft">&#160;</td><td class="mdescRight">C++ response delegate for merging identities.  <br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-enum-members" class="groupheader"><a id="enum-members" name="enum-members"></a>
+Enumerations</h2></td></tr>
+<tr class="memitem:ga618aed69239e8218de86d9b74b86c452" id="r_ga618aed69239e8218de86d9b74b86c452"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ga618aed69239e8218de86d9b74b86c452">ELootLockerIdentityProvider</a> : uint8 { <br />
+&#160;&#160;<a class="el" href="#gga618aed69239e8218de86d9b74b86c452a88183b946cc5f0e8c96b2e66e1c74a7e">ELootLockerIdentityProvider::Unknown</a> = 0
+, <a class="el" href="#gga618aed69239e8218de86d9b74b86c452a4db4563826bad0eb2f60ee6e42d0ea4b">ELootLockerIdentityProvider::Steam</a> = 1
+, <a class="el" href="#gga618aed69239e8218de86d9b74b86c452a903c4ed61f8bcfb072ae0cd2e35615ec">ELootLockerIdentityProvider::Psn</a> = 2
+, <a class="el" href="#gga618aed69239e8218de86d9b74b86c452a7af51761a9dc3e558b8f8c3c96f1facd">ELootLockerIdentityProvider::Apple_app_store</a> = 3
+, <br />
+&#160;&#160;<a class="el" href="#gga618aed69239e8218de86d9b74b86c452a6abfec52c2173bbda0d29243559c74bb">ELootLockerIdentityProvider::Google_play_store</a> = 4
+, <a class="el" href="#gga618aed69239e8218de86d9b74b86c452acf72a9db6ccce375e5492a2b82cd58c8">ELootLockerIdentityProvider::Xbox_one</a> = 5
+, <a class="el" href="#gga618aed69239e8218de86d9b74b86c452a33e9ca8143c729f162d3223005ab7026">ELootLockerIdentityProvider::Nintendo_switch</a> = 6
+, <a class="el" href="#gga618aed69239e8218de86d9b74b86c452abff1a56c20314b583c851d6d8ec7b7b2">ELootLockerIdentityProvider::Amazon_luna</a> = 7
+, <br />
+&#160;&#160;<a class="el" href="#gga618aed69239e8218de86d9b74b86c452a75b34430e667823f62efc98857e8e0d2">ELootLockerIdentityProvider::White_label_login</a> = 8
+, <a class="el" href="#gga618aed69239e8218de86d9b74b86c452aadb831a7fdd83dd1e2a309ce7591dff8">ELootLockerIdentityProvider::Guest</a> = 9
+, <a class="el" href="#gga618aed69239e8218de86d9b74b86c452a9c764b7a4c5b909d643407eb120f9a23">ELootLockerIdentityProvider::Apple_sign_in</a> = 10
+, <a class="el" href="#gga618aed69239e8218de86d9b74b86c452a0de1fa08a8e2de796af8c36cf62342df">ELootLockerIdentityProvider::Google_sign_in</a> = 11
+, <br />
+&#160;&#160;<a class="el" href="#gga618aed69239e8218de86d9b74b86c452a54c97686ee5f90f5da86d03c84be7015">ELootLockerIdentityProvider::Epic_games</a> = 12
+, <a class="el" href="#gga618aed69239e8218de86d9b74b86c452aa04afbbeabb5ebe7b63f06d38bf89373">ELootLockerIdentityProvider::Apple_game_center</a> = 13
+, <a class="el" href="#gga618aed69239e8218de86d9b74b86c452ab6755d218d5f4e1cef9cce9cc39aeda9">ELootLockerIdentityProvider::Meta</a> = 14
+, <a class="el" href="#gga618aed69239e8218de86d9b74b86c452a5cd7e67cf5116e37f7f91f266291201d">ELootLockerIdentityProvider::Lootlocker_delegation</a> = 15
+, <br />
+&#160;&#160;<a class="el" href="#gga618aed69239e8218de86d9b74b86c452a6a057ee64a34177e388abe7304fd3d78">ELootLockerIdentityProvider::Twitch</a> = 16
+, <a class="el" href="#gga618aed69239e8218de86d9b74b86c452a15b8772f2d06a15fee9f32b6477660b8">ELootLockerIdentityProvider::Google_play_games</a> = 17
+, <a class="el" href="#gga618aed69239e8218de86d9b74b86c452a8f5cc6430613f1c12f36965050bb7197">ELootLockerIdentityProvider::Discord</a> = 18
+, <a class="el" href="#gga618aed69239e8218de86d9b74b86c452a74f255bce3797bacb29dc0c18636dbf2">ELootLockerIdentityProvider::Publisher_account</a> = 19
+<br />
+ }</td></tr>
+<tr class="memdesc:ga618aed69239e8218de86d9b74b86c452"><td class="mdescLeft">&#160;</td><td class="mdescRight">Platforms that can be presented as a credential when linking a provider to an identity.  <a href="#ga618aed69239e8218de86d9b74b86c452">More...</a><br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:ga1e62606cdbf37e44b79ac29eb70d9b78" id="r_ga1e62606cdbf37e44b79ac29eb70d9b78"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ga1e62606cdbf37e44b79ac29eb70d9b78">ULootLockerSDKManager::GetIdentity</a> (const <a class="el" href="#ga33c9f560e20861255d3a68e875ee4757">FLootLockerIdentityResponseDelegate</a> &amp;OnCompletedRequest, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:ga1e62606cdbf37e44b79ac29eb70d9b78"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the identity the current session is linked to, including the publisher it belongs to, the provider credentials linked to it and, when populated, the games it has been active in.  <br /></td></tr>
+<tr class="memitem:ga90824f17bce953ccf41e3713e0635c8b" id="r_ga90824f17bce953ccf41e3713e0635c8b"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ga90824f17bce953ccf41e3713e0635c8b">ULootLockerSDKManager::LookupIdentities</a> (const <a class="el" href="structFLootLockerIdentityLookupRequest.html">FLootLockerIdentityLookupRequest</a> &amp;Request, const <a class="el" href="#ga51fd616c1055d72b0c6bed99523408a1">FLootLockerIdentityLookupResponseDelegate</a> &amp;OnCompletedRequest, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:ga90824f17bce953ccf41e3713e0635c8b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Look up identities by id and/or by the games they have been active in.  <br /></td></tr>
+<tr class="memitem:ga2f9676ef31e3d6afdac64bfb10ffd494" id="r_ga2f9676ef31e3d6afdac64bfb10ffd494"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ga2f9676ef31e3d6afdac64bfb10ffd494">ULootLockerSDKManager::LinkProvider</a> (const <a class="el" href="structFLootLockerIdentityLinkRequest.html">FLootLockerIdentityLinkRequest</a> &amp;Request, const <a class="el" href="#ga8cbadd2e451bf74e5c070c265f4e1761">FLootLockerIdentityLinkResponseDelegate</a> &amp;OnCompletedRequest, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:ga2f9676ef31e3d6afdac64bfb10ffd494"><td class="mdescLeft">&#160;</td><td class="mdescRight">Record a provider credential against the identity of the current session, so a later session presenting the same credential resolves to this identity instead of minting a second one.  <br /></td></tr>
+<tr class="memitem:ga0bb1ecf69aecfc5139701451b5376cd3" id="r_ga0bb1ecf69aecfc5139701451b5376cd3"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ga0bb1ecf69aecfc5139701451b5376cd3">ULootLockerSDKManager::UnlinkProvider</a> (const FString &amp;CredentialId, const <a class="el" href="LootLockerResponse_8h.html#a5d3509fd52be6960e390df86b764fcdb">FLootLockerDefaultDelegate</a> &amp;OnCompletedRequest, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:ga0bb1ecf69aecfc5139701451b5376cd3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remove a provider credential from the current identity.  <br /></td></tr>
+<tr class="memitem:ga926a32c43960df0905afd0ad608e441e" id="r_ga926a32c43960df0905afd0ad608e441e"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ga926a32c43960df0905afd0ad608e441e">ULootLockerSDKManager::PreviewIdentityMerge</a> (const FString &amp;MergeIdentityId, const <a class="el" href="#ga504a747480d1d9737e0ff29353ab2788">FLootLockerIdentityMergePreviewResponseDelegate</a> &amp;OnCompletedRequest, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:ga926a32c43960df0905afd0ad608e441e"><td class="mdescLeft">&#160;</td><td class="mdescRight">See what merging another identity into the current one would resolve, without executing anything.  <br /></td></tr>
+<tr class="memitem:gac2ff263c17c6c9c0f280305db6acd7a6" id="r_gac2ff263c17c6c9c0f280305db6acd7a6"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#gac2ff263c17c6c9c0f280305db6acd7a6">ULootLockerSDKManager::MergeIdentities</a> (const <a class="el" href="structFLootLockerIdentityMergeRequest.html">FLootLockerIdentityMergeRequest</a> &amp;Request, const <a class="el" href="#ga8f41aabb2c9745877058c36330cb5bfe">FLootLockerIdentityMergeResponseDelegate</a> &amp;OnCompletedRequest, const FString &amp;ForPlayerWithUlid=&quot;&quot;)</td></tr>
+<tr class="memdesc:gac2ff263c17c6c9c0f280305db6acd7a6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Merge another identity into the current one, keeping the current identity.  <br /></td></tr>
+</table>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- HTML footer for doxygen 1.15.0-->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="footer">
+      Generated by <a href="https://www.doxygen.org/index.html">Doxygen</a> 1.15.0
+      &nbsp;&mdash;&nbsp;
+      <a href="https://lootlocker.com" target="_blank" rel="noopener noreferrer">LootLocker</a>
+    </li>
+  </ul>
+</div>
+<script src="nav-customization.js" type="text/javascript"></script>
+</body>
+</html>

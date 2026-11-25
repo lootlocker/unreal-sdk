@@ -1,0 +1,5 @@
+<map id="FLootLockerRedeemGooglePlayStorePurchaseForPlayerRequest" name="FLootLockerRedeemGooglePlayStorePurchaseForPlayerRequest">
+<area shape="rect" id="Node000001" title="Request to redeem a Google Play Store purchase for the current player using a product identifier and ..." alt="" coords="5,5,234,50"/>
+<area shape="rect" id="Node000002" href="$structFLootLockerRedeemGooglePlayStorePurchaseForClassRequest.html" title="Request to redeem a Google Play Store purchase for a specific class using a product identifier,..." alt="" coords="6,98,233,143"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="121,64,122,99,117,97,118,68"/>
+</map>

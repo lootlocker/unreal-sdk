@@ -1,0 +1,19 @@
+<map id="LootLockerSDK/Source/LootLockerSDK/Public/LootLockerResponse.h" name="LootLockerSDK/Source/LootLockerSDK/Public/LootLockerResponse.h">
+<area shape="rect" id="Node000001" title=" " alt="" coords="330,5,500,67"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="265,191,381,218"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="399,66,372,116,338,179,335,175,367,114,395,69"/>
+<area shape="rect" id="Node000003" href="$LootLockerErrorData_8h.html" title=" " alt="" coords="142,115,307,143"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="354,66,267,110,265,106,349,69"/>
+<area shape="rect" id="Node000005" href="$LootLockerRequestContext_8h.html" title=" " alt="" coords="382,115,589,143"/>
+<area shape="poly" id="edge5_Node000001_Node000005" title=" " alt="" coords="439,65,469,103,463,102,438,70"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="613,115,849,143"/>
+<area shape="poly" id="edge9_Node000001_Node000008" title=" " alt="" coords="501,59,673,110,668,111,500,65"/>
+<area shape="poly" id="edge3_Node000003_Node000002" title=" " alt="" coords="243,141,296,181,291,181,241,146"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="5,191,241,218"/>
+<area shape="poly" id="edge4_Node000003_Node000004" title=" " alt="" coords="209,142,155,184,152,179,204,144"/>
+<area shape="poly" id="edge6_Node000005_Node000002" title=" " alt="" coords="459,143,366,187,365,182,454,144"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="405,191,612,218"/>
+<area shape="poly" id="edge7_Node000005_Node000006" title=" " alt="" coords="491,141,502,177,498,174,488,145"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="635,191,912,218"/>
+<area shape="poly" id="edge8_Node000005_Node000007" title=" " alt="" coords="538,141,710,186,705,186,537,146"/>
+</map>

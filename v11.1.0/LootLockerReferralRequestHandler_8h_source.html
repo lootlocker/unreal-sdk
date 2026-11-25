@@ -1,0 +1,443 @@
+<!-- HTML header for doxygen 1.15.0-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.15.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>LootLocker Unreal SDK: LootLockerSDK/Source/LootLockerSDK/Public/GameAPI/LootLockerReferralRequestHandler.h Source File</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript">var page_layout=1;</script>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only.css" rel="stylesheet" type="text/css"/>
+<link href="custom-layout-fixes.css" rel="stylesheet" type="text/css"/>
+<link href="lootlocker-theme.css" rel="stylesheet" type="text/css"/>
+<!-- Apply saved color scheme before first paint to prevent flash -->
+<script type="text/javascript">
+(function () {
+  try {
+    var saved = localStorage.getItem('ll-colorscheme');
+    var html = document.documentElement;
+    if (saved === 'dark') {
+      html.classList.remove('light-mode');
+      html.classList.add('dark-mode');
+    } else if (saved === 'light') {
+      html.classList.remove('dark-mode');
+      html.classList.add('light-mode');
+    }
+    // No saved pref: OS preference handled by CSS media query
+  } catch (e) {}
+})();
+</script>
+</head>
+<body>
+<!-- ================================================================
+     LootLocker top navigation bar
+     ================================================================ -->
+<nav id="ll-topnav" role="navigation" aria-label="LootLocker navigation">
+  <div id="ll-topnav-inner">
+    <!-- Left: logo + product name + section tabs -->
+    <div id="ll-topnav-left">
+      <a href="index.html" id="ll-topnav-logo-link"
+         aria-label="LootLocker Unreal SDK — home">
+        <img src="lootlocker-logo.png" alt="LootLocker" id="ll-topnav-logo-img"/>
+      </a>
+      <span id="ll-topnav-divider" aria-hidden="true"></span>
+      <a href="index.html" id="ll-topnav-product">Unreal SDK</a>
+      <span id="ll-topnav-version">v11.1.0</span>
+      <a href="https://github.com/lootlocker/unreal-sdk" target="_blank"
+         rel="noopener noreferrer" id="ll-topnav-github" aria-label="GitHub repository">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+             fill="currentColor" aria-hidden="true">
+          <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
+        </svg>
+      </a>
+      <div id="ll-topnav-links">
+        <a href="https://ref.lootlocker.com/game" target="_blank"
+           rel="noopener noreferrer" class="ll-topnav-tab">Game API &#8599;</a>
+        <a href="https://console.lootlocker.com" target="_blank"
+           rel="noopener noreferrer" class="ll-topnav-tab">Console &#8599;</a>
+        <a href="https://docs.lootlocker.com/" target="_blank"
+           rel="noopener noreferrer" class="ll-topnav-tab">Docs &#8599;</a>
+      </div>
+    </div>
+    <!-- Right: sign-up CTA + dark mode toggle -->
+    <div id="ll-topnav-right">
+      <a href="https://lootlocker.com/sign-up" target="_blank"
+         rel="noopener noreferrer" class="ll-topnav-signup">Sign Up</a>
+      <button id="ll-dark-toggle" type="button"
+              aria-label="Toggle dark mode" title="Toggle dark/light mode"
+              onclick="llToggleDark()">
+        <!-- Sun icon — shown in dark mode -->
+        <svg id="ll-icon-sun" xmlns="http://www.w3.org/2000/svg"
+             width="16" height="16" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2"
+             stroke-linecap="round" stroke-linejoin="round"
+             aria-hidden="true">
+          <circle cx="12" cy="12" r="5"/>
+          <line x1="12" y1="1" x2="12" y2="3"/>
+          <line x1="12" y1="21" x2="12" y2="23"/>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+          <line x1="1" y1="12" x2="3" y2="12"/>
+          <line x1="21" y1="12" x2="23" y2="12"/>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+        </svg>
+        <!-- Moon icon — shown in light mode -->
+        <svg id="ll-icon-moon" xmlns="http://www.w3.org/2000/svg"
+             width="16" height="16" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2"
+             stroke-linecap="round" stroke-linejoin="round"
+             aria-hidden="true">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+</nav>
+<script type="text/javascript">
+function llToggleDark() {
+  var html = document.documentElement;
+  var isDark = html.classList.contains('dark-mode') ||
+               (!html.classList.contains('light-mode') &&
+                window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+  if (isDark) {
+    html.classList.remove('dark-mode');
+    html.classList.add('light-mode');
+    try { localStorage.setItem('ll-colorscheme', 'light'); } catch (e) {}
+  } else {
+    html.classList.remove('light-mode');
+    html.classList.add('dark-mode');
+    try { localStorage.setItem('ll-colorscheme', 'dark'); } catch (e) {}
+  }
+}
+</script>
+<script type="text/javascript" src="version-picker.js" defer="defer"></script>
+<div id="side-nav" class="ui-resizable side-nav-resizable"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="lootlocker-logo.png"/></td>
+  <td id="projectalign">
+   <div id="projectname">LootLocker Unreal SDK<span id="projectnumber">&#160;11.1.0</span>
+   </div>
+   <div id="projectbrief">Game backend SDK for Unreal Engine</div>
+  </td>
+ </tr>
+   <tr><td colspan="2">        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td></tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.15.0 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('LootLockerReferralRequestHandler_8h_source.html','',''); });
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+$(function() {
+  initMenu('',false,false,'search.php','Search',true);
+});
+</script>
+<div id="main-nav"></div>
+<div id="container"><div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">LootLockerReferralRequestHandler.h</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="LootLockerReferralRequestHandler_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">// Copyright LootLocker AB</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#pragma once</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> </div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &quot;CoreMinimal.h&quot;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &quot;<a class="code" href="LootLockerResponse_8h.html">LootLockerResponse.h</a>&quot;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &quot;<a class="code" href="LootLockerPlayerData_8h.html">LootLockerPlayerData.h</a>&quot;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &quot;LootLockerReferralRequestHandler.generated.h&quot;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="comment">//==================================================</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="comment">// Enum Definitions</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="comment">//==================================================</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span></div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>UENUM(BlueprintType, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="foldopen" id="foldopen00020" data-start="{" data-end="};">
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno"><a class="line" href="group__Referrals.html#gaf3f490f189e81e79b9bc6bef24365fd1">   20</a></span>enum class <a class="code hl_enumeration" href="group__Referrals.html#gaf3f490f189e81e79b9bc6bef24365fd1">ELootLockerReferralQualifier</a> : uint8</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>{</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno"><a class="line" href="group__Referrals.html#ggaf3f490f189e81e79b9bc6bef24365fd1a5287f0377ae6fbd3ce08f19f03b77b3d">   22</a></span>    <a class="code hl_enumvalue" href="group__Referrals.html#ggaf3f490f189e81e79b9bc6bef24365fd1a5287f0377ae6fbd3ce08f19f03b77b3d">session_started</a> = 0,</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno"><a class="line" href="group__Referrals.html#ggaf3f490f189e81e79b9bc6bef24365fd1a1a838cef42cb29276f0b6f9313a2bcdd">   23</a></span>    <a class="code hl_enumvalue" href="group__Referrals.html#ggaf3f490f189e81e79b9bc6bef24365fd1a1a838cef42cb29276f0b6f9313a2bcdd">entitlement_owned</a> = 1,</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno"><a class="line" href="group__Referrals.html#ggaf3f490f189e81e79b9bc6bef24365fd1a7bf3b8b6cc24120b183bf34b628658d4">   24</a></span>    <a class="code hl_enumvalue" href="group__Referrals.html#ggaf3f490f189e81e79b9bc6bef24365fd1a7bf3b8b6cc24120b183bf34b628658d4">game_asserted</a> = 2,</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno"><a class="line" href="group__Referrals.html#ggaf3f490f189e81e79b9bc6bef24365fd1ae5218cb8bc30d66d7a1742087642d7d2">   25</a></span>    <a class="code hl_enumvalue" href="group__Referrals.html#ggaf3f490f189e81e79b9bc6bef24365fd1ae5218cb8bc30d66d7a1742087642d7d2">publisher_currency_earned</a> = 3,</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>};</div>
+</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span></div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span></div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span></div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>UENUM(BlueprintType, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="foldopen" id="foldopen00035" data-start="{" data-end="};">
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno"><a class="line" href="group__Referrals.html#ga6699c2a7ca939729ba16e5b2c265088e">   35</a></span>enum class <a class="code hl_enumeration" href="group__Referrals.html#ga6699c2a7ca939729ba16e5b2c265088e">ELootLockerReferralStatus</a> : uint8</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>{</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno"><a class="line" href="group__Referrals.html#gga6699c2a7ca939729ba16e5b2c265088ea8d817f5603c24017d353707ffd611b92">   37</a></span>    <a class="code hl_enumvalue" href="group__Referrals.html#gga6699c2a7ca939729ba16e5b2c265088ea8d817f5603c24017d353707ffd611b92">claimed</a> = 0,</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno"><a class="line" href="group__Referrals.html#gga6699c2a7ca939729ba16e5b2c265088ea4003642ceae88aacbb03d7c5ccdbe820">   38</a></span>    <a class="code hl_enumvalue" href="group__Referrals.html#gga6699c2a7ca939729ba16e5b2c265088ea4003642ceae88aacbb03d7c5ccdbe820">qualified</a> = 1,</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno"><a class="line" href="group__Referrals.html#gga6699c2a7ca939729ba16e5b2c265088ea81ceb48a978444906d80119200aa358d">   39</a></span>    <a class="code hl_enumvalue" href="group__Referrals.html#gga6699c2a7ca939729ba16e5b2c265088ea81ceb48a978444906d80119200aa358d">Void</a> = 2,</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>};</div>
+</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span></div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span><span class="comment">//==================================================</span></div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span><span class="comment">// Data Definitions</span></div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span><span class="comment">//==================================================</span></div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span></div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>USTRUCT(BlueprintType, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="foldopen" id="foldopen00052" data-start="{" data-end="};">
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno"><a class="line" href="structFLootLockerReferralProgram.html">   52</a></span>struct <a class="code hl_struct" href="structFLootLockerReferralProgram.html">FLootLockerReferralProgram</a></div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>{</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    GENERATED_BODY()</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span> </div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    </div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno"><a class="line" href="structFLootLockerReferralProgram.html#a3ed06f1c2430a3b16fa23da619dfe171">   58</a></span>    FString <a class="code hl_variable" href="structFLootLockerReferralProgram.html#a3ed06f1c2430a3b16fa23da619dfe171">program_key</a> = <span class="stringliteral">&quot;&quot;</span>;</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span></div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno"><a class="line" href="structFLootLockerReferralProgram.html#a570b112acab080e9d70cf098c4f5bc42">   62</a></span>    FString <a class="code hl_variable" href="structFLootLockerReferralProgram.html#a570b112acab080e9d70cf098c4f5bc42">name</a> = <span class="stringliteral">&quot;&quot;</span>;</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span></div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno"><a class="line" href="structFLootLockerReferralProgram.html#ab915e82b7007e7db7d0ea6a793c585e1">   66</a></span>    <a class="code hl_enumeration" href="group__Referrals.html#gaf3f490f189e81e79b9bc6bef24365fd1">ELootLockerReferralQualifier</a> <a class="code hl_variable" href="structFLootLockerReferralProgram.html#ab915e82b7007e7db7d0ea6a793c585e1">qualifier</a> = <a class="code hl_enumeration" href="group__Referrals.html#gaf3f490f189e81e79b9bc6bef24365fd1">ELootLockerReferralQualifier</a>::<a class="code hl_enumvalue" href="group__Referrals.html#ggaf3f490f189e81e79b9bc6bef24365fd1a5287f0377ae6fbd3ce08f19f03b77b3d">session_started</a>;</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span></div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno"><a class="line" href="structFLootLockerReferralProgram.html#a923f656ee1f489852121bbba3c223145">   70</a></span>    int32 <a class="code hl_variable" href="structFLootLockerReferralProgram.html#a923f656ee1f489852121bbba3c223145">referral_count</a> = 0;</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span></div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno"><a class="line" href="structFLootLockerReferralProgram.html#a7dd79e41c11cc59395f8b13cedb838f7">   74</a></span>    int32 <a class="code hl_variable" href="structFLootLockerReferralProgram.html#a7dd79e41c11cc59395f8b13cedb838f7">referrer_cap</a> = 0;</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span></div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno"><a class="line" href="structFLootLockerReferralProgram.html#a3978dce60dce3d09db7a5e5d143d96cd">   78</a></span>    <span class="keywordtype">bool</span> <a class="code hl_variable" href="structFLootLockerReferralProgram.html#a3978dce60dce3d09db7a5e5d143d96cd">HasReferrerCap</a> = false;</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>};</div>
+</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span></div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>USTRUCT(BlueprintType, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="foldopen" id="foldopen00086" data-start="{" data-end="};">
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno"><a class="line" href="structFLootLockerReferral.html">   86</a></span>struct <a class="code hl_struct" href="structFLootLockerReferral.html">FLootLockerReferral</a></div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>{</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>    GENERATED_BODY()</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span> </div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>    </div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno"><a class="line" href="structFLootLockerReferral.html#aaad9fa2c99598734e6ca6e417ad20710">   92</a></span>    FString <span class="keywordtype">id</span> = <span class="stringliteral">&quot;&quot;</span>;</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span></div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno"><a class="line" href="structFLootLockerReferral.html#a4d27313874d34f1e67eef399a4e2e438">   96</a></span>    FString <a class="code hl_variable" href="structFLootLockerReferral.html#a4d27313874d34f1e67eef399a4e2e438">program_key</a> = <span class="stringliteral">&quot;&quot;</span>;</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span></div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno"><a class="line" href="structFLootLockerReferral.html#a296b6e38249178e62d3ab7620bac304f">  100</a></span>    FString <a class="code hl_variable" href="structFLootLockerReferral.html#a296b6e38249178e62d3ab7620bac304f">program_name</a> = <span class="stringliteral">&quot;&quot;</span>;</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span></div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno"><a class="line" href="structFLootLockerReferral.html#aa61f6e8981b89eb040b8688839c25a96">  104</a></span>    FString <a class="code hl_variable" href="structFLootLockerReferral.html#aa61f6e8981b89eb040b8688839c25a96">referee_public_uid</a> = <span class="stringliteral">&quot;&quot;</span>;</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span></div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno"><a class="line" href="structFLootLockerReferral.html#a848f2719a9f0b137b1fbf0c3d5656aab">  108</a></span>    <a class="code hl_enumeration" href="group__Referrals.html#ga6699c2a7ca939729ba16e5b2c265088e">ELootLockerReferralStatus</a> <a class="code hl_variable" href="structFLootLockerReferral.html#a848f2719a9f0b137b1fbf0c3d5656aab">status</a> = <a class="code hl_enumeration" href="group__Referrals.html#ga6699c2a7ca939729ba16e5b2c265088e">ELootLockerReferralStatus</a>::<a class="code hl_enumvalue" href="group__Referrals.html#gga6699c2a7ca939729ba16e5b2c265088ea8d817f5603c24017d353707ffd611b92">claimed</a>;</div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span></div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno"><a class="line" href="structFLootLockerReferral.html#aa6588b8881aebab9843cf10344aa3da3">  112</a></span>    FDateTime <a class="code hl_variable" href="structFLootLockerReferral.html#aa6588b8881aebab9843cf10344aa3da3">claimed_at</a> = FDateTime(0);</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span></div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno"><a class="line" href="structFLootLockerReferral.html#aa8b39977bd09c0bd21dba18a3295a6ff">  116</a></span>    FDateTime <a class="code hl_variable" href="structFLootLockerReferral.html#aa8b39977bd09c0bd21dba18a3295a6ff">qualified_at</a> = FDateTime(0);</div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span></div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno"><a class="line" href="structFLootLockerReferral.html#a2aab496fab30db233195514744d3b269">  120</a></span>    <span class="keywordtype">bool</span> <a class="code hl_variable" href="structFLootLockerReferral.html#a2aab496fab30db233195514744d3b269">HasQualifiedAt</a> = false;</div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span></div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno"><a class="line" href="structFLootLockerReferral.html#ab71c44541a2a1432332e62f75e56124b">  124</a></span>    <span class="keywordtype">bool</span> <a class="code hl_variable" href="structFLootLockerReferral.html#ab71c44541a2a1432332e62f75e56124b">HasRefereePublicUid</a> = false;</div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>};</div>
+</div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span> </div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span><span class="comment">//==================================================</span></div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span><span class="comment">// Response Definitions</span></div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span><span class="comment">//==================================================</span></div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span></div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>USTRUCT(BlueprintType, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="foldopen" id="foldopen00136" data-start="{" data-end="};">
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno"><a class="line" href="structFLootLockerReferralInviteResponse.html">  136</a></span>struct <a class="code hl_struct" href="structFLootLockerReferralInviteResponse.html">FLootLockerReferralInviteResponse</a> : public <a class="code hl_struct" href="structFLootLockerResponse.html">FLootLockerResponse</a></div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>{</div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>    GENERATED_BODY()</div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span> </div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>    </div>
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno"><a class="line" href="structFLootLockerReferralInviteResponse.html#a55fb94c68dab85795c95ee4f2395f733">  142</a></span>    FString <a class="code hl_variable" href="structFLootLockerReferralInviteResponse.html#a55fb94c68dab85795c95ee4f2395f733">code</a> = <span class="stringliteral">&quot;&quot;</span>;</div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span></div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno"><a class="line" href="structFLootLockerReferralInviteResponse.html#a227f12a8c0dcf19f36bf386612f8de9f">  146</a></span>    TArray&lt;<a class="code hl_struct" href="structFLootLockerReferralProgram.html">FLootLockerReferralProgram</a>&gt; <a class="code hl_variable" href="structFLootLockerReferralInviteResponse.html#a227f12a8c0dcf19f36bf386612f8de9f">programs</a>;</div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span></div>
+<div class="line"><a id="l00152" name="l00152"></a><span class="lineno"><a class="line" href="structFLootLockerReferralInviteResponse.html#abe5f4d644a7ac8084ba2aba9da5d414f">  152</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="structFLootLockerReferralInviteResponse.html#abe5f4d644a7ac8084ba2aba9da5d414f">PopulateConvenienceStructures</a>();</div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>};</div>
+</div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span></div>
+<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>USTRUCT(BlueprintType, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="foldopen" id="foldopen00160" data-start="{" data-end="};">
+<div class="line"><a id="l00160" name="l00160"></a><span class="lineno"><a class="line" href="structFLootLockerReferralListResponse.html">  160</a></span>struct <a class="code hl_struct" href="structFLootLockerReferralListResponse.html">FLootLockerReferralListResponse</a> : public <a class="code hl_struct" href="structFLootLockerResponse.html">FLootLockerResponse</a></div>
+<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>{</div>
+<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>    GENERATED_BODY()</div>
+<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span> </div>
+<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>    </div>
+<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00166" name="l00166"></a><span class="lineno"><a class="line" href="structFLootLockerReferralListResponse.html#a23c209fe5a39476d8fa49b50efc8ce04">  166</a></span>    TArray&lt;<a class="code hl_struct" href="structFLootLockerReferral.html">FLootLockerReferral</a>&gt; <a class="code hl_variable" href="structFLootLockerReferralListResponse.html#a23c209fe5a39476d8fa49b50efc8ce04">referrals</a>;</div>
+<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span></div>
+<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00170" name="l00170"></a><span class="lineno"><a class="line" href="structFLootLockerReferralListResponse.html#a2f48ed35072c38ed6070c2133582bee3">  170</a></span>    <a class="code hl_struct" href="structFLootLockerExtendedIndexBasedPagination.html">FLootLockerExtendedIndexBasedPagination</a> <a class="code hl_variable" href="structFLootLockerReferralListResponse.html#a2f48ed35072c38ed6070c2133582bee3">pagination</a>;</div>
+<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span></div>
+<div class="line"><a id="l00176" name="l00176"></a><span class="lineno"><a class="line" href="structFLootLockerReferralListResponse.html#a9554f18ffea5ae095dbcc66ff10ca855">  176</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="structFLootLockerReferralListResponse.html#a9554f18ffea5ae095dbcc66ff10ca855">PopulateConvenienceStructures</a>();</div>
+<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span>};</div>
+</div>
+<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span> </div>
+<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span><span class="comment">//==================================================</span></div>
+<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span><span class="comment">// C++ Delegate Definitions</span></div>
+<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span><span class="comment">//==================================================</span></div>
+<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span></div>
+<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span></div>
+<div class="line"><a id="l00186" name="l00186"></a><span class="lineno"><a class="line" href="group__Referrals.html#ga306ca79d3b160b680e947b3ccc90f653">  186</a></span>DECLARE_DELEGATE_OneParam(<a class="code hl_typedef" href="group__Referrals.html#ga306ca79d3b160b680e947b3ccc90f653">FLootLockerReferralInviteResponseDelegate</a>, <a class="code hl_struct" href="structFLootLockerReferralInviteResponse.html">FLootLockerReferralInviteResponse</a>);</div>
+<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span></div>
+<div class="line"><a id="l00189" name="l00189"></a><span class="lineno"><a class="line" href="group__Referrals.html#ga3a0b599e63d201b4db0080b39d2d7448">  189</a></span>DECLARE_DELEGATE_OneParam(<a class="code hl_typedef" href="group__Referrals.html#ga3a0b599e63d201b4db0080b39d2d7448">FLootLockerReferralListResponseDelegate</a>, <a class="code hl_struct" href="structFLootLockerReferralListResponse.html">FLootLockerReferralListResponse</a>);</div>
+<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span> </div>
+<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span><span class="comment">//==================================================</span></div>
+<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span><span class="comment">// API Class Definition</span></div>
+<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span><span class="comment">//==================================================</span></div>
+<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span> </div>
+<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span>UCLASS()</div>
+<div class="foldopen" id="foldopen00197" data-start="{" data-end="};">
+<div class="line"><a id="l00197" name="l00197"></a><span class="lineno"><a class="line" href="classULLReferralRequestHandler.html">  197</a></span>class LOOTLOCKERSDK_API <a class="code hl_function" href="classULLReferralRequestHandler.html#abd817010e0a6cb957145450ecb1ee64f">ULLReferralRequestHandler</a> : public UObject</div>
+<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span>{</div>
+<div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span>    GENERATED_BODY()</div>
+<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00201" name="l00201"></a><span class="lineno"><a class="line" href="classULLReferralRequestHandler.html#abd817010e0a6cb957145450ecb1ee64f">  201</a></span>    <a class="code hl_function" href="classULLReferralRequestHandler.html#abd817010e0a6cb957145450ecb1ee64f">ULLReferralRequestHandler</a>() {};</div>
+<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span> </div>
+<div class="line"><a id="l00203" name="l00203"></a><span class="lineno"><a class="line" href="classULLReferralRequestHandler.html#ad81cdee020d7927c118b5a69d6585b91">  203</a></span>    <span class="keyword">static</span> FString <a class="code hl_function" href="classULLReferralRequestHandler.html#ad81cdee020d7927c118b5a69d6585b91">GetInvite</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a>&amp; PlayerData, <span class="keyword">const</span> <a class="code hl_typedef" href="group__Referrals.html#ga306ca79d3b160b680e947b3ccc90f653">FLootLockerReferralInviteResponseDelegate</a>&amp; OnCompletedRequest);</div>
+<div class="line"><a id="l00204" name="l00204"></a><span class="lineno"><a class="line" href="classULLReferralRequestHandler.html#ac3842b8db5d6814c5d4545e0e76c844f">  204</a></span>    <span class="keyword">static</span> FString <a class="code hl_function" href="classULLReferralRequestHandler.html#ac3842b8db5d6814c5d4545e0e76c844f">ListMyReferrals</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a>&amp; PlayerData, int32 Page, int32 PerPage, <span class="keyword">const</span> <a class="code hl_typedef" href="group__Referrals.html#ga3a0b599e63d201b4db0080b39d2d7448">FLootLockerReferralListResponseDelegate</a>&amp; OnCompletedRequest);</div>
+<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span>};</div>
+</div>
+<div class="ttc" id="aLootLockerPlayerData_8h_html"><div class="ttname"><a href="LootLockerPlayerData_8h.html">LootLockerPlayerData.h</a></div></div>
+<div class="ttc" id="aLootLockerResponse_8h_html"><div class="ttname"><a href="LootLockerResponse_8h.html">LootLockerResponse.h</a></div></div>
+<div class="ttc" id="aclassULLReferralRequestHandler_html_abd817010e0a6cb957145450ecb1ee64f"><div class="ttname"><a href="classULLReferralRequestHandler.html#abd817010e0a6cb957145450ecb1ee64f">ULLReferralRequestHandler::ULLReferralRequestHandler</a></div><div class="ttdeci">ULLReferralRequestHandler()</div><div class="ttdef"><b>Definition</b> LootLockerReferralRequestHandler.h:201</div></div>
+<div class="ttc" id="aclassULLReferralRequestHandler_html_ac3842b8db5d6814c5d4545e0e76c844f"><div class="ttname"><a href="classULLReferralRequestHandler.html#ac3842b8db5d6814c5d4545e0e76c844f">ULLReferralRequestHandler::ListMyReferrals</a></div><div class="ttdeci">static FString ListMyReferrals(const FLootLockerPlayerData &amp;PlayerData, int32 Page, int32 PerPage, const FLootLockerReferralListResponseDelegate &amp;OnCompletedRequest)</div></div>
+<div class="ttc" id="aclassULLReferralRequestHandler_html_ad81cdee020d7927c118b5a69d6585b91"><div class="ttname"><a href="classULLReferralRequestHandler.html#ad81cdee020d7927c118b5a69d6585b91">ULLReferralRequestHandler::GetInvite</a></div><div class="ttdeci">static FString GetInvite(const FLootLockerPlayerData &amp;PlayerData, const FLootLockerReferralInviteResponseDelegate &amp;OnCompletedRequest)</div></div>
+<div class="ttc" id="agroup__Referrals_html_ga306ca79d3b160b680e947b3ccc90f653"><div class="ttname"><a href="group__Referrals.html#ga306ca79d3b160b680e947b3ccc90f653">FLootLockerReferralInviteResponseDelegate</a></div><div class="ttdeci">void(* FLootLockerReferralInviteResponseDelegate)(FLootLockerReferralInviteResponse)</div><div class="ttdoc">C++ response callback delegate; receives an FLootLockerReferralInviteResponse result.</div><div class="ttdef"><b>Definition</b> LootLockerReferralRequestHandler.h:186</div></div>
+<div class="ttc" id="agroup__Referrals_html_ga3a0b599e63d201b4db0080b39d2d7448"><div class="ttname"><a href="group__Referrals.html#ga3a0b599e63d201b4db0080b39d2d7448">FLootLockerReferralListResponseDelegate</a></div><div class="ttdeci">void(* FLootLockerReferralListResponseDelegate)(FLootLockerReferralListResponse)</div><div class="ttdoc">C++ response callback delegate; receives an FLootLockerReferralListResponse result.</div><div class="ttdef"><b>Definition</b> LootLockerReferralRequestHandler.h:189</div></div>
+<div class="ttc" id="agroup__Referrals_html_ga6699c2a7ca939729ba16e5b2c265088e"><div class="ttname"><a href="group__Referrals.html#ga6699c2a7ca939729ba16e5b2c265088e">ELootLockerReferralStatus</a></div><div class="ttdeci">ELootLockerReferralStatus</div><div class="ttdoc">The state of a referral relation.</div><div class="ttdef"><b>Definition</b> LootLockerReferralRequestHandler.h:36</div></div>
+<div class="ttc" id="agroup__Referrals_html_gaf3f490f189e81e79b9bc6bef24365fd1"><div class="ttname"><a href="group__Referrals.html#gaf3f490f189e81e79b9bc6bef24365fd1">ELootLockerReferralQualifier</a></div><div class="ttdeci">ELootLockerReferralQualifier</div><div class="ttdoc">The action that turns a claimed referral into a payout.</div><div class="ttdef"><b>Definition</b> LootLockerReferralRequestHandler.h:21</div></div>
+<div class="ttc" id="agroup__Referrals_html_gga6699c2a7ca939729ba16e5b2c265088ea4003642ceae88aacbb03d7c5ccdbe820"><div class="ttname"><a href="group__Referrals.html#gga6699c2a7ca939729ba16e5b2c265088ea4003642ceae88aacbb03d7c5ccdbe820">ELootLockerReferralStatus::qualified</a></div><div class="ttdeci">@ qualified</div><div class="ttdef"><b>Definition</b> LootLockerReferralRequestHandler.h:38</div></div>
+<div class="ttc" id="agroup__Referrals_html_gga6699c2a7ca939729ba16e5b2c265088ea81ceb48a978444906d80119200aa358d"><div class="ttname"><a href="group__Referrals.html#gga6699c2a7ca939729ba16e5b2c265088ea81ceb48a978444906d80119200aa358d">ELootLockerReferralStatus::Void</a></div><div class="ttdeci">@ Void</div><div class="ttdef"><b>Definition</b> LootLockerReferralRequestHandler.h:39</div></div>
+<div class="ttc" id="agroup__Referrals_html_gga6699c2a7ca939729ba16e5b2c265088ea8d817f5603c24017d353707ffd611b92"><div class="ttname"><a href="group__Referrals.html#gga6699c2a7ca939729ba16e5b2c265088ea8d817f5603c24017d353707ffd611b92">ELootLockerReferralStatus::claimed</a></div><div class="ttdeci">@ claimed</div><div class="ttdef"><b>Definition</b> LootLockerReferralRequestHandler.h:37</div></div>
+<div class="ttc" id="agroup__Referrals_html_ggaf3f490f189e81e79b9bc6bef24365fd1a1a838cef42cb29276f0b6f9313a2bcdd"><div class="ttname"><a href="group__Referrals.html#ggaf3f490f189e81e79b9bc6bef24365fd1a1a838cef42cb29276f0b6f9313a2bcdd">ELootLockerReferralQualifier::entitlement_owned</a></div><div class="ttdeci">@ entitlement_owned</div><div class="ttdef"><b>Definition</b> LootLockerReferralRequestHandler.h:23</div></div>
+<div class="ttc" id="agroup__Referrals_html_ggaf3f490f189e81e79b9bc6bef24365fd1a5287f0377ae6fbd3ce08f19f03b77b3d"><div class="ttname"><a href="group__Referrals.html#ggaf3f490f189e81e79b9bc6bef24365fd1a5287f0377ae6fbd3ce08f19f03b77b3d">ELootLockerReferralQualifier::session_started</a></div><div class="ttdeci">@ session_started</div><div class="ttdef"><b>Definition</b> LootLockerReferralRequestHandler.h:22</div></div>
+<div class="ttc" id="agroup__Referrals_html_ggaf3f490f189e81e79b9bc6bef24365fd1a7bf3b8b6cc24120b183bf34b628658d4"><div class="ttname"><a href="group__Referrals.html#ggaf3f490f189e81e79b9bc6bef24365fd1a7bf3b8b6cc24120b183bf34b628658d4">ELootLockerReferralQualifier::game_asserted</a></div><div class="ttdeci">@ game_asserted</div><div class="ttdef"><b>Definition</b> LootLockerReferralRequestHandler.h:24</div></div>
+<div class="ttc" id="agroup__Referrals_html_ggaf3f490f189e81e79b9bc6bef24365fd1ae5218cb8bc30d66d7a1742087642d7d2"><div class="ttname"><a href="group__Referrals.html#ggaf3f490f189e81e79b9bc6bef24365fd1ae5218cb8bc30d66d7a1742087642d7d2">ELootLockerReferralQualifier::publisher_currency_earned</a></div><div class="ttdeci">@ publisher_currency_earned</div><div class="ttdef"><b>Definition</b> LootLockerReferralRequestHandler.h:25</div></div>
+<div class="ttc" id="astructFLootLockerExtendedIndexBasedPagination_html"><div class="ttname"><a href="structFLootLockerExtendedIndexBasedPagination.html">FLootLockerExtendedIndexBasedPagination</a></div><div class="ttdef"><b>Definition</b> LootLockerResponse.h:101</div></div>
+<div class="ttc" id="astructFLootLockerPlayerData_html"><div class="ttname"><a href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a></div><div class="ttdef"><b>Definition</b> LootLockerPlayerData.h:12</div></div>
+<div class="ttc" id="astructFLootLockerReferralInviteResponse_html"><div class="ttname"><a href="structFLootLockerReferralInviteResponse.html">FLootLockerReferralInviteResponse</a></div><div class="ttdoc">Response containing the calling player&#39;s referral code and their rewarded-referral count against each...</div><div class="ttdef"><b>Definition</b> LootLockerReferralRequestHandler.h:137</div></div>
+<div class="ttc" id="astructFLootLockerReferralInviteResponse_html_a227f12a8c0dcf19f36bf386612f8de9f"><div class="ttname"><a href="structFLootLockerReferralInviteResponse.html#a227f12a8c0dcf19f36bf386612f8de9f">FLootLockerReferralInviteResponse::programs</a></div><div class="ttdeci">TArray&lt; FLootLockerReferralProgram &gt; programs</div><div class="ttdoc">The game&#39;s active referral programs, each with the player&#39;s progress against its cap.</div><div class="ttdef"><b>Definition</b> LootLockerReferralRequestHandler.h:146</div></div>
+<div class="ttc" id="astructFLootLockerReferralInviteResponse_html_a55fb94c68dab85795c95ee4f2395f733"><div class="ttname"><a href="structFLootLockerReferralInviteResponse.html#a55fb94c68dab85795c95ee4f2395f733">FLootLockerReferralInviteResponse::code</a></div><div class="ttdeci">FString code</div><div class="ttdoc">The player&#39;s referral code, which is their public UID.</div><div class="ttdef"><b>Definition</b> LootLockerReferralRequestHandler.h:142</div></div>
+<div class="ttc" id="astructFLootLockerReferralInviteResponse_html_abe5f4d644a7ac8084ba2aba9da5d414f"><div class="ttname"><a href="structFLootLockerReferralInviteResponse.html#abe5f4d644a7ac8084ba2aba9da5d414f">FLootLockerReferralInviteResponse::PopulateConvenienceStructures</a></div><div class="ttdeci">void PopulateConvenienceStructures()</div><div class="ttdoc">Populate the convenience structures that FJsonObjectConverter cannot derive on its own,...</div></div>
+<div class="ttc" id="astructFLootLockerReferralListResponse_html"><div class="ttname"><a href="structFLootLockerReferralListResponse.html">FLootLockerReferralListResponse</a></div><div class="ttdoc">Response containing one page of the calling player&#39;s own referrals, newest first, including ones stil...</div><div class="ttdef"><b>Definition</b> LootLockerReferralRequestHandler.h:161</div></div>
+<div class="ttc" id="astructFLootLockerReferralListResponse_html_a23c209fe5a39476d8fa49b50efc8ce04"><div class="ttname"><a href="structFLootLockerReferralListResponse.html#a23c209fe5a39476d8fa49b50efc8ce04">FLootLockerReferralListResponse::referrals</a></div><div class="ttdeci">TArray&lt; FLootLockerReferral &gt; referrals</div><div class="ttdoc">The player&#39;s referrals, newest first.</div><div class="ttdef"><b>Definition</b> LootLockerReferralRequestHandler.h:166</div></div>
+<div class="ttc" id="astructFLootLockerReferralListResponse_html_a2f48ed35072c38ed6070c2133582bee3"><div class="ttname"><a href="structFLootLockerReferralListResponse.html#a2f48ed35072c38ed6070c2133582bee3">FLootLockerReferralListResponse::pagination</a></div><div class="ttdeci">FLootLockerExtendedIndexBasedPagination pagination</div><div class="ttdoc">Pagination information for the referrals.</div><div class="ttdef"><b>Definition</b> LootLockerReferralRequestHandler.h:170</div></div>
+<div class="ttc" id="astructFLootLockerReferralListResponse_html_a9554f18ffea5ae095dbcc66ff10ca855"><div class="ttname"><a href="structFLootLockerReferralListResponse.html#a9554f18ffea5ae095dbcc66ff10ca855">FLootLockerReferralListResponse::PopulateConvenienceStructures</a></div><div class="ttdeci">void PopulateConvenienceStructures()</div><div class="ttdoc">Populate the convenience structures that FJsonObjectConverter cannot derive on its own,...</div></div>
+<div class="ttc" id="astructFLootLockerReferralProgram_html"><div class="ttname"><a href="structFLootLockerReferralProgram.html">FLootLockerReferralProgram</a></div><div class="ttdoc">One referral program as it applies to the inviting player: the program&#39;s identity,...</div><div class="ttdef"><b>Definition</b> LootLockerReferralRequestHandler.h:53</div></div>
+<div class="ttc" id="astructFLootLockerReferralProgram_html_a3978dce60dce3d09db7a5e5d143d96cd"><div class="ttname"><a href="structFLootLockerReferralProgram.html#a3978dce60dce3d09db7a5e5d143d96cd">FLootLockerReferralProgram::HasReferrerCap</a></div><div class="ttdeci">bool HasReferrerCap</div><div class="ttdoc">True when the program has a referrer cap, in which case Referrer_cap holds it.</div><div class="ttdef"><b>Definition</b> LootLockerReferralRequestHandler.h:78</div></div>
+<div class="ttc" id="astructFLootLockerReferralProgram_html_a3ed06f1c2430a3b16fa23da619dfe171"><div class="ttname"><a href="structFLootLockerReferralProgram.html#a3ed06f1c2430a3b16fa23da619dfe171">FLootLockerReferralProgram::program_key</a></div><div class="ttdeci">FString program_key</div><div class="ttdoc">The game-unique machine key of the program.</div><div class="ttdef"><b>Definition</b> LootLockerReferralRequestHandler.h:58</div></div>
+<div class="ttc" id="astructFLootLockerReferralProgram_html_a570b112acab080e9d70cf098c4f5bc42"><div class="ttname"><a href="structFLootLockerReferralProgram.html#a570b112acab080e9d70cf098c4f5bc42">FLootLockerReferralProgram::name</a></div><div class="ttdeci">FString name</div><div class="ttdoc">The human-friendly display name of the program.</div><div class="ttdef"><b>Definition</b> LootLockerReferralRequestHandler.h:62</div></div>
+<div class="ttc" id="astructFLootLockerReferralProgram_html_a7dd79e41c11cc59395f8b13cedb838f7"><div class="ttname"><a href="structFLootLockerReferralProgram.html#a7dd79e41c11cc59395f8b13cedb838f7">FLootLockerReferralProgram::referrer_cap</a></div><div class="ttdeci">int32 referrer_cap</div><div class="ttdoc">The maximum number of rewarded referrals this player may make under this program.</div><div class="ttdef"><b>Definition</b> LootLockerReferralRequestHandler.h:74</div></div>
+<div class="ttc" id="astructFLootLockerReferralProgram_html_a923f656ee1f489852121bbba3c223145"><div class="ttname"><a href="structFLootLockerReferralProgram.html#a923f656ee1f489852121bbba3c223145">FLootLockerReferralProgram::referral_count</a></div><div class="ttdeci">int32 referral_count</div><div class="ttdoc">How many rewarded referrals the player has made under this program.</div><div class="ttdef"><b>Definition</b> LootLockerReferralRequestHandler.h:70</div></div>
+<div class="ttc" id="astructFLootLockerReferralProgram_html_ab915e82b7007e7db7d0ea6a793c585e1"><div class="ttname"><a href="structFLootLockerReferralProgram.html#ab915e82b7007e7db7d0ea6a793c585e1">FLootLockerReferralProgram::qualifier</a></div><div class="ttdeci">ELootLockerReferralQualifier qualifier</div><div class="ttdoc">The action that turns a claimed referral into a payout.</div><div class="ttdef"><b>Definition</b> LootLockerReferralRequestHandler.h:66</div></div>
+<div class="ttc" id="astructFLootLockerReferral_html"><div class="ttname"><a href="structFLootLockerReferral.html">FLootLockerReferral</a></div><div class="ttdoc">One referral relation as the referring player sees it: the program it was made under,...</div><div class="ttdef"><b>Definition</b> LootLockerReferralRequestHandler.h:87</div></div>
+<div class="ttc" id="astructFLootLockerReferral_html_a296b6e38249178e62d3ab7620bac304f"><div class="ttname"><a href="structFLootLockerReferral.html#a296b6e38249178e62d3ab7620bac304f">FLootLockerReferral::program_name</a></div><div class="ttdeci">FString program_name</div><div class="ttdoc">The human-friendly display name of the program.</div><div class="ttdef"><b>Definition</b> LootLockerReferralRequestHandler.h:100</div></div>
+<div class="ttc" id="astructFLootLockerReferral_html_a2aab496fab30db233195514744d3b269"><div class="ttname"><a href="structFLootLockerReferral.html#a2aab496fab30db233195514744d3b269">FLootLockerReferral::HasQualifiedAt</a></div><div class="ttdeci">bool HasQualifiedAt</div><div class="ttdoc">True when the referral has qualified and Qualified_at holds the time.</div><div class="ttdef"><b>Definition</b> LootLockerReferralRequestHandler.h:120</div></div>
+<div class="ttc" id="astructFLootLockerReferral_html_a4d27313874d34f1e67eef399a4e2e438"><div class="ttname"><a href="structFLootLockerReferral.html#a4d27313874d34f1e67eef399a4e2e438">FLootLockerReferral::program_key</a></div><div class="ttdeci">FString program_key</div><div class="ttdoc">The game-unique machine key of the program the referral was made under.</div><div class="ttdef"><b>Definition</b> LootLockerReferralRequestHandler.h:96</div></div>
+<div class="ttc" id="astructFLootLockerReferral_html_a848f2719a9f0b137b1fbf0c3d5656aab"><div class="ttname"><a href="structFLootLockerReferral.html#a848f2719a9f0b137b1fbf0c3d5656aab">FLootLockerReferral::status</a></div><div class="ttdeci">ELootLockerReferralStatus status</div><div class="ttdoc">The state of the referral.</div><div class="ttdef"><b>Definition</b> LootLockerReferralRequestHandler.h:108</div></div>
+<div class="ttc" id="astructFLootLockerReferral_html_aa61f6e8981b89eb040b8688839c25a96"><div class="ttname"><a href="structFLootLockerReferral.html#aa61f6e8981b89eb040b8688839c25a96">FLootLockerReferral::referee_public_uid</a></div><div class="ttdeci">FString referee_public_uid</div><div class="ttdoc">The referred player&#39;s public UID.</div><div class="ttdef"><b>Definition</b> LootLockerReferralRequestHandler.h:104</div></div>
+<div class="ttc" id="astructFLootLockerReferral_html_aa6588b8881aebab9843cf10344aa3da3"><div class="ttname"><a href="structFLootLockerReferral.html#aa6588b8881aebab9843cf10344aa3da3">FLootLockerReferral::claimed_at</a></div><div class="ttdeci">FDateTime claimed_at</div><div class="ttdoc">When the referral was claimed.</div><div class="ttdef"><b>Definition</b> LootLockerReferralRequestHandler.h:112</div></div>
+<div class="ttc" id="astructFLootLockerReferral_html_aa8b39977bd09c0bd21dba18a3295a6ff"><div class="ttname"><a href="structFLootLockerReferral.html#aa8b39977bd09c0bd21dba18a3295a6ff">FLootLockerReferral::qualified_at</a></div><div class="ttdeci">FDateTime qualified_at</div><div class="ttdoc">When the referral qualified.</div><div class="ttdef"><b>Definition</b> LootLockerReferralRequestHandler.h:116</div></div>
+<div class="ttc" id="astructFLootLockerReferral_html_ab71c44541a2a1432332e62f75e56124b"><div class="ttname"><a href="structFLootLockerReferral.html#ab71c44541a2a1432332e62f75e56124b">FLootLockerReferral::HasRefereePublicUid</a></div><div class="ttdeci">bool HasRefereePublicUid</div><div class="ttdoc">True when the referee&#39;s game-player row still exists, in which case Referee_public_uid holds their UI...</div><div class="ttdef"><b>Definition</b> LootLockerReferralRequestHandler.h:124</div></div>
+<div class="ttc" id="astructFLootLockerResponse_html"><div class="ttname"><a href="structFLootLockerResponse.html">FLootLockerResponse</a></div><div class="ttdoc">Base response struct — every SDK callback receives a struct that derives from this.</div><div class="ttdef"><b>Definition</b> LootLockerResponse.h:19</div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+</div><!-- container -->
+<!-- HTML footer for doxygen 1.15.0-->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="dir_426131f2e7e3782155028ac49ab5e11c.html">LootLockerSDK</a></li><li class="navelem"><a href="dir_63662f8d869795fbcfe09e29de292894.html">Source</a></li><li class="navelem"><a href="dir_529bffb88e47999e071ca27db50fed71.html">LootLockerSDK</a></li><li class="navelem"><a href="dir_6800d9c9fc95b443eb5325340bc06d03.html">Public</a></li><li class="navelem"><a href="dir_c4276055a6e8dd41429ac8d6d68c790b.html">GameAPI</a></li><li class="navelem"><a href="LootLockerReferralRequestHandler_8h.html">LootLockerReferralRequestHandler.h</a></li>
+    <li class="footer">
+      Generated by <a href="https://www.doxygen.org/index.html">Doxygen</a> 1.15.0
+      &nbsp;&mdash;&nbsp;
+      <a href="https://lootlocker.com" target="_blank" rel="noopener noreferrer">LootLocker</a>
+    </li>
+  </ul>
+</div>
+<script src="nav-customization.js" type="text/javascript"></script>
+</body>
+</html>

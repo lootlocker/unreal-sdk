@@ -1,0 +1,23 @@
+<map id="LootLockerSDK/Source/LootLockerSDK/Public/LootLockerStateData.h" name="LootLockerSDK/Source/LootLockerSDK/Public/LootLockerStateData.h">
+<area shape="rect" id="Node000001" title=" " alt="" coords="344,5,516,67"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,283,122,311"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="341,39,287,47,225,60,164,83,136,98,111,117,96,132,85,150,70,191,65,232,64,268,59,267,59,232,65,189,80,148,92,129,107,113,133,94,162,78,224,55,286,42,346,37"/>
+<area shape="rect" id="Node000003" href="$LootLockerPlayerData_8h.html" title=" " alt="" coords="121,124,296,151"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="360,69,253,119,251,114,365,66"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="320,124,540,151"/>
+<area shape="poly" id="edge9_Node000001_Node000008" title=" " alt="" coords="432,65,433,109,428,106,429,70"/>
+<area shape="rect" id="Node000009" title=" " alt="" coords="565,115,762,160"/>
+<area shape="poly" id="edge10_Node000001_Node000009" title=" " alt="" coords="502,65,601,108,596,109,501,70"/>
+<area shape="rect" id="Node000010" title=" " alt="" coords="786,124,1024,151"/>
+<area shape="poly" id="edge11_Node000001_Node000010" title=" " alt="" coords="517,53,829,119,824,121,517,58"/>
+<area shape="poly" id="edge3_Node000003_Node000002" title=" " alt="" coords="169,154,129,176,108,191,91,209,76,238,68,270,64,267,71,237,87,206,105,187,126,172,173,150"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="101,208,316,235"/>
+<area shape="poly" id="edge4_Node000003_Node000004" title=" " alt="" coords="210,150,211,193,206,191,207,154"/>
+<area shape="rect" id="Node000005" href="$LootLockerSessionOptionals_8h.html" title=" " alt="" coords="341,208,556,235"/>
+<area shape="poly" id="edge5_Node000003_Node000005" title=" " alt="" coords="248,149,398,201,393,203,247,154"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="581,208,826,235"/>
+<area shape="poly" id="edge8_Node000003_Node000007" title=" " alt="" coords="267,149,308,157,594,203,590,207,307,162,268,154"/>
+<area shape="poly" id="edge6_Node000005_Node000002" title=" " alt="" coords="380,239,137,285,136,279,379,233"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="306,283,592,311"/>
+<area shape="poly" id="edge7_Node000005_Node000006" title=" " alt="" coords="451,234,451,269,447,266,447,238"/>
+</map>

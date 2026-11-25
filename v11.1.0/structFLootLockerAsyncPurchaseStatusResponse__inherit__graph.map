@@ -1,0 +1,5 @@
+<map id="FLootLockerAsyncPurchaseStatusResponse" name="FLootLockerAsyncPurchaseStatusResponse">
+<area shape="rect" id="Node000001" title="Response from polling the status of an async purchase." alt="" coords="5,81,203,126"/>
+<area shape="rect" id="Node000002" href="$structFLootLockerResponse.html" title="Base response struct — every SDK callback receives a struct that derives from this." alt="" coords="23,5,185,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="106,47,106,81,102,79,102,51"/>
+</map>

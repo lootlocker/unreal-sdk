@@ -1,0 +1,19 @@
+<map id="FLootLockerNotificationGroupRewardAssociations" name="FLootLockerNotificationGroupRewardAssociations">
+<area shape="rect" id="Node000001" title="Holds one member reward within a notification group reward, identified by kind, with the relevant rew..." alt="" coords="733,116,946,161"/>
+<area shape="rect" id="Node000002" href="$structFLootLockerNotificationRewardCurrency.html" title="Represents a currency reward in a notification, linking the reward to a currency amount and its curre..." alt="" coords="331,8,554,53"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="569,47,640,61,710,80,795,115,789,115,708,85,638,66,569,52"/>
+<area shape="rect" id="Node000003" href="$structFLootLockerNotificationRewardCurrencyDetails.html" title="Holds the display details of a currency referenced in a notification reward, including its name,..." alt="" coords="5,8,229,53"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="243,28,332,29,328,32,245,33"/>
+<area shape="rect" id="Node000004" href="$structFLootLockerNotificationRewardAsset.html" title="Represents an asset reward in a notification, linking the reward to an asset and its optional variati..." alt="" coords="331,77,554,122"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="570,109,735,128,730,128,570,115"/>
+<area shape="rect" id="Node000005" href="$structFLootLockerNotificationRewardAssetDetails.html" title="Holds the display details of an asset referenced in a notification reward, including its name,..." alt="" coords="5,77,229,122"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="244,97,332,99,328,101,245,102"/>
+<area shape="rect" id="Node000006" href="$structFLootLockerNotificationRewardProgressionReset.html" title="Represents a progression&#45;reset reward in a notification, linking the reward to the affected progressi..." alt="" coords="331,147,554,191"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="569,164,709,155,735,155,730,156,709,161,569,169"/>
+<area shape="rect" id="Node000007" href="$structFLootLockerNotificationRewardProgressionResetDetails.html" title="Holds the display details of a progression referenced in a progression&#45;reset notification reward,..." alt="" coords="5,147,229,191"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="244,166,333,168,327,170,244,172"/>
+<area shape="rect" id="Node000008" href="$structFLootLockerNotificationRewardProgression.html" title="Represents a progression&#45;points reward in a notification, linking the reward to a progression and the..." alt="" coords="331,216,554,261"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="569,223,639,211,708,194,753,178,793,162,798,161,755,183,710,199,640,216,569,228"/>
+<area shape="rect" id="Node000009" href="$structFLootLockerNotificationRewardProgressionDetails.html" title="Holds the display details of a progression referenced in a progression&#45;points notification reward,..." alt="" coords="5,216,229,261"/>
+<area shape="poly" id="edge8_Node000008_Node000009" title=" " alt="" coords="244,236,333,238,327,239,244,241"/>
+</map>

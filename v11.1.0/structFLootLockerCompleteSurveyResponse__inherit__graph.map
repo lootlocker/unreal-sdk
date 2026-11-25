@@ -1,0 +1,5 @@
+<map id="FLootLockerCompleteSurveyResponse" name="FLootLockerCompleteSurveyResponse">
+<area shape="rect" id="Node000001" title="Response returned after recording a survey completion for the current player." alt="" coords="5,81,213,126"/>
+<area shape="rect" id="Node000002" href="$structFLootLockerResponse.html" title="Base response struct — every SDK callback receives a struct that derives from this." alt="" coords="28,5,190,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="111,47,111,81,107,79,107,51"/>
+</map>

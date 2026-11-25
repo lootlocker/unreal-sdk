@@ -1,0 +1,437 @@
+<!-- HTML header for doxygen 1.15.0-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.15.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>LootLocker Unreal SDK: LootLockerSDK/Source/LootLockerSDK/Public/GameAPI/LootLockerPlaytestsRequestHandler.h Source File</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript">var page_layout=1;</script>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only.css" rel="stylesheet" type="text/css"/>
+<link href="custom-layout-fixes.css" rel="stylesheet" type="text/css"/>
+<link href="lootlocker-theme.css" rel="stylesheet" type="text/css"/>
+<!-- Apply saved color scheme before first paint to prevent flash -->
+<script type="text/javascript">
+(function () {
+  try {
+    var saved = localStorage.getItem('ll-colorscheme');
+    var html = document.documentElement;
+    if (saved === 'dark') {
+      html.classList.remove('light-mode');
+      html.classList.add('dark-mode');
+    } else if (saved === 'light') {
+      html.classList.remove('dark-mode');
+      html.classList.add('light-mode');
+    }
+    // No saved pref: OS preference handled by CSS media query
+  } catch (e) {}
+})();
+</script>
+</head>
+<body>
+<!-- ================================================================
+     LootLocker top navigation bar
+     ================================================================ -->
+<nav id="ll-topnav" role="navigation" aria-label="LootLocker navigation">
+  <div id="ll-topnav-inner">
+    <!-- Left: logo + product name + section tabs -->
+    <div id="ll-topnav-left">
+      <a href="index.html" id="ll-topnav-logo-link"
+         aria-label="LootLocker Unreal SDK — home">
+        <img src="lootlocker-logo.png" alt="LootLocker" id="ll-topnav-logo-img"/>
+      </a>
+      <span id="ll-topnav-divider" aria-hidden="true"></span>
+      <a href="index.html" id="ll-topnav-product">Unreal SDK</a>
+      <span id="ll-topnav-version">v11.1.0</span>
+      <a href="https://github.com/lootlocker/unreal-sdk" target="_blank"
+         rel="noopener noreferrer" id="ll-topnav-github" aria-label="GitHub repository">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+             fill="currentColor" aria-hidden="true">
+          <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
+        </svg>
+      </a>
+      <div id="ll-topnav-links">
+        <a href="https://ref.lootlocker.com/game" target="_blank"
+           rel="noopener noreferrer" class="ll-topnav-tab">Game API &#8599;</a>
+        <a href="https://console.lootlocker.com" target="_blank"
+           rel="noopener noreferrer" class="ll-topnav-tab">Console &#8599;</a>
+        <a href="https://docs.lootlocker.com/" target="_blank"
+           rel="noopener noreferrer" class="ll-topnav-tab">Docs &#8599;</a>
+      </div>
+    </div>
+    <!-- Right: sign-up CTA + dark mode toggle -->
+    <div id="ll-topnav-right">
+      <a href="https://lootlocker.com/sign-up" target="_blank"
+         rel="noopener noreferrer" class="ll-topnav-signup">Sign Up</a>
+      <button id="ll-dark-toggle" type="button"
+              aria-label="Toggle dark mode" title="Toggle dark/light mode"
+              onclick="llToggleDark()">
+        <!-- Sun icon — shown in dark mode -->
+        <svg id="ll-icon-sun" xmlns="http://www.w3.org/2000/svg"
+             width="16" height="16" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2"
+             stroke-linecap="round" stroke-linejoin="round"
+             aria-hidden="true">
+          <circle cx="12" cy="12" r="5"/>
+          <line x1="12" y1="1" x2="12" y2="3"/>
+          <line x1="12" y1="21" x2="12" y2="23"/>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+          <line x1="1" y1="12" x2="3" y2="12"/>
+          <line x1="21" y1="12" x2="23" y2="12"/>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+        </svg>
+        <!-- Moon icon — shown in light mode -->
+        <svg id="ll-icon-moon" xmlns="http://www.w3.org/2000/svg"
+             width="16" height="16" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2"
+             stroke-linecap="round" stroke-linejoin="round"
+             aria-hidden="true">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+</nav>
+<script type="text/javascript">
+function llToggleDark() {
+  var html = document.documentElement;
+  var isDark = html.classList.contains('dark-mode') ||
+               (!html.classList.contains('light-mode') &&
+                window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+  if (isDark) {
+    html.classList.remove('dark-mode');
+    html.classList.add('light-mode');
+    try { localStorage.setItem('ll-colorscheme', 'light'); } catch (e) {}
+  } else {
+    html.classList.remove('light-mode');
+    html.classList.add('dark-mode');
+    try { localStorage.setItem('ll-colorscheme', 'dark'); } catch (e) {}
+  }
+}
+</script>
+<script type="text/javascript" src="version-picker.js" defer="defer"></script>
+<div id="side-nav" class="ui-resizable side-nav-resizable"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="lootlocker-logo.png"/></td>
+  <td id="projectalign">
+   <div id="projectname">LootLocker Unreal SDK<span id="projectnumber">&#160;11.1.0</span>
+   </div>
+   <div id="projectbrief">Game backend SDK for Unreal Engine</div>
+  </td>
+ </tr>
+   <tr><td colspan="2">        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td></tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.15.0 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('LootLockerPlaytestsRequestHandler_8h_source.html','',''); });
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+$(function() {
+  initMenu('',false,false,'search.php','Search',true);
+});
+</script>
+<div id="main-nav"></div>
+<div id="container"><div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">LootLockerPlaytestsRequestHandler.h</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="LootLockerPlaytestsRequestHandler_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">// Copyright (c) 2021 LootLocker</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#pragma once</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> </div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &quot;CoreMinimal.h&quot;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &quot;<a class="code" href="LootLockerResponse_8h.html">LootLockerResponse.h</a>&quot;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &quot;<a class="code" href="LootLockerPlayerData_8h.html">LootLockerPlayerData.h</a>&quot;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &quot;<a class="code" href="LootLockerMetadataRequestHandler_8h.html">GameAPI/LootLockerMetadataRequestHandler.h</a>&quot;</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &quot;LootLockerPlaytestsRequestHandler.generated.h&quot;</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="comment">//==================================================</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="comment">// Request Definitions</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="comment">//==================================================</span></div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span></div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>USTRUCT(BlueprintType, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="foldopen" id="foldopen00022" data-start="{" data-end="};">
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno"><a class="line" href="structFLootLockerAcknowledgePlaytestDocumentRequest.html">   22</a></span>struct <a class="code hl_struct" href="structFLootLockerAcknowledgePlaytestDocumentRequest.html">FLootLockerAcknowledgePlaytestDocumentRequest</a></div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>{</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    GENERATED_BODY()</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno"><a class="line" href="structFLootLockerAcknowledgePlaytestDocumentRequest.html#a1fbf299b72afe7e379c6e014c651c645">   29</a></span>    TArray&lt;FString&gt; <a class="code hl_variable" href="structFLootLockerAcknowledgePlaytestDocumentRequest.html#a1fbf299b72afe7e379c6e014c651c645">statement_ids</a>;</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>};</div>
+</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span></div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span><span class="comment">//==================================================</span></div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span><span class="comment">// Data Type Definitions</span></div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span><span class="comment">//==================================================</span></div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span></div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>USTRUCT(BlueprintType, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="foldopen" id="foldopen00042" data-start="{" data-end="};">
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno"><a class="line" href="structFLootLockerPlaytestAcknowledgedDocument.html">   42</a></span>struct <a class="code hl_struct" href="structFLootLockerPlaytestAcknowledgedDocument.html">FLootLockerPlaytestAcknowledgedDocument</a></div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>{</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    GENERATED_BODY()</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno"><a class="line" href="structFLootLockerPlaytestAcknowledgedDocument.html#aa9914c9f2d1461aa3bd1f0ba612c338c">   49</a></span>    FString <a class="code hl_variable" href="structFLootLockerPlaytestAcknowledgedDocument.html#aa9914c9f2d1461aa3bd1f0ba612c338c">document_id</a> = <span class="stringliteral">&quot;&quot;</span>;</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno"><a class="line" href="structFLootLockerPlaytestAcknowledgedDocument.html#ac580a91d46d1f12e6eab00ab9ec8ef12">   55</a></span>    FString <a class="code hl_variable" href="structFLootLockerPlaytestAcknowledgedDocument.html#ac580a91d46d1f12e6eab00ab9ec8ef12">content_hash</a> = <span class="stringliteral">&quot;&quot;</span>;</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno"><a class="line" href="structFLootLockerPlaytestAcknowledgedDocument.html#a00683e18a926e73bdb68ea35ddab176e">   60</a></span>    TArray&lt;FString&gt; <a class="code hl_variable" href="structFLootLockerPlaytestAcknowledgedDocument.html#a00683e18a926e73bdb68ea35ddab176e">statement_ids</a>;</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno"><a class="line" href="structFLootLockerPlaytestAcknowledgedDocument.html#ac52874abdb9540e1d44951323f7ba41c">   65</a></span>    FDateTime <a class="code hl_variable" href="structFLootLockerPlaytestAcknowledgedDocument.html#ac52874abdb9540e1d44951323f7ba41c">acknowledged_at</a> = FDateTime(0);</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>};</div>
+</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span></div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>USTRUCT(BlueprintType, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="foldopen" id="foldopen00072" data-start="{" data-end="};">
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno"><a class="line" href="structFLootLockerPlaytestAnswer.html">   72</a></span>struct <a class="code hl_struct" href="structFLootLockerPlaytestAnswer.html">FLootLockerPlaytestAnswer</a></div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>{</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    GENERATED_BODY()</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno"><a class="line" href="structFLootLockerPlaytestAnswer.html#a758b2e0fbc6269dbc9438a1193b671ec">   79</a></span>    FString <a class="code hl_variable" href="structFLootLockerPlaytestAnswer.html#a758b2e0fbc6269dbc9438a1193b671ec">key</a> = <span class="stringliteral">&quot;&quot;</span>;</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno"><a class="line" href="structFLootLockerPlaytestAnswer.html#a19adf5de34e57889d0ceac2ef633729f">   84</a></span>    FString <a class="code hl_variable" href="structFLootLockerPlaytestAnswer.html#a19adf5de34e57889d0ceac2ef633729f">value</a> = <span class="stringliteral">&quot;&quot;</span>;</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>};</div>
+</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span></div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span> </div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span><span class="comment">//==================================================</span></div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span><span class="comment">// Request Definitions</span></div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span><span class="comment">//==================================================</span></div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span></div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>USTRUCT(BlueprintType, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="foldopen" id="foldopen00101" data-start="{" data-end="};">
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno"><a class="line" href="structFLootLockerPlaytestAnswerSubmission.html">  101</a></span>struct LOOTLOCKERSDK_API <a class="code hl_struct" href="structFLootLockerPlaytestAnswerSubmission.html">FLootLockerPlaytestAnswerSubmission</a></div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>{</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>    GENERATED_BODY()</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno"><a class="line" href="structFLootLockerPlaytestAnswerSubmission.html#a1dda4629f51bd69d04b2cf99a3c59bda">  108</a></span>    FString <a class="code hl_variable" href="structFLootLockerPlaytestAnswerSubmission.html#a1dda4629f51bd69d04b2cf99a3c59bda">Metadata_key</a> = <span class="stringliteral">&quot;&quot;</span>;</div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno"><a class="line" href="structFLootLockerPlaytestAnswerSubmission.html#ac64c55d36c8d015baecad3329518d1cd">  118</a></span>    FString <a class="code hl_variable" href="structFLootLockerPlaytestAnswerSubmission.html#ac64c55d36c8d015baecad3329518d1cd">Value</a> = <span class="stringliteral">&quot;&quot;</span>;</div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno"><a class="line" href="structFLootLockerPlaytestAnswerSubmission.html#aa05c83c611edcce79a54898de716e640">  125</a></span>    <a class="code hl_enumeration" href="group__Metadata.html#ga7ae3db614872bb456a6b01bee377ec3e">ELootLockerMetadataTypes</a> <a class="code hl_variable" href="structFLootLockerPlaytestAnswerSubmission.html#aa05c83c611edcce79a54898de716e640">Type</a> = <a class="code hl_enumeration" href="group__Metadata.html#ga7ae3db614872bb456a6b01bee377ec3e">ELootLockerMetadataTypes</a>::<a class="code hl_enumvalue" href="group__Metadata.html#gga7ae3db614872bb456a6b01bee377ec3ea27118326006d3829667a400ad23d5d98">String</a>;</div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span></div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno"><a class="line" href="structFLootLockerPlaytestAnswerSubmission.html#a72189cdf4eccff5fb01128f674ecb283">  128</a></span>    static LOOTLOCKERSDK_API <a class="code hl_struct" href="structFLootLockerPlaytestAnswerSubmission.html">FLootLockerPlaytestAnswerSubmission</a> <a class="code hl_function" href="structFLootLockerPlaytestAnswerSubmission.html#a72189cdf4eccff5fb01128f674ecb283">FromText</a>(const FString&amp; MetadataKey, const FString&amp; <a class="code hl_variable" href="structFLootLockerPlaytestAnswerSubmission.html#ac64c55d36c8d015baecad3329518d1cd">Value</a>);</div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span></div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno"><a class="line" href="structFLootLockerPlaytestAnswerSubmission.html#adbe5663bf9542f5f4754f7bcf07e5c2c">  131</a></span>    static LOOTLOCKERSDK_API <a class="code hl_struct" href="structFLootLockerPlaytestAnswerSubmission.html">FLootLockerPlaytestAnswerSubmission</a> <a class="code hl_function" href="structFLootLockerPlaytestAnswerSubmission.html#adbe5663bf9542f5f4754f7bcf07e5c2c">FromNumber</a>(const FString&amp; MetadataKey, <span class="keywordtype">double</span> <a class="code hl_variable" href="structFLootLockerPlaytestAnswerSubmission.html#ac64c55d36c8d015baecad3329518d1cd">Value</a>);</div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span></div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno"><a class="line" href="structFLootLockerPlaytestAnswerSubmission.html#afffaefd36eb6609b30765a06ff70126e">  134</a></span>    static LOOTLOCKERSDK_API <a class="code hl_struct" href="structFLootLockerPlaytestAnswerSubmission.html">FLootLockerPlaytestAnswerSubmission</a> <a class="code hl_function" href="structFLootLockerPlaytestAnswerSubmission.html#afffaefd36eb6609b30765a06ff70126e">FromBool</a>(const FString&amp; MetadataKey, <span class="keywordtype">bool</span> <a class="code hl_variable" href="structFLootLockerPlaytestAnswerSubmission.html#ac64c55d36c8d015baecad3329518d1cd">Value</a>);</div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span></div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno"><a class="line" href="structFLootLockerPlaytestAnswerSubmission.html#a9bdcab3ada6ecbf42db7c13dcd3d1a76">  137</a></span>    static LOOTLOCKERSDK_API <a class="code hl_struct" href="structFLootLockerPlaytestAnswerSubmission.html">FLootLockerPlaytestAnswerSubmission</a> <a class="code hl_function" href="structFLootLockerPlaytestAnswerSubmission.html#a9bdcab3ada6ecbf42db7c13dcd3d1a76">FromMultiSelect</a>(const FString&amp; MetadataKey, const TArray&lt;FString&gt;&amp; SelectedValues);</div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>};</div>
+</div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span></div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span> </div>
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span><span class="comment">//==================================================</span></div>
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span><span class="comment">// Response Definitions</span></div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span><span class="comment">//==================================================</span></div>
+<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span></div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>USTRUCT(BlueprintType, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="foldopen" id="foldopen00149" data-start="{" data-end="};">
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno"><a class="line" href="structFLootLockerPlaytestOnboardingStatusResponse.html">  149</a></span>struct <a class="code hl_struct" href="structFLootLockerPlaytestOnboardingStatusResponse.html">FLootLockerPlaytestOnboardingStatusResponse</a> : public <a class="code hl_struct" href="structFLootLockerResponse.html">FLootLockerResponse</a></div>
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>{</div>
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>    GENERATED_BODY()</div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno"><a class="line" href="structFLootLockerPlaytestOnboardingStatusResponse.html#a8dd10b19c08f07607fa983766fcc9f57">  156</a></span>    bool <a class="code hl_variable" href="structFLootLockerPlaytestOnboardingStatusResponse.html#a8dd10b19c08f07607fa983766fcc9f57">completed</a> = false;</div>
+<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00162" name="l00162"></a><span class="lineno"><a class="line" href="structFLootLockerPlaytestOnboardingStatusResponse.html#a6b723ad78e6c0eb7b530895606d34399">  162</a></span>    FDateTime <a class="code hl_variable" href="structFLootLockerPlaytestOnboardingStatusResponse.html#a6b723ad78e6c0eb7b530895606d34399">completed_at</a> = FDateTime(0);</div>
+<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00167" name="l00167"></a><span class="lineno"><a class="line" href="structFLootLockerPlaytestOnboardingStatusResponse.html#acda14107533c43c3e2f8fafa5435df34">  167</a></span>    TArray&lt;<a class="code hl_struct" href="structFLootLockerPlaytestAcknowledgedDocument.html">FLootLockerPlaytestAcknowledgedDocument</a>&gt; <a class="code hl_variable" href="structFLootLockerPlaytestOnboardingStatusResponse.html#acda14107533c43c3e2f8fafa5435df34">documents</a>;</div>
+<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00172" name="l00172"></a><span class="lineno"><a class="line" href="structFLootLockerPlaytestOnboardingStatusResponse.html#a7d577049d64ea5554a902ff48e7b01e4">  172</a></span>    TArray&lt;<a class="code hl_struct" href="structFLootLockerPlaytestAnswer.html">FLootLockerPlaytestAnswer</a>&gt; <a class="code hl_variable" href="structFLootLockerPlaytestOnboardingStatusResponse.html#a7d577049d64ea5554a902ff48e7b01e4">answers</a>;</div>
+<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span>};</div>
+</div>
+<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span></div>
+<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span>USTRUCT(BlueprintType, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="foldopen" id="foldopen00179" data-start="{" data-end="};">
+<div class="line"><a id="l00179" name="l00179"></a><span class="lineno"><a class="line" href="structFLootLockerCompletePlaytestOnboardingResponse.html">  179</a></span>struct <a class="code hl_struct" href="structFLootLockerCompletePlaytestOnboardingResponse.html">FLootLockerCompletePlaytestOnboardingResponse</a> : public <a class="code hl_struct" href="structFLootLockerResponse.html">FLootLockerResponse</a></div>
+<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span>{</div>
+<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span>    GENERATED_BODY()</div>
+<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00187" name="l00187"></a><span class="lineno"><a class="line" href="structFLootLockerCompletePlaytestOnboardingResponse.html#a1f53620c7d1b9d546973802b751b9c01">  187</a></span>    bool <a class="code hl_variable" href="structFLootLockerCompletePlaytestOnboardingResponse.html#a1f53620c7d1b9d546973802b751b9c01">complete</a> = false;</div>
+<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00192" name="l00192"></a><span class="lineno"><a class="line" href="structFLootLockerCompletePlaytestOnboardingResponse.html#ac2dc942b4d8802b067afe722f961f31f">  192</a></span>    FDateTime <a class="code hl_variable" href="structFLootLockerCompletePlaytestOnboardingResponse.html#ac2dc942b4d8802b067afe722f961f31f">completed_at</a> = FDateTime(0);</div>
+<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00197" name="l00197"></a><span class="lineno"><a class="line" href="structFLootLockerCompletePlaytestOnboardingResponse.html#a0bbcebbacfd3bf5bbed188b8d6dabe12">  197</a></span>    FString <a class="code hl_variable" href="structFLootLockerCompletePlaytestOnboardingResponse.html#a0bbcebbacfd3bf5bbed188b8d6dabe12">playtest_id</a> = <span class="stringliteral">&quot;&quot;</span>;</div>
+<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span>};</div>
+</div>
+<div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span></div>
+<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span>USTRUCT(BlueprintType, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="foldopen" id="foldopen00204" data-start="{" data-end="};">
+<div class="line"><a id="l00204" name="l00204"></a><span class="lineno"><a class="line" href="structFLootLockerAcknowledgePlaytestDocumentResponse.html">  204</a></span>struct <a class="code hl_struct" href="structFLootLockerAcknowledgePlaytestDocumentResponse.html">FLootLockerAcknowledgePlaytestDocumentResponse</a> : public <a class="code hl_struct" href="structFLootLockerResponse.html">FLootLockerResponse</a></div>
+<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span>{</div>
+<div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span>    GENERATED_BODY()</div>
+<div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00211" name="l00211"></a><span class="lineno"><a class="line" href="structFLootLockerAcknowledgePlaytestDocumentResponse.html#a40a230cc64bf122f6d66048cca6987c2">  211</a></span>    FString <a class="code hl_variable" href="structFLootLockerAcknowledgePlaytestDocumentResponse.html#a40a230cc64bf122f6d66048cca6987c2">document_id</a> = <span class="stringliteral">&quot;&quot;</span>;</div>
+<div class="line"><a id="l00215" name="l00215"></a><span class="lineno">  215</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00216" name="l00216"></a><span class="lineno"><a class="line" href="structFLootLockerAcknowledgePlaytestDocumentResponse.html#aceb01f349c11c4aa5591fd09e0c2fd97">  216</a></span>    FString <a class="code hl_variable" href="structFLootLockerAcknowledgePlaytestDocumentResponse.html#aceb01f349c11c4aa5591fd09e0c2fd97">content_hash</a> = <span class="stringliteral">&quot;&quot;</span>;</div>
+<div class="line"><a id="l00217" name="l00217"></a><span class="lineno">  217</span>};</div>
+</div>
+<div class="line"><a id="l00218" name="l00218"></a><span class="lineno">  218</span> </div>
+<div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span><span class="comment">//==================================================</span></div>
+<div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span><span class="comment">// Delegate Definitions</span></div>
+<div class="line"><a id="l00221" name="l00221"></a><span class="lineno">  221</span><span class="comment">//==================================================</span></div>
+<div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span></div>
+<div class="line"><a id="l00227" name="l00227"></a><span class="lineno"><a class="line" href="group__Playtests.html#ga470012e611631b81a692d1dcebb7f045">  227</a></span>DECLARE_DELEGATE_OneParam(<a class="code hl_typedef" href="group__Playtests.html#ga470012e611631b81a692d1dcebb7f045">FLootLockerPlaytestOnboardingStatusResponseDelegate</a>, <a class="code hl_struct" href="structFLootLockerPlaytestOnboardingStatusResponse.html">FLootLockerPlaytestOnboardingStatusResponse</a>);</div>
+<div class="line"><a id="l00231" name="l00231"></a><span class="lineno"><a class="line" href="group__Playtests.html#ga5eab547150fb3c920ab465fd92c98289">  231</a></span>DECLARE_DELEGATE_OneParam(<a class="code hl_typedef" href="group__Playtests.html#ga5eab547150fb3c920ab465fd92c98289">FLootLockerCompletePlaytestOnboardingResponseDelegate</a>, <a class="code hl_struct" href="structFLootLockerCompletePlaytestOnboardingResponse.html">FLootLockerCompletePlaytestOnboardingResponse</a>);</div>
+<div class="line"><a id="l00235" name="l00235"></a><span class="lineno"><a class="line" href="group__Playtests.html#ga807634c0fd904205ddf8c707a151d48e">  235</a></span>DECLARE_DELEGATE_OneParam(<a class="code hl_typedef" href="group__Playtests.html#ga807634c0fd904205ddf8c707a151d48e">FLootLockerAcknowledgePlaytestDocumentResponseDelegate</a>, <a class="code hl_struct" href="structFLootLockerAcknowledgePlaytestDocumentResponse.html">FLootLockerAcknowledgePlaytestDocumentResponse</a>);</div>
+<div class="line"><a id="l00236" name="l00236"></a><span class="lineno">  236</span> </div>
+<div class="line"><a id="l00237" name="l00237"></a><span class="lineno">  237</span><span class="comment">//==================================================</span></div>
+<div class="line"><a id="l00238" name="l00238"></a><span class="lineno">  238</span><span class="comment">// API Class Definition</span></div>
+<div class="line"><a id="l00239" name="l00239"></a><span class="lineno">  239</span><span class="comment">//==================================================</span></div>
+<div class="line"><a id="l00240" name="l00240"></a><span class="lineno">  240</span></div>
+<div class="line"><a id="l00242" name="l00242"></a><span class="lineno">  242</span>UCLASS()</div>
+<div class="foldopen" id="foldopen00243" data-start="{" data-end="};">
+<div class="line"><a id="l00243" name="l00243"></a><span class="lineno"><a class="line" href="classULootLockerPlaytestsRequestHandler.html">  243</a></span>class LOOTLOCKERSDK_API <a class="code hl_function" href="classULootLockerPlaytestsRequestHandler.html#afef9da6221b9c3ed8cb2dcf8dfd4129e">ULootLockerPlaytestsRequestHandler</a> : public UObject</div>
+<div class="line"><a id="l00244" name="l00244"></a><span class="lineno">  244</span>{</div>
+<div class="line"><a id="l00245" name="l00245"></a><span class="lineno">  245</span>    GENERATED_BODY()</div>
+<div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00247" name="l00247"></a><span class="lineno"><a class="line" href="classULootLockerPlaytestsRequestHandler.html#afef9da6221b9c3ed8cb2dcf8dfd4129e">  247</a></span>    <a class="code hl_function" href="classULootLockerPlaytestsRequestHandler.html#afef9da6221b9c3ed8cb2dcf8dfd4129e">ULootLockerPlaytestsRequestHandler</a>() {};</div>
+<div class="line"><a id="l00248" name="l00248"></a><span class="lineno">  248</span> </div>
+<div class="line"><a id="l00249" name="l00249"></a><span class="lineno"><a class="line" href="classULootLockerPlaytestsRequestHandler.html#aee5264f0e58c52460147ac84c6d4ae91">  249</a></span>    <span class="keyword">static</span> FString <a class="code hl_function" href="classULootLockerPlaytestsRequestHandler.html#aee5264f0e58c52460147ac84c6d4ae91">GetOnboardingStatus</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a>&amp; PlayerData, <span class="keyword">const</span> FString&amp; Subdomain, <span class="keyword">const</span> <a class="code hl_typedef" href="group__Playtests.html#ga470012e611631b81a692d1dcebb7f045">FLootLockerPlaytestOnboardingStatusResponseDelegate</a>&amp; OnComplete);</div>
+<div class="line"><a id="l00250" name="l00250"></a><span class="lineno"><a class="line" href="classULootLockerPlaytestsRequestHandler.html#a235103f3a7403abad19a1e2e46a0b2e5">  250</a></span>    <span class="keyword">static</span> FString <a class="code hl_function" href="classULootLockerPlaytestsRequestHandler.html#a235103f3a7403abad19a1e2e46a0b2e5">CompleteOnboarding</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a>&amp; PlayerData, <span class="keyword">const</span> FString&amp; Subdomain, <span class="keyword">const</span> <a class="code hl_typedef" href="group__Playtests.html#ga5eab547150fb3c920ab465fd92c98289">FLootLockerCompletePlaytestOnboardingResponseDelegate</a>&amp; OnComplete);</div>
+<div class="line"><a id="l00251" name="l00251"></a><span class="lineno"><a class="line" href="classULootLockerPlaytestsRequestHandler.html#a486721f8e27d5b94d8f4d1d82cff0c0e">  251</a></span>    <span class="keyword">static</span> FString <a class="code hl_function" href="classULootLockerPlaytestsRequestHandler.html#a486721f8e27d5b94d8f4d1d82cff0c0e">AcknowledgeDocument</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a>&amp; PlayerData, <span class="keyword">const</span> FString&amp; Subdomain, <span class="keyword">const</span> FString&amp; DocumentId, <span class="keyword">const</span> <a class="code hl_struct" href="structFLootLockerAcknowledgePlaytestDocumentRequest.html">FLootLockerAcknowledgePlaytestDocumentRequest</a>&amp; Request, <span class="keyword">const</span> <a class="code hl_typedef" href="group__Playtests.html#ga807634c0fd904205ddf8c707a151d48e">FLootLockerAcknowledgePlaytestDocumentResponseDelegate</a>&amp; OnComplete);</div>
+<div class="line"><a id="l00252" name="l00252"></a><span class="lineno">  252</span></div>
+<div class="line"><a id="l00259" name="l00259"></a><span class="lineno"><a class="line" href="classULootLockerPlaytestsRequestHandler.html#a91275442059f7c46f7aaf8ae664ec6a0">  259</a></span>    <span class="keyword">static</span> FString <a class="code hl_function" href="classULootLockerPlaytestsRequestHandler.html#a91275442059f7c46f7aaf8ae664ec6a0">SubmitAnswers</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a>&amp; PlayerData, <span class="keyword">const</span> TArray&lt;FLootLockerPlaytestAnswerSubmission&gt;&amp; Answers, <span class="keyword">const</span> <a class="code hl_typedef" href="group__Metadata.html#gaa806513179fb9125a52ab8da09260630">FLootLockerSetMetadataResponseDelegate</a>&amp; OnComplete);</div>
+<div class="line"><a id="l00260" name="l00260"></a><span class="lineno">  260</span>};</div>
+</div>
+<div class="ttc" id="aLootLockerMetadataRequestHandler_8h_html"><div class="ttname"><a href="LootLockerMetadataRequestHandler_8h.html">LootLockerMetadataRequestHandler.h</a></div></div>
+<div class="ttc" id="aLootLockerPlayerData_8h_html"><div class="ttname"><a href="LootLockerPlayerData_8h.html">LootLockerPlayerData.h</a></div></div>
+<div class="ttc" id="aLootLockerResponse_8h_html"><div class="ttname"><a href="LootLockerResponse_8h.html">LootLockerResponse.h</a></div></div>
+<div class="ttc" id="aclassULootLockerPlaytestsRequestHandler_html_a235103f3a7403abad19a1e2e46a0b2e5"><div class="ttname"><a href="classULootLockerPlaytestsRequestHandler.html#a235103f3a7403abad19a1e2e46a0b2e5">ULootLockerPlaytestsRequestHandler::CompleteOnboarding</a></div><div class="ttdeci">static FString CompleteOnboarding(const FLootLockerPlayerData &amp;PlayerData, const FString &amp;Subdomain, const FLootLockerCompletePlaytestOnboardingResponseDelegate &amp;OnComplete)</div></div>
+<div class="ttc" id="aclassULootLockerPlaytestsRequestHandler_html_a486721f8e27d5b94d8f4d1d82cff0c0e"><div class="ttname"><a href="classULootLockerPlaytestsRequestHandler.html#a486721f8e27d5b94d8f4d1d82cff0c0e">ULootLockerPlaytestsRequestHandler::AcknowledgeDocument</a></div><div class="ttdeci">static FString AcknowledgeDocument(const FLootLockerPlayerData &amp;PlayerData, const FString &amp;Subdomain, const FString &amp;DocumentId, const FLootLockerAcknowledgePlaytestDocumentRequest &amp;Request, const FLootLockerAcknowledgePlaytestDocumentResponseDelegate &amp;OnComplete)</div></div>
+<div class="ttc" id="aclassULootLockerPlaytestsRequestHandler_html_a91275442059f7c46f7aaf8ae664ec6a0"><div class="ttname"><a href="classULootLockerPlaytestsRequestHandler.html#a91275442059f7c46f7aaf8ae664ec6a0">ULootLockerPlaytestsRequestHandler::SubmitAnswers</a></div><div class="ttdeci">static FString SubmitAnswers(const FLootLockerPlayerData &amp;PlayerData, const TArray&lt; FLootLockerPlaytestAnswerSubmission &gt; &amp;Answers, const FLootLockerSetMetadataResponseDelegate &amp;OnComplete)</div><div class="ttdoc">Submit answers to a playtest for the current player.</div></div>
+<div class="ttc" id="aclassULootLockerPlaytestsRequestHandler_html_aee5264f0e58c52460147ac84c6d4ae91"><div class="ttname"><a href="classULootLockerPlaytestsRequestHandler.html#aee5264f0e58c52460147ac84c6d4ae91">ULootLockerPlaytestsRequestHandler::GetOnboardingStatus</a></div><div class="ttdeci">static FString GetOnboardingStatus(const FLootLockerPlayerData &amp;PlayerData, const FString &amp;Subdomain, const FLootLockerPlaytestOnboardingStatusResponseDelegate &amp;OnComplete)</div></div>
+<div class="ttc" id="aclassULootLockerPlaytestsRequestHandler_html_afef9da6221b9c3ed8cb2dcf8dfd4129e"><div class="ttname"><a href="classULootLockerPlaytestsRequestHandler.html#afef9da6221b9c3ed8cb2dcf8dfd4129e">ULootLockerPlaytestsRequestHandler::ULootLockerPlaytestsRequestHandler</a></div><div class="ttdeci">ULootLockerPlaytestsRequestHandler()</div><div class="ttdef"><b>Definition</b> LootLockerPlaytestsRequestHandler.h:247</div></div>
+<div class="ttc" id="agroup__Metadata_html_ga7ae3db614872bb456a6b01bee377ec3e"><div class="ttname"><a href="group__Metadata.html#ga7ae3db614872bb456a6b01bee377ec3e">ELootLockerMetadataTypes</a></div><div class="ttdeci">ELootLockerMetadataTypes</div><div class="ttdoc">Possible metadata types.</div><div class="ttdef"><b>Definition</b> LootLockerMetadataRequestHandler.h:45</div></div>
+<div class="ttc" id="agroup__Metadata_html_gaa806513179fb9125a52ab8da09260630"><div class="ttname"><a href="group__Metadata.html#gaa806513179fb9125a52ab8da09260630">FLootLockerSetMetadataResponseDelegate</a></div><div class="ttdeci">void(* FLootLockerSetMetadataResponseDelegate)(FLootLockerSetMetadataResponse)</div><div class="ttdoc">Blueprint response delegate for setting metadata.</div><div class="ttdef"><b>Definition</b> LootLockerMetadataRequestHandler.h:501</div></div>
+<div class="ttc" id="agroup__Metadata_html_gga7ae3db614872bb456a6b01bee377ec3ea27118326006d3829667a400ad23d5d98"><div class="ttname"><a href="group__Metadata.html#gga7ae3db614872bb456a6b01bee377ec3ea27118326006d3829667a400ad23d5d98">ELootLockerMetadataTypes::String</a></div><div class="ttdeci">@ String</div><div class="ttdef"><b>Definition</b> LootLockerMetadataRequestHandler.h:46</div></div>
+<div class="ttc" id="agroup__Playtests_html_ga470012e611631b81a692d1dcebb7f045"><div class="ttname"><a href="group__Playtests.html#ga470012e611631b81a692d1dcebb7f045">FLootLockerPlaytestOnboardingStatusResponseDelegate</a></div><div class="ttdeci">void(* FLootLockerPlaytestOnboardingStatusResponseDelegate)(FLootLockerPlaytestOnboardingStatusResponse)</div><div class="ttdoc">C++ response delegate for getting a playtest&#39;s onboarding status.</div><div class="ttdef"><b>Definition</b> LootLockerPlaytestsRequestHandler.h:227</div></div>
+<div class="ttc" id="agroup__Playtests_html_ga5eab547150fb3c920ab465fd92c98289"><div class="ttname"><a href="group__Playtests.html#ga5eab547150fb3c920ab465fd92c98289">FLootLockerCompletePlaytestOnboardingResponseDelegate</a></div><div class="ttdeci">void(* FLootLockerCompletePlaytestOnboardingResponseDelegate)(FLootLockerCompletePlaytestOnboardingResponse)</div><div class="ttdoc">C++ response delegate for completing playtest onboarding.</div><div class="ttdef"><b>Definition</b> LootLockerPlaytestsRequestHandler.h:231</div></div>
+<div class="ttc" id="agroup__Playtests_html_ga807634c0fd904205ddf8c707a151d48e"><div class="ttname"><a href="group__Playtests.html#ga807634c0fd904205ddf8c707a151d48e">FLootLockerAcknowledgePlaytestDocumentResponseDelegate</a></div><div class="ttdeci">void(* FLootLockerAcknowledgePlaytestDocumentResponseDelegate)(FLootLockerAcknowledgePlaytestDocumentResponse)</div><div class="ttdoc">C++ response delegate for acknowledging a playtest document.</div><div class="ttdef"><b>Definition</b> LootLockerPlaytestsRequestHandler.h:235</div></div>
+<div class="ttc" id="astructFLootLockerAcknowledgePlaytestDocumentRequest_html"><div class="ttname"><a href="structFLootLockerAcknowledgePlaytestDocumentRequest.html">FLootLockerAcknowledgePlaytestDocumentRequest</a></div><div class="ttdoc">Request to acknowledge a playtest document.</div><div class="ttdef"><b>Definition</b> LootLockerPlaytestsRequestHandler.h:23</div></div>
+<div class="ttc" id="astructFLootLockerAcknowledgePlaytestDocumentRequest_html_a1fbf299b72afe7e379c6e014c651c645"><div class="ttname"><a href="structFLootLockerAcknowledgePlaytestDocumentRequest.html#a1fbf299b72afe7e379c6e014c651c645">FLootLockerAcknowledgePlaytestDocumentRequest::statement_ids</a></div><div class="ttdeci">TArray&lt; FString &gt; statement_ids</div><div class="ttdoc">Every statement id in the document.</div><div class="ttdef"><b>Definition</b> LootLockerPlaytestsRequestHandler.h:29</div></div>
+<div class="ttc" id="astructFLootLockerAcknowledgePlaytestDocumentResponse_html"><div class="ttname"><a href="structFLootLockerAcknowledgePlaytestDocumentResponse.html">FLootLockerAcknowledgePlaytestDocumentResponse</a></div><div class="ttdoc">Response returned after acknowledging a playtest document.</div><div class="ttdef"><b>Definition</b> LootLockerPlaytestsRequestHandler.h:205</div></div>
+<div class="ttc" id="astructFLootLockerAcknowledgePlaytestDocumentResponse_html_a40a230cc64bf122f6d66048cca6987c2"><div class="ttname"><a href="structFLootLockerAcknowledgePlaytestDocumentResponse.html#a40a230cc64bf122f6d66048cca6987c2">FLootLockerAcknowledgePlaytestDocumentResponse::document_id</a></div><div class="ttdeci">FString document_id</div><div class="ttdoc">The ULID of the acknowledged document.</div><div class="ttdef"><b>Definition</b> LootLockerPlaytestsRequestHandler.h:211</div></div>
+<div class="ttc" id="astructFLootLockerAcknowledgePlaytestDocumentResponse_html_aceb01f349c11c4aa5591fd09e0c2fd97"><div class="ttname"><a href="structFLootLockerAcknowledgePlaytestDocumentResponse.html#aceb01f349c11c4aa5591fd09e0c2fd97">FLootLockerAcknowledgePlaytestDocumentResponse::content_hash</a></div><div class="ttdeci">FString content_hash</div><div class="ttdoc">The content hash of the document that was acknowledged.</div><div class="ttdef"><b>Definition</b> LootLockerPlaytestsRequestHandler.h:216</div></div>
+<div class="ttc" id="astructFLootLockerCompletePlaytestOnboardingResponse_html"><div class="ttname"><a href="structFLootLockerCompletePlaytestOnboardingResponse.html">FLootLockerCompletePlaytestOnboardingResponse</a></div><div class="ttdoc">Response returned after completing playtest onboarding for the calling player.</div><div class="ttdef"><b>Definition</b> LootLockerPlaytestsRequestHandler.h:180</div></div>
+<div class="ttc" id="astructFLootLockerCompletePlaytestOnboardingResponse_html_a0bbcebbacfd3bf5bbed188b8d6dabe12"><div class="ttname"><a href="structFLootLockerCompletePlaytestOnboardingResponse.html#a0bbcebbacfd3bf5bbed188b8d6dabe12">FLootLockerCompletePlaytestOnboardingResponse::playtest_id</a></div><div class="ttdeci">FString playtest_id</div><div class="ttdoc">The ULID of the playtest that was completed.</div><div class="ttdef"><b>Definition</b> LootLockerPlaytestsRequestHandler.h:197</div></div>
+<div class="ttc" id="astructFLootLockerCompletePlaytestOnboardingResponse_html_a1f53620c7d1b9d546973802b751b9c01"><div class="ttname"><a href="structFLootLockerCompletePlaytestOnboardingResponse.html#a1f53620c7d1b9d546973802b751b9c01">FLootLockerCompletePlaytestOnboardingResponse::complete</a></div><div class="ttdeci">bool complete</div><div class="ttdoc">Whether onboarding is now complete.</div><div class="ttdef"><b>Definition</b> LootLockerPlaytestsRequestHandler.h:187</div></div>
+<div class="ttc" id="astructFLootLockerCompletePlaytestOnboardingResponse_html_ac2dc942b4d8802b067afe722f961f31f"><div class="ttname"><a href="structFLootLockerCompletePlaytestOnboardingResponse.html#ac2dc942b4d8802b067afe722f961f31f">FLootLockerCompletePlaytestOnboardingResponse::completed_at</a></div><div class="ttdeci">FDateTime completed_at</div><div class="ttdoc">When onboarding was completed.</div><div class="ttdef"><b>Definition</b> LootLockerPlaytestsRequestHandler.h:192</div></div>
+<div class="ttc" id="astructFLootLockerPlayerData_html"><div class="ttname"><a href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a></div><div class="ttdef"><b>Definition</b> LootLockerPlayerData.h:12</div></div>
+<div class="ttc" id="astructFLootLockerPlaytestAcknowledgedDocument_html"><div class="ttname"><a href="structFLootLockerPlaytestAcknowledgedDocument.html">FLootLockerPlaytestAcknowledgedDocument</a></div><div class="ttdoc">A document the calling player has acknowledged in a playtest.</div><div class="ttdef"><b>Definition</b> LootLockerPlaytestsRequestHandler.h:43</div></div>
+<div class="ttc" id="astructFLootLockerPlaytestAcknowledgedDocument_html_a00683e18a926e73bdb68ea35ddab176e"><div class="ttname"><a href="structFLootLockerPlaytestAcknowledgedDocument.html#a00683e18a926e73bdb68ea35ddab176e">FLootLockerPlaytestAcknowledgedDocument::statement_ids</a></div><div class="ttdeci">TArray&lt; FString &gt; statement_ids</div><div class="ttdoc">The statement ids that were acknowledged.</div><div class="ttdef"><b>Definition</b> LootLockerPlaytestsRequestHandler.h:60</div></div>
+<div class="ttc" id="astructFLootLockerPlaytestAcknowledgedDocument_html_aa9914c9f2d1461aa3bd1f0ba612c338c"><div class="ttname"><a href="structFLootLockerPlaytestAcknowledgedDocument.html#aa9914c9f2d1461aa3bd1f0ba612c338c">FLootLockerPlaytestAcknowledgedDocument::document_id</a></div><div class="ttdeci">FString document_id</div><div class="ttdoc">The ULID of the document.</div><div class="ttdef"><b>Definition</b> LootLockerPlaytestsRequestHandler.h:49</div></div>
+<div class="ttc" id="astructFLootLockerPlaytestAcknowledgedDocument_html_ac52874abdb9540e1d44951323f7ba41c"><div class="ttname"><a href="structFLootLockerPlaytestAcknowledgedDocument.html#ac52874abdb9540e1d44951323f7ba41c">FLootLockerPlaytestAcknowledgedDocument::acknowledged_at</a></div><div class="ttdeci">FDateTime acknowledged_at</div><div class="ttdoc">When the document was acknowledged.</div><div class="ttdef"><b>Definition</b> LootLockerPlaytestsRequestHandler.h:65</div></div>
+<div class="ttc" id="astructFLootLockerPlaytestAcknowledgedDocument_html_ac580a91d46d1f12e6eab00ab9ec8ef12"><div class="ttname"><a href="structFLootLockerPlaytestAcknowledgedDocument.html#ac580a91d46d1f12e6eab00ab9ec8ef12">FLootLockerPlaytestAcknowledgedDocument::content_hash</a></div><div class="ttdeci">FString content_hash</div><div class="ttdoc">The content hash of the document at the time it was acknowledged.</div><div class="ttdef"><b>Definition</b> LootLockerPlaytestsRequestHandler.h:55</div></div>
+<div class="ttc" id="astructFLootLockerPlaytestAnswerSubmission_html"><div class="ttname"><a href="structFLootLockerPlaytestAnswerSubmission.html">FLootLockerPlaytestAnswerSubmission</a></div><div class="ttdoc">A single answer to a playtest question, submitted through SubmitPlaytestAnswers.</div><div class="ttdef"><b>Definition</b> LootLockerPlaytestsRequestHandler.h:102</div></div>
+<div class="ttc" id="astructFLootLockerPlaytestAnswerSubmission_html_a1dda4629f51bd69d04b2cf99a3c59bda"><div class="ttname"><a href="structFLootLockerPlaytestAnswerSubmission.html#a1dda4629f51bd69d04b2cf99a3c59bda">FLootLockerPlaytestAnswerSubmission::Metadata_key</a></div><div class="ttdeci">FString Metadata_key</div><div class="ttdoc">The metadata_key of the question this answers.</div><div class="ttdef"><b>Definition</b> LootLockerPlaytestsRequestHandler.h:108</div></div>
+<div class="ttc" id="astructFLootLockerPlaytestAnswerSubmission_html_a72189cdf4eccff5fb01128f674ecb283"><div class="ttname"><a href="structFLootLockerPlaytestAnswerSubmission.html#a72189cdf4eccff5fb01128f674ecb283">FLootLockerPlaytestAnswerSubmission::FromText</a></div><div class="ttdeci">static FLootLockerPlaytestAnswerSubmission FromText(const FString &amp;MetadataKey, const FString &amp;Value)</div><div class="ttdoc">Build a String answer, for short_text, long_text, date and select questions.</div></div>
+<div class="ttc" id="astructFLootLockerPlaytestAnswerSubmission_html_a9bdcab3ada6ecbf42db7c13dcd3d1a76"><div class="ttname"><a href="structFLootLockerPlaytestAnswerSubmission.html#a9bdcab3ada6ecbf42db7c13dcd3d1a76">FLootLockerPlaytestAnswerSubmission::FromMultiSelect</a></div><div class="ttdeci">static FLootLockerPlaytestAnswerSubmission FromMultiSelect(const FString &amp;MetadataKey, const TArray&lt; FString &gt; &amp;SelectedValues)</div><div class="ttdoc">Build a Json answer, for multiselect questions.</div></div>
+<div class="ttc" id="astructFLootLockerPlaytestAnswerSubmission_html_aa05c83c611edcce79a54898de716e640"><div class="ttname"><a href="structFLootLockerPlaytestAnswerSubmission.html#aa05c83c611edcce79a54898de716e640">FLootLockerPlaytestAnswerSubmission::Type</a></div><div class="ttdeci">ELootLockerMetadataTypes Type</div><div class="ttdoc">The metadata type of the value.</div><div class="ttdef"><b>Definition</b> LootLockerPlaytestsRequestHandler.h:125</div></div>
+<div class="ttc" id="astructFLootLockerPlaytestAnswerSubmission_html_ac64c55d36c8d015baecad3329518d1cd"><div class="ttname"><a href="structFLootLockerPlaytestAnswerSubmission.html#ac64c55d36c8d015baecad3329518d1cd">FLootLockerPlaytestAnswerSubmission::Value</a></div><div class="ttdeci">FString Value</div><div class="ttdoc">The answer value.</div><div class="ttdef"><b>Definition</b> LootLockerPlaytestsRequestHandler.h:118</div></div>
+<div class="ttc" id="astructFLootLockerPlaytestAnswerSubmission_html_adbe5663bf9542f5f4754f7bcf07e5c2c"><div class="ttname"><a href="structFLootLockerPlaytestAnswerSubmission.html#adbe5663bf9542f5f4754f7bcf07e5c2c">FLootLockerPlaytestAnswerSubmission::FromNumber</a></div><div class="ttdeci">static FLootLockerPlaytestAnswerSubmission FromNumber(const FString &amp;MetadataKey, double Value)</div><div class="ttdoc">Build a Number answer, for number questions.</div></div>
+<div class="ttc" id="astructFLootLockerPlaytestAnswerSubmission_html_afffaefd36eb6609b30765a06ff70126e"><div class="ttname"><a href="structFLootLockerPlaytestAnswerSubmission.html#afffaefd36eb6609b30765a06ff70126e">FLootLockerPlaytestAnswerSubmission::FromBool</a></div><div class="ttdeci">static FLootLockerPlaytestAnswerSubmission FromBool(const FString &amp;MetadataKey, bool Value)</div><div class="ttdoc">Build a Bool answer, for checkbox questions.</div></div>
+<div class="ttc" id="astructFLootLockerPlaytestAnswer_html"><div class="ttname"><a href="structFLootLockerPlaytestAnswer.html">FLootLockerPlaytestAnswer</a></div><div class="ttdoc">An answer the calling player has stored for a playtest question.</div><div class="ttdef"><b>Definition</b> LootLockerPlaytestsRequestHandler.h:73</div></div>
+<div class="ttc" id="astructFLootLockerPlaytestAnswer_html_a19adf5de34e57889d0ceac2ef633729f"><div class="ttname"><a href="structFLootLockerPlaytestAnswer.html#a19adf5de34e57889d0ceac2ef633729f">FLootLockerPlaytestAnswer::value</a></div><div class="ttdeci">FString value</div><div class="ttdoc">The serialized metadata entry.</div><div class="ttdef"><b>Definition</b> LootLockerPlaytestsRequestHandler.h:84</div></div>
+<div class="ttc" id="astructFLootLockerPlaytestAnswer_html_a758b2e0fbc6269dbc9438a1193b671ec"><div class="ttname"><a href="structFLootLockerPlaytestAnswer.html#a758b2e0fbc6269dbc9438a1193b671ec">FLootLockerPlaytestAnswer::key</a></div><div class="ttdeci">FString key</div><div class="ttdoc">The player metadata key the answer is stored under.</div><div class="ttdef"><b>Definition</b> LootLockerPlaytestsRequestHandler.h:79</div></div>
+<div class="ttc" id="astructFLootLockerPlaytestOnboardingStatusResponse_html"><div class="ttname"><a href="structFLootLockerPlaytestOnboardingStatusResponse.html">FLootLockerPlaytestOnboardingStatusResponse</a></div><div class="ttdoc">Response containing the calling player&#39;s onboarding progress for a playtest.</div><div class="ttdef"><b>Definition</b> LootLockerPlaytestsRequestHandler.h:150</div></div>
+<div class="ttc" id="astructFLootLockerPlaytestOnboardingStatusResponse_html_a6b723ad78e6c0eb7b530895606d34399"><div class="ttname"><a href="structFLootLockerPlaytestOnboardingStatusResponse.html#a6b723ad78e6c0eb7b530895606d34399">FLootLockerPlaytestOnboardingStatusResponse::completed_at</a></div><div class="ttdeci">FDateTime completed_at</div><div class="ttdoc">When the player completed onboarding.</div><div class="ttdef"><b>Definition</b> LootLockerPlaytestsRequestHandler.h:162</div></div>
+<div class="ttc" id="astructFLootLockerPlaytestOnboardingStatusResponse_html_a7d577049d64ea5554a902ff48e7b01e4"><div class="ttname"><a href="structFLootLockerPlaytestOnboardingStatusResponse.html#a7d577049d64ea5554a902ff48e7b01e4">FLootLockerPlaytestOnboardingStatusResponse::answers</a></div><div class="ttdeci">TArray&lt; FLootLockerPlaytestAnswer &gt; answers</div><div class="ttdoc">The answers the player has stored for this playtest&#39;s questions.</div><div class="ttdef"><b>Definition</b> LootLockerPlaytestsRequestHandler.h:172</div></div>
+<div class="ttc" id="astructFLootLockerPlaytestOnboardingStatusResponse_html_a8dd10b19c08f07607fa983766fcc9f57"><div class="ttname"><a href="structFLootLockerPlaytestOnboardingStatusResponse.html#a8dd10b19c08f07607fa983766fcc9f57">FLootLockerPlaytestOnboardingStatusResponse::completed</a></div><div class="ttdeci">bool completed</div><div class="ttdoc">Whether the player has completed onboarding for this playtest.</div><div class="ttdef"><b>Definition</b> LootLockerPlaytestsRequestHandler.h:156</div></div>
+<div class="ttc" id="astructFLootLockerPlaytestOnboardingStatusResponse_html_acda14107533c43c3e2f8fafa5435df34"><div class="ttname"><a href="structFLootLockerPlaytestOnboardingStatusResponse.html#acda14107533c43c3e2f8fafa5435df34">FLootLockerPlaytestOnboardingStatusResponse::documents</a></div><div class="ttdeci">TArray&lt; FLootLockerPlaytestAcknowledgedDocument &gt; documents</div><div class="ttdoc">The documents the player has acknowledged.</div><div class="ttdef"><b>Definition</b> LootLockerPlaytestsRequestHandler.h:167</div></div>
+<div class="ttc" id="astructFLootLockerResponse_html"><div class="ttname"><a href="structFLootLockerResponse.html">FLootLockerResponse</a></div><div class="ttdoc">Base response struct — every SDK callback receives a struct that derives from this.</div><div class="ttdef"><b>Definition</b> LootLockerResponse.h:19</div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+</div><!-- container -->
+<!-- HTML footer for doxygen 1.15.0-->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="dir_426131f2e7e3782155028ac49ab5e11c.html">LootLockerSDK</a></li><li class="navelem"><a href="dir_63662f8d869795fbcfe09e29de292894.html">Source</a></li><li class="navelem"><a href="dir_529bffb88e47999e071ca27db50fed71.html">LootLockerSDK</a></li><li class="navelem"><a href="dir_6800d9c9fc95b443eb5325340bc06d03.html">Public</a></li><li class="navelem"><a href="dir_c4276055a6e8dd41429ac8d6d68c790b.html">GameAPI</a></li><li class="navelem"><a href="LootLockerPlaytestsRequestHandler_8h.html">LootLockerPlaytestsRequestHandler.h</a></li>
+    <li class="footer">
+      Generated by <a href="https://www.doxygen.org/index.html">Doxygen</a> 1.15.0
+      &nbsp;&mdash;&nbsp;
+      <a href="https://lootlocker.com" target="_blank" rel="noopener noreferrer">LootLocker</a>
+    </li>
+  </ul>
+</div>
+<script src="nav-customization.js" type="text/javascript"></script>
+</body>
+</html>

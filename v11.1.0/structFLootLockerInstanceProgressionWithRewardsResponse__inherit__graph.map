@@ -1,0 +1,9 @@
+<map id="FLootLockerInstanceProgressionWithRewardsResponse" name="FLootLockerInstanceProgressionWithRewardsResponse">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,266,236,311"/>
+<area shape="rect" id="Node000002" href="$structFLootLockerGenericProgressionWithRewardsResponse.html" title=" " alt="" coords="8,174,233,218"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="122,232,123,267,118,265,119,236"/>
+<area shape="rect" id="Node000003" href="$structFLootLockerGenericProgressionResponse.html" title=" " alt="" coords="8,81,233,126"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="122,139,123,174,118,173,119,144"/>
+<area shape="rect" id="Node000004" href="$structFLootLockerResponse.html" title="Base response struct — every SDK callback receives a struct that derives from this." alt="" coords="39,5,202,33"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="121,46,123,81,118,80,120,51"/>
+</map>

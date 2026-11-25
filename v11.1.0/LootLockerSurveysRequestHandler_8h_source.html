@@ -1,0 +1,450 @@
+<!-- HTML header for doxygen 1.15.0-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.15.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>LootLocker Unreal SDK: LootLockerSDK/Source/LootLockerSDK/Public/GameAPI/LootLockerSurveysRequestHandler.h Source File</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript">var page_layout=1;</script>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only.css" rel="stylesheet" type="text/css"/>
+<link href="custom-layout-fixes.css" rel="stylesheet" type="text/css"/>
+<link href="lootlocker-theme.css" rel="stylesheet" type="text/css"/>
+<!-- Apply saved color scheme before first paint to prevent flash -->
+<script type="text/javascript">
+(function () {
+  try {
+    var saved = localStorage.getItem('ll-colorscheme');
+    var html = document.documentElement;
+    if (saved === 'dark') {
+      html.classList.remove('light-mode');
+      html.classList.add('dark-mode');
+    } else if (saved === 'light') {
+      html.classList.remove('dark-mode');
+      html.classList.add('light-mode');
+    }
+    // No saved pref: OS preference handled by CSS media query
+  } catch (e) {}
+})();
+</script>
+</head>
+<body>
+<!-- ================================================================
+     LootLocker top navigation bar
+     ================================================================ -->
+<nav id="ll-topnav" role="navigation" aria-label="LootLocker navigation">
+  <div id="ll-topnav-inner">
+    <!-- Left: logo + product name + section tabs -->
+    <div id="ll-topnav-left">
+      <a href="index.html" id="ll-topnav-logo-link"
+         aria-label="LootLocker Unreal SDK — home">
+        <img src="lootlocker-logo.png" alt="LootLocker" id="ll-topnav-logo-img"/>
+      </a>
+      <span id="ll-topnav-divider" aria-hidden="true"></span>
+      <a href="index.html" id="ll-topnav-product">Unreal SDK</a>
+      <span id="ll-topnav-version">v11.1.0</span>
+      <a href="https://github.com/lootlocker/unreal-sdk" target="_blank"
+         rel="noopener noreferrer" id="ll-topnav-github" aria-label="GitHub repository">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+             fill="currentColor" aria-hidden="true">
+          <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
+        </svg>
+      </a>
+      <div id="ll-topnav-links">
+        <a href="https://ref.lootlocker.com/game" target="_blank"
+           rel="noopener noreferrer" class="ll-topnav-tab">Game API &#8599;</a>
+        <a href="https://console.lootlocker.com" target="_blank"
+           rel="noopener noreferrer" class="ll-topnav-tab">Console &#8599;</a>
+        <a href="https://docs.lootlocker.com/" target="_blank"
+           rel="noopener noreferrer" class="ll-topnav-tab">Docs &#8599;</a>
+      </div>
+    </div>
+    <!-- Right: sign-up CTA + dark mode toggle -->
+    <div id="ll-topnav-right">
+      <a href="https://lootlocker.com/sign-up" target="_blank"
+         rel="noopener noreferrer" class="ll-topnav-signup">Sign Up</a>
+      <button id="ll-dark-toggle" type="button"
+              aria-label="Toggle dark mode" title="Toggle dark/light mode"
+              onclick="llToggleDark()">
+        <!-- Sun icon — shown in dark mode -->
+        <svg id="ll-icon-sun" xmlns="http://www.w3.org/2000/svg"
+             width="16" height="16" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2"
+             stroke-linecap="round" stroke-linejoin="round"
+             aria-hidden="true">
+          <circle cx="12" cy="12" r="5"/>
+          <line x1="12" y1="1" x2="12" y2="3"/>
+          <line x1="12" y1="21" x2="12" y2="23"/>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+          <line x1="1" y1="12" x2="3" y2="12"/>
+          <line x1="21" y1="12" x2="23" y2="12"/>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+        </svg>
+        <!-- Moon icon — shown in light mode -->
+        <svg id="ll-icon-moon" xmlns="http://www.w3.org/2000/svg"
+             width="16" height="16" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2"
+             stroke-linecap="round" stroke-linejoin="round"
+             aria-hidden="true">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+</nav>
+<script type="text/javascript">
+function llToggleDark() {
+  var html = document.documentElement;
+  var isDark = html.classList.contains('dark-mode') ||
+               (!html.classList.contains('light-mode') &&
+                window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+  if (isDark) {
+    html.classList.remove('dark-mode');
+    html.classList.add('light-mode');
+    try { localStorage.setItem('ll-colorscheme', 'light'); } catch (e) {}
+  } else {
+    html.classList.remove('light-mode');
+    html.classList.add('dark-mode');
+    try { localStorage.setItem('ll-colorscheme', 'dark'); } catch (e) {}
+  }
+}
+</script>
+<script type="text/javascript" src="version-picker.js" defer="defer"></script>
+<div id="side-nav" class="ui-resizable side-nav-resizable"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="lootlocker-logo.png"/></td>
+  <td id="projectalign">
+   <div id="projectname">LootLocker Unreal SDK<span id="projectnumber">&#160;11.1.0</span>
+   </div>
+   <div id="projectbrief">Game backend SDK for Unreal Engine</div>
+  </td>
+ </tr>
+   <tr><td colspan="2">        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td></tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.15.0 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('LootLockerSurveysRequestHandler_8h_source.html','',''); });
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+$(function() {
+  initMenu('',false,false,'search.php','Search',true);
+});
+</script>
+<div id="main-nav"></div>
+<div id="container"><div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">LootLockerSurveysRequestHandler.h</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="LootLockerSurveysRequestHandler_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">// Copyright (c) 2021 LootLocker</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#pragma once</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> </div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &quot;CoreMinimal.h&quot;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &quot;JsonObjectWrapper.h&quot;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &quot;<a class="code" href="LootLockerResponse_8h.html">LootLockerResponse.h</a>&quot;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &quot;<a class="code" href="LootLockerPlayerData_8h.html">LootLockerPlayerData.h</a>&quot;</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &quot;<a class="code" href="LootLockerMetadataRequestHandler_8h.html">GameAPI/LootLockerMetadataRequestHandler.h</a>&quot;</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &quot;LootLockerSurveysRequestHandler.generated.h&quot;</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="comment">//==================================================</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="comment">// Data Type Definitions</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="comment">//==================================================</span></div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span></div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>USTRUCT(BlueprintType, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="foldopen" id="foldopen00022" data-start="{" data-end="};">
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno"><a class="line" href="structFLootLockerSurveyQuestion.html">   22</a></span>struct <a class="code hl_struct" href="structFLootLockerSurveyQuestion.html">FLootLockerSurveyQuestion</a></div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>{</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    GENERATED_BODY()</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno"><a class="line" href="structFLootLockerSurveyQuestion.html#a6b8ade50247b59eb705abb03ea6d1f63">   29</a></span>    FString <a class="code hl_variable" href="structFLootLockerSurveyQuestion.html#a6b8ade50247b59eb705abb03ea6d1f63">Id</a> = <span class="stringliteral">&quot;&quot;</span>;</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno"><a class="line" href="structFLootLockerSurveyQuestion.html#a46416a8b80542ec9451d6b665bea1f80">   34</a></span>    FString <a class="code hl_variable" href="structFLootLockerSurveyQuestion.html#a46416a8b80542ec9451d6b665bea1f80">Survey_id</a> = <span class="stringliteral">&quot;&quot;</span>;</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno"><a class="line" href="structFLootLockerSurveyQuestion.html#a347cd1a79a1672562c6090994b4f6379">   39</a></span>    FString <a class="code hl_variable" href="structFLootLockerSurveyQuestion.html#a347cd1a79a1672562c6090994b4f6379">Question_text</a> = <span class="stringliteral">&quot;&quot;</span>;</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno"><a class="line" href="structFLootLockerSurveyQuestion.html#abb1ec3001686c160ce3170fc6d6a36f2">   44</a></span>    FString <a class="code hl_variable" href="structFLootLockerSurveyQuestion.html#abb1ec3001686c160ce3170fc6d6a36f2">Metadata_key</a> = <span class="stringliteral">&quot;&quot;</span>;</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno"><a class="line" href="structFLootLockerSurveyQuestion.html#a388491aa5806007804f436ea5e23c85e">   49</a></span>    FString <a class="code hl_variable" href="structFLootLockerSurveyQuestion.html#a388491aa5806007804f436ea5e23c85e">Field_type</a> = <span class="stringliteral">&quot;&quot;</span>;</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno"><a class="line" href="structFLootLockerSurveyQuestion.html#a7b7ddaf63ebdc1979166390e3787e215">   55</a></span>    FJsonObjectWrapper <a class="code hl_variable" href="structFLootLockerSurveyQuestion.html#a7b7ddaf63ebdc1979166390e3787e215">Params</a>;</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno"><a class="line" href="structFLootLockerSurveyQuestion.html#a4c6b582904d4bd2242735599eee927e4">   60</a></span>    <span class="keywordtype">bool</span> <a class="code hl_variable" href="structFLootLockerSurveyQuestion.html#a4c6b582904d4bd2242735599eee927e4">Required</a> = false;</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno"><a class="line" href="structFLootLockerSurveyQuestion.html#ae3ac98adc275aff7ea887a0edddc6eb8">   65</a></span>    int32 <a class="code hl_variable" href="structFLootLockerSurveyQuestion.html#ae3ac98adc275aff7ea887a0edddc6eb8">Sort_order</a> = 0;</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno"><a class="line" href="structFLootLockerSurveyQuestion.html#a66326101da85548ece16d6f3046e2468">   70</a></span>    FDateTime <a class="code hl_variable" href="structFLootLockerSurveyQuestion.html#a66326101da85548ece16d6f3046e2468">Created_at</a> = FDateTime(0);</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno"><a class="line" href="structFLootLockerSurveyQuestion.html#a356e626492d0c63852d051005d552849">   75</a></span>    <span class="keywordtype">bool</span> <a class="code hl_variable" href="structFLootLockerSurveyQuestion.html#a356e626492d0c63852d051005d552849">Sensitive</a> = false;</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>};</div>
+</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span></div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span></div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span></div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>USTRUCT(BlueprintType, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="foldopen" id="foldopen00085" data-start="{" data-end="};">
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno"><a class="line" href="structFLootLockerSurvey.html">   85</a></span>struct <a class="code hl_struct" href="structFLootLockerSurvey.html">FLootLockerSurvey</a></div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>{</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>    GENERATED_BODY()</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno"><a class="line" href="structFLootLockerSurvey.html#a4592971c9f019ddb1180f68c5b5993ce">   92</a></span>    FString <a class="code hl_variable" href="structFLootLockerSurvey.html#a4592971c9f019ddb1180f68c5b5993ce">Id</a> = <span class="stringliteral">&quot;&quot;</span>;</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno"><a class="line" href="structFLootLockerSurvey.html#a1f953c69646417bb9a287b56ce20e3bf">   97</a></span>    FString <a class="code hl_variable" href="structFLootLockerSurvey.html#a1f953c69646417bb9a287b56ce20e3bf">Name</a> = <span class="stringliteral">&quot;&quot;</span>;</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno"><a class="line" href="structFLootLockerSurvey.html#abd1871ada6f2cb791c541484899ac323">  102</a></span>    FDateTime <a class="code hl_variable" href="structFLootLockerSurvey.html#abd1871ada6f2cb791c541484899ac323">Created_at</a> = FDateTime(0);</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno"><a class="line" href="structFLootLockerSurvey.html#a0c2ad05b5ea5305014aece37a4f7c11e">  108</a></span>    <span class="keywordtype">bool</span> <a class="code hl_variable" href="structFLootLockerSurvey.html#a0c2ad05b5ea5305014aece37a4f7c11e">Completed</a> = false;</div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno"><a class="line" href="structFLootLockerSurvey.html#a247e3071c436f97445d5def7660d97ca">  115</a></span>    FDateTime <a class="code hl_variable" href="structFLootLockerSurvey.html#a247e3071c436f97445d5def7660d97ca">Completed_at</a> = FDateTime(0);</div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno"><a class="line" href="structFLootLockerSurvey.html#adce63b92b66efaf488199bce8966a10a">  120</a></span>    TArray&lt;<a class="code hl_struct" href="structFLootLockerSurveyQuestion.html">FLootLockerSurveyQuestion</a>&gt; <a class="code hl_variable" href="structFLootLockerSurvey.html#adce63b92b66efaf488199bce8966a10a">Questions</a>;</div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>};</div>
+</div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span></div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span> </div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span><span class="comment">//==================================================</span></div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span><span class="comment">// Request Definitions</span></div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span><span class="comment">//==================================================</span></div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span></div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>USTRUCT(BlueprintType, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="foldopen" id="foldopen00137" data-start="{" data-end="};">
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno"><a class="line" href="structFLootLockerSurveyAnswer.html">  137</a></span>struct LOOTLOCKERSDK_API <a class="code hl_struct" href="structFLootLockerSurveyAnswer.html">FLootLockerSurveyAnswer</a></div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>{</div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>    GENERATED_BODY()</div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00144" name="l00144"></a><span class="lineno"><a class="line" href="structFLootLockerSurveyAnswer.html#a8a1465a0d410470d91bdf9e79c7a3e27">  144</a></span>    FString <a class="code hl_variable" href="structFLootLockerSurveyAnswer.html#a8a1465a0d410470d91bdf9e79c7a3e27">Metadata_key</a> = <span class="stringliteral">&quot;&quot;</span>;</div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno"><a class="line" href="structFLootLockerSurveyAnswer.html#a46d296ae5f3369927ddb4aafb0748b86">  154</a></span>    FString <a class="code hl_variable" href="structFLootLockerSurveyAnswer.html#a46d296ae5f3369927ddb4aafb0748b86">Value</a> = <span class="stringliteral">&quot;&quot;</span>;</div>
+<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00161" name="l00161"></a><span class="lineno"><a class="line" href="structFLootLockerSurveyAnswer.html#a867a34e76c293e544e05706efd24addf">  161</a></span>    <a class="code hl_enumeration" href="group__Metadata.html#ga7ae3db614872bb456a6b01bee377ec3e">ELootLockerMetadataTypes</a> <a class="code hl_variable" href="structFLootLockerSurveyAnswer.html#a867a34e76c293e544e05706efd24addf">Type</a> = <a class="code hl_enumeration" href="group__Metadata.html#ga7ae3db614872bb456a6b01bee377ec3e">ELootLockerMetadataTypes</a>::<a class="code hl_enumvalue" href="group__Metadata.html#gga7ae3db614872bb456a6b01bee377ec3ea27118326006d3829667a400ad23d5d98">String</a>;</div>
+<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span></div>
+<div class="line"><a id="l00164" name="l00164"></a><span class="lineno"><a class="line" href="structFLootLockerSurveyAnswer.html#a9ea5db75ec196eca08b1a816fdb27ac1">  164</a></span>    static LOOTLOCKERSDK_API <a class="code hl_struct" href="structFLootLockerSurveyAnswer.html">FLootLockerSurveyAnswer</a> <a class="code hl_function" href="structFLootLockerSurveyAnswer.html#a9ea5db75ec196eca08b1a816fdb27ac1">FromText</a>(const FString&amp; MetadataKey, const FString&amp; <a class="code hl_variable" href="structFLootLockerSurveyAnswer.html#a46d296ae5f3369927ddb4aafb0748b86">Value</a>);</div>
+<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span></div>
+<div class="line"><a id="l00167" name="l00167"></a><span class="lineno"><a class="line" href="structFLootLockerSurveyAnswer.html#a58268e26b943d80209d50d70bf7a1b6b">  167</a></span>    static LOOTLOCKERSDK_API <a class="code hl_struct" href="structFLootLockerSurveyAnswer.html">FLootLockerSurveyAnswer</a> <a class="code hl_function" href="structFLootLockerSurveyAnswer.html#a58268e26b943d80209d50d70bf7a1b6b">FromNumber</a>(const FString&amp; MetadataKey, <span class="keywordtype">double</span> <a class="code hl_variable" href="structFLootLockerSurveyAnswer.html#a46d296ae5f3369927ddb4aafb0748b86">Value</a>);</div>
+<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span></div>
+<div class="line"><a id="l00170" name="l00170"></a><span class="lineno"><a class="line" href="structFLootLockerSurveyAnswer.html#a25af30108755fd8de3517d0be5e77a98">  170</a></span>    static LOOTLOCKERSDK_API <a class="code hl_struct" href="structFLootLockerSurveyAnswer.html">FLootLockerSurveyAnswer</a> <a class="code hl_function" href="structFLootLockerSurveyAnswer.html#a25af30108755fd8de3517d0be5e77a98">FromBool</a>(const FString&amp; MetadataKey, <span class="keywordtype">bool</span> <a class="code hl_variable" href="structFLootLockerSurveyAnswer.html#a46d296ae5f3369927ddb4aafb0748b86">Value</a>);</div>
+<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span></div>
+<div class="line"><a id="l00173" name="l00173"></a><span class="lineno"><a class="line" href="structFLootLockerSurveyAnswer.html#af526cfc64be603ef1d326109c4e80461">  173</a></span>    static LOOTLOCKERSDK_API <a class="code hl_struct" href="structFLootLockerSurveyAnswer.html">FLootLockerSurveyAnswer</a> <a class="code hl_function" href="structFLootLockerSurveyAnswer.html#af526cfc64be603ef1d326109c4e80461">FromMultiSelect</a>(const FString&amp; MetadataKey, const TArray&lt;FString&gt;&amp; SelectedValues);</div>
+<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span>};</div>
+</div>
+<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span></div>
+<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span> </div>
+<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span><span class="comment">//==================================================</span></div>
+<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span><span class="comment">// Response Definitions</span></div>
+<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span><span class="comment">//==================================================</span></div>
+<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span></div>
+<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span>USTRUCT(BlueprintType, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="foldopen" id="foldopen00185" data-start="{" data-end="};">
+<div class="line"><a id="l00185" name="l00185"></a><span class="lineno"><a class="line" href="structFLootLockerListSurveysResponse.html">  185</a></span>struct <a class="code hl_struct" href="structFLootLockerListSurveysResponse.html">FLootLockerListSurveysResponse</a> : public <a class="code hl_struct" href="structFLootLockerResponse.html">FLootLockerResponse</a></div>
+<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span>{</div>
+<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span>    GENERATED_BODY()</div>
+<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00192" name="l00192"></a><span class="lineno"><a class="line" href="structFLootLockerListSurveysResponse.html#a59f2a7990917e63d6118a9f956815ff8">  192</a></span>    TArray&lt;<a class="code hl_struct" href="structFLootLockerSurvey.html">FLootLockerSurvey</a>&gt; <a class="code hl_variable" href="structFLootLockerListSurveysResponse.html#a59f2a7990917e63d6118a9f956815ff8">Surveys</a>;</div>
+<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span>};</div>
+</div>
+<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span></div>
+<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span>USTRUCT(BlueprintType, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="foldopen" id="foldopen00199" data-start="{" data-end="};">
+<div class="line"><a id="l00199" name="l00199"></a><span class="lineno"><a class="line" href="structFLootLockerGetSurveyResponse.html">  199</a></span>struct <a class="code hl_struct" href="structFLootLockerGetSurveyResponse.html">FLootLockerGetSurveyResponse</a> : public <a class="code hl_struct" href="structFLootLockerResponse.html">FLootLockerResponse</a></div>
+<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span>{</div>
+<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span>    GENERATED_BODY()</div>
+<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00206" name="l00206"></a><span class="lineno"><a class="line" href="structFLootLockerGetSurveyResponse.html#a6b2fc303020911822077da1b6deabbd2">  206</a></span>    FString <a class="code hl_variable" href="structFLootLockerGetSurveyResponse.html#a6b2fc303020911822077da1b6deabbd2">Id</a> = <span class="stringliteral">&quot;&quot;</span>;</div>
+<div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00211" name="l00211"></a><span class="lineno"><a class="line" href="structFLootLockerGetSurveyResponse.html#ad6eb585e2f6e7f2f5b2a7e3bd0c59725">  211</a></span>    FString <a class="code hl_variable" href="structFLootLockerGetSurveyResponse.html#ad6eb585e2f6e7f2f5b2a7e3bd0c59725">Name</a> = <span class="stringliteral">&quot;&quot;</span>;</div>
+<div class="line"><a id="l00215" name="l00215"></a><span class="lineno">  215</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00216" name="l00216"></a><span class="lineno"><a class="line" href="structFLootLockerGetSurveyResponse.html#a864abb10780817a5bdac80b19faca774">  216</a></span>    FDateTime <a class="code hl_variable" href="structFLootLockerGetSurveyResponse.html#a864abb10780817a5bdac80b19faca774">Created_at</a> = FDateTime(0);</div>
+<div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00221" name="l00221"></a><span class="lineno"><a class="line" href="structFLootLockerGetSurveyResponse.html#a6a1252d640cda358d1e8bcb8344913fb">  221</a></span>    TArray&lt;<a class="code hl_struct" href="structFLootLockerSurveyQuestion.html">FLootLockerSurveyQuestion</a>&gt; <a class="code hl_variable" href="structFLootLockerGetSurveyResponse.html#a6a1252d640cda358d1e8bcb8344913fb">Questions</a>;</div>
+<div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span>};</div>
+</div>
+<div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span></div>
+<div class="line"><a id="l00227" name="l00227"></a><span class="lineno">  227</span>USTRUCT(BlueprintType, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="foldopen" id="foldopen00228" data-start="{" data-end="};">
+<div class="line"><a id="l00228" name="l00228"></a><span class="lineno"><a class="line" href="structFLootLockerCompleteSurveyResponse.html">  228</a></span>struct <a class="code hl_struct" href="structFLootLockerCompleteSurveyResponse.html">FLootLockerCompleteSurveyResponse</a> : public <a class="code hl_struct" href="structFLootLockerResponse.html">FLootLockerResponse</a></div>
+<div class="line"><a id="l00229" name="l00229"></a><span class="lineno">  229</span>{</div>
+<div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span>    GENERATED_BODY()</div>
+<div class="line"><a id="l00235" name="l00235"></a><span class="lineno">  235</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00236" name="l00236"></a><span class="lineno"><a class="line" href="structFLootLockerCompleteSurveyResponse.html#a2f93abbcd0bde5224aa6cd060f512426">  236</a></span>    bool <a class="code hl_variable" href="structFLootLockerCompleteSurveyResponse.html#a2f93abbcd0bde5224aa6cd060f512426">Complete</a> = false;</div>
+<div class="line"><a id="l00240" name="l00240"></a><span class="lineno">  240</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00241" name="l00241"></a><span class="lineno"><a class="line" href="structFLootLockerCompleteSurveyResponse.html#aaeeb1613b0378a5a07c9424da82f6293">  241</a></span>    FDateTime <a class="code hl_variable" href="structFLootLockerCompleteSurveyResponse.html#aaeeb1613b0378a5a07c9424da82f6293">Completed_at</a> = FDateTime(0);</div>
+<div class="line"><a id="l00245" name="l00245"></a><span class="lineno">  245</span>    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = <span class="stringliteral">&quot;LootLocker&quot;</span>)</div>
+<div class="line"><a id="l00246" name="l00246"></a><span class="lineno"><a class="line" href="structFLootLockerCompleteSurveyResponse.html#a934b0dc4a97f4f4d0cccd8b27d97af29">  246</a></span>    FString <a class="code hl_variable" href="structFLootLockerCompleteSurveyResponse.html#a934b0dc4a97f4f4d0cccd8b27d97af29">Survey_id</a> = <span class="stringliteral">&quot;&quot;</span>;</div>
+<div class="line"><a id="l00247" name="l00247"></a><span class="lineno">  247</span>};</div>
+</div>
+<div class="line"><a id="l00248" name="l00248"></a><span class="lineno">  248</span> </div>
+<div class="line"><a id="l00249" name="l00249"></a><span class="lineno">  249</span><span class="comment">//==================================================</span></div>
+<div class="line"><a id="l00250" name="l00250"></a><span class="lineno">  250</span><span class="comment">// Delegate Definitions</span></div>
+<div class="line"><a id="l00251" name="l00251"></a><span class="lineno">  251</span><span class="comment">//==================================================</span></div>
+<div class="line"><a id="l00254" name="l00254"></a><span class="lineno">  254</span></div>
+<div class="line"><a id="l00257" name="l00257"></a><span class="lineno"><a class="line" href="group__Surveys.html#ga52a7cd23f42422eb364e16158ab7b8eb">  257</a></span>DECLARE_DELEGATE_OneParam(<a class="code hl_typedef" href="group__Surveys.html#ga52a7cd23f42422eb364e16158ab7b8eb">FLootLockerListSurveysResponseDelegate</a>, <a class="code hl_struct" href="structFLootLockerListSurveysResponse.html">FLootLockerListSurveysResponse</a>);</div>
+<div class="line"><a id="l00261" name="l00261"></a><span class="lineno"><a class="line" href="group__Surveys.html#ga468ebc7785f46e7b2465d0bd806c9728">  261</a></span>DECLARE_DELEGATE_OneParam(<a class="code hl_typedef" href="group__Surveys.html#ga468ebc7785f46e7b2465d0bd806c9728">FLootLockerGetSurveyResponseDelegate</a>, <a class="code hl_struct" href="structFLootLockerGetSurveyResponse.html">FLootLockerGetSurveyResponse</a>);</div>
+<div class="line"><a id="l00265" name="l00265"></a><span class="lineno"><a class="line" href="group__Surveys.html#gabb2559811e5e3333b043e94edd2bd99b">  265</a></span>DECLARE_DELEGATE_OneParam(<a class="code hl_typedef" href="group__Surveys.html#gabb2559811e5e3333b043e94edd2bd99b">FLootLockerCompleteSurveyResponseDelegate</a>, <a class="code hl_struct" href="structFLootLockerCompleteSurveyResponse.html">FLootLockerCompleteSurveyResponse</a>);</div>
+<div class="line"><a id="l00266" name="l00266"></a><span class="lineno">  266</span> </div>
+<div class="line"><a id="l00267" name="l00267"></a><span class="lineno">  267</span><span class="comment">//==================================================</span></div>
+<div class="line"><a id="l00268" name="l00268"></a><span class="lineno">  268</span><span class="comment">// API Class Definition</span></div>
+<div class="line"><a id="l00269" name="l00269"></a><span class="lineno">  269</span><span class="comment">//==================================================</span></div>
+<div class="line"><a id="l00270" name="l00270"></a><span class="lineno">  270</span></div>
+<div class="line"><a id="l00272" name="l00272"></a><span class="lineno">  272</span>UCLASS()</div>
+<div class="foldopen" id="foldopen00273" data-start="{" data-end="};">
+<div class="line"><a id="l00273" name="l00273"></a><span class="lineno"><a class="line" href="classULootLockerSurveysRequestHandler.html">  273</a></span>class LOOTLOCKERSDK_API <a class="code hl_function" href="classULootLockerSurveysRequestHandler.html#a3de5b682f961152b27a7a5871ca40a42">ULootLockerSurveysRequestHandler</a> : public UObject</div>
+<div class="line"><a id="l00274" name="l00274"></a><span class="lineno">  274</span>{</div>
+<div class="line"><a id="l00275" name="l00275"></a><span class="lineno">  275</span>    GENERATED_BODY()</div>
+<div class="line"><a id="l00276" name="l00276"></a><span class="lineno">  276</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00277" name="l00277"></a><span class="lineno"><a class="line" href="classULootLockerSurveysRequestHandler.html#a3de5b682f961152b27a7a5871ca40a42">  277</a></span>    <a class="code hl_function" href="classULootLockerSurveysRequestHandler.html#a3de5b682f961152b27a7a5871ca40a42">ULootLockerSurveysRequestHandler</a>() {};</div>
+<div class="line"><a id="l00278" name="l00278"></a><span class="lineno">  278</span> </div>
+<div class="line"><a id="l00279" name="l00279"></a><span class="lineno"><a class="line" href="classULootLockerSurveysRequestHandler.html#a299a73753223e29eb44bc77bb5c63aaf">  279</a></span>    <span class="keyword">static</span> FString <a class="code hl_function" href="classULootLockerSurveysRequestHandler.html#a299a73753223e29eb44bc77bb5c63aaf">ListSurveys</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a>&amp; PlayerData, <span class="keyword">const</span> <a class="code hl_typedef" href="group__Surveys.html#ga52a7cd23f42422eb364e16158ab7b8eb">FLootLockerListSurveysResponseDelegate</a>&amp; OnComplete);</div>
+<div class="line"><a id="l00280" name="l00280"></a><span class="lineno"><a class="line" href="classULootLockerSurveysRequestHandler.html#a0cadc4d91f7fb250fb5be25e2bf8695b">  280</a></span>    <span class="keyword">static</span> FString <a class="code hl_function" href="classULootLockerSurveysRequestHandler.html#a0cadc4d91f7fb250fb5be25e2bf8695b">GetSurvey</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a>&amp; PlayerData, <span class="keyword">const</span> FString&amp; SurveyId, <span class="keyword">const</span> <a class="code hl_typedef" href="group__Surveys.html#ga468ebc7785f46e7b2465d0bd806c9728">FLootLockerGetSurveyResponseDelegate</a>&amp; OnComplete);</div>
+<div class="line"><a id="l00281" name="l00281"></a><span class="lineno"><a class="line" href="classULootLockerSurveysRequestHandler.html#a23219d696dc09100d0d01fe64ee2a4a3">  281</a></span>    <span class="keyword">static</span> FString <a class="code hl_function" href="classULootLockerSurveysRequestHandler.html#a23219d696dc09100d0d01fe64ee2a4a3">CompleteSurvey</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a>&amp; PlayerData, <span class="keyword">const</span> FString&amp; SurveyId, <span class="keyword">const</span> <a class="code hl_typedef" href="group__Surveys.html#gabb2559811e5e3333b043e94edd2bd99b">FLootLockerCompleteSurveyResponseDelegate</a>&amp; OnComplete);</div>
+<div class="line"><a id="l00282" name="l00282"></a><span class="lineno">  282</span></div>
+<div class="line"><a id="l00289" name="l00289"></a><span class="lineno"><a class="line" href="classULootLockerSurveysRequestHandler.html#a671834f274e67d3a93d25eaa463f1524">  289</a></span>    <span class="keyword">static</span> FString <a class="code hl_function" href="classULootLockerSurveysRequestHandler.html#a671834f274e67d3a93d25eaa463f1524">SubmitSurveyAnswers</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a>&amp; PlayerData, <span class="keyword">const</span> TArray&lt;FLootLockerSurveyAnswer&gt;&amp; Answers, <span class="keyword">const</span> <a class="code hl_typedef" href="group__Metadata.html#gaa806513179fb9125a52ab8da09260630">FLootLockerSetMetadataResponseDelegate</a>&amp; OnComplete);</div>
+<div class="line"><a id="l00290" name="l00290"></a><span class="lineno">  290</span>};</div>
+</div>
+<div class="ttc" id="aLootLockerMetadataRequestHandler_8h_html"><div class="ttname"><a href="LootLockerMetadataRequestHandler_8h.html">LootLockerMetadataRequestHandler.h</a></div></div>
+<div class="ttc" id="aLootLockerPlayerData_8h_html"><div class="ttname"><a href="LootLockerPlayerData_8h.html">LootLockerPlayerData.h</a></div></div>
+<div class="ttc" id="aLootLockerResponse_8h_html"><div class="ttname"><a href="LootLockerResponse_8h.html">LootLockerResponse.h</a></div></div>
+<div class="ttc" id="aclassULootLockerSurveysRequestHandler_html_a0cadc4d91f7fb250fb5be25e2bf8695b"><div class="ttname"><a href="classULootLockerSurveysRequestHandler.html#a0cadc4d91f7fb250fb5be25e2bf8695b">ULootLockerSurveysRequestHandler::GetSurvey</a></div><div class="ttdeci">static FString GetSurvey(const FLootLockerPlayerData &amp;PlayerData, const FString &amp;SurveyId, const FLootLockerGetSurveyResponseDelegate &amp;OnComplete)</div></div>
+<div class="ttc" id="aclassULootLockerSurveysRequestHandler_html_a23219d696dc09100d0d01fe64ee2a4a3"><div class="ttname"><a href="classULootLockerSurveysRequestHandler.html#a23219d696dc09100d0d01fe64ee2a4a3">ULootLockerSurveysRequestHandler::CompleteSurvey</a></div><div class="ttdeci">static FString CompleteSurvey(const FLootLockerPlayerData &amp;PlayerData, const FString &amp;SurveyId, const FLootLockerCompleteSurveyResponseDelegate &amp;OnComplete)</div></div>
+<div class="ttc" id="aclassULootLockerSurveysRequestHandler_html_a299a73753223e29eb44bc77bb5c63aaf"><div class="ttname"><a href="classULootLockerSurveysRequestHandler.html#a299a73753223e29eb44bc77bb5c63aaf">ULootLockerSurveysRequestHandler::ListSurveys</a></div><div class="ttdeci">static FString ListSurveys(const FLootLockerPlayerData &amp;PlayerData, const FLootLockerListSurveysResponseDelegate &amp;OnComplete)</div></div>
+<div class="ttc" id="aclassULootLockerSurveysRequestHandler_html_a3de5b682f961152b27a7a5871ca40a42"><div class="ttname"><a href="classULootLockerSurveysRequestHandler.html#a3de5b682f961152b27a7a5871ca40a42">ULootLockerSurveysRequestHandler::ULootLockerSurveysRequestHandler</a></div><div class="ttdeci">ULootLockerSurveysRequestHandler()</div><div class="ttdef"><b>Definition</b> LootLockerSurveysRequestHandler.h:277</div></div>
+<div class="ttc" id="aclassULootLockerSurveysRequestHandler_html_a671834f274e67d3a93d25eaa463f1524"><div class="ttname"><a href="classULootLockerSurveysRequestHandler.html#a671834f274e67d3a93d25eaa463f1524">ULootLockerSurveysRequestHandler::SubmitSurveyAnswers</a></div><div class="ttdeci">static FString SubmitSurveyAnswers(const FLootLockerPlayerData &amp;PlayerData, const TArray&lt; FLootLockerSurveyAnswer &gt; &amp;Answers, const FLootLockerSetMetadataResponseDelegate &amp;OnComplete)</div><div class="ttdoc">Submit answers to a survey for the current player.</div></div>
+<div class="ttc" id="agroup__Metadata_html_ga7ae3db614872bb456a6b01bee377ec3e"><div class="ttname"><a href="group__Metadata.html#ga7ae3db614872bb456a6b01bee377ec3e">ELootLockerMetadataTypes</a></div><div class="ttdeci">ELootLockerMetadataTypes</div><div class="ttdoc">Possible metadata types.</div><div class="ttdef"><b>Definition</b> LootLockerMetadataRequestHandler.h:45</div></div>
+<div class="ttc" id="agroup__Metadata_html_gaa806513179fb9125a52ab8da09260630"><div class="ttname"><a href="group__Metadata.html#gaa806513179fb9125a52ab8da09260630">FLootLockerSetMetadataResponseDelegate</a></div><div class="ttdeci">void(* FLootLockerSetMetadataResponseDelegate)(FLootLockerSetMetadataResponse)</div><div class="ttdoc">Blueprint response delegate for setting metadata.</div><div class="ttdef"><b>Definition</b> LootLockerMetadataRequestHandler.h:501</div></div>
+<div class="ttc" id="agroup__Metadata_html_gga7ae3db614872bb456a6b01bee377ec3ea27118326006d3829667a400ad23d5d98"><div class="ttname"><a href="group__Metadata.html#gga7ae3db614872bb456a6b01bee377ec3ea27118326006d3829667a400ad23d5d98">ELootLockerMetadataTypes::String</a></div><div class="ttdeci">@ String</div><div class="ttdef"><b>Definition</b> LootLockerMetadataRequestHandler.h:46</div></div>
+<div class="ttc" id="agroup__Surveys_html_ga468ebc7785f46e7b2465d0bd806c9728"><div class="ttname"><a href="group__Surveys.html#ga468ebc7785f46e7b2465d0bd806c9728">FLootLockerGetSurveyResponseDelegate</a></div><div class="ttdeci">void(* FLootLockerGetSurveyResponseDelegate)(FLootLockerGetSurveyResponse)</div><div class="ttdoc">C++ response delegate for getting a single survey.</div><div class="ttdef"><b>Definition</b> LootLockerSurveysRequestHandler.h:261</div></div>
+<div class="ttc" id="agroup__Surveys_html_ga52a7cd23f42422eb364e16158ab7b8eb"><div class="ttname"><a href="group__Surveys.html#ga52a7cd23f42422eb364e16158ab7b8eb">FLootLockerListSurveysResponseDelegate</a></div><div class="ttdeci">void(* FLootLockerListSurveysResponseDelegate)(FLootLockerListSurveysResponse)</div><div class="ttdoc">C++ response delegate for listing surveys.</div><div class="ttdef"><b>Definition</b> LootLockerSurveysRequestHandler.h:257</div></div>
+<div class="ttc" id="agroup__Surveys_html_gabb2559811e5e3333b043e94edd2bd99b"><div class="ttname"><a href="group__Surveys.html#gabb2559811e5e3333b043e94edd2bd99b">FLootLockerCompleteSurveyResponseDelegate</a></div><div class="ttdeci">void(* FLootLockerCompleteSurveyResponseDelegate)(FLootLockerCompleteSurveyResponse)</div><div class="ttdoc">C++ response delegate for completing a survey.</div><div class="ttdef"><b>Definition</b> LootLockerSurveysRequestHandler.h:265</div></div>
+<div class="ttc" id="astructFLootLockerCompleteSurveyResponse_html"><div class="ttname"><a href="structFLootLockerCompleteSurveyResponse.html">FLootLockerCompleteSurveyResponse</a></div><div class="ttdoc">Response returned after recording a survey completion for the current player.</div><div class="ttdef"><b>Definition</b> LootLockerSurveysRequestHandler.h:229</div></div>
+<div class="ttc" id="astructFLootLockerCompleteSurveyResponse_html_a2f93abbcd0bde5224aa6cd060f512426"><div class="ttname"><a href="structFLootLockerCompleteSurveyResponse.html#a2f93abbcd0bde5224aa6cd060f512426">FLootLockerCompleteSurveyResponse::Complete</a></div><div class="ttdeci">bool Complete</div><div class="ttdoc">Whether the survey is now completed.</div><div class="ttdef"><b>Definition</b> LootLockerSurveysRequestHandler.h:236</div></div>
+<div class="ttc" id="astructFLootLockerCompleteSurveyResponse_html_a934b0dc4a97f4f4d0cccd8b27d97af29"><div class="ttname"><a href="structFLootLockerCompleteSurveyResponse.html#a934b0dc4a97f4f4d0cccd8b27d97af29">FLootLockerCompleteSurveyResponse::Survey_id</a></div><div class="ttdeci">FString Survey_id</div><div class="ttdoc">The unique identifier of the completed survey.</div><div class="ttdef"><b>Definition</b> LootLockerSurveysRequestHandler.h:246</div></div>
+<div class="ttc" id="astructFLootLockerCompleteSurveyResponse_html_aaeeb1613b0378a5a07c9424da82f6293"><div class="ttname"><a href="structFLootLockerCompleteSurveyResponse.html#aaeeb1613b0378a5a07c9424da82f6293">FLootLockerCompleteSurveyResponse::Completed_at</a></div><div class="ttdeci">FDateTime Completed_at</div><div class="ttdoc">When the survey was completed.</div><div class="ttdef"><b>Definition</b> LootLockerSurveysRequestHandler.h:241</div></div>
+<div class="ttc" id="astructFLootLockerGetSurveyResponse_html"><div class="ttname"><a href="structFLootLockerGetSurveyResponse.html">FLootLockerGetSurveyResponse</a></div><div class="ttdoc">Response containing a single survey and its questions.</div><div class="ttdef"><b>Definition</b> LootLockerSurveysRequestHandler.h:200</div></div>
+<div class="ttc" id="astructFLootLockerGetSurveyResponse_html_a6a1252d640cda358d1e8bcb8344913fb"><div class="ttname"><a href="structFLootLockerGetSurveyResponse.html#a6a1252d640cda358d1e8bcb8344913fb">FLootLockerGetSurveyResponse::Questions</a></div><div class="ttdeci">TArray&lt; FLootLockerSurveyQuestion &gt; Questions</div><div class="ttdoc">The questions in this survey, ordered by sort_order.</div><div class="ttdef"><b>Definition</b> LootLockerSurveysRequestHandler.h:221</div></div>
+<div class="ttc" id="astructFLootLockerGetSurveyResponse_html_a6b2fc303020911822077da1b6deabbd2"><div class="ttname"><a href="structFLootLockerGetSurveyResponse.html#a6b2fc303020911822077da1b6deabbd2">FLootLockerGetSurveyResponse::Id</a></div><div class="ttdeci">FString Id</div><div class="ttdoc">The unique identifier of the survey.</div><div class="ttdef"><b>Definition</b> LootLockerSurveysRequestHandler.h:206</div></div>
+<div class="ttc" id="astructFLootLockerGetSurveyResponse_html_a864abb10780817a5bdac80b19faca774"><div class="ttname"><a href="structFLootLockerGetSurveyResponse.html#a864abb10780817a5bdac80b19faca774">FLootLockerGetSurveyResponse::Created_at</a></div><div class="ttdeci">FDateTime Created_at</div><div class="ttdoc">When the survey was created.</div><div class="ttdef"><b>Definition</b> LootLockerSurveysRequestHandler.h:216</div></div>
+<div class="ttc" id="astructFLootLockerGetSurveyResponse_html_ad6eb585e2f6e7f2f5b2a7e3bd0c59725"><div class="ttname"><a href="structFLootLockerGetSurveyResponse.html#ad6eb585e2f6e7f2f5b2a7e3bd0c59725">FLootLockerGetSurveyResponse::Name</a></div><div class="ttdeci">FString Name</div><div class="ttdoc">The name of the survey.</div><div class="ttdef"><b>Definition</b> LootLockerSurveysRequestHandler.h:211</div></div>
+<div class="ttc" id="astructFLootLockerListSurveysResponse_html"><div class="ttname"><a href="structFLootLockerListSurveysResponse.html">FLootLockerListSurveysResponse</a></div><div class="ttdoc">Response containing the surveys the current player can see.</div><div class="ttdef"><b>Definition</b> LootLockerSurveysRequestHandler.h:186</div></div>
+<div class="ttc" id="astructFLootLockerListSurveysResponse_html_a59f2a7990917e63d6118a9f956815ff8"><div class="ttname"><a href="structFLootLockerListSurveysResponse.html#a59f2a7990917e63d6118a9f956815ff8">FLootLockerListSurveysResponse::Surveys</a></div><div class="ttdeci">TArray&lt; FLootLockerSurvey &gt; Surveys</div><div class="ttdoc">The surveys visible to the current player, filtered by each survey&#39;s segments.</div><div class="ttdef"><b>Definition</b> LootLockerSurveysRequestHandler.h:192</div></div>
+<div class="ttc" id="astructFLootLockerPlayerData_html"><div class="ttname"><a href="structFLootLockerPlayerData.html">FLootLockerPlayerData</a></div><div class="ttdef"><b>Definition</b> LootLockerPlayerData.h:12</div></div>
+<div class="ttc" id="astructFLootLockerResponse_html"><div class="ttname"><a href="structFLootLockerResponse.html">FLootLockerResponse</a></div><div class="ttdoc">Base response struct — every SDK callback receives a struct that derives from this.</div><div class="ttdef"><b>Definition</b> LootLockerResponse.h:19</div></div>
+<div class="ttc" id="astructFLootLockerSurveyAnswer_html"><div class="ttname"><a href="structFLootLockerSurveyAnswer.html">FLootLockerSurveyAnswer</a></div><div class="ttdoc">A single answer to a survey question, submitted through SubmitSurveyAnswers.</div><div class="ttdef"><b>Definition</b> LootLockerSurveysRequestHandler.h:138</div></div>
+<div class="ttc" id="astructFLootLockerSurveyAnswer_html_a25af30108755fd8de3517d0be5e77a98"><div class="ttname"><a href="structFLootLockerSurveyAnswer.html#a25af30108755fd8de3517d0be5e77a98">FLootLockerSurveyAnswer::FromBool</a></div><div class="ttdeci">static FLootLockerSurveyAnswer FromBool(const FString &amp;MetadataKey, bool Value)</div><div class="ttdoc">Build a Bool answer, for checkbox questions.</div></div>
+<div class="ttc" id="astructFLootLockerSurveyAnswer_html_a46d296ae5f3369927ddb4aafb0748b86"><div class="ttname"><a href="structFLootLockerSurveyAnswer.html#a46d296ae5f3369927ddb4aafb0748b86">FLootLockerSurveyAnswer::Value</a></div><div class="ttdeci">FString Value</div><div class="ttdoc">The answer value.</div><div class="ttdef"><b>Definition</b> LootLockerSurveysRequestHandler.h:154</div></div>
+<div class="ttc" id="astructFLootLockerSurveyAnswer_html_a58268e26b943d80209d50d70bf7a1b6b"><div class="ttname"><a href="structFLootLockerSurveyAnswer.html#a58268e26b943d80209d50d70bf7a1b6b">FLootLockerSurveyAnswer::FromNumber</a></div><div class="ttdeci">static FLootLockerSurveyAnswer FromNumber(const FString &amp;MetadataKey, double Value)</div><div class="ttdoc">Build a Number answer, for number questions.</div></div>
+<div class="ttc" id="astructFLootLockerSurveyAnswer_html_a867a34e76c293e544e05706efd24addf"><div class="ttname"><a href="structFLootLockerSurveyAnswer.html#a867a34e76c293e544e05706efd24addf">FLootLockerSurveyAnswer::Type</a></div><div class="ttdeci">ELootLockerMetadataTypes Type</div><div class="ttdoc">The metadata type of the value.</div><div class="ttdef"><b>Definition</b> LootLockerSurveysRequestHandler.h:161</div></div>
+<div class="ttc" id="astructFLootLockerSurveyAnswer_html_a8a1465a0d410470d91bdf9e79c7a3e27"><div class="ttname"><a href="structFLootLockerSurveyAnswer.html#a8a1465a0d410470d91bdf9e79c7a3e27">FLootLockerSurveyAnswer::Metadata_key</a></div><div class="ttdeci">FString Metadata_key</div><div class="ttdoc">The metadata_key of the question this answers.</div><div class="ttdef"><b>Definition</b> LootLockerSurveysRequestHandler.h:144</div></div>
+<div class="ttc" id="astructFLootLockerSurveyAnswer_html_a9ea5db75ec196eca08b1a816fdb27ac1"><div class="ttname"><a href="structFLootLockerSurveyAnswer.html#a9ea5db75ec196eca08b1a816fdb27ac1">FLootLockerSurveyAnswer::FromText</a></div><div class="ttdeci">static FLootLockerSurveyAnswer FromText(const FString &amp;MetadataKey, const FString &amp;Value)</div><div class="ttdoc">Build a String answer, for short_text, long_text, date and select questions.</div></div>
+<div class="ttc" id="astructFLootLockerSurveyAnswer_html_af526cfc64be603ef1d326109c4e80461"><div class="ttname"><a href="structFLootLockerSurveyAnswer.html#af526cfc64be603ef1d326109c4e80461">FLootLockerSurveyAnswer::FromMultiSelect</a></div><div class="ttdeci">static FLootLockerSurveyAnswer FromMultiSelect(const FString &amp;MetadataKey, const TArray&lt; FString &gt; &amp;SelectedValues)</div><div class="ttdoc">Build a Json answer, for multiselect questions.</div></div>
+<div class="ttc" id="astructFLootLockerSurveyQuestion_html"><div class="ttname"><a href="structFLootLockerSurveyQuestion.html">FLootLockerSurveyQuestion</a></div><div class="ttdoc">A single question in a survey.</div><div class="ttdef"><b>Definition</b> LootLockerSurveysRequestHandler.h:23</div></div>
+<div class="ttc" id="astructFLootLockerSurveyQuestion_html_a347cd1a79a1672562c6090994b4f6379"><div class="ttname"><a href="structFLootLockerSurveyQuestion.html#a347cd1a79a1672562c6090994b4f6379">FLootLockerSurveyQuestion::Question_text</a></div><div class="ttdeci">FString Question_text</div><div class="ttdoc">The text shown to the player for this question.</div><div class="ttdef"><b>Definition</b> LootLockerSurveysRequestHandler.h:39</div></div>
+<div class="ttc" id="astructFLootLockerSurveyQuestion_html_a356e626492d0c63852d051005d552849"><div class="ttname"><a href="structFLootLockerSurveyQuestion.html#a356e626492d0c63852d051005d552849">FLootLockerSurveyQuestion::Sensitive</a></div><div class="ttdeci">bool Sensitive</div><div class="ttdoc">When true, answers for this question&#39;s metadata_key are masked in game metadata reads.</div><div class="ttdef"><b>Definition</b> LootLockerSurveysRequestHandler.h:75</div></div>
+<div class="ttc" id="astructFLootLockerSurveyQuestion_html_a388491aa5806007804f436ea5e23c85e"><div class="ttname"><a href="structFLootLockerSurveyQuestion.html#a388491aa5806007804f436ea5e23c85e">FLootLockerSurveyQuestion::Field_type</a></div><div class="ttdeci">FString Field_type</div><div class="ttdoc">The type of field to render for this question (for example short_text, long_text, select).</div><div class="ttdef"><b>Definition</b> LootLockerSurveysRequestHandler.h:49</div></div>
+<div class="ttc" id="astructFLootLockerSurveyQuestion_html_a46416a8b80542ec9451d6b665bea1f80"><div class="ttname"><a href="structFLootLockerSurveyQuestion.html#a46416a8b80542ec9451d6b665bea1f80">FLootLockerSurveyQuestion::Survey_id</a></div><div class="ttdeci">FString Survey_id</div><div class="ttdoc">The unique identifier of the survey this question belongs to.</div><div class="ttdef"><b>Definition</b> LootLockerSurveysRequestHandler.h:34</div></div>
+<div class="ttc" id="astructFLootLockerSurveyQuestion_html_a4c6b582904d4bd2242735599eee927e4"><div class="ttname"><a href="structFLootLockerSurveyQuestion.html#a4c6b582904d4bd2242735599eee927e4">FLootLockerSurveyQuestion::Required</a></div><div class="ttdeci">bool Required</div><div class="ttdoc">Whether an answer to this question is required before the survey can be completed.</div><div class="ttdef"><b>Definition</b> LootLockerSurveysRequestHandler.h:60</div></div>
+<div class="ttc" id="astructFLootLockerSurveyQuestion_html_a66326101da85548ece16d6f3046e2468"><div class="ttname"><a href="structFLootLockerSurveyQuestion.html#a66326101da85548ece16d6f3046e2468">FLootLockerSurveyQuestion::Created_at</a></div><div class="ttdeci">FDateTime Created_at</div><div class="ttdoc">When the question was created.</div><div class="ttdef"><b>Definition</b> LootLockerSurveysRequestHandler.h:70</div></div>
+<div class="ttc" id="astructFLootLockerSurveyQuestion_html_a6b8ade50247b59eb705abb03ea6d1f63"><div class="ttname"><a href="structFLootLockerSurveyQuestion.html#a6b8ade50247b59eb705abb03ea6d1f63">FLootLockerSurveyQuestion::Id</a></div><div class="ttdeci">FString Id</div><div class="ttdoc">The unique identifier of the question.</div><div class="ttdef"><b>Definition</b> LootLockerSurveysRequestHandler.h:29</div></div>
+<div class="ttc" id="astructFLootLockerSurveyQuestion_html_a7b7ddaf63ebdc1979166390e3787e215"><div class="ttname"><a href="structFLootLockerSurveyQuestion.html#a7b7ddaf63ebdc1979166390e3787e215">FLootLockerSurveyQuestion::Params</a></div><div class="ttdeci">FJsonObjectWrapper Params</div><div class="ttdoc">Opaque JSON parameters for the field type, for example the available options for a select field.</div><div class="ttdef"><b>Definition</b> LootLockerSurveysRequestHandler.h:55</div></div>
+<div class="ttc" id="astructFLootLockerSurveyQuestion_html_abb1ec3001686c160ce3170fc6d6a36f2"><div class="ttname"><a href="structFLootLockerSurveyQuestion.html#abb1ec3001686c160ce3170fc6d6a36f2">FLootLockerSurveyQuestion::Metadata_key</a></div><div class="ttdeci">FString Metadata_key</div><div class="ttdoc">The player metadata key that the answer to this question is stored under.</div><div class="ttdef"><b>Definition</b> LootLockerSurveysRequestHandler.h:44</div></div>
+<div class="ttc" id="astructFLootLockerSurveyQuestion_html_ae3ac98adc275aff7ea887a0edddc6eb8"><div class="ttname"><a href="structFLootLockerSurveyQuestion.html#ae3ac98adc275aff7ea887a0edddc6eb8">FLootLockerSurveyQuestion::Sort_order</a></div><div class="ttdeci">int32 Sort_order</div><div class="ttdoc">The order in which this question should be presented, ascending.</div><div class="ttdef"><b>Definition</b> LootLockerSurveysRequestHandler.h:65</div></div>
+<div class="ttc" id="astructFLootLockerSurvey_html"><div class="ttname"><a href="structFLootLockerSurvey.html">FLootLockerSurvey</a></div><div class="ttdoc">A survey that a player can see and complete.</div><div class="ttdef"><b>Definition</b> LootLockerSurveysRequestHandler.h:86</div></div>
+<div class="ttc" id="astructFLootLockerSurvey_html_a0c2ad05b5ea5305014aece37a4f7c11e"><div class="ttname"><a href="structFLootLockerSurvey.html#a0c2ad05b5ea5305014aece37a4f7c11e">FLootLockerSurvey::Completed</a></div><div class="ttdeci">bool Completed</div><div class="ttdoc">Whether the current player has already completed this survey.</div><div class="ttdef"><b>Definition</b> LootLockerSurveysRequestHandler.h:108</div></div>
+<div class="ttc" id="astructFLootLockerSurvey_html_a1f953c69646417bb9a287b56ce20e3bf"><div class="ttname"><a href="structFLootLockerSurvey.html#a1f953c69646417bb9a287b56ce20e3bf">FLootLockerSurvey::Name</a></div><div class="ttdeci">FString Name</div><div class="ttdoc">The name of the survey.</div><div class="ttdef"><b>Definition</b> LootLockerSurveysRequestHandler.h:97</div></div>
+<div class="ttc" id="astructFLootLockerSurvey_html_a247e3071c436f97445d5def7660d97ca"><div class="ttname"><a href="structFLootLockerSurvey.html#a247e3071c436f97445d5def7660d97ca">FLootLockerSurvey::Completed_at</a></div><div class="ttdeci">FDateTime Completed_at</div><div class="ttdoc">When the current player completed this survey.</div><div class="ttdef"><b>Definition</b> LootLockerSurveysRequestHandler.h:115</div></div>
+<div class="ttc" id="astructFLootLockerSurvey_html_a4592971c9f019ddb1180f68c5b5993ce"><div class="ttname"><a href="structFLootLockerSurvey.html#a4592971c9f019ddb1180f68c5b5993ce">FLootLockerSurvey::Id</a></div><div class="ttdeci">FString Id</div><div class="ttdoc">The unique identifier of the survey.</div><div class="ttdef"><b>Definition</b> LootLockerSurveysRequestHandler.h:92</div></div>
+<div class="ttc" id="astructFLootLockerSurvey_html_abd1871ada6f2cb791c541484899ac323"><div class="ttname"><a href="structFLootLockerSurvey.html#abd1871ada6f2cb791c541484899ac323">FLootLockerSurvey::Created_at</a></div><div class="ttdeci">FDateTime Created_at</div><div class="ttdoc">When the survey was created.</div><div class="ttdef"><b>Definition</b> LootLockerSurveysRequestHandler.h:102</div></div>
+<div class="ttc" id="astructFLootLockerSurvey_html_adce63b92b66efaf488199bce8966a10a"><div class="ttname"><a href="structFLootLockerSurvey.html#adce63b92b66efaf488199bce8966a10a">FLootLockerSurvey::Questions</a></div><div class="ttdeci">TArray&lt; FLootLockerSurveyQuestion &gt; Questions</div><div class="ttdoc">The questions in this survey, ordered by sort_order.</div><div class="ttdef"><b>Definition</b> LootLockerSurveysRequestHandler.h:120</div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+</div><!-- container -->
+<!-- HTML footer for doxygen 1.15.0-->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="dir_426131f2e7e3782155028ac49ab5e11c.html">LootLockerSDK</a></li><li class="navelem"><a href="dir_63662f8d869795fbcfe09e29de292894.html">Source</a></li><li class="navelem"><a href="dir_529bffb88e47999e071ca27db50fed71.html">LootLockerSDK</a></li><li class="navelem"><a href="dir_6800d9c9fc95b443eb5325340bc06d03.html">Public</a></li><li class="navelem"><a href="dir_c4276055a6e8dd41429ac8d6d68c790b.html">GameAPI</a></li><li class="navelem"><a href="LootLockerSurveysRequestHandler_8h.html">LootLockerSurveysRequestHandler.h</a></li>
+    <li class="footer">
+      Generated by <a href="https://www.doxygen.org/index.html">Doxygen</a> 1.15.0
+      &nbsp;&mdash;&nbsp;
+      <a href="https://lootlocker.com" target="_blank" rel="noopener noreferrer">LootLocker</a>
+    </li>
+  </ul>
+</div>
+<script src="nav-customization.js" type="text/javascript"></script>
+</body>
+</html>

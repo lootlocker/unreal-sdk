@@ -1,0 +1,5 @@
+<map id="FLootLockerListConnectedAccountsResponse" name="FLootLockerListConnectedAccountsResponse">
+<area shape="rect" id="Node000001" title="Response containing the list of account providers currently connected to the player&#39;s LootLocker acco..." alt="" coords="5,81,197,126"/>
+<area shape="rect" id="Node000002" href="$structFLootLockerResponse.html" title="Base response struct — every SDK callback receives a struct that derives from this." alt="" coords="20,5,182,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="103,47,103,81,99,79,99,51"/>
+</map>

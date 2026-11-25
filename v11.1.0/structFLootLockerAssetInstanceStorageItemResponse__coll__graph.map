@@ -1,0 +1,15 @@
+<map id="FLootLockerAssetInstanceStorageItemResponse" name="FLootLockerAssetInstanceStorageItemResponse">
+<area shape="rect" id="Node000001" title=" " alt="" coords="307,341,497,386"/>
+<area shape="rect" id="Node000002" href="$structFLootLockerResponse.html" title="Base response struct — every SDK callback receives a struct that derives from this." alt="" coords="212,232,374,260"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="316,269,384,341,379,341,314,273"/>
+<area shape="rect" id="Node000003" href="$structFLootLockerErrorData.html" title=" " alt="" coords="5,114,167,142"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="123,147,271,230,267,233,122,153"/>
+<area shape="rect" id="Node000004" href="$structFLootLockerBanInfo.html" title="Details about a player&#39;s active ban." alt="" coords="11,5,161,33"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="86,46,89,114,83,114,86,51"/>
+<area shape="rect" id="Node000005" href="$structFLootLockerRequestContext.html" title=" " alt="" coords="191,114,394,142"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="294,155,295,232,290,231,291,160"/>
+<area shape="rect" id="Node000006" href="$structFLootLockerAssetInstanceStorageResponseItem.html" title=" " alt="" coords="408,224,598,268"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="477,279,422,343,420,339,472,281"/>
+<area shape="rect" id="Node000007" href="$structFLootLockerAssetInstanceStorageItem.html" title=" " alt="" coords="419,106,609,151"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="512,164,508,225,503,222,509,168"/>
+</map>
