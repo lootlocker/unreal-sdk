@@ -11,6 +11,23 @@
 // Request Definitions
 //==================================================
 
+/// @addtogroup Equipment
+/// @{
+UENUM(BlueprintType, Category = "LootLocker")
+/**
+ Whether an occupied equipment slot should be auto-unequipped when equipping into it.
+ */
+enum class ELootLockerEquipmentReplaceMode : uint8
+{
+    /** Leave replace out of the request so the server applies its own default. */
+    Unset = 0 UMETA(DisplayName = "Server default"),
+    /** Auto-unequip the stack already occupying the slot. */
+    Replace = 1,
+    /** Do not replace the occupant; the request fails with a conflict instead. */
+    Conflict = 2,
+};
+/// @}
+
 /**
  * Request to equip an inventory stack into an equipment slot on an entity.
  */
@@ -39,9 +56,9 @@ struct FLootLockerEquipmentEquipRequest
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
     int32 count = 0;
 
-    /** Optional: Whether a stack already occupying the slot should be auto-unequipped. Pass false to conflict instead. */
+    /** Optional: Whether a stack already occupying the slot should be auto-unequipped. Left unset the server default applies. */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "LootLocker")
-    bool replace = true;
+    ELootLockerEquipmentReplaceMode replace = ELootLockerEquipmentReplaceMode::Unset;
 };
 
 //==================================================

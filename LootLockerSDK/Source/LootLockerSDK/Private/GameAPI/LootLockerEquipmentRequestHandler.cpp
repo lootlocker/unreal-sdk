@@ -30,7 +30,10 @@ namespace
         {
             JsonObject->SetNumberField(TEXT("count"), Request.count);
         }
-        JsonObject->SetBoolField(TEXT("replace"), Request.replace);
+        if (Request.replace != ELootLockerEquipmentReplaceMode::Unset)
+        {
+            JsonObject->SetBoolField(TEXT("replace"), Request.replace == ELootLockerEquipmentReplaceMode::Replace);
+        }
 
         return LootLockerUtilities::JsonObjectToString(JsonObject);
     }

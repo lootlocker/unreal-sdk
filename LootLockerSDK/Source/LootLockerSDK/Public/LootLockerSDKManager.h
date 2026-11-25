@@ -4224,7 +4224,7 @@ public:
     /**
      Equip an inventory stack into an equipment slot. When the stack holds more than the slot accepts the
      equipped amount splits off and the remainder stays in the inventory. An occupied slot is
-     auto-unequipped first unless the request's replace flag is false.
+     auto-unequipped first unless the request's replace mode is set to Conflict.
 
      @param Request The equip request
      @param OnCompletedRequest Delegate for handling the server response
